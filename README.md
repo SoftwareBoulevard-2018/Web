@@ -1,25 +1,27 @@
-# Web
+# SoftwareBoulevard
 
-There are some flaws regarding programming practices, for example there should be a file where all the text 
-displayed on the webpage is located, that's why the /src/shared/globalVariables.ts file exists, 
-but it's not being used in the current version.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
-The actual project structure is composed by the views or GUIs I defined for module 2: game management.
+## Development server
 
-                                - Company status - Update company
-                  - Companies
-                                - Create company
-                                
-Login - Home
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-                               - User status - Update user
-                  - Users
-                               - Create user
-                               
-You can see those are the routes defined on the app.component.module.ts file.
+## Code scaffolding
 
-The stylesheets used are located on the /src/styleSheets folder and imported on src/styles.css to be interpreted.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-The data models or classes are located on the /src/shared folder.
+## Build
 
-I think that's everything ._. you can write some questions on the issues section or in this same readme.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

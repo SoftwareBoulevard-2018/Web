@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { MatFormField } from '@angular/material';
+import { MatFormField, MatInput, MatIcon, MatButton } from '@angular/material';
 
 import { GeneralServiceService } from '../general-service.service';
 import { Router } from "@angular/router";
@@ -16,17 +16,18 @@ export class LoginComponent implements OnInit {
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
+  invalid = false;
+  hide = true;
   formdata;
 
   ngOnInit() {
-    console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.formdata = new FormGroup({
-        username: new FormControl("",
+        username: new FormControl('',
           Validators.compose([
             Validators.required
           ])),
-        password: new FormControl("",
+        password: new FormControl('',
           Validators.compose([
             Validators.required
           ]))
@@ -53,6 +54,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['home']);
         }
       }
+      this.invalid = true;
     }
   }
 }

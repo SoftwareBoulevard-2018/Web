@@ -5,7 +5,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { GeneralServiceService } from './general-service.service';
 
-import { MatFormFieldModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatIconModule, MatButtonModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -20,6 +23,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { CreateCompanyComponent } from './create-company/create-company.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UpdateCompanyComponent } from './update-company/update-company.component';
+import { RestrictedComponent } from './restricted/restricted.component';
 
 const routes: Routes = [
   {'path':'', 'component':LoginComponent},
@@ -31,7 +35,8 @@ const routes: Routes = [
   {'path':'home/companies', 'component':CompaniesComponent},
   {'path':'home/companies/create', 'component':CreateCompanyComponent},
   {'path':'home/companies/company-status', 'component':CompanyStatusComponent},
-  {'path':'home/companies/company-status/update', 'component':UpdateCompanyComponent}
+  {'path':'home/companies/company-status/update', 'component':UpdateCompanyComponent},
+  {'path':'restricted', 'component':RestrictedComponent}
 ]
 
 @NgModule({
@@ -48,13 +53,27 @@ const routes: Routes = [
     CreateUserComponent,
     CreateCompanyComponent,
     UpdateUserComponent,
-    UpdateCompanyComponent
+    UpdateCompanyComponent,
+    RestrictedComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatSelectModule,
     RouterModule.forRoot(routes)
+  ],
+  exports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSelectModule,
+    BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],
   bootstrap: [AppComponent]
