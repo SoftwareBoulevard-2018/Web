@@ -24,6 +24,8 @@ import { CreateCompanyComponent } from './create-company/create-company.componen
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UpdateCompanyComponent } from './update-company/update-company.component';
 import { RestrictedComponent } from './restricted/restricted.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { EmailComponent } from './email/email.component';
 
 const routes: Routes = [
   {'path':'', 'component':LoginComponent},
@@ -36,7 +38,8 @@ const routes: Routes = [
   {'path':'home/companies/create', 'component':CreateCompanyComponent},
   {'path':'home/companies/company-status', 'component':CompanyStatusComponent},
   {'path':'home/companies/company-status/update', 'component':UpdateCompanyComponent},
-  {'path':'restricted', 'component':RestrictedComponent}
+  {'path':'restricted', 'component':RestrictedComponent},
+  {'path':'**', 'component':NotFoundComponent}
 ]
 
 @NgModule({
@@ -54,7 +57,9 @@ const routes: Routes = [
     CreateCompanyComponent,
     UpdateUserComponent,
     UpdateCompanyComponent,
-    RestrictedComponent
+    RestrictedComponent,
+    NotFoundComponent,
+    EmailComponent
   ],
   imports: [
     BrowserModule,

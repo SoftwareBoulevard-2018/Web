@@ -1,0 +1,21 @@
+h1{
+  color: #00585E;
+  margin: 0 auto 0 auto;
+  text-align: center;
+  opacity: 0.4;
+}
+h2{
+  color: #00585E;
+  margin: 0 auto 5% auto;
+  text-align: center;
+  opacity: 0.4;
+}
+.padlock{
+  margin-top: 5%;
+  text-align: center;
+}
+.padlock img{
+  width: 12%;
+  height: 12%;
+  opacity: 0.4;
+}

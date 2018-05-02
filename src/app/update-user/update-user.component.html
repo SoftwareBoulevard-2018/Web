@@ -1,3 +1,99 @@
-<p>
-  update-user works!
-</p>
+<div class="wrap-login100 big-wrap">
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+    <span class="login100-form-title p-b-34 p-t-27 non_mayus">
+      UPDATE USER - {{ this.service.user_to_be_updated.username }}
+    </span>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="Name - {{ this.service.user_to_be_updated.name }}" name="name" formControlName="name">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="Username - {{ this.service.user_to_be_updated.username }}" name="username" formControlName="username">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="New password" name="password" [type] = "hide ? 'password' : 'text'" formControlName="password">
+        <mat-hint>Requires to fill password confirmation field</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element ">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="Confirm new password" name="confirmation" [type] = "hide ? 'password' : 'text'" formControlName="confirmation">
+        <mat-hint>Required if password field is going to be updated</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <mat-select placeholder="Role - {{ this.service.user_to_be_updated.role }}" name="role" formControlName="role">
+          <mat-option [value]=''>
+            None
+          </mat-option>
+          <mat-option *ngFor="let role of roles" [value]="role">
+            {{ role }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="element" *ngIf="totally_empty">
+      <br/>
+      <span class="error">
+        You must fill at least one field.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="invalid">
+      <br/>
+      <span class="error">
+        Password and confirmation doesn't match.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="repeated_field">
+      <br/>
+      <span class="error">
+        You are trying to update something with its same current value.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="success">
+      <br/>
+      <span class="success">
+        User successfully updated.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="flawed_username">
+      <br/>
+      <span class="error">
+        Username already taken.
+      </span>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="element element2">
+      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+        Update
+      </button>
+    </div>
+
+  </form>
+</div>

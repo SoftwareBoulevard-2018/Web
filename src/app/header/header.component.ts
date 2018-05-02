@@ -8,9 +8,17 @@ import { GeneralServiceService } from '../general-service.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public service: GeneralServiceService) { }
 
   ngOnInit() {
+    if(this.service.user_type === "Game Administrator"){
+    }
+    else if(this.service.user_type === "Project Manager"){
+    }
+    else if(this.service.user_type === "Team Member"){
+    }
+    else{
+    }
   }
 
 }
