@@ -1,21 +1,57 @@
- <div id="titulo">SOFTWARE BOULEVARD</div>
- <header>
-   <input type="checkbox" id="btn-menu">
-   <label for="btn-menu">
-     <div class="bar"></div>
-     <div class="bar"></div>
-     <div class="bar"></div>
-   </label>
-   <nav class="menu">
-     <ul>
-       <li><a href="home">Home</a></li>
-       <li><a href="status">Status</a></li>
-       <li><a href="reports">Reports</a></li>
-       <li><a href="logout">Logout</a></li>
-     </ul>
-   </nav>
- </header>
+ <div class="title">
+   <a (ngSubmit) = "homeSubmit()">SOFTWARE BOULEVARD</a>
+ </div>
 
- <span *ngIf="this.service.user_type === 'Team Member'">
-   SOY TEAM MEMBER
- </span>
+
+ <header>
+   <div *ngIf="this.service.user_type === 'Project Manager'">
+     <input type="checkbox" id="btn-menu">
+     <label for="btn-menu">
+       <div class="bar"></div>
+       <div class="bar"></div>
+       <div class="bar"></div>
+     </label>
+     <nav class="menu">
+       <ul>
+         <li><a href="my-status">My Status</a></li>
+         <li><a href="my-company">My Company</a></li>
+         <li><a href="logout">Logout</a></li>
+       </ul>
+     </nav>
+   </div>
+
+   <div *ngIf="this.service.user_type === 'Team Member'">
+     <input type="checkbox" id="btn-menu">
+     <label for="btn-menu">
+       <div class="bar"></div>
+       <div class="bar"></div>
+       <div class="bar"></div>
+     </label>
+     <nav class="menu">
+       <ul>
+         <li><a href="my-status">My Status</a></li>
+         <li><a href="my-company">My Company</a></li>
+         <li><a href="logout">Logout</a></li>
+       </ul>
+     </nav>
+   </div>
+
+   <div *ngIf="this.service.user_type === 'Game Administrator'">
+     <input type="checkbox" id="btn-menu">
+     <label for="btn-menu">
+       <div class="bar"></div>
+       <div class="bar"></div>
+       <div class="bar"></div>
+     </label>
+     <nav class="menu">
+       <ul>
+         <li><a href="users">Users</a></li>
+         <li><a href="companies">Companies</a></li>
+         <li><a href="create-company">Company</a></li>
+         <li><a href="create-user">User</a></li>
+         <li><a href="reports">Reports</a></li>
+         <li><a href="logout">Logout</a></li>
+       </ul>
+     </nav>
+   </div>
+ </header>

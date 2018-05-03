@@ -15,40 +15,33 @@
 
     <div class="element">
       <mat-form-field class="big-input">
-        <mat-select placeholder="User's role" name="role" formControlName="role">
-          <mat-option *ngFor="let role of roles" [value]="role">
-            {{ role }}
-          </mat-option>
-        </mat-select>
-        <mat-hint>Required Field</mat-hint>
+        <input matInput placeholder="Image's URL" name="img" formControlName="img">
       </mat-form-field>
     </div>
 
+    <br/>
+
     <div class="element">
       <mat-form-field class="big-input">
-        <input class="ng-hide" id="input-file-id" multiple type="file" />
-        <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
+        <mat-select placeholder="Select a project manager" name="project_manager" formControlName="project_manager">
+          <mat-option *ngFor="let user of project_managers" [value]="user.username">
+            {{ user.username }} - {{ user.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
     <div class="element" *ngIf="invalid">
       <br/>
       <span class="error">
-        The password and its confirmation doesn't match.
+        A company with that name already exists.
       </span>
     </div>
 
     <div class="element" *ngIf="success">
       <br/>
       <span class="success">
-        User successfully added.
-      </span>
-    </div>
-
-    <div class="element" *ngIf="flawed_username">
-      <br/>
-      <span class="error">
-        Username already taken.
+        Company successfully added.
       </span>
     </div>
 

@@ -1,3 +1,137 @@
-<p>
-  update-company works!
-</p>
+<div class="wrap-login100 big-wrap" *ngIf="this.service.user_type === 'Game Administrator'; else p_m">
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+    <span class="login100-form-title p-b-34 p-t-27 non_mayus">
+      UPDATE COMPANY - {{this.service.company_to_be_updated.name}}
+    </span>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="Name - {{this.service.company_to_be_updated.name}}" name="name" formControlName="name">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="company_img">
+      <img src="{{this.service.company_to_be_updated.image}}">
+    </div>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="URL - {{this.service.company_to_be_updated.image}}" name="img" formControlName="img">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element" *ngIf="lacking_project_manager">
+      <mat-form-field class="big-input">
+        <mat-select placeholder="New project manager"
+                    name="project_manager" formControlName="project_manager">
+          <mat-option [value]=''>
+            None
+          </mat-option>
+          <mat-option *ngFor="let user of project_managers" [value]="user.username">
+            {{ user.username }} - {{ user.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="element" *ngIf="totally_empty">
+      <br/>
+      <span class="error">
+        You must fill at least one field.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="repeated_field">
+      <br/>
+      <span class="error">
+        You are trying to update something with its same current value.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="invalid">
+      <br/>
+      <span class="error">
+        A company with that name already exists.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="success">
+      <br/>
+      <span class="success">
+        Company successfully added.
+      </span>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="element element2">
+      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+        Update
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #p_m>
+  <div class="wrap-login100 big-wrap">
+    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+      <span class="login100-form-title p-b-34 p-t-27 non_mayus">
+        UPDATE COMPANY - {{this.service.company_to_be_updated.name}}
+      </span>
+
+      <div class="company_img">
+        <img src="{{this.service.company_to_be_updated.image}}">
+      </div>
+
+      <div class="element">
+        <mat-form-field class="big-input">
+          <input matInput placeholder="URL - {{this.service.company_to_be_updated.image}}" name="img" formControlName="img">
+        </mat-form-field>
+      </div>
+
+      <div class="element" *ngIf="totally_empty">
+        <br/>
+        <span class="error">
+          You must fill at least one field.
+        </span>
+      </div>
+
+      <div class="element" *ngIf="repeated_field">
+        <br/>
+        <span class="error">
+          You are trying to update something with its same current value.
+        </span>
+      </div>
+
+      <div class="element" *ngIf="invalid">
+        <br/>
+        <span class="error">
+          A company with that name already exists.
+        </span>
+      </div>
+
+      <div class="element" *ngIf="success">
+        <br/>
+        <span class="success">
+          Company successfully added.
+        </span>
+      </div>
+
+      <br/>
+      <br/>
+
+      <div class="element element2">
+        <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+          Update
+        </button>
+      </div>
+
+    </form>
+  </div>
+</ng-template>
