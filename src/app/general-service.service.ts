@@ -5,6 +5,7 @@ import { Company } from './shared/company';
 @Injectable()
 export class GeneralServiceService {
   user_type;
+  user_name;
   username;
   users = [new User("Andres Felipe Aguilar","afaguilarr","ElMejor123","Developer"),
     new User("John Jairo Serna","jjsernaco","holaMUNDO456","Project Manager"),
