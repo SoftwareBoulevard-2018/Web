@@ -7,7 +7,8 @@ import { GeneralServiceService } from '../general-service.service';
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit {
-  constructor(public service: GeneralServiceService) { }
+
+    constructor(public service: GeneralServiceService) { }
   loggedusr = false;
   opene = false;
   emailinbox = false;
@@ -50,7 +51,8 @@ export class EmailComponent implements OnInit {
 ];
 cenviados =[
 ];
-  ngOnInit() {
+
+    ngOnInit() {
   	this.uname = this.service.user_name;
   	if(this.service.user_type != undefined){
   		this.loggedusr = true;
@@ -106,4 +108,5 @@ cenviados =[
   	this.sent=false;
   	this.recibidos=false;
   }
+
 }

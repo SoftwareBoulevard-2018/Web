@@ -59,7 +59,7 @@ export class CreateUserComponent implements OnInit {
   auxiliar;
 
   ngOnInit() {
-   /*if (this.service.user_type === undefined) {
+   if (this.service.user_type === undefined) {
       this.router.navigate([''])
     }
 
@@ -67,9 +67,9 @@ export class CreateUserComponent implements OnInit {
       this.router.navigate(['restricted'])
     }
 
-    else {*/
+    else {
       this.form();
-    //}
+    }
   }
 
   onClickSubmit(data) {

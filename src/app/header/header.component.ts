@@ -15,19 +15,50 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  homeSubmit() {
+  redirectHome(event) {
+
     if(this.service.user_type === "Game Administrator"){
-      this.router.navigate([''])
+      this.router.navigate(['home'])
     }
     else if(this.service.user_type === "Project Manager"){
-      this.router.navigate([''])
+      this.router.navigate(['home'])
     }
     else if(this.service.user_type === "Team Member"){
-      this.router.navigate([''])
+      this.router.navigate(['home'])
     }
     else{
-      this.router.navigate(['\'\', \'component'])
+      this.router.navigate(['home'])
     }
   }
 
+  redirectMyCompany(event) {
+    this.router.navigate(['home/companies/company-status'])
+  }
+  redirectMyStatus(event){
+    this.router.navigate(['home/users/user-status'])
+  }
+
+  redirectCompanies(event){
+    this.router.navigate(['home/companies'])
+  }
+  redirectCreateCompany(event){
+    this.router.navigate(['home/companies/create'])
+  }
+  redirectUsers(event){
+    this.router.navigate(['home/users'])
+  }
+  redirectCreateUser(event){
+    this.router.navigate(['home/users/create'])
+  }
+  redirectReports(event){
+    this.router.navigate(['home/reports'])
+  }
+
+  redirectLogout(event){
+    this.service.username = undefined;
+    this.service.user_type = undefined;
+    this.router.navigate([''])
+  }
+
 }
+
