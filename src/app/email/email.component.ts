@@ -10,10 +10,12 @@ export class EmailComponent implements OnInit {
   constructor(public service: GeneralServiceService) { }
   loggedusr = false;
   opene = false;
-  reading = false;
   emailinbox = false;
   recibidos = false;
   sensub = false;
+  sender;
+  subject;
+  contenido;
   nem = 0;
   uname;
   correos = [
@@ -54,11 +56,21 @@ export class EmailComponent implements OnInit {
   	this.opene = true;
   	this.emailinbox = true;
   	this.recibidos = true;
+  	this.sensub = false;
   }
   cerraremail(){
   	this.opene = false;
   	this.emailinbox = false;
   	this.recibidos = false;
   	this.sensub=false;
+  }
+  leer(correo){
+  	this.correos[correo.id].state = "read";
+  	this.recibidos = false;
+  	this.emailinbox = true;
+  	this.sensub = true;
+  	this.contenido = correo.content;
+  	this.subject = correo.asunto;
+  	this.sender = correo.remitente;
   }
 }

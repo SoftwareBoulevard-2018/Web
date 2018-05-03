@@ -7,36 +7,41 @@
 		<section id="email" ng-style="email">
 			<nav id="email2botones">
 				<ul>
-					<li class="2botones" ng-click="inbox()">Inbox </li>
-					<li class="2botones">Send</li>
+					<li class="2botones" (click)="email()">Inbox </li>
+					<li class="2botones" (click)="sent()">Sent</li>
 				</ul>
 			</nav>
 			<div id="emailgeneral">
+				<!-- emailgeneral es el espacio en el que se carga, uno a la vez, 
+					los recibidos, el correo que se esta leyendo, el correo que se escribe y los correos enviados. -->
 				<div id="emailinbox" *ngIf="emailinbox">
+					<!--recibidos se activa cuando se inicia el email y cuando se hace click en inbox y carga los correos que el usuario recibe-->
 					<div *ngIf="recibidos">
 						<table style="width: 100%;height: inherit; text-align: left; overflow: auto;" ng-style="recibidos">
 							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of correos" >
 								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
-								<td ng-click="leer(correo)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
-								<td ng-click="leer(correo)">{{correo.asunto}}</td>
-								<td ng-click="leer(correo)">{{correo.fecha}}</td>
+								<td (click)="leer(correo)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
+								<td (click)="leer(correo)">{{correo.asunto}}</td>
+								<td (click)="leer(correo)">{{correo.fecha}}</td>
 							</tr>
 						</table>
 					</div>
+					<!--espacio para mostrar un solo correo para su lectura-->
 					<div id="sensub" *ngIf="sensub">
 						<table style="color: #F5F2DC; width:100%">
-							<tr><td>From: <div class="euser"><!--{{sender}}--></div></td></tr>
+							<tr><td>From: <div class="euser">{{sender}}</div></td></tr>
 							<tr><td>To: {{uname}}</td></tr>
-							<tr><td>Subject: <!--{{subject}}--></td></tr>
+							<tr><td>Subject: {{subject}}</td></tr>
+							<tr><div id="reading">{{contenido}}</div></tr>
 						</table>
 					</div>
-					<div *ngIf="reading"><!--{{contenido}}--></div>
 				</div>			
 
 			</div>
 			
 		</section>
 	</div>
+	<!--boton para abrir la interface de email-->
 	<div *ngIf="!opene" id="iemail" ng-style="iemail" (click)="email()">
 		<div id="notemail" ng-app="MiApp" ng-style="notemail">{{nem}}</div>
 	</div>
