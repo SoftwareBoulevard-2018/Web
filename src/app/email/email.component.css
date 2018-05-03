@@ -25,6 +25,7 @@ naranja #FF5729
 }
 #emailinbox{
 	height: 100%;
+	overflow: auto;
 	width: 100%;
 }
 #emailing{
@@ -36,7 +37,7 @@ naranja #FF5729
 	min-height: 450px;
 	position: absolute;
 	right:0;
-	visibility: hidden;
+	visibility: visible;
 	width: 50%;
 
 }
@@ -138,7 +139,24 @@ naranja #FF5729
 	width: 50%;
 	z-index: 1002;
 }
-
+#reading{
+	bottom: 0;
+	color: #454445; 
+	height: 60%;
+	margin: 0.25% 3% 3% 3%;
+	position: absolute;
+	visibility: visible;
+	width: 94%;
+}
+#sensub{
+	color: #F5F2DC; 
+	height: 40%; 
+	margin: 3% 3% 3% 3%; 
+	position: absolute;
+	top: 0;
+	visibility: visible; 
+	width: 100%;
+}
 #temail{
 	border-bottom: 1px solid #454445;
 	color:#454445;

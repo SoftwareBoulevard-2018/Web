@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
   onClickSubmit(data) {
     for (let user of this.service.users){
       if (data.username === user.username && data.password === user.password) {
+        this.service.user_name = data.username;
         if (user.role === "Analyst" || user.role === "Developer" || user.role === "Tester") {
           this.service.user_type = "Team Member";
           this.router.navigate(['home']);

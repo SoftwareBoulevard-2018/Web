@@ -1,9 +1,7 @@
-
-{{usr}}
 <div *ngIf="loggedusr"> 
-
-<article  id="emailing" ng-style="emailing">
-			<h4 id="temail">Email <button id="cerraremail" ng-click="cerraremail()">X</button></h4>
+	<h1>{{uname}}</h1>
+<div  *ngIf="opene" id ="emailing" ng-style="emailing">
+			<h4 id="temail">Email <button id="cerraremail" (click)="cerraremail()">X</button></h4>
 			<input type="search" name="emailbusqueda" value="Search" id="emailbusqueda">
 			<button ng-click="newemail()" id="newemail">New Email</button>
 		<section id="email" ng-style="email">
@@ -13,31 +11,33 @@
 					<li class="2botones">Send</li>
 				</ul>
 			</nav>
-			<aside id="emailgeneral">
-				<section id="emailinbox" ng-style="emailinbox">
-					<table style="width: 100%;height: inherit; text-align: left" ng-style="recibidos">
-						<!--<tr style="padding: 2% 0 0 0" class="inboxitem" ng-repeat="correo in inboxitem | filter: {state : 'sent'}" >
-							<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
-							<td ng-click="leer(correo)" style="margin-left: 0.5em">{{correo.remitente}}</td>
-							<td ng-click="leer(correo)">{{correo.asunto}}</td>
-							<td ng-click="leer(correo)">{{correo.fecha}}</td>
-						</tr>-->
-					</table>
-					<div ng-style="sensub" style="color: #F5F2DC; visibility: hidden; height: 0; margin: 3% 3% 3% 3%; width: 100%">
+			<div id="emailgeneral">
+				<div id="emailinbox" *ngIf="emailinbox">
+					<div *ngIf="recibidos">
+						<table style="width: 100%;height: inherit; text-align: left; overflow: auto;" ng-style="recibidos">
+							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of correos" >
+								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
+								<td ng-click="leer(correo)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
+								<td ng-click="leer(correo)">{{correo.asunto}}</td>
+								<td ng-click="leer(correo)">{{correo.fecha}}</td>
+							</tr>
+						</table>
+					</div>
+					<div id="sensub" *ngIf="sensub">
 						<table style="color: #F5F2DC; width:100%">
 							<tr><td>From: <div class="euser"><!--{{sender}}--></div></td></tr>
-							<tr><td>To: You</td></tr>
+							<tr><td>To: {{uname}}</td></tr>
 							<tr><td>Subject: <!--{{subject}}--></td></tr>
 						</table>
 					</div>
-					<div ng-style="reading" style="visibility: hidden; background:#F5F2DC"><!--{{contenido}}--></div>
-				</section>			
+					<div *ngIf="reading"><!--{{contenido}}--></div>
+				</div>			
 
-			</aside>
+			</div>
 			
 		</section>
-	</article>
-	<div id="iemail" ng-style="iemail" ng-click="email()">
-		<div id="notemail" ng-app="MiApp" ng-style="notemail"><!--{{nem}}--></div>
+	</div>
+	<div *ngIf="!opene" id="iemail" ng-style="iemail" (click)="email()">
+		<div id="notemail" ng-app="MiApp" ng-style="notemail">{{nem}}</div>
 	</div>
 </div>
