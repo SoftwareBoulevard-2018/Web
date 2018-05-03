@@ -1,3 +1,60 @@
-<p>
-  email works!
-</p>
+<div *ngIf="loggedusr"> 
+	<h1>{{uname}}</h1>
+<div  *ngIf="opene" id ="emailing" ng-style="emailing">
+			<h4 id="temail">Email <button id="cerraremail" (click)="cerraremail()">X</button></h4>
+			<input type="search" name="emailbusqueda" value="Search" id="emailbusqueda">
+			<button ng-click="newemail()" id="newemail">New Email</button>
+		<section id="email" ng-style="email">
+			<nav id="email2botones">
+				<ul>
+					<li class="2botones" (click)="email()">Inbox </li>
+					<li class="2botones" (click)="enviados()">Sent</li>
+				</ul>
+			</nav>
+			<div id="emailgeneral">
+				<!-- emailgeneral es el espacio en el que se carga, uno a la vez, 
+					los recibidos, el correo que se esta leyendo, el correo que se escribe y los correos enviados. -->
+				<div id="emailinbox" *ngIf="emailinbox">
+					<!--recibidos se activa cuando se inicia el email y cuando se hace click en inbox y carga los correos que el usuario recibe-->
+					<div *ngIf="recibidos">
+						<table style="width: 100%;height: inherit; text-align: left; overflow: auto; margin:3% 0 0 3%;" ng-style="recibidos">
+							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of correos" >
+								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
+								<td (click)="leer(correo,0)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
+								<td (click)="leer(correo,0)">{{correo.asunto}}</td>
+								<td (click)="leer(correo,0)">{{correo.fecha}}</td>
+							</tr>
+						</table>
+					</div>
+					<!--espacio para mostrar un solo correo para su lectura-->
+					<div id="sensub" *ngIf="sensub">
+						<table style="color: #F5F2DC; width:100%">
+							<tr><td>From: <div class="euser">{{sender}}</div></td></tr>
+							<tr><td>To: {{uname}}</td></tr>
+							<tr><td>Subject: {{subject}}</td></tr>
+							<tr><div id="reading">{{contenido}}</div></tr>
+						</table>
+					</div>
+
+					<!--Espacio para mostrar los correos que han sido enviados por el usuario-->
+					<div *ngIf="sent" id = "sent">
+						<table style="width: 100%;height: inherit; text-align: left; overflow: auto;" ng-style="recibidos">
+							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of correos" >
+								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
+								<td (click)="leer(correo,1)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
+								<td (click)="leer(correo,1)">{{correo.asunto}}</td>
+								<td (click)="leer(correo,1)">{{correo.fecha}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>			
+
+			</div>
+			
+		</section>
+	</div>
+	<!--boton para abrir la interface de email-->
+	<div *ngIf="!opene" id="iemail" ng-style="iemail" (click)="email()">
+		<div id="notemail" ng-app="MiApp" ng-style="notemail">{{nem}}</div>
+	</div>
+</div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import {Router} from "@angular/router";
-
+import {EmailComponent} from "../email/email.component";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

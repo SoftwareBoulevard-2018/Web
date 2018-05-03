@@ -1,0 +1,166 @@
+/*
+colores:
+axul oscuro #00585E
+azul claro #009494
+beige #F5F2DC
+oscuro #454445
+overflow
+naranja #FF5729
+*/
+#cerraremail{
+	background: transparent;
+	border:none;
+	color:red;
+	position: absolute;
+	right: 1em;
+}
+#emailbusqueda{
+	background: #F5F2DC;
+	border: 1px solid #454445;
+	display: block;
+	margin: 5% 5% 0 5%;
+	position: absolute;
+	top:1em;
+	width: 90%;
+}
+#emailinbox{
+	height: 100%;
+	overflow: auto;
+	width: 100%;
+}
+#emailing{
+	background: #F5F2DC;
+	border: 1px solid #454445;
+	bottom:0;
+	height: 60%;
+	min-width: 700px; 
+	min-height: 450px;
+	position: absolute;
+	right:0;
+	visibility: visible;
+	width: 50%;
+
+}
+#emailgeneral{
+	background: #454445;
+	bottom: 1em;
+	height: 72.5%;
+	position: absolute;
+	right: 1em;
+	width: 70%;
+}
+#email2botones{
+	background: #00585E;
+	border: 1px solid #454445;
+	color:white;
+	margin: 18% 0 0 5%;
+	padding: 0 0 0 0;
+	text-align: center;
+	width: 20% ;
+}
+#email2botones ul{
+	list-style-type: none;
+	margin-bottom: 0;
+	padding: 0 0 0 0;
+	vertical-align: center;
+	width: 100%;
+}
+#email2botones ul li{
+	height: 15%;
+	padding-left: 20%;
+	padding-top: 14%;
+	text-align: left;
+	vertical-align: center;
+}
+#email2botones ul li:first-child{
+	border-bottom: 1px solid #009494;
+}
+#email2botones ul li:hover{
+	background: #009494;
+	cursor: pointer;
+}
+.euser{
+	background: #009494;
+	border-radius: 1em;
+	display: inline-block;
+	height: 1.5em;
+	text-align: center;
+	width: 30%;
+}
+#iemail{
+	background-image: url("./sobre.png");
+	background-size: contain;
+	bottom:2em;
+	max-height: 6em;
+	max-width: 6em;
+	min-height: 3em;
+	min-width: 3em;
+	position: absolute;
+	right:1em;
+	z-index: 1;
+}
+.inboxitem{
+	background: #F5F2DC;
+	border: 1px solid #454445;
+	color:#454445;
+	display: block;
+	height: 50px;
+	margin: 0.25% 0.5% 0.25% 0.5%;
+	width: 99%;
+}
+.inboxitem td{
+	display: inline-block;
+	margin-left:10%;
+}
+#newemail{
+	background: #009494;
+	border:0 solid #454445;
+	border-radius: 0.5em;
+	color:white;
+	display: block;
+	font-weight: bold;
+	height: 7%;
+	margin: 10% 0 0 5%;
+	text-align: right;
+	position: absolute;
+	width: 20%;
+}
+
+#notemail{
+	background: #FF5729;
+	border-radius: 1em;
+	color: white;
+	font-size: 16px; 
+	position: absolute;
+	right: -8;
+	text-align: center;
+	top:-5;
+	vertical-align: top;
+	width: 50%;
+	z-index: 1002;
+}
+#reading{
+	background: #F5F2DC;
+	color: #454445; 
+	display: block;
+	height: 60%;
+	margin: 3% 3% 3% 3%;
+	position: absolute;
+	visibility: visible;
+	width: 92%;
+}
+#sensub{
+	background: #454445;
+	color: #F5F2DC; 
+	height: 100%; 
+	margin: 0 3% 3% 0; 
+	padding:0;
+	position: absolute;
+	top: 0;
+	visibility: visible; 
+	width: 100%;
+}
+#temail{
+	border-bottom: 1px solid #454445;
+	color:#454445;
+}

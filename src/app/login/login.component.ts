@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
 import { MatFormField, MatInput, MatIcon, MatButton } from '@angular/material';
-
 import { GeneralServiceService } from '../general-service.service';
 import { Router } from "@angular/router";
 
@@ -41,6 +38,7 @@ export class LoginComponent implements OnInit {
   onClickSubmit(data) {
     for (let user of this.service.users){
       if (data.username === user.username && data.password === user.password) {
+        this.service.user_name = data.username;
         if (user.role === "Analyst" || user.role === "Developer" || user.role === "Tester") {
           this.service.user_type = "Team Member";
           this.service.username = data.username;
