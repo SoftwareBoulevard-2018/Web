@@ -149,7 +149,7 @@ naranja #FF5729
 	visibility: visible;
 	width: 92%;
 }
-#sensub{
+#sensub, #sent{
 	background: #454445;
 	color: #F5F2DC; 
 	height: 100%; 

@@ -17,9 +17,11 @@ export class EmailComponent implements OnInit {
   subject;
   contenido;
   nem = 0;
+  i=0;
   uname;
+  newe = false;
   sent=false;
-  correos = [
+  crecibidos = [
 {id: 0, asunto:"Prueba 1", remitente:"Fulanito 1", fecha:"20/04/2018", state:"sent", content:"1"},
 {id: 1, asunto:"Prueba 2", remitente:"Fulanito 2", fecha:"20/04/2018", state:"sent", content:"2"},
 {id: 2, asunto:"Prueba 3", remitente:"Fulanito 3", fecha:"20/04/2018", state:"sent", content:"3"},
@@ -44,13 +46,23 @@ export class EmailComponent implements OnInit {
 {id: 21, asunto:"Prueba 22", remitente:"Fulanito 22", fecha:"20/04/2018", state:"sent", content:"22"},
 {id: 22, asunto:"Prueba 23", remitente:"Fulanito 23", fecha:"20/04/2018", state:"sent", content:"23"},
 {id: 23, asunto:"Prueba 24", remitente:"Fulanito 24", fecha:"20/04/2018", state:"sent", content:"24"},
-{id: 24, asunto:"Prueba 25", remitente:"Fulanito 25", fecha:"20/04/2018", state:"sent", content:"25"}
+{id: 24, asunto:"Prueba 25", remitente:"Fulanito 25", fecha:"20/04/2018", state:"read", content:"25"}
+];
+cenviados =[
 ];
   ngOnInit() {
-  	this.nem = this.correos.length;
   	this.uname = this.service.user_name;
   	if(this.service.user_type != undefined){
   		this.loggedusr = true;
+  	}
+  	this.Fnem();
+  }
+  Fnem(){
+  	this.nem=0;
+  	for(this.i = 0 ; this.i<this.crecibidos.length;this.i++){
+  		if(this.crecibidos[this.i].state=="sent"){
+			this.nem=this.nem+1;
+  		}
   	}
   }
   email(){
@@ -74,12 +86,24 @@ export class EmailComponent implements OnInit {
   	this.sender = correo.remitente;
   	/*verifica si el correo que se lee es del inbox(0) o del sentbox(1)*/
   	if(v===0){
-  		this.correos[correo.id].state = "read";
+  		
+  		for(this.i = 0; this.i<this.crecibidos.length;this.i++){
+  			if(this.crecibidos[this.i].id === correo.id){
+		  		this.crecibidos.splice(this.i,1);
+  			}
+  		}
+  		this.Fnem();
   	}
   }
   enviados(){
   	this.sensub=false;
   	this.recibidos=false;
   	this.sent = true;
+  }
+  newemail(){
+  	this.newe = true;
+  	this.sensub=false;
+  	this.sent=false;
+  	this.recibidos=false;
   }
 }
