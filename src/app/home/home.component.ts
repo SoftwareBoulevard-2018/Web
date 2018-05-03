@@ -11,11 +11,15 @@ export class HomeComponent implements OnInit {
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
+  redirect(event){
+    this.router.navigate(['home/users/create']);
+  }
+
   home_user_type;
 
   ngOnInit() {
-    if (this.service.user_type === undefined) {
+    /*if (this.service.user_type === undefined) {
       this.router.navigate([''])
-    }
+    }*/
   }
 }

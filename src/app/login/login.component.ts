@@ -41,14 +41,17 @@ export class LoginComponent implements OnInit {
         this.service.user_name = data.username;
         if (user.role === "Analyst" || user.role === "Developer" || user.role === "Tester") {
           this.service.user_type = "Team Member";
+          this.service.username = data.username;
           this.router.navigate(['home']);
           }
         else if (user.role === "Project Manager") {
           this.service.user_type = "Project Manager";
+          this.service.username = data.username;
           this.router.navigate(['home']);
         }
         else{
           this.service.user_type = "Game Administrator";
+          this.service.username = data.username;
           this.router.navigate(['home']);
         }
       }

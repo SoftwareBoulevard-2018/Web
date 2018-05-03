@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../shared/user";
+import {Company} from "../shared/company";
 
 @Component({
   selector: 'app-create-company',
@@ -19,42 +19,41 @@ export class CreateCompanyComponent implements OnInit {
         Validators.compose([
           Validators.required
         ])),
-      username: new FormControl('',
-        Validators.compose([
-          Validators.required
-        ])),
-      password: new FormControl('',
-        Validators.compose([
-          Validators.required
-        ])),
-      confirmation: new FormControl('',
-        Validators.compose([
-          Validators.required
-        ])),
-      role: new FormControl('',
-        Validators.compose([
-          Validators.required
-        ]))
+      img: new FormControl(''),
+      project_manager: new FormControl('')
     });
   }
 
-  /*new_name(name){
+  possible_project_managers(){
+    this.project_managers = []
+    for (let user of this.service.users){
+      if (user.role === "Project Manager"){
+        this.project_managers.push(user);
+        for(let company of this.service.companies){
+          if(company.project_manager_username === user.username){
+            this.project_managers.pop();
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  new_name(name){
     for(let company of this.service.companies){
       if(name === company.name){
         return false;
       }
     }
     return true;
-  }*/
+  }
 
   formdata;
+  project_managers;
   invalid = false;
   success = false;
-  flawed_username = false;
   hide = true;
-  roles = [ "Project Manager", "Analyst", "Developer", "Tester"];
   user;
-  auxiliar;
 
   ngOnInit() {
     /*if (this.service.user_type === undefined) {
@@ -66,31 +65,23 @@ export class CreateCompanyComponent implements OnInit {
      }
 
      else {*/
-    this.form();
+      this.possible_project_managers();
+      this.form();
     //}
   }
 
   onClickSubmit(data) {
-    /*this.auxiliar = this.new_username(data.username);
-    if(data.password === data.confirmation && this.auxiliar) {
-      this.user = new User(data.name, data.username, data.password, data.role);
-      this.service.users.push(this.user);
-      console.log(this.service.users);
-      this.form();
+    if(this.new_name(data.name)){
+      this.service.companies.push(new Company(data.name,data.project_manager,data.img))
       this.invalid = false;
       this.success = true;
-      this.flawed_username = false;
-    }
-    else if(!(this.auxiliar)){
-      this.invalid = false;
-      this.success = false;
-      this.flawed_username = true;
+      this.possible_project_managers();
+      this.form();
     }
     else{
       this.invalid = true;
       this.success = false;
-      this.flawed_username = false;
-    }*/
+    }
   }
 
 }
