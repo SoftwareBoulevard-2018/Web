@@ -144,15 +144,16 @@ naranja #FF5729
 	color: #454445; 
 	display: block;
 	height: 60%;
-	margin: 3% 3% 3% 0;
+	margin: 3% 3% 3% 3%;
 	position: absolute;
 	visibility: visible;
 	width: 92%;
 }
 #sensub{
+	background: #454445;
 	color: #F5F2DC; 
 	height: 100%; 
-	margin: 3% 3% 3% 3%; 
+	margin: 0 3% 3% 0; 
 	padding:0;
 	position: absolute;
 	top: 0;

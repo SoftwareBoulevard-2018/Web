@@ -18,6 +18,7 @@ export class EmailComponent implements OnInit {
   contenido;
   nem = 0;
   uname;
+  sent=false;
   correos = [
 {id: 0, asunto:"Prueba 1", remitente:"Fulanito 1", fecha:"20/04/2018", state:"sent", content:"1"},
 {id: 1, asunto:"Prueba 2", remitente:"Fulanito 2", fecha:"20/04/2018", state:"sent", content:"2"},
@@ -57,6 +58,7 @@ export class EmailComponent implements OnInit {
   	this.emailinbox = true;
   	this.recibidos = true;
   	this.sensub = false;
+  	this.sent = false;
   }
   cerraremail(){
   	this.opene = false;
@@ -64,13 +66,20 @@ export class EmailComponent implements OnInit {
   	this.recibidos = false;
   	this.sensub=false;
   }
-  leer(correo){
-  	this.correos[correo.id].state = "read";
+  leer(correo,v){
   	this.recibidos = false;
-  	this.emailinbox = true;
   	this.sensub = true;
   	this.contenido = correo.content;
   	this.subject = correo.asunto;
   	this.sender = correo.remitente;
+  	/*verifica si el correo que se lee es del inbox(0) o del sentbox(1)*/
+  	if(v===0){
+  		this.correos[correo.id].state = "read";
+  	}
+  }
+  enviados(){
+  	this.sensub=false;
+  	this.recibidos=false;
+  	this.sent = true;
   }
 }

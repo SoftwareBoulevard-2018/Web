@@ -8,7 +8,7 @@
 			<nav id="email2botones">
 				<ul>
 					<li class="2botones" (click)="email()">Inbox </li>
-					<li class="2botones" (click)="sent()">Sent</li>
+					<li class="2botones" (click)="enviados()">Sent</li>
 				</ul>
 			</nav>
 			<div id="emailgeneral">
@@ -17,12 +17,12 @@
 				<div id="emailinbox" *ngIf="emailinbox">
 					<!--recibidos se activa cuando se inicia el email y cuando se hace click en inbox y carga los correos que el usuario recibe-->
 					<div *ngIf="recibidos">
-						<table style="width: 100%;height: inherit; text-align: left; overflow: auto;" ng-style="recibidos">
+						<table style="width: 100%;height: inherit; text-align: left; overflow: auto; margin:3% 0 0 3%;" ng-style="recibidos">
 							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of correos" >
 								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
-								<td (click)="leer(correo)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
-								<td (click)="leer(correo)">{{correo.asunto}}</td>
-								<td (click)="leer(correo)">{{correo.fecha}}</td>
+								<td (click)="leer(correo,0)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
+								<td (click)="leer(correo,0)">{{correo.asunto}}</td>
+								<td (click)="leer(correo,0)">{{correo.fecha}}</td>
 							</tr>
 						</table>
 					</div>
@@ -33,6 +33,18 @@
 							<tr><td>To: {{uname}}</td></tr>
 							<tr><td>Subject: {{subject}}</td></tr>
 							<tr><div id="reading">{{contenido}}</div></tr>
+						</table>
+					</div>
+
+					<!--Espacio para mostrar los correos que han sido enviados por el usuario-->
+					<div *ngIf="sent" id = "sent">
+						<table style="width: 100%;height: inherit; text-align: left; overflow: auto;" ng-style="recibidos">
+							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of correos" >
+								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
+								<td (click)="leer(correo,1)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
+								<td (click)="leer(correo,1)">{{correo.asunto}}</td>
+								<td (click)="leer(correo,1)">{{correo.fecha}}</td>
+							</tr>
 						</table>
 					</div>
 				</div>			
