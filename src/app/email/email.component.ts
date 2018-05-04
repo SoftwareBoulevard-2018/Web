@@ -53,11 +53,8 @@ cenviados =[
 ];
 
     ngOnInit() {
-      console.log("hola");
-  	this.uname = this.service.user_name;
-  	if(!(this.service.user_type === undefined)){
-  		this.loggedusr = true;
-  	}
+  	this.uname = this.service.user_type;
+  	this.loggedusr = this.service.loggedusr;
   	this.Fnem();
   }
   Fnem(){

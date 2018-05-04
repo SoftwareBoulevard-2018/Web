@@ -1,5 +1,4 @@
-<div *ngIf="loggedusr"> 
-	<h1>{{uname}}</h1>
+<div *ngIf="loggedusr">
 <div  *ngIf="opene" id ="emailing">
 			<h4 id="temail">Email <button id="cerraremail" (click)="cerraremail()">X</button></h4>
 			<input type="search" name="emailbusqueda" value="Search" id="emailbusqueda">
@@ -37,7 +36,7 @@
 					</div>
 
 					<!--Espacio para mostrar los correos que han sido enviados por el usuario-->
-					<div *ngIf="sent" id = "sent">
+					<div *ngIf="sent" id = "sent" >
 						<table style="width: 100%;height: inherit; text-align: left; overflow: auto;">
 							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of cenviados" >
 								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
@@ -48,11 +47,11 @@
 						</table>
 					</div>
 					<!--espacio para escribir un nuevo email-->
-					<div *ngIf="newe" id="new">
-						<table style="color: #F5F2DC; width:100%">
+					<div *ngIf="newe" id="new" style="height: inherit">
+						<table id="tablanuevo">
 							<tr><td>To: <input type="text"/></td></tr>
 							<tr><td>Subject: <input type="text"/></td></tr>
-							<tr><input type="textarea" style="bottom: 0; height: 60%; width: 100%" /></tr>
+							<tr><input type="textarea" id="contenido" style="bottom: 0; height: inherit; width: inherit" /></tr>
 						</table>
 					</div>
 				</div>			

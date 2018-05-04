@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
           this.service.username = data.username;
           this.router.navigate(['home']);
         }
+        this.service.loggedusr = true;
       }
       this.invalid = true;
     }
