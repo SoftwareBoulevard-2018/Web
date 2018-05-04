@@ -13,6 +13,7 @@ export class GeneralServiceService {
     new User("David","dddavid","david","Project Manager"),
     new User("David Andres Calle","dacalles","gogo123","Tester"),
     new User("Juan David Fernandez Moreno","judfernandez","fatbastard","Project Manager"),
+    new User("Juan Pablo Chaves Morales","jpchavesm","ouiaboo","Developer"),
 	  new User("Victor Daniel JAramillo Gomez", "vdjaramillog","0000","Developer")];
   user_to_be_updated = this.users[1];
   companies = [new Company("UNAL","jjsernaco",
