@@ -28,6 +28,7 @@ import { RestrictedComponent } from './restricted/restricted.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EmailComponent } from './email/email.component';
 import { PmanagerComponent } from './pmanager/pmanager.component';
+import { EstimationComponent } from './estimation/estimation.component';
 
 const routes: Routes = [
   {'path':'', 'component':LoginComponent},
@@ -41,6 +42,8 @@ const routes: Routes = [
   {'path':'home/companies/company-status', 'component':CompanyStatusComponent},
   {'path':'home/companies/company-status/update', 'component':UpdateCompanyComponent},
   {'path':'restricted', 'component':RestrictedComponent},
+  {'path':'home/users/projectmanager', 'component':PmanagerComponent},
+  {'path':'home/estimation', 'component':EstimationComponent},
   {'path':'**', 'component':NotFoundComponent}
 ]
 
@@ -62,7 +65,8 @@ const routes: Routes = [
     RestrictedComponent,
     NotFoundComponent,
     EmailComponent,
-    PmanagerComponent
+    PmanagerComponent,
+    EstimationComponent
   ],
   imports: [
     BrowserModule,
