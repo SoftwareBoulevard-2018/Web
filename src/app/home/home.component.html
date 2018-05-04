@@ -95,7 +95,7 @@
 
   </div>
 
-  <div class="w3-row" ng-template #normal_user>
+  <div class="w3-row"  *ngIf="this.service.user_type !== 'Game Administrator'">
 
     <div class="w3-third">
       <div class="w3-card-4" (click)="redirect1($event)">
