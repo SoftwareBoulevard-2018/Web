@@ -7,7 +7,7 @@ import { EmailComponent } from './email/email.component'
   template: `
     <app-header></app-header>
     <router-outlet></router-outlet>
-	 <app-email></app-email>
+	  <app-email></app-email>
     <app-footer></app-footer>
   `,
   styleUrls: ['./app.component.css']

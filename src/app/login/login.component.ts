@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   formdata;
 
   ngOnInit() {
+    console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.formdata = new FormGroup({
         username: new FormControl('',

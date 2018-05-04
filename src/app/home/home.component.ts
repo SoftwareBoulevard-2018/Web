@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
   home_user_type;
 
   ngOnInit() {
+    console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
     }
