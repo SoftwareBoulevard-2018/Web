@@ -27,7 +27,7 @@ export class UpdateCompanyComponent implements OnInit {
       if (user.role === "Project Manager"){
         this.project_managers.push(user);
         for(let company of this.service.companies){
-          if(company.project_manager_username === user.username){
+          if(!(company.project_manager === undefined) && company.project_manager.username === user.username){
             this.project_managers.pop();
             break;
           }
@@ -46,7 +46,7 @@ export class UpdateCompanyComponent implements OnInit {
   }
 
   current_project_manager(){
-    if(this.service.company_to_be_updated.project_manager_username === undefined){
+    if(this.service.company_to_be_updated.project_manager === undefined){
       this.lacking_project_manager = true;
     }
     else{
@@ -108,7 +108,7 @@ export class UpdateCompanyComponent implements OnInit {
         this.service.company_to_be_updated.image = data.img;
       }
       if(!(data.project_manager === '' || data.project_manager === undefined || !(this.lacking_project_manager))){
-        this.service.company_to_be_updated.project_manager_username = data.project_manager;
+        this.service.company_to_be_updated.project_manager = this.search_modify_user(data.project_manager,this.service.company_to_be_updated.name);
       }
       this.totally_empty = false;
       this.invalid = false;
@@ -119,7 +119,17 @@ export class UpdateCompanyComponent implements OnInit {
       console.log(this.service.companies);
       this.form();
     }
+    console.log(this.service.companies);
+  }
 
+  search_modify_user(username,company_name){
+    for(let user of this.service.users){
+      if(user.username === username){
+        user.company_name = company_name;
+        console.log(user);
+        return user;
+      }
+    }
   }
 
 }
