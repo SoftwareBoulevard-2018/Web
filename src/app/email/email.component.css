@@ -14,6 +14,10 @@ naranja #FF5729
 	position: absolute;
 	right: 1em;
 }
+#contenido{
+	height: 10em;
+	width: 100%;
+}
 #emailbusqueda{
 	background: #F5F2DC;
 	border: 1px solid #454445;
@@ -159,6 +163,22 @@ naranja #FF5729
 	top: 0;
 	visibility: visible; 
 	width: 100%;
+}
+#tablanuevo{
+	color: #F5F2DC; 
+	height: 80%;
+	margin: 3% 3% 3% 3%;
+	width: 85%;
+}
+#tablanuevo tr{
+	height: 7%;
+}
+#tablanuevo tr:last-child{
+	height: 70%
+}
+#tablanuevo tr td{
+	margin-top: 0;
+	margin-bottom: 0;
 }
 #temail{
 	border-bottom: 1px solid #454445;
