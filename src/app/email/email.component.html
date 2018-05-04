@@ -1,4 +1,4 @@
-<div *ngIf="loggedusr">
+<div *ngIf="!(this.service.user_type === undefined)">
 <div  *ngIf="opene" id ="emailing">
 			<h4 id="temail">Email <button id="cerraremail" (click)="cerraremail()">X</button></h4>
 			<input type="search" name="emailbusqueda" value="Search" id="emailbusqueda">
@@ -11,7 +11,7 @@
 				</ul>
 			</nav>
 			<div id="emailgeneral">
-				<!-- emailgeneral es el espacio en el que se carga, uno a la vez, 
+				<!-- emailgeneral es el espacio en el que se carga, uno a la vez,
 					los recibidos, el correo que se esta leyendo, el correo que se escribe y los correos enviados. -->
 				<div id="emailinbox" *ngIf="emailinbox">
 					<!--recibidos se activa cuando se inicia el email y cuando se hace click en inbox y carga los correos que el usuario recibe-->
@@ -54,10 +54,10 @@
 							<tr><input type="textarea" id="contenido" style="bottom: 0; height: inherit; width: inherit" /></tr>
 						</table>
 					</div>
-				</div>			
+				</div>
 
 			</div>
-			
+
 		</section>
 	</div>
 	<!--boton para abrir la interface de email-->
