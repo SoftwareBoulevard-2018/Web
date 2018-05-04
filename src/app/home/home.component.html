@@ -2,39 +2,117 @@
   <h1>Welcome {{this.service.username}}!</h1>
   <h3>Here you have some pages you can visit:</h3>
 
-  <div class="w3-row">
+  <div class="w3-row" *ngIf="this.service.user_type === 'Game Administrator'">
 
-    <div class="w3-third">
+    <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect1($event)">
 
-        <img src="https://image.freepik.com/free-icon/multiple-users-silhouette_318-49546.jpg" alt="Person"
-             *ngIf="this.service.user_type === 'Game Administrator'; else player_image_1">
-        <ng-template #player_image_1>
-          <img src="https://image.freepik.com/free-icon/male-user-silhouette_318-35708.jpg" alt="Person">
-        </ng-template>
+        <img src="https://image.freepik.com/free-icon/multiple-users-silhouette_318-49546.jpg" alt="Person">
 
         <div class="w3-container">
 
           <h4>
-            <b *ngIf="this.service.user_type === 'Game Administrator'; else player_card_title_1">
+            <b>
               Users
             </b>
-            <ng-template #player_card_title_1>
-              <b>
-                My Status
-              </b>
-            </ng-template>
           </h4>
 
-          <p *ngIf="this.service.user_type === 'Game Administrator'; else player_card_text_1">
+          <p>
             Here you can see a list containing all users, also you can see their individual
             status, update any of them or create one of them.
           </p>
-          <ng-template #player_card_text_1>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-quarter">
+      <div class="w3-card-4" (click)="redirect2($event)">
+
+        <img src="http://www.laprensa.hn/csp/mediapool/sites/dt.common.streams.StreamServer.cls?STREAMOID=BkISiZd$3oUQQhWavxpSo8$daE2N3K4ZzOUsqbU5sYuyXidTO6W846Fe$AsXdTWQWCsjLu883Ygn4B49Lvm9bPe2QeMKQdVeZmXF$9l$4uCZ8QDXhaHEp3rvzXRJFdy0KqPHLoMevcTLo3h8xh70Y6N_U_CryOsw6FTOdKL_jpQ-&CONTENTTYPE=image/jpeg"
+             alt="Person">
+
+        <div class="w3-container">
+
+          <h4>
+            <b>
+              Companies
+            </b>
+          </h4>
+
+          <p>
+            Here you can see a list containing all companies, also you can see their individual
+            status, update any of them or create one of them.
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-quarter">
+      <div class="w3-card-4" (click)="redirect3($event)">
+
+        <img src="https://speedy.mavrck.co/wp-content/uploads/2015/01/07071121/Statistics_2.jpg">
+
+        <div class="w3-container">
+
+          <h4>
+            <b>
+              Reports
+            </b>
+          </h4>
+
+          <p>
+            Here you can see the reports of the game.
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="redirect4($event)">
+
+          <img src="http://ihome.mk/Media/Thumbs/0000/0000032-module-installation-configuration-package.jpg"
+                alt="Person">
+
+          <div class="w3-container">
+
+            <h4>
+              <b>
+                Set-Up
+              </b>
+            </h4>
+
             <p>
-              Here you can see all your information!
+              Here you can create/update projects, puzzles, questions,
+              and update parameters.
             </p>
-          </ng-template>
+
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="w3-row" ng-template #normal_user>
+
+    <div class="w3-third">
+      <div class="w3-card-4" (click)="redirect1($event)">
+
+        <img src="https://image.freepik.com/free-icon/male-user-silhouette_318-35708.jpg" alt="Person">
+
+        <div class="w3-container">
+
+          <h4>
+            <b>
+              My status
+            </b>
+          </h4>
+
+          <p>
+            Here you can see all your information!
+          </p>
 
         </div>
       </div>
@@ -43,35 +121,19 @@
     <div class="w3-third">
       <div class="w3-card-4" (click)="redirect2($event)">
 
-        <img src="http://www.laprensa.hn/csp/mediapool/sites/dt.common.streams.StreamServer.cls?STREAMOID=BkISiZd$3oUQQhWavxpSo8$daE2N3K4ZzOUsqbU5sYuyXidTO6W846Fe$AsXdTWQWCsjLu883Ygn4B49Lvm9bPe2QeMKQdVeZmXF$9l$4uCZ8QDXhaHEp3rvzXRJFdy0KqPHLoMevcTLo3h8xh70Y6N_U_CryOsw6FTOdKL_jpQ-&CONTENTTYPE=image/jpeg"
-             alt="Person" *ngIf="this.service.user_type === 'Game Administrator'; else player_image_2">
-        <ng-template #player_image_2>
-          <img src="https://image.freepik.com/free-vector/technology-company-logo-template_1061-20.jpg"
-               alt="Person">
-        </ng-template>
+        <img src="https://image.freepik.com/free-vector/technology-company-logo-template_1061-20.jpg" alt="Person">
 
         <div class="w3-container">
 
           <h4>
-            <b *ngIf="this.service.user_type === 'Game Administrator'; else player_card_title_2">
-              Companies
+            <b>
+              My companie
             </b>
-            <ng-template #player_card_title_2>
-              <b>
-                My Company
-              </b>
-            </ng-template>
           </h4>
 
-          <p *ngIf="this.service.user_type === 'Game Administrator'; else player_card_text_2">
-            Here you can see a list containing all companies, also you can see their individual
-            status, update any of them or create one of them.
+          <p>
+             Here you can see the information of your company!
           </p>
-          <ng-template #player_card_text_2>
-            <p>
-              Here you can see the information of your company!
-            </p>
-          </ng-template>
 
         </div>
       </div>
@@ -80,34 +142,19 @@
     <div class="w3-third">
       <div class="w3-card-4" (click)="redirect3($event)">
 
-        <img src="https://speedy.mavrck.co/wp-content/uploads/2015/01/07071121/Statistics_2.jpg"
-             alt="Person" *ngIf="this.service.user_type === 'Game Administrator'; else player_image_3">
-        <ng-template #player_image_3>
-          <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg"
-               alt="Person">
-        </ng-template>
+        <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg" alt="Person">
 
         <div class="w3-container">
 
           <h4>
-            <b *ngIf="this.service.user_type === 'Game Administrator'; else player_card_title_3">
-              Reports
+            <b>
+              PLAY!
             </b>
-            <ng-template #player_card_title_3>
-              <b>
-                PLAY!
-              </b>
-            </ng-template>
           </h4>
 
-          <p *ngIf="this.service.user_type === 'Game Administrator'; else player_card_text_3">
-            Here you can see the reports of the game.
+          <p>
+             Start learning while you have fun!
           </p>
-          <ng-template #player_card_text_3>
-            <p>
-              Start learning while you have fun!
-            </p>
-          </ng-template>
 
         </div>
       </div>
@@ -115,6 +162,6 @@
 
   </div>
 
+
 </div>
 <app-email></app-email>
-
