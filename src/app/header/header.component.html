@@ -1,5 +1,5 @@
  <div class="title">
-   <a (ngSubmit) = "homeSubmit()">SOFTWARE BOULEVARD</a>
+   <a (click)="redirectHome($event)">SOFTWARE BOULEVARD</a>
  </div>
 
 
@@ -13,9 +13,9 @@
      </label>
      <nav class="menu">
        <ul>
-         <li><a href="my-status">My Status</a></li>
-         <li><a href="my-company">My Company</a></li>
-         <li><a href="logout">Logout</a></li>
+         <li><a (click)="redirectMyStatus($event)">My Status</a></li>
+         <li><a (click)="redirectMyCompany($event)">My Company</a></li>
+         <li><a (click)="redirectLogout($event)">Logout</a></li>
        </ul>
      </nav>
    </div>
@@ -29,9 +29,9 @@
      </label>
      <nav class="menu">
        <ul>
-         <li><a href="my-status">My Status</a></li>
-         <li><a href="my-company">My Company</a></li>
-         <li><a href="logout">Logout</a></li>
+         <li><a (click)="redirectMyStatus($event)">My Status</a></li>
+         <li><a (click)="redirectMyCompany($event)">My Company</a></li>
+         <li><a (click)="redirectLogout($event)">Logout</a></li>
        </ul>
      </nav>
    </div>
@@ -45,12 +45,12 @@
      </label>
      <nav class="menu">
        <ul>
-         <li><a href="users">Users</a></li>
-         <li><a href="companies">Companies</a></li>
-         <li><a href="create-company">Company</a></li>
-         <li><a href="create-user">User</a></li>
-         <li><a href="reports">Reports</a></li>
-         <li><a href="logout">Logout</a></li>
+         <li><a (click)="redirectUsers($event)">Users</a></li>
+         <li><a (click)="redirectCompanies($event)">Companies</a></li>
+         <li><a (click)="redirectCreateCompany($event)">Create Company</a></li>
+         <li><a (click)="redirectCreateUser($event)">Create User</a></li>
+         <li><a (click)="redirectReports($event)">Reports</a></li>
+         <li><a (click)="redirectLogout($event)">Logout</a></li>
        </ul>
      </nav>
    </div>

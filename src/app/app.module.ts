@@ -8,6 +8,7 @@ import { GeneralServiceService } from './general-service.service';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatIconModule, MatButtonModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material';
+import { MatTableModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -70,6 +71,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatButtonModule,
     MatSelectModule,
+    MatTableModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -78,6 +80,7 @@ const routes: Routes = [
     MatIconModule,
     MatButtonModule,
     MatSelectModule,
+    MatTableModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],

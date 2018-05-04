@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./styleSheets/footer-basic-centered.css";
 @import "./styleSheets/header-basic-menu.css";
+@import "./styleSheets/w3Images.css";
 @import "./styleSheets/css/util.css";
 @import "./styleSheets/css/main.css";
 

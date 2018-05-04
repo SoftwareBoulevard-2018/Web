@@ -56,7 +56,7 @@ export class CreateCompanyComponent implements OnInit {
   user;
 
   ngOnInit() {
-    /*if (this.service.user_type === undefined) {
+    if (this.service.user_type === undefined) {
        this.router.navigate([''])
      }
 
@@ -64,10 +64,10 @@ export class CreateCompanyComponent implements OnInit {
        this.router.navigate(['restricted'])
      }
 
-     else {*/
+     else {
       this.possible_project_managers();
       this.form();
-    //}
+    }
   }
 
   onClickSubmit(data) {
