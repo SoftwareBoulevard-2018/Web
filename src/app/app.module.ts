@@ -27,6 +27,7 @@ import { UpdateCompanyComponent } from './update-company/update-company.componen
 import { RestrictedComponent } from './restricted/restricted.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EmailComponent } from './email/email.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   {'path':'', 'component':LoginComponent},
@@ -60,7 +61,8 @@ const routes: Routes = [
     UpdateCompanyComponent,
     RestrictedComponent,
     NotFoundComponent,
-    EmailComponent
+    EmailComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
