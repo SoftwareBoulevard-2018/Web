@@ -4,10 +4,10 @@
 
   <div class="w3-row">
 
-    <div class="w3-third">
+    <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect4($event)">
 
-        <img src="https://media.istockphoto.com/vectors/recruitment-icon-business-concept-flat-design-vector-id636266438" alt="Person"
+        <<img src="https://media.istockphoto.com/vectors/recruitment-icon-business-concept-flat-design-vector-id636266438"  alt="Person"
              *ngIf="this.service.user_type === 'Project Manager'; else player_image_1">
         <ng-template #player_image_1>
           <img src="https://image.freepik.com/free-icon/male-user-silhouette_318-35708.jpg" alt="Person">
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div class="w3-third">
+    <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect5($event)">
 
         <img src="https://consultaeircomunitaria.files.wordpress.com/2014/04/investigador1.jpg"
@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <div class="w3-third">
+    <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect6($event)">
 
         <img src="https://1.bp.blogspot.com/-FIpGF0u0DLk/VNkUxPjSppI/AAAAAAAAAKA/EhLjDcYSoD4/s1600/calculadora.jpg"
@@ -89,11 +89,11 @@
 
           <h4>
             <b *ngIf="this.service.user_type === 'Project Manager'; else player_card_title_3">
-              Reports
+              Estimate cost and time
             </b>
             <ng-template #player_card_title_3>
               <b>
-                Estimate cost and time
+                y szs
               </b>
             </ng-template>
           </h4>
@@ -111,7 +111,7 @@
       </div>
     </div>
 
-    <div class="w3-third">
+    <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect7($event)">
 
         <img src="http://static.cnnexpansion.com/media/2013/01/08/ocde.jpg"
