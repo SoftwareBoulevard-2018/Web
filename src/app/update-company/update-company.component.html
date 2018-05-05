@@ -109,6 +109,13 @@
         </span>
       </div>
 
+      <div class="element" *ngIf="invalid_url">
+        <br/>
+        <span class="error">
+        Please input a valid URL
+      </span>
+      </div>
+
       <div class="element" *ngIf="invalid">
         <br/>
         <span class="error">
@@ -119,7 +126,7 @@
       <div class="element" *ngIf="success">
         <br/>
         <span class="success">
-          Company successfully added.
+          Company successfully updated.
         </span>
       </div>
 

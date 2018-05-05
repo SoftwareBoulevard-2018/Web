@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core';
 import { User } from './shared/user';
 import { Company } from './shared/company';
 import {BiddingProject} from './shared/biddingProject';
-import { InstantProject } from './shared/project';
-// import { BiddingProject } from './shared/project';
 // import { InstantProject } from './shared/project';
-// import { BiddingProject } from './shared/project';
-import { Project } from './shared/project';
+// import { Project } from './shared/project';
 
 @Injectable()
 export class GeneralServiceService {
@@ -36,7 +33,7 @@ export class GeneralServiceService {
 
   companies = [new Company("UNAL",this.users[1],
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png",3,
-    12, [this.users[0], this.users[4]]),
+    12, [this.users[0], this.users[7]]),
 
     new Company("Google",undefined,"http://educainternet.es/pictures/4074.png")];
 
