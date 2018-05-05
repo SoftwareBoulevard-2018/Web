@@ -1,6 +1,6 @@
 
 <<div class="wrap-login100">
-  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+  <form class="login100-form" [formGroup]="guess" (ngSubmit) = "onClickSubmit(guess.value)" >
 
     <span class="login100-form-title p-b-34 p-t-27">
 						Cost & Time Estimation
@@ -26,7 +26,7 @@
     <div class="element" *ngIf="invalid">
       <br/>
       <span class="error">
-        Wrong Estimation. Your tea0m loses one resource point!
+        Wrong Estimation. Your team loses one resource point!
       </span>
     </div>
 
@@ -34,7 +34,7 @@
     <br/>
 
     <div class="element element2">
-      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+      <button mat-raised-button color="warn" type="submit" class="forsubmit">
         Cancel
       </button>
 
