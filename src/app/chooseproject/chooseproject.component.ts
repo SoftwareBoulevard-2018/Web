@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -12,7 +11,10 @@ import { MatSelect } from "@angular/material";
   styleUrls: ['./chooseproject.component.css']
 })
 export class ChooseprojectComponent implements OnInit {
-  form(){
+  ngOnInit(){
+
+  }
+  /*form(){
     this.formdata = new FormGroup({
       project: new FormControl('',
         Validators.compose([
@@ -67,6 +69,6 @@ export class ChooseprojectComponent implements OnInit {
       this.success = false;
       this.flawed_username = false;
     }
-  }
+  }*/
 
 }
