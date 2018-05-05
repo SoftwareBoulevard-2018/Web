@@ -3,13 +3,13 @@
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
 
     <span class="login100-form-title p-b-34 p-t-27">
-						Cost & time estimation
+						Cost & Time Estimation
     </span>
 
 
     <div class="element">
       <mat-form-field>
-        <input matInput placeholder="Estimate cost" name="username" formControlName="username">
+        <input matInput placeholder="Cost (USD)" name="cost" formControlName="cost">
         <mat-hint>Required Field</mat-hint>
       </mat-form-field>
     </div>
@@ -18,7 +18,7 @@
 
     <div class="element">
       <mat-form-field>
-        <input matInput placeholder="Validate time" name="password" [type] = "hide ? 'password' : 'text'" formControlName="password">
+        <input matInput placeholder="Time (man-hours)" name="time" formControlName="time">
         <mat-hint>Required Field</mat-hint>
       </mat-form-field>
     </div>
@@ -26,7 +26,7 @@
     <div class="element" *ngIf="invalid">
       <br/>
       <span class="error">
-        Incorrect username and/or password
+        Wrong Estimation. Your tea0m loses one resource point!
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       </button>
 
       <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
-        Estimate
+        Validate
       </button>
     </div>
 
