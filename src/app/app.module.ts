@@ -30,6 +30,7 @@ import { EmailComponent } from './email/email.component';
 import { PmanagerComponent } from './pmanager/pmanager.component';
 import { EstimationComponent } from './estimation/estimation.component';
 import { RecruitMemberComponent } from './recruit-member/recruit-member.component';
+import { ChooseprojectComponent } from './chooseproject/chooseproject.component';
 
 const routes: Routes = [
   {'path':'', 'component':LoginComponent},
@@ -69,7 +70,8 @@ const routes: Routes = [
     EmailComponent,
     PmanagerComponent,
     EstimationComponent,
-    RecruitMemberComponent
+    RecruitMemberComponent,
+    ChooseprojectComponent
   ],
   imports: [
     BrowserModule,
