@@ -11,6 +11,16 @@ import {Company} from "../shared/company";
 })
 export class UpdateCompanyComponent implements OnInit {
 
+  formdata;
+  project_managers;
+  lacking_project_manager = false;
+  totally_empty = false;
+  invalid = false;
+  success = false;
+  repeated_field = false;
+  hide = true;
+  user;
+
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   form(){
@@ -54,16 +64,6 @@ export class UpdateCompanyComponent implements OnInit {
     }
   }
 
-  formdata;
-  project_managers;
-  lacking_project_manager = false;
-  totally_empty = false;
-  invalid = false;
-  success = false;
-  repeated_field = false;
-  hide = true;
-  user;
-
   ngOnInit() {
     if (this.service.user_type === undefined) {
        this.router.navigate([''])
@@ -99,17 +99,18 @@ export class UpdateCompanyComponent implements OnInit {
       this.invalid = false;
       this.success = false;
       this.repeated_field = true;
-    }
-    else if(this.new_name(data.name)){
-      if(!(data.name === '')){
-        this.service.company_to_be_updated.name = data.name;
-      }
-      if(!(data.img === '')){
-        this.service.company_to_be_updated.image = data.img;
-      }
-      if(!(data.project_manager === '' || data.project_manager === undefined || !(this.lacking_project_manager))){
-        this.service.company_to_be_updated.project_manager = this.search_modify_user(data.project_manager,this.service.company_to_be_updated.name);
-      }
+    } else if (this.new_name(data.name)){
+        if (!(data.name === '')){
+          this.service.company_to_be_updated.name = data.name;
+          this.update_members(data.name, this.service.company_to_be_updated);
+        }
+        if (!(data.img === '')){
+          this.service.company_to_be_updated.image = data.img;
+        }
+        if(!(data.project_manager === '' || data.project_manager === undefined || !(this.lacking_project_manager))){
+          this.service.company_to_be_updated.project_manager = this.search_modify_user(data.project_manager,
+            this.service.company_to_be_updated.name);
+        }
       this.totally_empty = false;
       this.invalid = false;
       this.success = true;
@@ -122,12 +123,23 @@ export class UpdateCompanyComponent implements OnInit {
     console.log(this.service.companies);
   }
 
-  search_modify_user(username,company_name){
-    for(let user of this.service.users){
-      if(user.username === username){
+  search_modify_user(username, company_name) {
+    for (let user of this.service.users){
+      if (user.username === username){
         user.company_name = company_name;
         console.log(user);
         return user;
+      }
+    }
+  }
+
+  update_members(company_name, company) {
+    if (!(company.project_manager === undefined)) {
+      company.project_manager.company_name = company_name;
+    }
+    if (!(company.team_members === [])) {
+      for (let team_member of company.team_members) {
+        team_member.company_name = company_name;
       }
     }
   }

@@ -19,7 +19,7 @@
     <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef> Logo </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <div class="company_img" *ngIf="!(element.image === undefined); else pending_image">
+        <div class="company_img" *ngIf="!(element.image === undefined || element.image === ''); else pending_image">
           <img src="{{element.image}}">
         </div>
         <ng-template #pending_image>
