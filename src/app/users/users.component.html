@@ -15,6 +15,12 @@
 
   <mat-table #table [dataSource]="users2">
 
+    <!-- Creation Date Column -->
+    <ng-container matColumnDef="creation_date">
+      <mat-header-cell *matHeaderCellDef> Creation Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.creation_date.substring(0,10)}} </mat-cell>
+    </ng-container>
+
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>

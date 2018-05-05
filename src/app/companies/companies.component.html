@@ -15,6 +15,12 @@
 
   <mat-table #table [dataSource]="companies2">
 
+    <!-- Creation Date Column -->
+    <ng-container matColumnDef="creation_date">
+      <mat-header-cell *matHeaderCellDef> Creation Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.creation_date.substring(0,10)}} </mat-cell>
+    </ng-container>
+
     <!-- Logo Column -->
     <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef> Logo </mat-header-cell>

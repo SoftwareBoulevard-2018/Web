@@ -20,7 +20,7 @@ export class CompaniesComponent implements OnInit {
   companies = [];
   companies2;
 
-  table_titles = ["image", "name", "project manager", "capacity_k", "status", "update"];
+  table_titles = ["creation_date", "image", "name", "project manager", "capacity_k", "status", "update"];
 
   ngOnInit() {
     console.log(this.service.user_type);
