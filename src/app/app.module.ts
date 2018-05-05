@@ -47,6 +47,7 @@ import { NewBiddingProjectComponent } from './new-bidding-project/new-bidding-pr
 const routes: Routes = [
   {'path': '', 'component': LoginComponent},
   {'path': 'home', 'component': HomeComponent},
+  {'path': 'home/reports', 'component': ReportsComponent},
   {'path': 'home/users', 'component': UsersComponent},
   {'path': 'home/users/create', 'component': CreateUserComponent},
   {'path': 'home/users/user-status', 'component': UserStatusComponent},
