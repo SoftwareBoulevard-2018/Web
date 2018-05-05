@@ -27,7 +27,7 @@ export class RecruitMemberComponent implements OnInit {
       if (user.role === "Project Manager"){
         this.project_managers.push(user);
         for(let company of this.service.companies){
-          if(company.project_manager_username === user.username){
+          if(company.project_manager.username === user.username){
             this.project_managers.pop();
             break;
           }
