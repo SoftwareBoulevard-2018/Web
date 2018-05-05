@@ -56,7 +56,6 @@ export class NewInstantProjectComponent implements OnInit {
   success = false;
   flawed_name = false;
   hide = true;
-  roles = [ "Project Manager", "Analyst", "Developer", "Tester"];
   project;
   auxiliar;
 

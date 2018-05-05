@@ -2,7 +2,7 @@
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <br/>
     <span class="login100-form-title p-b-34">
-      Create project
+      Create instant project
     </span>
 
     <div class="element">
@@ -48,6 +48,8 @@
       </mat-form-field>
     </div>
 
+    <br/>
+
     <div class="element" *ngIf="invalid">
       <br/>
       <span class="error">
@@ -62,10 +64,10 @@
       </span>
     </div>
 
-    <div class="element" *ngIf="flawed_username">
+    <div class="element" *ngIf="flawed_name">
       <br/>
       <span class="error">
-        Username already taken.
+        Name already taken.
       </span>
     </div>
 
