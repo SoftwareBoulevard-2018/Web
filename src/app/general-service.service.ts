@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from './shared/user';
 import { Company } from './shared/company';
+import {BiddingProject} from './shared/biddingProject';
 
 @Injectable()
 export class GeneralServiceService {
@@ -20,5 +21,8 @@ export class GeneralServiceService {
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png"),
   new Company("Google",undefined,"http://educainternet.es/pictures/4074.png")];
   company_to_be_updated = this.companies[1];
+
+  projects = [new BiddingProject(1,"FIFA",10,3, 5000,0, 0, 0 ,0),
+    new BiddingProject(2,"Bancolombia System",10,3, 5000,0, 0, 0 ,0)];
   constructor() { }
 }

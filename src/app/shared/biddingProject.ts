@@ -8,8 +8,8 @@ export class BiddingProject {
   required_analyst_level: number;
   required_developer_level: number;
   required_tester_level: number;
-
-  constructor(project_id: number, project_name: string, rewarded_k: number, time: number, cost: number, required_k: number, required_analyst_level: number, required_developer_level: number, required_tester_level: number) {
+  constructor(project_id: number, project_name: string, rewarded_k: number, time: number, cost: number, required_k: number,
+              required_analyst_level: number, required_developer_level: number, required_tester_level: number) {
     this.project_id = project_id;
     this.project_name = project_name;
     this.rewarded_k = rewarded_k;
