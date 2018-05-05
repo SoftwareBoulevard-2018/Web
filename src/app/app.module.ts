@@ -27,6 +27,11 @@ import { UpdateCompanyComponent } from './update-company/update-company.componen
 import { RestrictedComponent } from './restricted/restricted.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EmailComponent } from './email/email.component';
+import { PmanagerComponent } from './pmanager/pmanager.component';
+import { EstimationComponent } from './estimation/estimation.component';
+import { RecruitMemberComponent } from './recruit-member/recruit-member.component';
+import { ChooseprojectComponent } from './chooseproject/chooseproject.component';
+import { PmfunctionsComponent } from './pmfunctions/pmfunctions.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { SetUpComponent } from './set-up/set-up.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
@@ -57,6 +62,11 @@ const routes: Routes = [
   {'path': 'home/set-up/update-puzzle', 'component': UpdatePuzzleComponent},
   {'path': 'home/set-up/update-parameters', 'component': UpdateParametersComponent},
   {'path': 'restricted', 'component': RestrictedComponent},
+  {'path': 'home/users/projectmanager', 'component': PmanagerComponent},
+  {'path': 'home/users/projectmanager/functions', 'component': PmfunctionsComponent},
+  {'path': 'home/users/projectmanager/functions/chooseproject', 'component': ChooseprojectComponent},
+  {'path': 'home/users/projectmanager/functions/estimation', 'component': EstimationComponent},
+  {'path': 'home/users/projectmanager/functions/recruit', 'component': RecruitMemberComponent},
   {'path': '**', 'component': NotFoundComponent}
 ];
 
@@ -78,6 +88,11 @@ const routes: Routes = [
     RestrictedComponent,
     NotFoundComponent,
     EmailComponent,
+    PmanagerComponent,
+    EstimationComponent,
+    RecruitMemberComponent,
+    ChooseprojectComponent,
+    PmfunctionsComponent,
     CreateProjectComponent,
     SetUpComponent,
     UpdateProjectComponent,
@@ -87,6 +102,7 @@ const routes: Routes = [
     UpdatePuzzleComponent,
     UpdateParametersComponent,
     ReportsComponent
+
   ],
   imports: [
     BrowserModule,
