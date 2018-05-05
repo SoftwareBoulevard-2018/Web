@@ -37,6 +37,7 @@ export class UpdateUserComponent implements OnInit {
 
   formdata;
   invalid = false;
+  invalid_name = false;
   success = false;
   totally_empty = false;
   flawed_username = false;
@@ -62,7 +63,16 @@ export class UpdateUserComponent implements OnInit {
 
   onClickSubmit(data) {
     this.auxiliar = this.new_username(data.username, this.service.user_to_be_updated.username);
-    if(data.username === '' && data.name === '' && data.password === '' && (data.role === '' || data.role === undefined)){
+    if (!(/^[a-zA-Z ]+$/.test(data.name)) && !(data.name === '')) {
+      this.invalid_name = true;
+      this.totally_empty = false;
+      this.invalid = false;
+      this.success = false;
+      this.flawed_username = false;
+      this.repeated_field = false;
+    }
+    else if(data.username === '' && data.name === '' && data.password === '' && (data.role === '' || data.role === undefined)){
+      this.invalid_name = false;
       this.totally_empty = true;
       this.invalid = false;
       this.success = false;
@@ -70,6 +80,7 @@ export class UpdateUserComponent implements OnInit {
       this.repeated_field = false;
     }
     else if(!(data.password === data.confirmation)){
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = true;
       this.success = false;
@@ -78,6 +89,7 @@ export class UpdateUserComponent implements OnInit {
     }
     else if(data.name === this.service.user_to_be_updated.name || data.username === this.service.user_to_be_updated.username
       || data.password === this.service.user_to_be_updated.password || data.role === this.service.user_to_be_updated.role){
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = false;
       this.success = false;
@@ -85,6 +97,7 @@ export class UpdateUserComponent implements OnInit {
       this.repeated_field = true;
     }
     else if(!(this.auxiliar)){
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = false;
       this.success = false;
@@ -104,6 +117,7 @@ export class UpdateUserComponent implements OnInit {
       if(!(data.role === '' || data.role === undefined)){
         this.service.user_to_be_updated.role = data.role;
       }
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = false;
       this.success = true;
