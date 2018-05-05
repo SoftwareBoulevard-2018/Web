@@ -16,6 +16,7 @@ export class UpdateCompanyComponent implements OnInit {
   lacking_project_manager = false;
   totally_empty = false;
   invalid = false;
+  invalid_name = false;
   success = false;
   repeated_field = false;
   hide = true;
@@ -56,7 +57,7 @@ export class UpdateCompanyComponent implements OnInit {
   }
 
   current_project_manager(){
-    if(this.service.company_to_be_updated.project_manager === undefined){
+    if (this.service.company_to_be_updated.project_manager === undefined){
       this.lacking_project_manager = true;
     }
     else{
@@ -83,18 +84,28 @@ export class UpdateCompanyComponent implements OnInit {
   onClickSubmit(data) {
     if(data.name === '' && data.img === '' &&
       (!(this.lacking_project_manager) || data.project_manager === '' || data.project_manager === undefined)){
+      this.invalid_name = false;
       this.totally_empty = true;
       this.invalid = false;
       this.success = false;
       this.repeated_field = false;
     }
+    else if (!(/^[a-zA-Z ]+$/.test(data.name)) && !(data.name === '')) {
+      this.invalid_name = true;
+      this.totally_empty = false;
+      this.invalid = false;
+      this.success = false;
+      this.repeated_field = false;
+    }
     else if(!(this.new_name(data.name))){
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = true;
       this.success = false;
       this.repeated_field = false;
     }
     else if(data.name === this.service.company_to_be_updated.name || data.img === this.service.company_to_be_updated.image){
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = false;
       this.success = false;
@@ -111,6 +122,7 @@ export class UpdateCompanyComponent implements OnInit {
           this.service.company_to_be_updated.project_manager = this.search_modify_user(data.project_manager,
             this.service.company_to_be_updated.name);
         }
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = false;
       this.success = true;
