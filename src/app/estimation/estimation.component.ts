@@ -10,6 +10,7 @@ export class EstimationComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

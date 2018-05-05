@@ -29,6 +29,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { EmailComponent } from './email/email.component';
 import { PmanagerComponent } from './pmanager/pmanager.component';
 import { EstimationComponent } from './estimation/estimation.component';
+import { RecruitMemberComponent } from './recruit-member/recruit-member.component';
 
 const routes: Routes = [
   {'path':'', 'component':LoginComponent},
@@ -44,6 +45,7 @@ const routes: Routes = [
   {'path':'restricted', 'component':RestrictedComponent},
   {'path':'home/users/projectmanager', 'component':PmanagerComponent},
   {'path':'home/estimation', 'component':EstimationComponent},
+  {'path':'home/recruit', 'component':RecruitMemberComponent},
   {'path':'**', 'component':NotFoundComponent}
 ]
 
@@ -66,7 +68,8 @@ const routes: Routes = [
     NotFoundComponent,
     EmailComponent,
     PmanagerComponent,
-    EstimationComponent
+    EstimationComponent,
+    RecruitMemberComponent
   ],
   imports: [
     BrowserModule,
