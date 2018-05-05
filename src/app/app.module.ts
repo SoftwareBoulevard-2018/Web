@@ -41,6 +41,7 @@ const routes: Routes = [
   {'path':'home/companies/create', 'component':CreateCompanyComponent},
   {'path':'home/companies/company-status', 'component':CompanyStatusComponent},
   {'path':'home/companies/company-status/update', 'component':UpdateCompanyComponent},
+  {'path':'home/set-up', 'component':SetUpComponent},
   {'path':'restricted', 'component':RestrictedComponent},
   {'path':'**', 'component':NotFoundComponent}
 ]
