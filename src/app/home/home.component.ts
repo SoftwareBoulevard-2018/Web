@@ -40,6 +40,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  redirect4(event) {
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/reports']);
+    }
+  }
+
   home_user_type;
 
   ngOnInit() {
