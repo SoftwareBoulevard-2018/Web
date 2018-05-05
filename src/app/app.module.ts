@@ -27,6 +27,14 @@ import { UpdateCompanyComponent } from './update-company/update-company.componen
 import { RestrictedComponent } from './restricted/restricted.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EmailComponent } from './email/email.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
+import { SetUpComponent } from './set-up/set-up.component';
+import { UpdateProjectComponent } from './update-project/update-project.component';
+import { CreateQuestionComponent } from './create-question/create-question.component';
+import { UpdateQuestionComponent} from './update-question/update-question.component';
+import { CreatePuzzleComponent} from './create-puzzle/create-puzzle.component';
+import { UpdatePuzzleComponent} from './update-puzzle/update-puzzle.component';
+import { UpdateParametersComponent} from './update-parameters/update-parameters.component';
 import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
@@ -40,6 +48,14 @@ const routes: Routes = [
   {'path':'home/companies/create', 'component':CreateCompanyComponent},
   {'path':'home/companies/company-status', 'component':CompanyStatusComponent},
   {'path':'home/companies/company-status/update', 'component':UpdateCompanyComponent},
+  {'path':'home/set-up', 'component':SetUpComponent},
+  {'path':'home/set-up/create-project', 'component':CreateProjectComponent},
+  {'path':'home/set-up/update-project', 'component':UpdateProjectComponent},
+  {'path':'home/set-up/create-question', 'component':CreateQuestionComponent},
+  {'path':'home/set-up/update-question', 'component':UpdateQuestionComponent},
+  {'path':'home/set-up/create-puzzle', 'component':CreatePuzzleComponent},
+  {'path':'home/set-up/update-puzzle', 'component':UpdatePuzzleComponent},
+  {'path':'home/set-up/update-parameters', 'component':UpdateParametersComponent},
   {'path':'restricted', 'component':RestrictedComponent},
   {'path':'**', 'component':NotFoundComponent}
 ]
@@ -62,6 +78,14 @@ const routes: Routes = [
     RestrictedComponent,
     NotFoundComponent,
     EmailComponent,
+    CreateProjectComponent,
+    SetUpComponent,
+    UpdateProjectComponent,
+    CreateQuestionComponent,
+    UpdateQuestionComponent,
+    CreatePuzzleComponent,
+    UpdatePuzzleComponent,
+    UpdateParametersComponent
     ReportsComponent
   ],
   imports: [
