@@ -1,3 +1,89 @@
-<p>
-  new-instant-project works!
-</p>
+<div class="wrap-login100 big-wrap">
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+    <br/>
+    <span class="login100-form-title p-b-34">
+      Create project
+    </span>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="Name" name="name" formControlName="name">
+        <mat-hint>Required Field</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Rewarded k unit" formControlName="kunit" min="1" max="20">
+        <mat-hint>Required Field</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Amount of analyst questions" formControlName="analystQ" min="1" max="50">
+        <mat-hint>Required Field</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Amount of developer questions" formControlName="developerQ" min="1" max="50">
+        <mat-hint>Required Field</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Amount of tester questions" formControlName="testerQ" min="1" max="50">
+        <mat-hint>Required Field</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="element" *ngIf="invalid">
+      <br/>
+      <span class="error">
+        The password and its confirmation doesn't match.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="success">
+      <br/>
+      <span class="success">
+        User successfully added.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="flawed_username">
+      <br/>
+      <span class="error">
+        Username already taken.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="invalid_name">
+      <br/>
+      <span class="error">
+        Name can only contain letters and spaces.
+      </span>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="element element2">
+      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+        Create
+      </button>
+    </div>
+
+  </form>
+</div>
