@@ -22,8 +22,5 @@ export class GeneralServiceService {
   "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png"),
   new Company("Google",undefined,"http://educainternet.es/pictures/4074.png")];
   company_to_be_updated = this.companies[1];
-  instant_projects = [new InstantProject(0001, "Inventario papeleria", false, number_of_questions_analysts=10, number_of_questions_developer=10, number_of_questions_tester=10, k_capacity=3, rewarded_k_units=2),
-  new InstantProject(0002, "Pac Man", false, 8, 9, 7, 2, 1),
-  new InstantProject(0003, "Fifa 18", true, 12, 14, 12, 5, 4)];
   constructor() { }
 }
