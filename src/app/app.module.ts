@@ -31,6 +31,7 @@ import { PmanagerComponent } from './pmanager/pmanager.component';
 import { EstimationComponent } from './estimation/estimation.component';
 import { RecruitMemberComponent } from './recruit-member/recruit-member.component';
 import { ChooseprojectComponent } from './chooseproject/chooseproject.component';
+import { PmfunctionsComponent } from './pmfunctions/pmfunctions.component';
 
 const routes: Routes = [
   {'path':'', 'component':LoginComponent},
@@ -45,9 +46,10 @@ const routes: Routes = [
   {'path':'home/companies/company-status/update', 'component':UpdateCompanyComponent},
   {'path':'restricted', 'component':RestrictedComponent},
   {'path':'home/users/projectmanager', 'component':PmanagerComponent},
+  {'path':'home/users/projectmanager/functions', 'component':PmfunctionsComponent},
   {'path':'home/users/projectmanager/functions/chooseproject', 'component':ChooseprojectComponent},
   {'path':'home/users/projectmanager/functions/estimation', 'component':EstimationComponent},
-  {'path':'home/recruit', 'component':RecruitMemberComponent},
+  {'path':'home/users/projectmanager/functions/recruit', 'component':RecruitMemberComponent},
   {'path':'**', 'component':NotFoundComponent}
 ]
 
@@ -72,7 +74,8 @@ const routes: Routes = [
     PmanagerComponent,
     EstimationComponent,
     RecruitMemberComponent,
-    ChooseprojectComponent
+    ChooseprojectComponent,
+    PmfunctionsComponent
   ],
   imports: [
     BrowserModule,

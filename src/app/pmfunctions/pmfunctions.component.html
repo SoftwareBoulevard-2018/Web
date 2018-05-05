@@ -1,0 +1,154 @@
+<div class="w3-container">
+  <h1>Welcome {{this.service.username}}!</h1>
+  <h3>Here you have some pages you can visit:</h3>
+
+  <div class="w3-row">
+
+    <div class="w3-third">
+      <div class="w3-card-4" (click)="redirect4($event)">
+
+        <img src="https://media.istockphoto.com/vectors/recruitment-icon-business-concept-flat-design-vector-id636266438" alt="Person"
+             *ngIf="this.service.user_type === 'Project Manager'; else player_image_1">
+        <ng-template #player_image_1>
+          <img src="https://image.freepik.com/free-icon/male-user-silhouette_318-35708.jpg" alt="Person">
+        </ng-template>
+
+        <div class="w3-container">
+
+          <h4>
+            <b *ngIf="this.service.user_type === 'Project Manager'; else player_card_title_1">
+              Recruit members
+            </b>
+            <ng-template #player_card_title_1>
+              <b>
+                My Status
+              </b>
+            </ng-template>
+          </h4>
+
+          <p *ngIf="this.service.user_type === 'Project Manager'; else player_card_text_1">
+            Here you can see a list containing all users without a team and you can invite them to your company.
+          </p>
+          <ng-template #player_card_text_1>
+            <p>
+              Here you can see all your information!
+            </p>
+          </ng-template>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-third">
+      <div class="w3-card-4" (click)="redirect5($event)">
+
+        <img src="https://consultaeircomunitaria.files.wordpress.com/2014/04/investigador1.jpg"
+             alt="Person" *ngIf="this.service.user_type === 'Project Manager'; else player_image_2">
+        <ng-template #player_image_2>
+          <img src="https://image.freepik.com/free-vector/technology-company-logo-template_1061-20.jpg"
+               alt="Person">
+        </ng-template>
+
+        <div class="w3-container">
+
+          <h4>
+            <b *ngIf="this.service.user_type === 'Project Manager'; else player_card_title_2">
+              Choose project
+            </b>
+            <ng-template #player_card_title_2>
+              <b>
+                My Company
+              </b>
+            </ng-template>
+          </h4>
+
+          <p *ngIf="this.service.user_type === 'Project Manager'; else player_card_text_2">
+            Here you can see a list containing all projects, you can choose a bidding project or a instant project.
+          </p>
+          <ng-template #player_card_text_2>
+            <p>
+              Here you can see the information of your company!
+            </p>
+          </ng-template>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-third">
+      <div class="w3-card-4" (click)="redirect6($event)">
+
+        <img src="https://1.bp.blogspot.com/-FIpGF0u0DLk/VNkUxPjSppI/AAAAAAAAAKA/EhLjDcYSoD4/s1600/calculadora.jpg"
+             alt="Person" *ngIf="this.service.user_type === 'Project Manager'; else player_image_3">
+        <ng-template #player_image_3>
+          <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg"
+               alt="Person">
+        </ng-template>
+
+        <div class="w3-container">
+
+          <h4>
+            <b *ngIf="this.service.user_type === 'Project Manager'; else player_card_title_3">
+              Reports
+            </b>
+            <ng-template #player_card_title_3>
+              <b>
+                Estimate cost and time
+              </b>
+            </ng-template>
+          </h4>
+
+          <p *ngIf="this.service.user_type === 'Project Manager'; else player_card_text_3">
+            Here you can see the chosen project and estimate the cost and time to develop.
+          </p>
+          <ng-template #player_card_text_3>
+            <p>
+              Start learning while you have fun!
+            </p>
+          </ng-template>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-third">
+      <div class="w3-card-4" (click)="redirect7($event)">
+
+        <img src="http://static.cnnexpansion.com/media/2013/01/08/ocde.jpg"
+             alt="Person" *ngIf="this.service.user_type === 'Project Manager'; else player_image_3">
+        <ng-template #player_image_3>
+          <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg"
+               alt="Person">
+        </ng-template>
+
+        <div class="w3-container">
+
+          <h4>
+            <b *ngIf="this.service.user_type === 'Project Manager'; else player_card_title_3">
+              Generate resources
+            </b>
+            <ng-template #player_card_title_3>
+              <b>
+                Estimate cost and time
+              </b>
+            </ng-template>
+          </h4>
+
+          <p *ngIf="this.service.user_type === 'Project Manager'; else player_card_text_3">
+            Here you can generate resource solving puzzles.
+          </p>
+          <ng-template #player_card_text_3>
+            <p>
+              Start learning while you have fun!
+            </p>
+          </ng-template>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<app-email></app-email>
+

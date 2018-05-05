@@ -1,3 +1,31 @@
-<p>
-  chooseproject works!
-</p>
+<div class="wrap-login100 big-wrap">
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+    <span class="login100-form-title p-b-34 p-t-27">
+      Choose project
+    </span>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <mat-select placeholder="Select project" name="select_project" formControlName="select_project">
+          <mat-option *ngFor="let project of select_projects" [value]="project.project_id">
+            {{ project.project_name }} - {{ project.rewarded_k }} - {{ project.required_k }} - {{ project.required_analyst_level }} - {{ project.required_developer_levelred }} - {{ project.required_tester_level }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="element" *ngIf="success">
+      <br/>
+      <span class="success">
+        Project chosen!
+      </span>
+    </div>
+
+    <div class="element element2">
+      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+        Choose
+      </button>
+    </div>
+
+  </form>
+</div>
