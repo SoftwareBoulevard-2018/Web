@@ -19,7 +19,7 @@ export class GeneralServiceService {
   user_to_be_updated = this.users[1];
   companies = [new Company("UNAL","jjsernaco",
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png"),
-  new Company("Google",undefined,"http://educainternet.es/pictures/4074.png")];
+  new Company("Google", "judfernandez","http://educainternet.es/pictures/4074.png",1)];
   company_to_be_updated = this.companies[1];
 
   projects = [new BiddingProject(1,"FIFA",10,3, 5000,0, 0, 0 ,0),

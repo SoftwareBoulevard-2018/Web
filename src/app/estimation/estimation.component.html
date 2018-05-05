@@ -34,11 +34,11 @@
     <br/>
 
     <div class="element element2">
-      <button mat-raised-button color="warn" type="submit" class="forsubmit">
+      <button mat-raised-button type="submit">
         Cancel
       </button>
 
-      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+      <button mat-raised-button color="primary" type="submit" [disabled] = "!guess.valid" class="forsubmit">
         Validate
       </button>
     </div>

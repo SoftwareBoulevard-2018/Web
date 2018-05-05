@@ -48,10 +48,10 @@ export class EstimationComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if (this.service.user_type === undefined) {
-    //  this.router.navigate(['']);
-    // }
-    if (this.service.user_type === "Team Member") {
+    if (this.service.user_type === undefined) {
+     this.router.navigate(['']);
+    }
+    else if (this.service.user_type === "Team Member") {
       this.router.navigate(['restricted']);
     }
     else {
