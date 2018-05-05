@@ -15,5 +15,6 @@ import { GeneralServiceService } from './general-service.service';
 export class AppComponent {
   title = 'app';
   ngOnInit() {
+    console.log("hola mundo");
   }
 }

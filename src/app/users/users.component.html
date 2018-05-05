@@ -1,5 +1,8 @@
 <div class="w3-container">
   <h1>Users</h1>
+  <button mat-raised-button class="create" (click)="redirect3($event)">
+    Click here to create a new user
+  </button>
 </div>
 
 <div class="container mat-elevation-z8">
@@ -39,6 +42,21 @@
     <ng-container matColumnDef="role">
       <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+    </ng-container>
+
+    <!-- Company Column -->
+    <ng-container matColumnDef="company">
+      <mat-header-cell *matHeaderCellDef> Company </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <p *ngIf="!(element.company_name === undefined); else pending_company">
+          {{element.company_name}}
+        </p>
+        <ng-template #pending_company>
+          <p class="pending">
+            Pending
+          </p>
+        </ng-template>
+      </mat-cell>
     </ng-container>
 
     <!-- Status Column -->
