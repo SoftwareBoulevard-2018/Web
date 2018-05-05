@@ -1,0 +1,38 @@
+.w3-card-4{
+  width: 25%;
+  margin:auto;
+  border-radius: 5%;
+  background-color: #f5f2dc;
+  text-align: center;
+}
+
+.w3-container{
+  text-align: center;
+}
+
+.create{
+  width: 25%;;
+  font-size: 150%;
+}
+
+h1{
+  margin: 2% auto 1% 0 ;
+  color: #00585e;
+  font-weight: bold;
+  text-align: left;
+}
+
+h2{
+  font-size: 150%;
+  color: black;
+  font-weight: bold;
+}
+
+button{
+  background-color: #009494;
+  color: white;
+  border-style: solid;
+  border-color: black;
+  border-width: thin;
+  font-weight: bold;
+}

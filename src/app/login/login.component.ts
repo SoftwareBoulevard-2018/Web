@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   formdata;
 
   ngOnInit() {
+    console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.formdata = new FormGroup({
         username: new FormControl('',
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
           this.service.username = data.username;
           this.router.navigate(['home']);
         }
+        this.service.loggedusr = true;
       }
       this.invalid = true;
     }

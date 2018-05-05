@@ -53,10 +53,8 @@ cenviados =[
 ];
 
     ngOnInit() {
-  	this.uname = this.service.user_name;
-  	if(this.service.user_type != undefined){
-  		this.loggedusr = true;
-  	}
+  	this.uname = this.service.user_type;
+  	this.loggedusr = this.service.loggedusr;
   	this.Fnem();
   }
   Fnem(){
@@ -88,7 +86,7 @@ cenviados =[
   	this.sender = correo.remitente;
   	/*verifica si el correo que se lee es del inbox(0) o del sentbox(1)*/
   	if(v===0){
-  		
+
   		for(this.i = 0; this.i<this.crecibidos.length;this.i++){
   			if(this.crecibidos[this.i].id === correo.id){
 		  		this.crecibidos.splice(this.i,1);

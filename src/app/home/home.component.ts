@@ -8,6 +8,7 @@ import {EmailComponent} from "../email/email.component";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
 
   constructor(public service: GeneralServiceService, public router: Router) {
@@ -43,9 +44,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  redirect4(event) {
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up']);
+    }
+  }
+
   home_user_type;
 
   ngOnInit() {
+    console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
     }

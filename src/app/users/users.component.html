@@ -1,8 +1,25 @@
-<div class="container mat-elevation-z8">
-  <mat-table #table [dataSource]="users">
+<div class="w3-container">
+  <h1>Users</h1>
+  <button mat-raised-button class="create" (click)="redirect3($event)">
+    Click here to create a new user
+  </button>
+</div>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+<div class="container mat-elevation-z8">
+
+  <div class="header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="users2">
+
+    <!-- Creation Date Column -->
+    <ng-container matColumnDef="creation_date">
+      <mat-header-cell *matHeaderCellDef> Creation Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.creation_date.substring(0,10)}} </mat-cell>
+    </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -19,7 +36,12 @@
     <!-- Password Column -->
     <ng-container matColumnDef="password">
       <mat-header-cell *matHeaderCellDef> Password </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.password}} </mat-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-raised-button (click)="element.hide_password = false"
+                *ngIf="element.hide_password">
+          Show password
+        </button>
+        <p *ngIf="!element.hide_password">{{element.password}}</p> </mat-cell>
     </ng-container>
 
     <!-- Role Column -->
@@ -28,7 +50,47 @@
       <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
     </ng-container>
 
+    <!-- Company Column -->
+    <ng-container matColumnDef="company">
+      <mat-header-cell *matHeaderCellDef> Company </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <p *ngIf="!(element.company_name === undefined); else pending_company">
+          {{element.company_name}}
+        </p>
+        <ng-template #pending_company>
+          <p class="pending">
+            Pending
+          </p>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-raised-button (click)="redirect($event,element)">
+          See status
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Update Column -->
+    <ng-container matColumnDef="update">
+      <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-raised-button (click)="redirect2($event,element)">
+          Update
+        </button>
+      </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
     <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
   </mat-table>
+  <!------<mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>------->
 </div>

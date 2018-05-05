@@ -51,6 +51,7 @@ export class CreateUserComponent implements OnInit {
 
   formdata;
   invalid = false;
+  invalid_name = false;
   success = false;
   flawed_username = false;
   hide = true;
@@ -74,21 +75,30 @@ export class CreateUserComponent implements OnInit {
 
   onClickSubmit(data) {
     this.auxiliar = this.new_username(data.username);
-    if(data.password === data.confirmation && this.auxiliar) {
+    if (!(/^[a-zA-Z ]+$/.test(data.name))) {
+      this.invalid_name = true;
+      this.invalid = false;
+      this.success = false;
+      this.flawed_username = false;
+    }
+    else if (data.password === data.confirmation && this.auxiliar) {
       this.user = new User(data.name, data.username, data.password, data.role);
       this.service.users.push(this.user);
       console.log(this.service.users);
       this.form();
+      this.invalid_name = false;
       this.invalid = false;
       this.success = true;
       this.flawed_username = false;
     }
     else if(!(this.auxiliar)){
+      this.invalid_name = false;
       this.invalid = false;
       this.success = false;
       this.flawed_username = true;
     }
     else{
+      this.invalid_name = false;
       this.invalid = true;
       this.success = false;
       this.flawed_username = false;

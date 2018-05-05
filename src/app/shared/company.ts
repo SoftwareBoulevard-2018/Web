@@ -1,7 +1,6 @@
 import {User} from "./user";
 
 export class Company {
-
   name: string;
   creation_date: Date;
   project_manager: User;

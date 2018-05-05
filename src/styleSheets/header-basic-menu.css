@@ -1,26 +1,33 @@
-.title{
+/*.title{
   width: 100%;
   padding: 30px;
-  background: #009494;
   border-bottom: 1px solid #F5F2DC;
-  text-align: center;
-}
-.title a{
-  color: #F5F2DC;
-  text-decoration: none;
-  font-family: sans-serif;
-  font-size: 30px;
-  font-weight: bold;
-  border-radius: 4px;
-  cursor: pointer;
-}
+
+}*/
+
 
 header{
   margin: 0;
   font-family: sans-serif;
   width: 100%;
-  height: 35px;
-  background: #00585E;
+  height: 100px;
+  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFqa5PpCULjxAGK1VOD451mlIVKpizKIsSQjVkSJ-BojBGUELA0Q');/*#00585E;*/
+}
+
+header a{
+  float: left;
+  color: #F5F2DC;
+  margin-left: 10px;
+  padding-top: 25px;
+  text-decoration: none;
+  font-family: sans-serif;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+header a.logo {
+  font-size: 25px;
+  font-weight: bold;
 }
 
 #btn-menu{
@@ -28,16 +35,20 @@ header{
 }
 
 #btn-menu:checked ~ .menu{
-  margin: 0;
+  margin-left: 70%;
 }
 
 
 header label{
+  float: right;
   display: block;
-  width: 35px;
-  height: 35px;
-  padding: 5px;
+  background: #00585E;
+  width: 45px;
+  height: 45px;
   border-radius: 4px;
+  margin: 25px;
+  padding: 9px 3px;
+
 }
 
 header label:hover{
@@ -49,12 +60,12 @@ header label:hover{
   position: absolute;
   background: #00585E;
   width: 30%;
-  margin-left: -30%;
+  margin-left: 100%;
+  margin-top: 100px;
   transition: all 0.5s;
 }
 
 .menu ul{
-  margin: 0;
   list-style: none;
   padding: 0;
   display: flex;
@@ -62,7 +73,7 @@ header label:hover{
 }
 
 .menu li{
-  border-radius: 4px;
+  border-radius: 4px 0px 0px 4px;
   border-bottom: 1px inset #F5F2DC;
 }
 
@@ -79,10 +90,10 @@ header label:hover{
 }
 
 .bar{
-  width: 20px;
-  height: 2px;
+  width: 30px;
+  height: 4px;
   background-color: #F5F2DC;
-  margin: 5px 2px;
+  margin: 4px;
 }
 
 /*@media (max-width: 500px){

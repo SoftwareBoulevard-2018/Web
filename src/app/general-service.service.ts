@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { User } from './shared/user';
 import { Company } from './shared/company';
+
 import {BiddingProject} from './shared/biddingProject';
 import { InstantProject } from './shared/project';
+// import { BiddingProject } from './shared/project';
+// import { InstantProject } from './shared/project';
 // import { BiddingProject } from './shared/project';
 import { Project } from './shared/project';
 
@@ -37,6 +40,7 @@ export class GeneralServiceService {
     12, [this.users[0], this.users[4]]),
 
     new Company("Google",undefined,"http://educainternet.es/pictures/4074.png")];
+
 
   company_to_be_updated = this.companies[1];
 
