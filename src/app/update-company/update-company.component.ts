@@ -11,6 +11,17 @@ import {Company} from "../shared/company";
 })
 export class UpdateCompanyComponent implements OnInit {
 
+  formdata;
+  project_managers;
+  lacking_project_manager = false;
+  totally_empty = false;
+  invalid = false;
+  invalid_name = false;
+  success = false;
+  repeated_field = false;
+  hide = true;
+  user;
+
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   form(){
@@ -46,23 +57,13 @@ export class UpdateCompanyComponent implements OnInit {
   }
 
   current_project_manager(){
-    if(this.service.company_to_be_updated.project_manager === undefined){
+    if (this.service.company_to_be_updated.project_manager === undefined){
       this.lacking_project_manager = true;
     }
     else{
       this.lacking_project_manager = false;
     }
   }
-
-  formdata;
-  project_managers;
-  lacking_project_manager = false;
-  totally_empty = false;
-  invalid = false;
-  success = false;
-  repeated_field = false;
-  hide = true;
-  user;
 
   ngOnInit() {
     if (this.service.user_type === undefined) {
@@ -83,33 +84,45 @@ export class UpdateCompanyComponent implements OnInit {
   onClickSubmit(data) {
     if(data.name === '' && data.img === '' &&
       (!(this.lacking_project_manager) || data.project_manager === '' || data.project_manager === undefined)){
+      this.invalid_name = false;
       this.totally_empty = true;
       this.invalid = false;
       this.success = false;
       this.repeated_field = false;
     }
+    else if (!(/^[a-zA-Z ]+$/.test(data.name)) && !(data.name === '')) {
+      this.invalid_name = true;
+      this.totally_empty = false;
+      this.invalid = false;
+      this.success = false;
+      this.repeated_field = false;
+    }
     else if(!(this.new_name(data.name))){
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = true;
       this.success = false;
       this.repeated_field = false;
     }
     else if(data.name === this.service.company_to_be_updated.name || data.img === this.service.company_to_be_updated.image){
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = false;
       this.success = false;
       this.repeated_field = true;
-    }
-    else if(this.new_name(data.name)){
-      if(!(data.name === '')){
-        this.service.company_to_be_updated.name = data.name;
-      }
-      if(!(data.img === '')){
-        this.service.company_to_be_updated.image = data.img;
-      }
-      if(!(data.project_manager === '' || data.project_manager === undefined || !(this.lacking_project_manager))){
-        this.service.company_to_be_updated.project_manager = this.search_modify_user(data.project_manager,this.service.company_to_be_updated.name);
-      }
+    } else if (this.new_name(data.name)){
+        if (!(data.name === '')){
+          this.service.company_to_be_updated.name = data.name;
+          this.update_members(data.name, this.service.company_to_be_updated);
+        }
+        if (!(data.img === '')){
+          this.service.company_to_be_updated.image = data.img;
+        }
+        if(!(data.project_manager === '' || data.project_manager === undefined || !(this.lacking_project_manager))){
+          this.service.company_to_be_updated.project_manager = this.search_modify_user(data.project_manager,
+            this.service.company_to_be_updated.name);
+        }
+      this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = false;
       this.success = true;
@@ -122,12 +135,23 @@ export class UpdateCompanyComponent implements OnInit {
     console.log(this.service.companies);
   }
 
-  search_modify_user(username,company_name){
-    for(let user of this.service.users){
-      if(user.username === username){
+  search_modify_user(username, company_name) {
+    for (let user of this.service.users){
+      if (user.username === username){
         user.company_name = company_name;
         console.log(user);
         return user;
+      }
+    }
+  }
+
+  update_members(company_name, company) {
+    if (!(company.project_manager === undefined)) {
+      company.project_manager.company_name = company_name;
+    }
+    if (!(company.team_members === [])) {
+      for (let team_member of company.team_members) {
+        team_member.company_name = company_name;
       }
     }
   }
