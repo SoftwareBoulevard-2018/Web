@@ -1,5 +1,5 @@
 export class User {
-    name:string;
+    name: string;
     username: string;
     password: string;
     creation_date: Date;

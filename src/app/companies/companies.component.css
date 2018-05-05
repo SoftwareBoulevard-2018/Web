@@ -7,6 +7,14 @@
   margin: auto;
 }
 
+.w3-container {
+  text-align: center;
+}
+.create{
+  width: 30%;
+  margin: 0 auto 2% auto;
+}
+
 .mat-table {
   overflow: auto;
   max-height: 500px;

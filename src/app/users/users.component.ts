@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
   users = [];
   users2;
 
-  table_titles = ["name","username", "password", "role","status","update"];
+  table_titles = ["name","username", "password", "role", "company", "status", "update"];
 
   ngOnInit() {
     console.log(this.service.user_type);
@@ -63,5 +63,8 @@ export class UsersComponent implements OnInit {
   redirect2(event,element){
     this.service.user_to_be_updated = this.search_user(element.username);
     this.router.navigate(['home/users/user-status/update']);
+  }
+  redirect3(event){
+    this.router.navigate(['home/users/create']);
   }
 }

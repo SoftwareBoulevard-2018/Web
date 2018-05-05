@@ -35,6 +35,7 @@ import { UpdateQuestionComponent} from './update-question/update-question.compon
 import { CreatePuzzleComponent} from './create-puzzle/create-puzzle.component';
 import { UpdatePuzzleComponent} from './update-puzzle/update-puzzle.component';
 import { UpdateParametersComponent} from './update-parameters/update-parameters.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   {'path':'', 'component':LoginComponent},
@@ -85,6 +86,7 @@ const routes: Routes = [
     CreatePuzzleComponent,
     UpdatePuzzleComponent,
     UpdateParametersComponent
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
