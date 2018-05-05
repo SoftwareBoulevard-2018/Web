@@ -38,27 +38,27 @@ import { UpdateParametersComponent} from './update-parameters/update-parameters.
 import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
-  {'path':'', 'component':LoginComponent},
-  {'path':'home', 'component':HomeComponent},
-  {'path':'home/users', 'component':UsersComponent},
-  {'path':'home/users/create', 'component':CreateUserComponent},
-  {'path':'home/users/user-status', 'component':UserStatusComponent},
-  {'path':'home/users/user-status/update', 'component':UpdateUserComponent},
-  {'path':'home/companies', 'component':CompaniesComponent},
-  {'path':'home/companies/create', 'component':CreateCompanyComponent},
-  {'path':'home/companies/company-status', 'component':CompanyStatusComponent},
-  {'path':'home/companies/company-status/update', 'component':UpdateCompanyComponent},
-  {'path':'home/set-up', 'component':SetUpComponent},
-  {'path':'home/set-up/create-project', 'component':CreateProjectComponent},
-  {'path':'home/set-up/update-project', 'component':UpdateProjectComponent},
-  {'path':'home/set-up/create-question', 'component':CreateQuestionComponent},
-  {'path':'home/set-up/update-question', 'component':UpdateQuestionComponent},
-  {'path':'home/set-up/create-puzzle', 'component':CreatePuzzleComponent},
-  {'path':'home/set-up/update-puzzle', 'component':UpdatePuzzleComponent},
-  {'path':'home/set-up/update-parameters', 'component':UpdateParametersComponent},
-  {'path':'restricted', 'component':RestrictedComponent},
-  {'path':'**', 'component':NotFoundComponent}
-]
+  {'path': '', 'component': LoginComponent},
+  {'path': 'home', 'component': HomeComponent},
+  {'path': 'home/users', 'component': UsersComponent},
+  {'path': 'home/users/create', 'component': CreateUserComponent},
+  {'path': 'home/users/user-status', 'component': UserStatusComponent},
+  {'path': 'home/users/user-status/update', 'component': UpdateUserComponent},
+  {'path': 'home/companies', 'component': CompaniesComponent},
+  {'path': 'home/companies/create', 'component': CreateCompanyComponent},
+  {'path': 'home/companies/company-status', 'component': CompanyStatusComponent},
+  {'path': 'home/companies/company-status/update', 'component': UpdateCompanyComponent},
+  {'path': 'home/set-up', 'component': SetUpComponent},
+  {'path': 'home/set-up/create-project', 'component': CreateProjectComponent},
+  {'path': 'home/set-up/update-project', 'component': UpdateProjectComponent},
+  {'path': 'home/set-up/create-question', 'component': CreateQuestionComponent},
+  {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
+  {'path': 'home/set-up/create-puzzle', 'component': CreatePuzzleComponent},
+  {'path': 'home/set-up/update-puzzle', 'component': UpdatePuzzleComponent},
+  {'path': 'home/set-up/update-parameters', 'component': UpdateParametersComponent},
+  {'path': 'restricted', 'component': RestrictedComponent},
+  {'path': '**', 'component': NotFoundComponent}
+];
 
 @NgModule({
   declarations: [
@@ -85,7 +85,7 @@ const routes: Routes = [
     UpdateQuestionComponent,
     CreatePuzzleComponent,
     UpdatePuzzleComponent,
-    UpdateParametersComponent
+    UpdateParametersComponent,
     ReportsComponent
   ],
   imports: [
