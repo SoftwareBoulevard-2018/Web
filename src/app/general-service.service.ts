@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { User } from './shared/user';
 import { Company } from './shared/company';
 import {BiddingProject} from './shared/biddingProject';
-import { InstantProject } from './shared/project';
+import { InstantProject } from './shared/instantProject';
 // import { BiddingProject } from './shared/project';
 // import { InstantProject } from './shared/project';
 // import { BiddingProject } from './shared/project';
-import { Project } from './shared/project';
 
 @Injectable()
 export class GeneralServiceService {
