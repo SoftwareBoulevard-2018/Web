@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['home/users/projectmanager/functions']);
     }
     else{
-      this.router.navigate(['home/recruit']);
+      this.router.navigate(['home/play']);
     }
   }
 
