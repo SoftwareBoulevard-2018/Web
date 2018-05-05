@@ -23,7 +23,7 @@ export class GeneralServiceService {
   user_to_be_watched;
 
   companies = [new Company("UNAL",this.users[1],
-    "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png"),
+    "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png",3, 12),
   new Company("Google",undefined,"http://educainternet.es/pictures/4074.png")];
 
   company_to_be_updated = this.companies[1];

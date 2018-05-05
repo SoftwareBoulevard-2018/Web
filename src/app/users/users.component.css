@@ -6,7 +6,17 @@
   width: 80%;
   margin: auto;
 }
-
+.w3-container {
+  text-align: center;
+}
+button{
+  background-color: #009494;
+  color: white;
+}
+.create{
+  width: 30%;
+  margin: 0 auto 2% auto;
+}
 .mat-table {
   overflow: auto;
   max-height: 500px;
@@ -41,11 +51,11 @@ h1{
   font-weight: bold;
   text-align: center;
 }
-button{
-  background-color: #009494;
-  color: white;
-}
 .mat-form-field {
   font-size: 14px;
   width: 100%;
+}
+.pending{
+  color: red!important;
+  font-weight: bold;
 }
