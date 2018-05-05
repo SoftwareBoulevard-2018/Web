@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from './shared/user';
 import { Company } from './shared/company';
+import { InstantProject } from './shared/project';
+import { BiddingProject } from './shared/project';
+import { Project } from './shared/project';
 
 @Injectable()
 export class GeneralServiceService {
@@ -18,6 +21,9 @@ export class GeneralServiceService {
     new User("Victor Daniel JAramillo Gomez", "vdjaramillog","0000","Developer","UNAL"),
     new User("1", "1","1","Game Administrator")];
 
+
+
+
   user_to_be_updated;
 
   user_to_be_watched;
@@ -25,6 +31,7 @@ export class GeneralServiceService {
   companies = [new Company("UNAL",this.users[1],
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png",3,
     12, [this.users[0], this.users[4]]),
+
   new Company("Google",undefined,"http://educainternet.es/pictures/4074.png")];
 
   company_to_be_updated = this.companies[1];
