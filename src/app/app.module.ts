@@ -45,7 +45,8 @@ const routes: Routes = [
   {'path':'home/companies/company-status/update', 'component':UpdateCompanyComponent},
   {'path':'restricted', 'component':RestrictedComponent},
   {'path':'home/users/projectmanager', 'component':PmanagerComponent},
-  {'path':'home/estimation', 'component':EstimationComponent},
+  {'path':'home/users/projectmanager/functions/chooseproject', 'component':ChooseprojectComponent},
+  {'path':'home/users/projectmanager/functions/estimation', 'component':EstimationComponent},
   {'path':'home/recruit', 'component':RecruitMemberComponent},
   {'path':'**', 'component':NotFoundComponent}
 ]
