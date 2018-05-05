@@ -13,31 +13,46 @@ export class SetUpComponent implements OnInit {
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   redirect1(event) {
-    this.router.navigate(['home/set-up/create-project']);
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/create-project']);
+    }
   }
 
   redirect2(event) {
-    this.router.navigate(['home/set-up/update-question']);
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/create-project']);
+    }
   }
 
   redirect3(event) {
-    this.router.navigate(['home/set-up/create-question']);
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/create-question']);
+    }
   }
 
   redirect4(event) {
-    this.router.navigate(['home/set-up/update-question']);
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/update-question']);
+    }
   }
 
   redirect5(event) {
-    this.router.navigate(['home/set-up/create-puzzle']);
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/create-puzzle']);
+    }
+
   }
 
   redirect6(event) {
-    this.router.navigate(['home/set-up/update-puzzle']);
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/update-puzzle']);
+    }
   }
 
   redirect7(event) {
-    this.router.navigate(['home/set-up/update-parameters']);
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/update-parameters']);
+    }
   }
 
   ngOnInit() {

@@ -22,6 +22,8 @@ export class CompaniesComponent implements OnInit {
 
   table_titles = ["creation_date", "image", "name", "project manager", "capacity_k", "status", "update"];
 
+
+
   ngOnInit() {
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {

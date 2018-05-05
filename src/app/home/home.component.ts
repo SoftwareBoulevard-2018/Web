@@ -36,6 +36,9 @@ export class HomeComponent implements OnInit {
     if(this.service.user_type === "Game Administrator"){
       this.router.navigate(['home/reports']);
     }
+    else if(this.service.user_type === "Project Manager"){
+      this.router.navigate(['home/users/projectmanager/functions']);
+    }
     else{
       this.router.navigate(['home/play']);
     }

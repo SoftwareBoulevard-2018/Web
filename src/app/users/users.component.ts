@@ -19,7 +19,9 @@ export class UsersComponent implements OnInit {
   users = [];
   users2;
 
+
   table_titles = ["creation_date", "name","username", "password", "role", "company", "status", "update"];
+
 
   ngOnInit() {
     console.log(this.service.user_type);
