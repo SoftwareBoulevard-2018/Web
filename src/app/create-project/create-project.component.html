@@ -15,33 +15,6 @@
 
     <div class="element">
       <mat-form-field class="big-input">
-        <input matInput placeholder="Username" name="username" formControlName="username">
-        <mat-hint>Required Field</mat-hint>
-      </mat-form-field>
-    </div>
-
-    <br/>
-
-    <div class="element">
-      <mat-form-field class="big-input">
-        <input matInput placeholder="Password" name="password" [type] = "hide ? 'password' : 'text'" formControlName="password">
-        <mat-hint>Required Field</mat-hint>
-      </mat-form-field>
-    </div>
-
-    <br/>
-
-    <div class="element ">
-      <mat-form-field class="big-input">
-        <input matInput placeholder="Confirm password" name="confirmation" [type] = "hide ? 'password' : 'text'" formControlName="confirmation">
-        <mat-hint>Required Field</mat-hint>
-      </mat-form-field>
-    </div>
-
-    <br/>
-
-    <div class="element">
-      <mat-form-field class="big-input">
         <mat-select placeholder="User's role" name="role" formControlName="role">
           <mat-option *ngFor="let role of roles" [value]="role">
             {{ role }}
@@ -49,13 +22,6 @@
         </mat-select>
         <mat-hint>Required Field</mat-hint>
       </mat-form-field>
-    </div>
-
-    <div class="element" *ngIf="invalid">
-      <br/>
-      <span class="error">
-        The password and its confirmation doesn't match.
-      </span>
     </div>
 
     <div class="element" *ngIf="success">
