@@ -28,6 +28,7 @@ import { RestrictedComponent } from './restricted/restricted.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EmailComponent } from './email/email.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
+import { SetUpComponent } from './set-up/set-up.component';
 
 const routes: Routes = [
   {'path':'', 'component':LoginComponent},
@@ -62,7 +63,8 @@ const routes: Routes = [
     RestrictedComponent,
     NotFoundComponent,
     EmailComponent,
-    CreateProjectComponent
+    CreateProjectComponent,
+    SetUpComponent
   ],
   imports: [
     BrowserModule,
