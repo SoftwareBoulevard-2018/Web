@@ -29,4 +29,5 @@ button{
   border-style: solid;
   border-color: black;
   border-width: thin;
+  font-weight: bold;
 }
