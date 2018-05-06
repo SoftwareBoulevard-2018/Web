@@ -31,7 +31,7 @@ export class EstimationComponent implements OnInit {
 
   estimation_validation(guess) {
     for (let company of this.service.companies) {
-      if (this.service.username === company.project_manager_username) {
+      if (this.service.username === company.project_manager.username) {
         for (let project of this.service.projects) {
           if (company.active_project === project.project_id) {
             var current_project = project;

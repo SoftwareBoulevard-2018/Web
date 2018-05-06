@@ -41,10 +41,13 @@ import { CreatePuzzleComponent} from './create-puzzle/create-puzzle.component';
 import { UpdatePuzzleComponent} from './update-puzzle/update-puzzle.component';
 import { UpdateParametersComponent} from './update-parameters/update-parameters.component';
 import { ReportsComponent } from './reports/reports.component';
+import { NewInstantProjectComponent } from './new-instant-project/new-instant-project.component';
+import { NewBiddingProjectComponent } from './new-bidding-project/new-bidding-project.component';
 
 const routes: Routes = [
   {'path': '', 'component': LoginComponent},
   {'path': 'home', 'component': HomeComponent},
+  {'path': 'home/reports', 'component': ReportsComponent},
   {'path': 'home/users', 'component': UsersComponent},
   {'path': 'home/users/create', 'component': CreateUserComponent},
   {'path': 'home/users/user-status', 'component': UserStatusComponent},
@@ -61,6 +64,8 @@ const routes: Routes = [
   {'path': 'home/set-up/create-puzzle', 'component': CreatePuzzleComponent},
   {'path': 'home/set-up/update-puzzle', 'component': UpdatePuzzleComponent},
   {'path': 'home/set-up/update-parameters', 'component': UpdateParametersComponent},
+  {'path': 'home/set-up/create-project/new-bidding-project', 'component': NewBiddingProjectComponent},
+  {'path': 'home/set-up/create-project/new-instant-project', 'component': NewInstantProjectComponent},
   {'path': 'restricted', 'component': RestrictedComponent},
   {'path': 'home/users/projectmanager', 'component': PmanagerComponent},
   {'path': 'home/users/projectmanager/functions', 'component': PmfunctionsComponent},
@@ -101,8 +106,9 @@ const routes: Routes = [
     CreatePuzzleComponent,
     UpdatePuzzleComponent,
     UpdateParametersComponent,
+    NewInstantProjectComponent,
+    NewBiddingProjectComponent,
     ReportsComponent
-
   ],
   imports: [
     BrowserModule,
