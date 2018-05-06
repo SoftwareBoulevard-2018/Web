@@ -38,5 +38,9 @@ export class CompanyStatusComponent implements OnInit {
       }
     }
   }
+  redirect(event) {
+    this.service.company_to_be_updated = this.current_company;
+    this.router.navigate(['home/companies/company-status/update']);
+  }
 
 }

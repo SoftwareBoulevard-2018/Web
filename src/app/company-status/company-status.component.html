@@ -9,7 +9,14 @@
 </div>
 
 <ng-template #show_company>
+
   <h1>
     {{current_company.name}}
   </h1>
+
+  <button mat-raised-button (click)="redirect($event)" *ngIf="this.service.user_type === 'Game Administrator'
+  || this.service.user_type === 'Project Manager'">
+    Update this company.
+  </button>
+
 </ng-template>

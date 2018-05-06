@@ -28,8 +28,6 @@ export class GeneralServiceService {
 
   user_to_be_updated;
 
-  user_to_be_watched;
-
   companies = [new Company("UNAL",this.users[1],
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png",1,
     12, [this.users[0], this.users[7]],"FIFA"),
@@ -37,8 +35,7 @@ export class GeneralServiceService {
     new Company("Amazon",this.users[3],"https://png.icons8.com/windows/1600/amazon.png",
     undefined, 6, [this.users[4], this.users[6]])];
 
-
-  company_to_be_updated = this.companies[1];
+  company_to_be_updated;
 
   constructor() { }
 }

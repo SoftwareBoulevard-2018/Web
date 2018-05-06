@@ -1,3 +1,71 @@
-<p>
-  user-status works!
-</p>
+<div class="w3-row">
+  <div class="w3-third">
+    <p>
+      Company logo:
+    </p>
+    <img src="{{this.current_company.image}}">
+    <p>
+      Company: {{this.service.user_to_be_updated.company_name}}
+    </p>
+  </div>
+  <div *ngIf="!(this.service.user_to_be_updated.role === 'Project Manager'); else project_manager_view">
+    <div class="w3-third">
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>date_range</mat-icon>
+          <h4 mat-line>Started playing on:</h4>
+          <p mat-line>{{date_formatter(this.service.user_to_be_updated.creation_date)}}</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Name:</h4>
+          <p mat-line>{{this.service.user_to_be_updated.name}}</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>perm_identity</mat-icon>
+          <h4 mat-line>Username:</h4>
+          <p mat-line>{{this.service.user_to_be_updated.username}}</p>
+          </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>work</mat-icon>
+          <h4 mat-line>Role:</h4>
+          <p mat-line>{{this.service.user_to_be_updated.role}}</p>
+          </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="w3-third">
+      <p>
+        User performance:
+      </p>
+    </div>
+  </div>
+  <ng-template #project_manager_view>
+    <div class="w3-twothird">
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>date_range</mat-icon>
+          <h4 mat-line>Started playing on:</h4>
+          <p mat-line>{{date_formatter(this.service.user_to_be_updated.creation_date)}}</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Name:</h4>
+          <p mat-line>{{this.service.user_to_be_updated.name}}</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>perm_identity</mat-icon>
+          <h4 mat-line>Username:</h4>
+          <p mat-line>{{this.service.user_to_be_updated.username}}</p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>work</mat-icon>
+          <h4 mat-line>Role:</h4>
+          <p mat-line>{{this.service.user_to_be_updated.role}}</p>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </ng-template>
+</div>
+<button mat-raised-button (click)="redirect($event)" *ngIf="this.service.user_type === 'Game Administrator'">
+  Update this user.
+</button>
