@@ -20,11 +20,13 @@ export class GeneralServiceService {
 
   threshold;
 
-  users = [new User("Andres Felipe Aguilar","afaguilarr","ElMejor123","Developer","UNAL"),
+  users = [new User("Andres Felipe Aguilar","afaguilarr",
+    "ElMejor123","Developer","UNAL",3,12,5),
     new User("John Jairo Serna","jjsernaco","holaMUNDO456","Project Manager","UNAL"),
     new User("Carlos Mario Zapata","cmzapata","EnserioEsaEsTuPregunta?","Game Administrator"),
     new User("David","dddavid","david","Project Manager","Amazon"),
-    new User("David Andres Calle","dacalles","gogo123","Tester","Amazon"),
+    new User("David Andres Calle","dacalles","gogo123",
+      "Tester","Amazon", 3,13,14),
     new User("Juan David Fernandez Moreno","judfernandez","fatbastard","Project Manager"),
     new User("Juan Pablo Chaves Morales","jpchavesm","ouiaboo","Developer", "Amazon"),
     new User("Victor Daniel JAramillo Gomez", "vdjaramillog","0000","Developer","UNAL"),
@@ -44,10 +46,10 @@ export class GeneralServiceService {
 
   companies = [new Company("UNAL",this.users[1],
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png",1,
-    12, [this.users[0], this.users[7]],"FIFA"),
+    12, 5000, [this.users[0], this.users[7]],"FIFA"),
     new Company("Google",undefined,"http://educainternet.es/pictures/4074.png"),
     new Company("Amazon",this.users[3],"https://png.icons8.com/windows/1600/amazon.png",
-    undefined, 6, [this.users[4], this.users[6]])];
+    undefined, 6, 200,[this.users[4], this.users[6]])];
 
   company_to_be_updated;
 
