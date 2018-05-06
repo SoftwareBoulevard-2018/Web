@@ -9,6 +9,7 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatIconModule, MatButtonModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -121,6 +122,7 @@ const routes: Routes = [
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -131,6 +133,7 @@ const routes: Routes = [
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],
