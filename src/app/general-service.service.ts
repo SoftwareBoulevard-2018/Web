@@ -3,6 +3,11 @@ import { User } from './shared/user';
 import { Company } from './shared/company';
 import {BiddingProject} from './shared/biddingProject';
 import { InstantProject } from './shared/instantProject';
+import {Question} from './shared/question';
+import { Parameter } from './shared/parameter'
+// import { BiddingProject } from './shared/project';
+// import { InstantProject } from './shared/project';
+// import { BiddingProject } from './shared/project';
 
 @Injectable()
 export class GeneralServiceService {
@@ -12,6 +17,8 @@ export class GeneralServiceService {
   username;
 
   loggedusr;
+
+  threshold;
 
   users = [new User("Andres Felipe Aguilar","afaguilarr",
     "ElMejor123","Developer","UNAL",3,12,5),
@@ -28,7 +35,14 @@ export class GeneralServiceService {
   projects = [new BiddingProject(1,"FIFA",10,3, 10, 10, 10, 5000,0, 0, 0 ,0),
     new BiddingProject(2,"Bancolombia System",10,3, 10, 10, 10, 5000,0, 0, 0 ,0)];
 
+  questions = [new Question(1,"loca","Analista",5),new Question(1,"locota","Developer",3)];
+
+  parameter = [new Parameter(10)];
   user_to_be_updated;
+
+  user_to_be_watched;
+
+  parameter_to_be_updated = this.parameter[0];
 
   companies = [new Company("UNAL",this.users[1],
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png",1,
