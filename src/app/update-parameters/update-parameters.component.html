@@ -1,3 +1,37 @@
-<p>
-  update-parameters works!
-</p>
+<div class="wrap-login100 big-wrap">
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+    <span class="login100-form-title p-b-34 p-t-27 non_mayus">
+      UPDATE PARAMETERS
+    </span>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="Threshold - {{ this.service.parameter_to_be_updated.threshold }}" name="threshold" formControlName="threshold">
+      </mat-form-field>
+    </div>
+
+    <div class="element" *ngIf="repeated_field">
+      <br/>
+      <span class="error">
+        You are trying to update something with its same current value.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="success">
+      <br/>
+      <span class="success">
+        Parameters successfully updated.
+      </span>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="element element2">
+      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+        Update
+      </button>
+    </div>
+
+  </form>
+</div>
