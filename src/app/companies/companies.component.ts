@@ -20,7 +20,9 @@ export class CompaniesComponent implements OnInit {
   companies = [];
   companies2;
 
-  table_titles = ["image", "name", "project manager", "status", "update"];
+  table_titles = ["creation_date", "image", "name", "project manager", "capacity_k", "status", "update"];
+
+
 
   ngOnInit() {
     console.log(this.service.user_type);
@@ -55,12 +57,15 @@ export class CompaniesComponent implements OnInit {
   }
 
   redirect(event, element) {
-    this.service.user_to_be_watched = this.search_company(element.username);
+    this.service.company_to_be_updated = this.search_company(element.name);
     this.router.navigate(['home/companies/company-status']);
   }
 
   redirect2(event, element) {
     this.service.company_to_be_updated = this.search_company(element.name);
     this.router.navigate(['home/companies/company-status/update']);
+  }
+  redirect3(event){
+    this.router.navigate(['home/companies/create']);
   }
 }

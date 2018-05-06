@@ -1,9 +1,5 @@
- <div class="title">
-   <a (click)="redirectHome($event)">SOFTWARE BOULEVARD</a>
- </div>
-
-
  <header>
+   <a class="logo" (click)="redirectHome($event)">SOFTWARE BOULEVARD</a>
    <div *ngIf="this.service.user_type === 'Project Manager'">
      <input type="checkbox" id="btn-menu">
      <label for="btn-menu">

@@ -1,5 +1,8 @@
 <div class="w3-container">
   <h1>Companies</h1>
+  <button mat-raised-button class="create" (click)="redirect3($event)">
+    Click here to create a new company
+  </button>
 </div>
 
 <div class="container mat-elevation-z8">
@@ -12,11 +15,17 @@
 
   <mat-table #table [dataSource]="companies2">
 
+    <!-- Creation Date Column -->
+    <ng-container matColumnDef="creation_date">
+      <mat-header-cell *matHeaderCellDef> Creation Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.creation_date.substring(0,10)}} </mat-cell>
+    </ng-container>
+
     <!-- Logo Column -->
     <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef> Logo </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <div class="company_img" *ngIf="!(element.image === undefined); else pending_image">
+        <div class="company_img" *ngIf="!(element.image === undefined || element.image === ''); else pending_image">
           <img src="{{element.image}}">
         </div>
         <ng-template #pending_image>
@@ -46,6 +55,12 @@
           </p>
         </ng-template>
       </mat-cell>
+    </ng-container>
+
+    <!-- Capacity K Column -->
+    <ng-container matColumnDef="capacity_k">
+      <mat-header-cell *matHeaderCellDef> Capacity K </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.capacity_k}} </mat-cell>
     </ng-container>
 
     <!-- Status Column -->

@@ -8,6 +8,7 @@ import {EmailComponent} from "../email/email.component";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
 
   constructor(public service: GeneralServiceService, public router: Router) {
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['home/users']);
     }
     else{
+      this.service.user_to_be_updated = this.search_user(this.service.username);
       this.router.navigate(['home/users/user-status']);
     }
   }
@@ -35,8 +37,17 @@ export class HomeComponent implements OnInit {
     if(this.service.user_type === "Game Administrator"){
       this.router.navigate(['home/reports']);
     }
+    else if(this.service.user_type === "Project Manager"){
+      this.router.navigate(['home/users/projectmanager/functions']);
+    }
     else{
       this.router.navigate(['home/play']);
+    }
+  }
+
+  redirect4(event) {
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up']);
     }
   }
 
@@ -46,6 +57,13 @@ export class HomeComponent implements OnInit {
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
+    }
+  }
+  search_user(username) {
+    for (const user of this.service.users) {
+      if (user.username === username) {
+        return user;
+      }
     }
   }
 }

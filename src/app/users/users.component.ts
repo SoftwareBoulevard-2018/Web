@@ -19,7 +19,9 @@ export class UsersComponent implements OnInit {
   users = [];
   users2;
 
-  table_titles = ["name","username", "password", "role","status","update"];
+
+  table_titles = ["creation_date", "name","username", "password", "role", "company", "status", "update"];
+
 
   ngOnInit() {
     console.log(this.service.user_type);
@@ -37,6 +39,7 @@ export class UsersComponent implements OnInit {
         user.hide_password = true;
       }
       this.users2 = new MatTableDataSource(this.users);
+      console.log(this.users2);
       //this.users2.paginator = this.paginator;
       //this.users2.sort = this.sort;
     }
@@ -57,11 +60,14 @@ export class UsersComponent implements OnInit {
   }
 
   redirect(event,element){
-    this.service.user_to_be_watched = this.search_user(element.username);
+    this.service.user_to_be_updated = this.search_user(element.username);
     this.router.navigate(['home/users/user-status']);
   }
   redirect2(event,element){
     this.service.user_to_be_updated = this.search_user(element.username);
     this.router.navigate(['home/users/user-status/update']);
+  }
+  redirect3(event){
+    this.router.navigate(['home/users/create']);
   }
 }
