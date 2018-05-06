@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit {
   }
 
   redirect(event,element){
-    this.service.user_to_be_watched = this.search_user(element.username);
+    this.service.user_to_be_updated = this.search_user(element.username);
     this.router.navigate(['home/users/user-status']);
   }
   redirect2(event,element){
