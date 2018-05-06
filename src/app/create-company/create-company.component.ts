@@ -11,6 +11,14 @@ import {Company} from "../shared/company";
 })
 export class CreateCompanyComponent implements OnInit {
 
+  formdata;
+  project_managers;
+  invalid = false;
+  invalid_url = false;
+  success = false;
+  hide = true;
+  user;
+
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   form(){
@@ -48,12 +56,6 @@ export class CreateCompanyComponent implements OnInit {
     return true;
   }
 
-  formdata;
-  project_managers;
-  invalid = false;
-  success = false;
-  hide = true;
-  user;
 
   ngOnInit() {
     if (this.service.user_type === undefined) {
@@ -71,23 +73,29 @@ export class CreateCompanyComponent implements OnInit {
   }
 
   onClickSubmit(data) {
-    if(this.new_name(data.name)){
-      this.service.companies.push(new Company(data.name,this.search_modify_user(data.project_manager,data.name),data.img))
+    if ((!(data.img.substring(0, 4) === 'http') || (!(data.img.substring(data.img.length - 3) === 'jpg')
+      && !(data.img.substring(data.img.length - 3) === 'png'))) && !(data.img === '')) {
+      this.invalid_url = true;
+      this.invalid = false;
+      this.success = false;
+    } else if (this.new_name(data.name)){
+      this.service.companies.push(new Company(data.name, this.search_modify_user(data.project_manager,data.name),data.img));
+      this.invalid_url = false;
       this.invalid = false;
       this.success = true;
       this.possible_project_managers();
       this.form();
-    }
-    else{
+    } else {
+      this.invalid_url = false;
       this.invalid = true;
       this.success = false;
     }
     console.log(this.service.companies);
   }
 
-  search_modify_user(username,company_name){
-    for(let user of this.service.users){
-      if(user.username === username){
+  search_modify_user(username, company_name) {
+    for(let user of this.service.users) {
+      if (user.username === username) {
         user.company_name = company_name;
         console.log(user);
         return user;
