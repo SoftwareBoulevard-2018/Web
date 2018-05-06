@@ -1,3 +1,19 @@
-<p>
-  create-puzzle works!
-</p>
+<div class="wrap-login100 big-wrap">
+<h1>
+  Load Diagram
+</h1>
+<form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+<input id="puzzle" type="file" accept="image/*" />
+<button id="submit" mat-raised-button class="submit">Submit</button>
+</form>
+</div>
+<h1></h1>
+
+<div class="wrap-login100 big-wrap">
+<h1> Define Puzzle </h1>
+<div class="show_puzzle">
+
+   <img id="puzzle_upload" src="http://placehold.it/100x100" alt="your image"></img>
+
+</div>
+
