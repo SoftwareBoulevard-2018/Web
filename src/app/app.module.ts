@@ -9,6 +9,7 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatIconModule, MatButtonModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -47,6 +48,7 @@ import { NewBiddingProjectComponent } from './new-bidding-project/new-bidding-pr
 const routes: Routes = [
   {'path': '', 'component': LoginComponent},
   {'path': 'home', 'component': HomeComponent},
+  {'path': 'home/reports', 'component': ReportsComponent},
   {'path': 'home/users', 'component': UsersComponent},
   {'path': 'home/users/create', 'component': CreateUserComponent},
   {'path': 'home/users/user-status', 'component': UserStatusComponent},
@@ -120,6 +122,7 @@ const routes: Routes = [
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -130,6 +133,7 @@ const routes: Routes = [
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],

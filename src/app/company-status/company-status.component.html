@@ -1,3 +1,15 @@
-<p>
-  company-status works!
-</p>
+<div *ngIf="current_company === undefined; else show_company">
+  <div class="padlock">
+    <img src="https://vignette.wikia.nocookie.net/fakemon/images/0/0e/Forever_Alone.png/revision/latest?cb=20130216001235&path-prefix=es">
+  </div>
+
+  <h1>
+    You aren't a member of any company right now.
+  </h1>
+</div>
+
+<ng-template #show_company>
+  <h1>
+    {{current_company.name}}
+  </h1>
+</ng-template>

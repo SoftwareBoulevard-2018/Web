@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
+  //
   invalid = false;
-  hide = true;
   formdata;
 
   ngOnInit() {
@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   onClickSubmit(data) {
+    // This is the function that validates the form data and it's activated when the log in button is clicked
     for (let user of this.service.users){
       if (data.username === user.username && data.password === user.password) {
         if (user.role === "Analyst" || user.role === "Developer" || user.role === "Tester") {
