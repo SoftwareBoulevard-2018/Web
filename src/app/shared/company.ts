@@ -8,9 +8,12 @@ export class Company {
   active_project: number;
   capacity_k: number;
   team_members: User[];
+  // The following are dummy values,
+  // that means they are not going to be in the final models but still they are necessary to show some content
+  current_project_name: string;
 
   constructor(name?: string, project_manager?: User, image?: string,
-              active_project?: number, capacity_k?: number, team_members?: User[]) {
+              active_project?: number, capacity_k?: number, team_members?: User[], current_project_name?: string) {
     this.name = name;
     this.creation_date = new Date();
     this.project_manager = project_manager;
@@ -26,5 +29,6 @@ export class Company {
     } else {
       this.team_members = [];
     }
+    this.current_project_name = current_project_name;
   }
 }
