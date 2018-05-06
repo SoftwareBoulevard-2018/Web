@@ -8,6 +8,7 @@
   border-color: #009494;
 }
 img{
+  margin-bottom: 5%;
   border-radius: 5%;
   width: 100%;
 }
@@ -25,5 +26,7 @@ h4{
   color: white;
 }
 p{
+  margin-top: 5%;
+  margin-bottom: 5%;
   color: white;
 }

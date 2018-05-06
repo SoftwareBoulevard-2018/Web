@@ -57,7 +57,7 @@ export class CompaniesComponent implements OnInit {
   }
 
   redirect(event, element) {
-    this.service.user_to_be_watched = this.search_company(element.username);
+    this.service.company_to_be_updated = this.search_company(element.name);
     this.router.navigate(['home/companies/company-status']);
   }
 
