@@ -3,6 +3,7 @@ import { User } from './shared/user';
 import { Company } from './shared/company';
 import {BiddingProject} from './shared/biddingProject';
 import { InstantProject } from './shared/instantProject';
+import {Question} from './shared/question';
 // import { BiddingProject } from './shared/project';
 // import { InstantProject } from './shared/project';
 // import { BiddingProject } from './shared/project';
@@ -29,6 +30,7 @@ export class GeneralServiceService {
   projects = [new BiddingProject(1,"FIFA",10,3, 10, 10, 10, 5000,0, 0, 0 ,0),
     new BiddingProject(2,"Bancolombia System",10,3, 10, 10, 10, 5000,0, 0, 0 ,0)];
 
+  questions = [new Question(1,"loca","Analista",5),new Question(1,"locota","Developer",3)];
   user_to_be_updated;
 
   user_to_be_watched;

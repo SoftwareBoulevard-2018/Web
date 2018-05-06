@@ -30,9 +30,9 @@ export class CreateQuestionComponent implements OnInit {
     });
   }
 
-  new_projectname(username){
+  new_description(username){
     for(let question of this.service.questions){
-      if(description === question.description){
+      if(name === question.description){
         return false;
       }
     }
@@ -47,7 +47,7 @@ export class CreateQuestionComponent implements OnInit {
   success = false;
   flawed_name = false;
   hide = true;
-  project;
+  question;
   auxiliar;
   categories = [ "Analyst", "Developer", "Tester"];
 
@@ -74,7 +74,7 @@ export class CreateQuestionComponent implements OnInit {
       this.flawed_name = false;
     }
     else if (data.level >= 1 && this.auxiliar) {
-      this.project = new Question(Object.keys(this.service.questions).length ,data.description, data.category, data.level);
+      this.question = new Question(Object.keys(this.service.questions).length ,data.description, data.category, data.level);
       this.service.questions.push(this.question);
       console.log(this.service.questions);
       this.form();
