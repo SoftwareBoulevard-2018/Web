@@ -1,0 +1,21 @@
+/deep/ .mat-input-underline{
+  border-bottom: 1px solid #009494!important;
+}
+.element{
+  text-align: center;
+}
+.element2{
+  margin-bottom: 10px;
+}
+.error{
+  color: red;
+}
+.success{
+  color: #009494;
+}
+mat-hint{
+  color: #009494;
+}
+.big-input{
+  width: 100%;
+}
