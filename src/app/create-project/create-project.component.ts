@@ -31,6 +31,7 @@ export class CreateProjectComponent implements OnInit {
   ngOnInit() {
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
+    }
   }
 
 }
