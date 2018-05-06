@@ -20,7 +20,7 @@ export class SetUpComponent implements OnInit {
 
   redirect2(event) {
     if(this.service.user_type === "Game Administrator"){
-      this.router.navigate(['home/set-up/create-project']);
+      this.router.navigate(['home/set-up/update-project']);
     }
   }
 

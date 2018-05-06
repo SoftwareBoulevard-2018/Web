@@ -1,3 +1,32 @@
-<p>
-  create-puzzle works!
-</p>
+<div class="wrap-login100 big-wrap">
+<h1>
+  Load Diagram
+</h1>
+<form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+<input id="puzzle" type="file" accept="image/*" />
+<button id="submit" mat-raised-button class="submit">Submit</button>
+</form>
+</div>
+<h1></h1>
+
+<div class="wrap-login100 big-wrap">
+<h1> Define Puzzle </h1>
+<table background="https://d2slcw3kip6qmk.cloudfront.net/marketing/pages/chart/class-diagram-for-hotel-management-system-UML/UML_class_diagram_hotel-949x683.PNG">
+  <tr><td></td><td></td><td></td><td></td></tr>
+  <tr><td></td><td></td><td></td><td></td></tr>
+  <tr><td></td><td></td><td></td><td></td></tr>
+  <tr><td style="background-color: grey;"></td><td></td><td></td><td></td></tr>
+</table>
+</div>
+
+<div class="wrap-login100 big-wrap">
+  <h1> Amount of Resources </h1>
+  <div class="center">
+   <input id="resources" type="number" min="0">
+<button id="Ksubmit" mat-raised-button class="submit">Submit</button>
+</div>
+</div>
+
+<!-- table id="puzzle_upload" background="https://d2slcw3kip6qmk.cloudfront.net/marketing/pages/chart/class-diagram-for-hotel-management-system-UML/UML_class_diagram_hotel-949x683.PNG" alt="your image" style="width:100%">-->
+
+
