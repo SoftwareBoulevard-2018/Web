@@ -45,6 +45,12 @@ p{
   font-family: "Arial";
   color: #00585E;
 }
+h1{
+  margin: 2% auto 1% 0 ;
+  color: #00585E;
+  font-weight: bold;
+  text-align: center;
+}
 .mat-form-field {
   font-size: 14px;
   width: 100%;
@@ -52,16 +58,4 @@ p{
 .pending{
   color: red!important;
   font-weight: bold;
-}
-h1{
-  margin: 2% auto 1% 0 ;
-  color: #00585E;
-  font-weight: bold;
-  text-align: center;
-}
-h2{
-  margin: 0 auto 2% 0;
-  color: #00585E;
-  font-weight: bold;
-  text-align: center;
 }

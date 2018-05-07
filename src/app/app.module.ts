@@ -44,6 +44,8 @@ import { UpdateParametersComponent} from './update-parameters/update-parameters.
 import { ReportsComponent } from './reports/reports.component';
 import { NewInstantProjectComponent } from './new-instant-project/new-instant-project.component';
 import { NewBiddingProjectComponent } from './new-bidding-project/new-bidding-project.component';
+import { UpdateBiddingProjectComponent } from './update-bidding-project/update-bidding-project.component';
+import { UpdateInstantProjectComponent } from './update-instant-project/update-instant-project.component';
 
 const routes: Routes = [
   {'path': '', 'component': LoginComponent},
@@ -67,6 +69,8 @@ const routes: Routes = [
   {'path': 'home/set-up/update-parameters', 'component': UpdateParametersComponent},
   {'path': 'home/set-up/create-project/new-bidding-project', 'component': NewBiddingProjectComponent},
   {'path': 'home/set-up/create-project/new-instant-project', 'component': NewInstantProjectComponent},
+  {'path': 'home/set-up/update-project/update-instant-project', 'component': UpdateInstantProjectComponent},
+  {'path': 'home/set-up/update-project/update-bidding-project', 'component': UpdateBiddingProjectComponent},
   {'path': 'restricted', 'component': RestrictedComponent},
   {'path': 'home/users/projectmanager', 'component': PmanagerComponent},
   {'path': 'home/users/projectmanager/functions', 'component': PmfunctionsComponent},
@@ -109,7 +113,9 @@ const routes: Routes = [
     UpdateParametersComponent,
     NewInstantProjectComponent,
     NewBiddingProjectComponent,
-    ReportsComponent
+    ReportsComponent,
+    UpdateBiddingProjectComponent,
+    UpdateInstantProjectComponent
   ],
   imports: [
     BrowserModule,

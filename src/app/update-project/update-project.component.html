@@ -1,96 +1,95 @@
-<h1>Update project</h1>
+<div class="w3-container">
+  <div class="w3-col" >
 
+    <div class="w3-half">
+      <h1>Bidding Projects</h1>
+      <div class="container mat-elevation-z8">
 
-<div class="w3-col">
+        <div class="header">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+        </div>
 
-  <div class="w3-half">
-    <h2>Instant Projects</h2>
-    <div class="container mat-elevation-z8">
+        <mat-table #table [dataSource]="project2">
 
-      <div class="header">
-        <mat-form-field>
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
+          <!-- Id Column -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.project_id}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.project_name}} </mat-cell>
+          </ng-container>
+
+          <!-- Update Column -->
+          <ng-container matColumnDef="update">
+            <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-raised-button (click)="redirect($event,element)">
+                Update
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
+        </mat-table>
+        <!------<mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>------->
       </div>
-
-      <mat-table #table [dataSource]="instant2">
-
-        <!-- Id Column -->
-        <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.project_id}} </mat-cell>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.project_name}} </mat-cell>
-        </ng-container>
-
-        <!-- Update Column -->
-        <ng-container matColumnDef="update">
-          <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <button mat-raised-button (click)="redirect2($event,element)">
-              Update
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
-      </mat-table>
-      <!------<mat-paginator #paginator
-                     [pageSize]="10"
-                     [pageSizeOptions]="[5, 10, 20]"
-                     [showFirstLastButtons]="true">
-      </mat-paginator>------->
     </div>
-  </div>
 
-  <div class="w3-half">
-    <h2>Bidding Projects</h2>
-    <div class="container mat-elevation-z8">
+    <div class="w3-half">
+      <h1>Instant Projects</h1>
+      <div class="container mat-elevation-z8">
 
-      <div class="header">
-        <mat-form-field>
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
+        <div class="header">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+        </div>
+
+        <mat-table #table [dataSource]="project3">
+
+          <!-- Id Column -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.project_id}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.project_name}} </mat-cell>
+          </ng-container>
+
+          <!-- Update Column -->
+          <ng-container matColumnDef="update">
+            <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-raised-button (click)="redirect2($event,element)">
+                Update
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
+        </mat-table>
+        <!------<mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>------->
       </div>
-
-      <mat-table #table [dataSource]="instant2">
-
-        <!-- Id Column -->
-        <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.project_id}} </mat-cell>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.project_name}} </mat-cell>
-        </ng-container>
-
-        <!-- Update Column -->
-        <ng-container matColumnDef="update">
-          <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <button mat-raised-button (click)="redirect2($event,element)">
-              Update
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
-      </mat-table>
-      <!------<mat-paginator #paginator
-                     [pageSize]="10"
-                     [pageSizeOptions]="[5, 10, 20]"
-                     [showFirstLastButtons]="true">
-      </mat-paginator>------->
     </div>
-  </div>
 
+  </div>
 </div>

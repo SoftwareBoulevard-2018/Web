@@ -1,0 +1,119 @@
+<div class="wrap-login100 big-wrap">
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+    <span class="login100-form-title p-b-34 p-t-27 non_mayus">
+      UPDATE BIDDING PROYECT - {{ this.service.project_to_be_updated.project_name }}
+    </span>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="Name - {{ this.service.project_to_be_updated.project_name  }}" name="name" formControlName="name">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Amount of analyst questions - {{ this.service.project_to_be_updated.amount_analyst_question}}" formControlName="analystQ" min="1" max="50">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Amount of developer questions - {{ this.service.project_to_be_updated.amount_developer_question}}" formControlName="developerQ" min="1" max="50">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Amount of tester questions - {{ this.service.project_to_be_updated.amount_tester_question }}" formControlName="testerQ" min="1" max="50">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Required analyst level - {{ this.service.project_to_be_updated.required_analyst_level }}" formControlName="analystL" min="1">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Required developer level - {{ this.service.project_to_be_updated.required_developer_level }}" formControlName="developerL" min="1">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Required tester level - {{ this.service.project_to_be_updated.required_tester_level }}" formControlName="testerL" min="1">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="w3-row">
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="small-input">
+            <input matInput type="number" placeholder="Time - {{ this.service.project_to_be_updated.time }}" formControlName="time" min="1">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="small-input">
+            <input matInput type="number" placeholder="Cost - {{ this.service.project_to_be_updated.cost }}" formControlName="cost" min="1">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="w3-row">
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="small-input">
+            <input matInput type="number" placeholder="Rewarded k unit - {{ this.service.project_to_be_updated.rewarded_k }}" formControlName="kunit" min="1" max="20">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="small-input">
+            <input matInput type="number" placeholder="K required - {{ this.service.project_to_be_updated.required_k }}" formControlName="krequired" min="1" max="50">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <br/>
+
+
+    <div class="element" *ngIf="success">
+      <br/>
+      <span class="success">
+        Proyect successfully updated.
+      </span>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="element element2">
+      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+        Update
+      </button>
+    </div>
+
+  </form>
+</div>

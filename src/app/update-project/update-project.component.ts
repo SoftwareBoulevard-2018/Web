@@ -14,7 +14,9 @@ export class UpdateProjectComponent implements OnInit {
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   projects = [];
+  projects2 = [];
   project2;
+  project3;
 
   table_titles = ["id", "name", "update"];
 
@@ -31,6 +33,8 @@ export class UpdateProjectComponent implements OnInit {
     else {
       this.projects = JSON.parse(JSON.stringify(this.service.projects));
       this.project2 = new MatTableDataSource(this.projects);
+      this.projects2 = JSON.parse(JSON.stringify(this.service.projects2));
+      this.project3 = new MatTableDataSource(this.projects2);
       //this.users2.paginator = this.paginator;
       //this.users2.sort = this.sort;
     }
@@ -41,12 +45,35 @@ export class UpdateProjectComponent implements OnInit {
     this.project2.filter = filterValue;
   }
 
+  applyFilter2(filterValue: string) {
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.project3.filter = filterValue;
+  }
+
   search_project(name) {
-    for (let project of this.service.companies) {
-      if (company.name === name) {
-        return company;
+    for (let project of this.service.projects) {
+      if (project.project_name === name) {
+        return project;
       }
     }
+  }
+
+  search_project2(name) {
+    for (let project of this.service.projects2) {
+      if (project.project_name === name) {
+        return project;
+      }
+    }
+  }
+
+  redirect(event, element) {
+    this.service.project_to_be_updated = this.search_project(element.project_name);
+    this.router.navigate(['home/set-up/update-project/update-bidding-project']);
+  }
+
+  redirect2(event, element) {
+    this.service.project_to_be_updated = this.search_project2(element.project_name);
+    this.router.navigate(['home/set-up/update-project/update-Instant-project']);
   }
 
 }

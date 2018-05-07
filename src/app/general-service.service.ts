@@ -37,6 +37,10 @@ export class GeneralServiceService {
   projects = [new BiddingProject(1,"FIFA",10,3, 10, 10, 10, 5000,0, 0, 0 ,0),
     new BiddingProject(2,"Bancolombia System",10,3, 10, 10, 10, 5000,0, 0, 0 ,0)];
 
+  projects2 = [new InstantProject(3, "Rapipagos", 15, 16, 17),
+    new InstantProject(4, "Gana system", 18, 18, 18),
+    new InstantProject(5, "Inventario de una papeleria", 10, 11, 12)];
+
   questions = [new Question(1,"Enserio esta es tu pregunta?","Analyst",5,new Answer("si",true),new Answer("no",false),
 			   new Answer("profe, no me haga bullying",false),new Answer("todo grabado profe",false)),
 			   new Question(1,"Que procede?","Developer",3,new Answer("ni puta idea",true),new Answer("no ce we",false),
@@ -46,6 +50,8 @@ export class GeneralServiceService {
   user_to_be_updated;
 
   user_to_be_watched;
+
+  project_to_be_updated;
 
   parameter_to_be_updated = this.parameter[0];
 
