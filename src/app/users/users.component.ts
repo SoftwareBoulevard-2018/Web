@@ -27,13 +27,9 @@ export class UsersComponent implements OnInit {
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
-    }
-
-    else if (this.service.user_type === "Team Member" || this.service.user_type === "Project Manager") {
+    } else if (this.service.user_type === "Team Member" || this.service.user_type === "Project Manager") {
       this.router.navigate(['restricted'])
-    }
-
-    else {
+    } else {
       this.users = JSON.parse(JSON.stringify(this.service.users));
       for(let user of this.users){
         user.hide_password = true;
@@ -60,7 +56,7 @@ export class UsersComponent implements OnInit {
   }
 
   redirect(event,element){
-    this.service.user_to_be_watched = this.search_user(element.username);
+    this.service.user_to_be_updated = this.search_user(element.username);
     this.router.navigate(['home/users/user-status']);
   }
   redirect2(event,element){

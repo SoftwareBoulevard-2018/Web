@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatePuzzleComponent implements OnInit {
 
+  formdata;
+  onClickSubmit(data){}
+
   constructor() { }
 
   ngOnInit() {

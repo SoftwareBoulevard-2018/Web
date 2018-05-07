@@ -1,5 +1,5 @@
 .w3-card-4{
-  width: 38%;
+  width: 35%;
   margin:auto;
   border-radius: 5%;
   background-color: #f5f2dc;
@@ -21,6 +21,7 @@ h2{
   font-size: 200%;
   color: black;
   font-weight: bold;
+  margin-top: 2%;
 }
 
 button{

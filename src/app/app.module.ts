@@ -7,7 +7,7 @@ import { GeneralServiceService } from './general-service.service';
 
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatIconModule, MatButtonModule } from '@angular/material';
-import { MatSelectModule } from '@angular/material';
+import { MatSelectModule, MatListModule } from '@angular/material';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -123,6 +123,7 @@ const routes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatListModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -134,6 +135,7 @@ const routes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatListModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],

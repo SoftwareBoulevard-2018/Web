@@ -11,11 +11,11 @@ import {BiddingProject} from '../shared/biddingProject';
   styleUrls: ['./estimation.component.css']
 })
 export class EstimationComponent implements OnInit {
-  guess;
+  // guess;
 
   constructor(public service: GeneralServiceService, public router: Router) {
   }
-
+  /*
   form() {
     this.guess = new FormGroup({
       cost: new FormControl('',
@@ -45,10 +45,10 @@ export class EstimationComponent implements OnInit {
     const min_cost = current_project.cost - current_project.cost * 0.1;
 
     return (guess.time >= min_time && guess.time <= max_time) && (guess.cost >= min_cost && guess.cost <= max_cost);
-  }
+  }*/
 
   ngOnInit() {
-    if (this.service.user_type === undefined) {
+    /*if (this.service.user_type === undefined) {
      this.router.navigate(['']);
     }
     else if (this.service.user_type === "Team Member") {
@@ -56,12 +56,12 @@ export class EstimationComponent implements OnInit {
     }
     else {
       this.form();
-    }
+    }*/
   }
 
-  onClickSubmit(guess) {
+  /*onClickSubmit(guess) {
     if(this.estimation_validation(guess)){
       this.router.navigate(['home']);
     }
-  }
+  }*/
 }
