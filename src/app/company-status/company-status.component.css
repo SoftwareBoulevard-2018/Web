@@ -1,7 +1,6 @@
 h1{
   color: #00585E;
-  margin: 0 auto 5% auto;
-  text-align: center;
+  margin: 0 auto 5% 12.5%;
 }
 .padlock{
   margin-top: 5%;
@@ -9,6 +8,7 @@ h1{
 }
 .padlock img{
   width: 20%;
+  max-height: none;
   height: auto;
   opacity: 0.6;
 }
@@ -23,16 +23,22 @@ h4{
   color: #00585E;
   font-weight: bold;
 }
-p{
-  color: #009494;
-}
 img{
   max-width: 100%;
   max-height: 150px;
 }
+.error{
+  font-weight: bold;
+  color: #009494;
+  margin-top: 8%;
+}
+p{
+  color: #009494;
+}
 .center{
-  margin-left: 20%;
-  margin-top: 10%;
+  max-width: 100%;
+  max-height: 150px;
+  margin-left: 10%;
 }
 .mat-list-item{
   margin: 10px auto 0 10%;
@@ -47,4 +53,37 @@ button{
 }
 .company_button{
   margin-left: 17%;
+}
+mat-header-cell{
+  font-size: medium;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Arial";
+  color: #009494;
+}
+mat-cell{
+  text-align: center;
+  font-family: "Arial";
+  color: #00585E;
+  max-height: 100px;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.mat-table {
+  overflow: auto;
+  max-height: 350px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  max-height: 350px;
+  min-width: 300px;
+  width: 80%;
+  margin: auto;
+}
+.header {
+  min-height: 64px;
+  padding: 8px 24px 0;
 }

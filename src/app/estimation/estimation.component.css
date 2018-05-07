@@ -1,7 +1,16 @@
 /deep/ .mat-input-underline{
   border-bottom: 1px solid #009494!important;
 }
-.element{
+.elementfield{
+  text-align: center;
+}
+.elementfield1{
+  text-align: center;
+}
+.elementfield2{
+  text-align: center;
+}
+.elementfield3{
   text-align: center;
 }
 .element2{
