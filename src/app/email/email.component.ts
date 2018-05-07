@@ -71,6 +71,7 @@ cenviados =[
   	this.recibidos = true;
   	this.sensub = false;
   	this.sent = false;
+    this.newe = false;
   }
   cerraremail(){
   	this.opene = false;
