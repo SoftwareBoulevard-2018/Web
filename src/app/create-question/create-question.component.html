@@ -2,7 +2,7 @@
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <br/>
     <span class="login100-form-title p-b-34">
-      Create Question
+      Create Question	   
     </span>
 	
 	<div class="element">
@@ -29,44 +29,141 @@
 	
 	<div class="element">
       <mat-form-field class="big-input">
-        <input matInput type="number" placeholder="Question's level" name="level" formControlName="level" min="1" max="5">
+        <mat-select placeholder="Question's level" name="level" formControlName="level">
+          <mat-option *ngFor="let level of levels" [value]="level">
+            {{ level }}
+          </mat-option>
+        </mat-select>
         <mat-hint>Required Field</mat-hint>
       </mat-form-field>
     </div>
 	
+	<br/>
+	
+	<div class="w3-row-">
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="input">
+            <input matInput placeholder="First Answer" name="answer1" formControlName="answer1">
+            <mat-hint>Required Field</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="small-input">
+				<mat-select placeholder="Veracity" name="veracity1" formControlName="veracity1">
+					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
+					  {{ veracity }}
+					</mat-option>
+				</mat-select>
+            <mat-hint>Required Field</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+	
+    <br/>
+	
+	<div class="w3-row-">
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="input">
+            <input matInput placeholder="Second Answer" name="answer2" formControlName="answer2">
+            <mat-hint>Required Field</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="small-input">
+				<mat-select placeholder="Veracity" name="veracity2" formControlName="veracity2">
+					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
+					  {{ veracity }}
+					</mat-option>
+				</mat-select>
+            <mat-hint>Required Field</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+	
+    <br/>
+	
+	<div class="w3-row-">
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="input">
+            <input matInput placeholder="Third Answer" name="answer3" formControlName="answer3">
+            <mat-hint>Required Field</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="small-input">
+				<mat-select placeholder="Veracity" name="veracity3" formControlName="veracity3">
+					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
+					  {{ veracity }}
+					</mat-option>
+				</mat-select>
+            <mat-hint>Required Field</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+	
+    <br/>
+	
+	<div class="w3-row-">
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="input">
+            <input matInput placeholder="Fourth Answer" name="answer4" formControlName="answer4">
+            <mat-hint>Required Field</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="w3-half">
+        <div class="element">
+          <mat-form-field class="small-input">
+				<mat-select placeholder="Veracity" name="veracity4" formControlName="veracity4">
+					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
+					  {{ veracity }}
+					</mat-option>
+				</mat-select>
+            <mat-hint>Required Field</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+	
     <br/>
 
-    <div class="element" *ngIf="invalid">
+    <div class="element" *ngIf="no_false">
       <br/>
       <span class="error">
-        The password and its confirmation doesn't match.
+        There must be at least one false answer.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="repeated_description">
+      <br/>
+      <span class="success">
+        Question description alredy taken.
       </span>
     </div>
 
     <div class="element" *ngIf="success">
       <br/>
-      <span class="success">
-        Question successfully added.
-      </span>
-    </div>
-
-    <div class="element" *ngIf="flawed_name">
-      <br/>
       <span class="error">
-        Name already taken.
-      </span>
-    </div>
-
-    <div class="element" *ngIf="invalid_name">
-      <br/>
-      <span class="error">
-        Name can only contain letters and spaces.
+        Question created succesfully.
       </span>
     </div>
 
     <br/>
     <br/>
-
+	
     <div class="element element2">
       <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
         Create

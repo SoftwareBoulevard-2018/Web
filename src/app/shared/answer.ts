@@ -1,4 +1,4 @@
-export class answer {
+export class Answer {
 	description: string;
 	state: boolean;
 	constructor(description?: string, state?: boolean) {
