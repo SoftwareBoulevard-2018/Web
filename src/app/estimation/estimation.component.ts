@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Company} from '../shared/company';
 import {BiddingProject} from '../shared/biddingProject';
+import {Estimation} from '../shared/estimation';
 
 @Component({
   selector: 'app-estimation',
@@ -71,6 +72,13 @@ export class EstimationComponent implements OnInit {
     }
   }
 
+  sendEstimation(guess) {
+    const project_name = this.getProject(this.service.username).project_name;
+    if (this.service.username !== undefined && project_name !== undefined && guess.time !== undefined && guess.cost !== undefined ) {
+      this.service.estimations.push( new Estimation(this.service.username, project_name, guess.cost, guess.time));
+    }
+  }
+
   ngOnInit() {
     if (this.service.user_type === undefined) {
      this.router.navigate(['']);
@@ -90,6 +98,8 @@ export class EstimationComponent implements OnInit {
   onClickSubmit(guess) {
     let userCompany = this.getCompany(this.service.username);
     userCompany.resources -= 1;   // TODO: Make the change to the database when its fully implemented
+    this.sendEstimation(guess);   // TODO: Make the change to the database when its fully implemented
+
     if (this.estimation_validation(guess)) {
       this.router.navigate(['home/users/projectmanager/functions']);
       // TODO: POPUP CONGRATULATING THE USER
