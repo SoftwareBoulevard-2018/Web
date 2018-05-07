@@ -5,11 +5,11 @@ import {EmailComponent} from "../email/email.component";
 import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
 
 @Component({
-  selector: 'app-play',
-  templateUrl: './play.component.html',
-  styleUrls: ['./play.component.css']
+  selector: 'app-join-team',
+  templateUrl: './join-team.component.html',
+  styleUrls: ['./join-team.component.css']
 })
-export class PlayComponent implements OnInit {
+export class JoinTeamComponent implements OnInit {
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
@@ -19,11 +19,13 @@ export class PlayComponent implements OnInit {
       this.router.navigate(['']);
     }
   }
+
   redirect1(event) {
-    this.router.navigate(['home/play/skill']);
+    alert("You have joined!");
   }
 
   redirect2(event) {
-    this.router.navigate(['home/play/develop']);
+    alert("You have reject!");
   }
+
 }

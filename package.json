@@ -8,9 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "asd": "ng generate component play-develop"
-  },
+    "e2e": "ng e2e"
+    },
   "private": true,
   "dependencies": {
     "@angular/animations": "^5.2.0",
