@@ -7,16 +7,14 @@ oscuro #454445
 overflow
 naranja #FF5729
 */
+#temail{}
 #cerraremail{
 	background: transparent;
-	border:none;
-	color:red;
+	border: none;
+	color: #FF5729 !important;
 	position: absolute;
-	right: 1em;
-}
-#contenido{
-	height: 10em;
-	width: 100%;
+	right: 1em !important;
+	font-weight: bold;
 }
 #emailbusqueda{
 	background: #F5F2DC;
@@ -103,6 +101,18 @@ naranja #FF5729
 	right:1em;
 	z-index: 1;
 }
+#inputcontenido{
+	height: 10em;
+	width: 100%;
+}
+#inputsub{
+	right: 1em;
+	width: 80%;
+}
+#inputto{
+	right: 1em;
+	width: 90%;
+}
 .inboxitem{
 	background: #F5F2DC;
 	border: 1px solid #454445;
@@ -166,21 +176,25 @@ naranja #FF5729
 }
 #tablanuevo{
 	color: #F5F2DC; 
-	height: 80%;
+	height: 100%;
 	margin: 3% 3% 3% 3%;
-	width: 85%;
+	width: 94%;
 }
 #tablanuevo tr{
 	height: 7%;
+	margin-top: 10em;
+	width: 100%;
 }
 #tablanuevo tr:last-child{
-	height: 70%
+	bottom: 1em;
+	height: 80%
 }
 #tablanuevo tr td{
-	margin-top: 0;
+	margin-top: 0.5ems;
 	margin-bottom: 0;
 }
 #temail{
+	background: #00585E;
 	border-bottom: 1px solid #454445;
-	color:#454445;
+	color:#F5F2DC;
 }
