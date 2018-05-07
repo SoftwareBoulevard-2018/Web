@@ -27,13 +27,9 @@ export class UsersComponent implements OnInit {
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
-    }
-
-    else if (this.service.user_type === "Team Member" || this.service.user_type === "Project Manager") {
+    } else if (this.service.user_type === "Team Member" || this.service.user_type === "Project Manager") {
       this.router.navigate(['restricted'])
-    }
-
-    else {
+    } else {
       this.users = JSON.parse(JSON.stringify(this.service.users));
       for(let user of this.users){
         user.hide_password = true;
