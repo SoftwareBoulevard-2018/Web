@@ -35,8 +35,6 @@ export class UpdateProjectComponent implements OnInit {
       this.project2 = new MatTableDataSource(this.projects);
       this.projects2 = JSON.parse(JSON.stringify(this.service.projects2));
       this.project3 = new MatTableDataSource(this.projects2);
-      //this.users2.paginator = this.paginator;
-      //this.users2.sort = this.sort;
     }
   }
 
