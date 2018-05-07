@@ -14,7 +14,7 @@ import { MatSelectModule, MatListModule } from '@angular/material';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {MatTabsModule} from '@angular/material/tabs';
 // Components imports
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -131,6 +131,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    MatTabsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -147,6 +148,7 @@ const routes: Routes = [
   exports: [
     MatFormFieldModule,
     MatInputModule,
+    MatTabsModule,
     MatIconModule,
     MatButtonModule,
     MatSelectModule,
