@@ -1,7 +1,9 @@
+<!-- This component will show 3 different menus depending on the user in session -->
 <div class="w3-container">
   <h1>Welcome {{this.service.username}}!</h1>
   <h3>Here you have some pages you can visit:</h3>
 
+  <!-- Game administrator menu -->
   <div class="w3-col" *ngIf="this.service.user_type === 'Game Administrator'">
 
     <div class="w3-quarter">
@@ -96,6 +98,7 @@
 
   </div>
 
+  <!-- Player menu -->
   <div class="w3-row"  *ngIf="this.service.user_type !== 'Game Administrator'">
 
     <div class="w3-quarter">
@@ -148,6 +151,8 @@
         <div class="w3-container">
 
           <h4>
+            <!-- The last card changes depending on the user in session,
+            team members play and project managers have a special menu-->
             <b *ngIf="this.service.user_type === 'Team Member'; else projectmanager_txt">
               PLAY!
             </b>

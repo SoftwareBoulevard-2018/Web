@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
-import {Router} from "@angular/router";
-import {EmailComponent} from "../email/email.component";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,40 +12,37 @@ export class HomeComponent implements OnInit {
 
   constructor(public service: GeneralServiceService, public router: Router) {
   }
+  // Redirections depending on where the user clicks and the user in session
 
   redirect1(event) {
-    if(this.service.user_type === "Game Administrator"){
+    if (this.service.user_type === 'Game Administrator') {
       this.router.navigate(['home/users']);
-    }
-    else{
+    } else {
       this.service.user_to_be_updated = this.search_user(this.service.username);
       this.router.navigate(['home/users/user-status']);
     }
   }
 
   redirect2(event) {
-    if(this.service.user_type === "Game Administrator"){
+    if (this.service.user_type === 'Game Administrator') {
       this.router.navigate(['home/companies']);
-    }
-    else{
+    } else {
       this.router.navigate(['home/companies/company-status']);
     }
   }
 
   redirect3(event) {
-    if(this.service.user_type === "Game Administrator"){
+    if (this.service.user_type === 'Game Administrator') {
       this.router.navigate(['home/reports']);
-    }
-    else if(this.service.user_type === "Project Manager"){
+    } else if (this.service.user_type === 'Project Manager') {
       this.router.navigate(['home/users/projectmanager/functions']);
-    }
-    else{
+    } else {
       this.router.navigate(['home/play']);
     }
   }
 
   redirect4(event) {
-    if(this.service.user_type === "Game Administrator"){
+    if (this.service.user_type === 'Game Administrator') {
       this.router.navigate(['home/set-up']);
     }
     else {
@@ -54,12 +50,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  home_user_type;
-
   ngOnInit() {
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
-      this.router.navigate([''])
+      this.router.navigate(['']);
     }
   }
   search_user(username) {

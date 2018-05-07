@@ -1,15 +1,15 @@
+<!-- This will be shown if the user doesn't have a company associated -->
 <div *ngIf="current_company === undefined; else show_company">
   <div class="padlock">
     <img src="https://vignette.wikia.nocookie.net/fakemon/images/0/0e/Forever_Alone.png/revision/latest?cb=20130216001235&path-prefix=es">
   </div>
-
-  <h1>
+  <h1 class="not_a_member">
     You aren't a member of any company right now.
   </h1>
 </div>
 
+<!-- Info displayed if the user has a company -->
 <ng-template #show_company>
-
   <div class="w3-row">
     <div class="w3-third">
       <mat-list role="list">
@@ -74,6 +74,7 @@
         </mat-list-item>
       </mat-list>
       <div class="centered_button">
+        <!-- This will be shown if the user in session is a game administrator or a project manager -->
         <button mat-raised-button (click)="redirect($event)" *ngIf="this.service.user_type === 'Game Administrator'
            || this.service.user_type === 'Project Manager'">
           Update this company.
@@ -90,16 +91,19 @@
         </mat-list-item>
       </mat-list>
 
+      <!-- Company logo, only shown if there is a logo -->
       <div class="center" *ngIf="(current_company.image !== undefined) && (current_company.image !== ''); else no_image">
         <img src="{{this.current_company.image}}">
       </div>
 
+      <!-- If company has no logo -->
       <ng-template #no_image>
         <h1 class="error">
           This company has no logo.
         </h1>
       </ng-template>
 
+      <!-- Table of users on the company, only shown if there are members on the company -->
       <div class="container mat-elevation-z8" *ngIf="current_company.team_members.length !== 0; else no_members">
 
         <div class="header">
@@ -145,6 +149,7 @@
         </mat-table>
       </div>
 
+      <!-- If company has no members -->
       <ng-template #no_members>
         <h1 class="error">
           This company has no members.
