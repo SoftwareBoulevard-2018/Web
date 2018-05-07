@@ -1,0 +1,22 @@
+.resoucesAndTeamMembers {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0.6rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.options > * {
+  display: inline;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  background-color: #F60;
+  color: #0F0;
+}

@@ -45,6 +45,9 @@ export class HomeComponent implements OnInit {
     if (this.service.user_type === 'Game Administrator') {
       this.router.navigate(['home/set-up']);
     }
+    else {
+      this.router.navigate(['home/join-team']);
+    }
   }
 
   ngOnInit() {

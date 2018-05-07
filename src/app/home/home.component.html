@@ -101,7 +101,7 @@
   <!-- Player menu -->
   <div class="w3-row"  *ngIf="this.service.user_type !== 'Game Administrator'">
 
-    <div class="w3-third">
+    <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect1($event)">
 
         <img src="https://image.freepik.com/free-icon/male-user-silhouette_318-35708.jpg" alt="Person">
@@ -122,7 +122,7 @@
       </div>
     </div>
 
-    <div class="w3-third">
+    <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect2($event)">
 
         <img src="https://image.freepik.com/free-vector/technology-company-logo-template_1061-20.jpg" alt="Person">
@@ -143,7 +143,7 @@
       </div>
     </div>
 
-    <div class="w3-third">
+    <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect3($event)">
 
         <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg" alt="Person">
@@ -171,6 +171,37 @@
               Here you can see your functions on the game.
           </p>
             </ng-template>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-quarter">
+      <div class="w3-card-4" (click)="redirect4($event)">
+
+        <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg" alt="Person">
+
+        <div class="w3-container">
+
+          <h4>
+            <b *ngIf="this.service.user_type === 'Team Member'; else projectmanager_txt">
+              Join team
+            </b>
+            <ng-template #projectmanager_txt>
+              <b>
+                Functions
+              </b>
+            </ng-template>
+          </h4>
+
+          <p *ngIf="this.service.user_type === 'Team Member'; else pmanager_txt">
+            Join team while you have fun!
+          </p>
+          <ng-template #pmanager_txt>
+            <p>
+              Here you can see your functions on the game.
+            </p>
+          </ng-template>
 
         </div>
       </div>

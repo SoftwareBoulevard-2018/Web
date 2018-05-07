@@ -1,0 +1,13 @@
+<div class="w3-container">
+  <h1>Welcome to invitations {{this.service.username}}!</h1>
+
+  <div class="invitations">
+    <div>
+      <p class="companyName">Empresa 1</p>
+      <div class="accept"  (click)="redirect1($event)">Accept</div>
+      <div class="reject"  (click)="redirect2($event)">Reject</div>
+    </div>
+
+  </div>
+
+</div>
