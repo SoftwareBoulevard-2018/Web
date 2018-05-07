@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GeneralServiceService } from './general-service.service';
 
 import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
-import { MatIconModule, MatButtonModule, MatSidenavModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatSidenavModule, MatRadioModule } from '@angular/material';
 import { MatSelectModule, MatListModule, MatExpansionModule } from '@angular/material';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
@@ -139,6 +139,7 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     MatListModule,
     MatSidenavModule,
+    MatRadioModule,
     MatExpansionModule,
     RouterModule.forRoot(routes)
   ],
@@ -155,6 +156,7 @@ const routes: Routes = [
     MatListModule,
     MatExpansionModule,
     MatSidenavModule,
+    MatRadioModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],

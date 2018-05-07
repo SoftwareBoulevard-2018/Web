@@ -4,23 +4,45 @@
     <p>Team members: 2</p>
   </div>
 
+  <script language = "javascript">
+    angular
+      .module('firstApplication', ['ngMaterial'])
+      .controller('radioButtonsController', radioButtonsController);
+
+    function radioButtonsController ($scope) {
+      $scope.radioData = [
+        { label: 'Pregunta A', value: 'Pregunta A' },
+        { label: 'Pregunta B', value: 'Pregunta B' },
+        { label: 'Pregunta C', value: 'Pregunta C'},
+        { label: 'Pregunta D', value: 'Pregunta D' }
+      ];
+      $scope.group = 'Banana';
+    }
+  </script>
 
   <div class="container">
-    <div>
+    <mat-card-content>
+      <mat-radio-group >
+
       <h3>Soy una pregunta</h3><br>
-      <div class="options">
-        <input type="radio" name="option" id="optionA">
-        <label for="optionA">Soy una respuesta A</label><br>
-        <input type="radio" name="option" id="optionB">
-        <label for="optionB">Soy una respuesta B</label><br>
-        <input type="radio" name="option" id="optionC">
-        <label for="optionC">Soy una respuesta C</label><br>
-        <input type="radio" name="option" id="optionD">
-        <label for="optionD">Soy una respuesta D</label><br>
-      </div>
-      <br>
-      <button>Send</button>
-    </div>
+
+        <mat-radio-button >
+          Soy una pregunta A
+        </mat-radio-button>
+        <mat-radio-button>
+          Soy una pregunta b
+        </mat-radio-button>
+        <mat-radio-button>
+          Soy una pregunta c
+        </mat-radio-button>
+        <mat-radio-button>
+          Soy una pregunta d
+        </mat-radio-button>
+
+        <br>
+      </mat-radio-group>
+        <button mat-raised-button color="primary">Send</button>
+    </mat-card-content>
   </div>
 
 </div>
