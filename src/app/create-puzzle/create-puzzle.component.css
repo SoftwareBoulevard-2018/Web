@@ -1,0 +1,32 @@
+button{
+  background-color: #009494;
+  color: white;
+}
+
+h1{
+  color: #009494;
+}
+
+center{
+  margin: auto;
+  width: 20%;
+  border: 3px solid #73AD21;
+  padding: 10px;
+  height: 20px;
+}
+
+
+td{
+  border: 1px solid black;
+  width: 200px;
+  height: 78px;
+}
+tr{
+  width: 200px;
+}
+table{
+  width: 100%;
+  border-collapse: collapse;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
