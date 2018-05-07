@@ -63,6 +63,12 @@
       <mat-cell *matCellDef="let element"> {{element.capacity_k}} </mat-cell>
     </ng-container>
 
+    <!-- Resources Column -->
+    <ng-container matColumnDef="resources">
+      <mat-header-cell *matHeaderCellDef> Resources </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.resources}} </mat-cell>
+    </ng-container>
+
     <!-- Status Column -->
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>

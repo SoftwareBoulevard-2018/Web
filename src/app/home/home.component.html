@@ -2,7 +2,7 @@
   <h1>Welcome {{this.service.username}}!</h1>
   <h3>Here you have some pages you can visit:</h3>
 
-  <div class="w3-row" *ngIf="this.service.user_type === 'Game Administrator'">
+  <div class="w3-col" *ngIf="this.service.user_type === 'Game Administrator'">
 
     <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect1($event)">

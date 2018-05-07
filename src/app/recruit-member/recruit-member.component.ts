@@ -12,7 +12,7 @@ import {Company} from "../shared/company";
 export class RecruitMemberComponent implements OnInit {
 
   constructor(public service: GeneralServiceService, public router: Router) { }
-
+/*
   formdata;
   project_managers;
   invalid = false;
@@ -44,9 +44,9 @@ export class RecruitMemberComponent implements OnInit {
       img: new FormControl(''),
       project_manager: new FormControl('')
     });
-  }
+  }*/
   ngOnInit() {
-    if (this.service.user_type === undefined) {
+    /*if (this.service.user_type === undefined) {
       this.router.navigate([''])
     }
 
@@ -54,7 +54,7 @@ export class RecruitMemberComponent implements OnInit {
       this.router.navigate(['restricted'])
     }
 
-
+  */
   }
 
 }
