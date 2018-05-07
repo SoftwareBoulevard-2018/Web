@@ -10,7 +10,7 @@ import { MatSelect } from "@angular/material";
   templateUrl: './chooseproject.component.html',
   styleUrls: ['./chooseproject.component.css']
 })
-export class ChooseprojectComponent implements OnInit {/*
+export class ChooseprojectComponent implements OnInit {
   formdata;
   project_managers;
   invalid = false;
@@ -32,27 +32,29 @@ export class ChooseprojectComponent implements OnInit {/*
     });
   }
 
-  possible_members(){
+  possible_members() {
     this.company_find = this.search_company_pm(this.service.username);
     this.project_managers = []
     for (let project of this.service.projects) {
-      if (this.company_find !== undefined ) {
-        if (this.company_find.capacity_k <= project.required_k) {
+      if (this.company_find !== undefined) {
+        if (this.company_find.capacity_k >= project.required_k) {
           this.project_managers.push(project);
         }
+      }
+
+  else {
+        this.invalid = true;
+
       }
     }
   }
 
   search_company_pm (name_pm) {
     for (let company of this.service.companies) {
-      console.log(this.service.companies);
-      console.log(company.project_manager);
-      console.log(name_pm);
-      if (company.project_manager.name == name_pm) {
-        console.log('la funcion marica');
-        console.log(company);
-        return company;
+      if (company.project_manager !== undefined) {
+        if (company.project_manager.username === name_pm ) {
+          return company;
+        }
       }
     }
   }
@@ -61,7 +63,6 @@ export class ChooseprojectComponent implements OnInit {/*
     this.aux=[];
     if(data.project_manager != this.service.username) {
       this.aux.push(data.project_manager, this.service.username);
-      console.log(this.aux);
       this.success = true;
       this.invalid = false;
     }
@@ -71,7 +72,7 @@ export class ChooseprojectComponent implements OnInit {/*
     }
   }
 
-  */ngOnInit() {/*
+  ngOnInit() {
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
     }
@@ -82,8 +83,8 @@ export class ChooseprojectComponent implements OnInit {/*
     else {
       this.possible_members();
       this.form();
-    */}/*
+    }
   }
-*/
+
 }
 

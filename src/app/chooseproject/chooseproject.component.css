@@ -9,6 +9,17 @@
 .w3-container {
   text-align: center;
 }
+.element{
+  text-align: center;
+}
+
+.error{
+  color: red;
+}
+.success{
+  color: #009494;
+}
+
 button{
   background-color: #009494;
   color: white;
