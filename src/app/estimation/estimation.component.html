@@ -1,13 +1,13 @@
-<!--
-<<div class="wrap-login100">
-  <form class="login100-form" [formGroup]="guess" (ngSubmit) = "onClickSubmit(guess.value)" >
+
+<<div class="estimation-form">
+  <form class="estimation-form" [formGroup]="guess" (ngSubmit) = "onClickSubmit(guess.value)" >
 
     <span class="login100-form-title p-b-34 p-t-27">
 						Cost & Time Estimation
     </span>
 
 
-    <div class="element">
+    <div class="elementfield">
       <mat-form-field>
         <input matInput placeholder="Cost (USD)" name="cost" formControlName="cost">
         <mat-hint>Required Field</mat-hint>
@@ -16,33 +16,32 @@
 
     <br/>
 
-    <div class="element">
+    <div class="elementfield1">
       <mat-form-field>
         <input matInput placeholder="Time (man-hours)" name="time" formControlName="time">
         <mat-hint>Required Field</mat-hint>
       </mat-form-field>
     </div>
-
-    <div class="element" *ngIf="invalid">
-      <br/>
-      <span class="error">
-        Wrong Estimation. Your team loses one resource point!
-      </span>
-    </div>
-
-    <br/>
-    <br/>
-
-    <div class="element element2">
-      <button mat-raised-button type="submit">
-        Cancel
-      </button>
-
-      <button mat-raised-button color="primary" type="submit" [disabled] = "!guess.valid" class="forsubmit">
-        Validate
-      </button>
-    </div>
-
-  </form>
-</div>
+    <!--
+        <div class="elementfield3" *ngIf="invalid">
+          <br/>
+          <span class="error">
+            Wrong Estimation. Your team loses one resource point!
+          </span>
+        </div>
 -->
+        <br/>
+        <br/>
+
+        <div class="elementfield2">
+          <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+            Cancel
+          </button>
+
+          <button mat-raised-button color="warn" type="submit" [disabled] = "!guess.valid" class="forsubmit">
+            Validate
+          </button>
+        </div>
+
+      </form>
+    </div>
