@@ -6,18 +6,28 @@ If you want to run it locally you
 
 ## General components:
 
-App, header, footer, home, restricted, notfound.
+App
+header
+footer
+home
+restricted
+notfound
 
-## Module 2 components:
-Module 2: Game Management
+## Module 2 - "Game Management" components:
+
 Account creation, log-in, log out
+create user
+login
+users
+update user
+header - note
+
 Create/update companies
-Register/view players
-Generate/view reports
-Team Status (show current company status to players (e.g. K-value, resources,
-competency levels, state of any project)
+create-company
+update company
 
-
-Companies, company-status, create-company, 
-create user, login, reports, update company, update user, user status, users
-
+Generate/view reports/view players/team Status
+reports
+user status
+Companies
+company-status
