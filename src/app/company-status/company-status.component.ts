@@ -16,7 +16,7 @@ export class CompanyStatusComponent implements OnInit {
   current_company;
   users = [];
   users2;
-  table_titles = ['name', 'username', 'role', 'correct_answers', 'wrong_answers'];
+  table_titles = ['competency', 'name', 'username', 'role', 'correct_answers', 'wrong_answers'];
 
   ngOnInit() {
     // Defines the company that will be shown in the html

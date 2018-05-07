@@ -114,6 +114,12 @@
 
         <mat-table #table [dataSource]="users2">
 
+          <!-- Competency Column -->
+          <ng-container matColumnDef="competency">
+            <mat-header-cell *matHeaderCellDef> Competency </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.competency }} </mat-cell>
+          </ng-container>
+
           <!-- Name Column -->
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
