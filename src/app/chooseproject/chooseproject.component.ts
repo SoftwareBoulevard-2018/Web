@@ -10,65 +10,80 @@ import { MatSelect } from "@angular/material";
   templateUrl: './chooseproject.component.html',
   styleUrls: ['./chooseproject.component.css']
 })
-export class ChooseprojectComponent implements OnInit {
-  ngOnInit() {
-
-  }
-  /*form(){
-    this.formdata = new FormGroup({
-      project: new FormControl('',
-        Validators.compose([
-          Validators.required
-        ]))
-    });
-  }
+export class ChooseprojectComponent implements OnInit {/*
+  formdata;
+  project_managers;
+  invalid = false;
+  success = false;
+  company_find;
+  project;
+  aux;
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
-  formdata;
-  invalid = false;
-  success = false;
-  flawed_username = false;
-  hide = true;
-  roles = [ "Project Manager", "Analyst", "Developer", "Tester"];
-  user;
-  auxiliar;
+  form() {
+    this.formdata = new FormGroup({
+      name: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+      img: new FormControl(''),
+      project_manager: new FormControl('')
+    });
+  }
 
-  ngOnInit() {
-    if (this.service.user_type === undefined) {
-      this.router.navigate([''])
+  possible_members(){
+    this.company_find = this.search_company_pm(this.service.username);
+    this.project_managers = []
+    for (let project of this.service.projects) {
+      if (this.company_find !== undefined ) {
+        if (this.company_find.capacity_k <= project.required_k) {
+          this.project_managers.push(project);
+        }
+      }
     }
+  }
 
-    else if (this.service.user_type === "Team Member") {
-      this.router.navigate(['restricted'])
-    }
-
-    else {
-      this.form();
+  search_company_pm (name_pm) {
+    for (let company of this.service.companies) {
+      console.log(this.service.companies);
+      console.log(company.project_manager);
+      console.log(name_pm);
+      if (company.project_manager.name == name_pm) {
+        console.log('la funcion marica');
+        console.log(company);
+        return company;
+      }
     }
   }
 
   onClickSubmit(data) {
-    this.auxiliar = this.new_username(data.username);
-    if(data.password === data.confirmation && this.auxiliar) {
-      this.user = new User(data.name, data.username, data.password, data.role);
-      this.service.users.push(this.user);
-      console.log(this.service.users);
-      this.form();
-      this.invalid = false;
+    this.aux=[];
+    if(data.project_manager != this.service.username) {
+      this.aux.push(data.project_manager, this.service.username);
+      console.log(this.aux);
       this.success = true;
-      this.flawed_username = false;
-    }
-    else if(!(this.auxiliar)){
       this.invalid = false;
-      this.success = false;
-      this.flawed_username = true;
     }
     else{
-      this.invalid = true;
       this.success = false;
-      this.flawed_username = false;
+      this.invalid = true;
     }
-  }*/
+  }
 
+  */ngOnInit() {/*
+    if (this.service.user_type === undefined) {
+      this.router.navigate([''])
+    }
+
+    else if (this.service.user_type === "Team Member" || this.service.user_type === "Game Administrator") {
+      this.router.navigate(['restricted'])
+    }
+    else {
+      this.possible_members();
+      this.form();
+    */}/*
+  }
+*/
 }
+
