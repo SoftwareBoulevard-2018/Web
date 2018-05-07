@@ -46,13 +46,15 @@ export class EstimationComponent implements OnInit {
   }
 
   estimation_validation(guess) {
-
     const current_project = this.getProject(this.service.username);
+    const threshold = this.service.parameter[0].threshold;
+    const real_time = current_project.time;
+    const real_cost = current_project.cost;
 
-    const max_time = current_project.time + current_project.time * 0.1;
-    const min_time = current_project.time - current_project.time * 0.1;
-    const max_cost = current_project.cost + current_project.cost * 0.1;
-    const min_cost = current_project.cost - current_project.cost * 0.1;
+    const max_time = real_time + real_time * (threshold / 100);
+    const min_time = real_time - real_time * (threshold / 100);
+    const max_cost = real_cost + real_cost * (threshold / 100);
+    const min_cost = real_cost - real_cost * (threshold / 100);
 
     return (guess.time >= min_time && guess.time <= max_time) && (guess.cost >= min_cost && guess.cost <= max_cost);
   }
@@ -87,7 +89,7 @@ export class EstimationComponent implements OnInit {
 
   onClickSubmit(guess) {
     let userCompany = this.getCompany(this.service.username);
-    userCompany.resources -= 1;
+    userCompany.resources -= 1;   // TODO: Make the change to the database when its fully implemented
     if (this.estimation_validation(guess)) {
       this.router.navigate(['home/users/projectmanager/functions']);
       // TODO: POPUP CONGRATULATING THE USER
@@ -96,7 +98,7 @@ export class EstimationComponent implements OnInit {
     }
   }
 
-  redirecttopm(event) {
+  redirectToFunctions(event) {
     this.router.navigate(['home/users/projectmanager/functions']);
   }
 }
