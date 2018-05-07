@@ -11,7 +11,7 @@ import { MatSelect } from "@angular/material";
   styleUrls: ['./chooseproject.component.css']
 })
 export class ChooseprojectComponent implements OnInit {
-  ngOnInit(){
+  ngOnInit() {
 
   }
   /*form(){

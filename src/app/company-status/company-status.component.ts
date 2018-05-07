@@ -42,5 +42,8 @@ export class CompanyStatusComponent implements OnInit {
     this.service.company_to_be_updated = this.current_company;
     this.router.navigate(['home/companies/company-status/update']);
   }
+  date_formatter(date?: Date) {
+    return date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate();
+  }
 
 }
