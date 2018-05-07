@@ -5,12 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { GeneralServiceService } from './general-service.service';
 
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
-import { MatIconModule, MatButtonModule } from '@angular/material';
-import { MatSelectModule, MatListModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatSidenavModule } from '@angular/material';
+import { MatSelectModule, MatListModule, MatExpansionModule } from '@angular/material';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -131,11 +132,14 @@ const routes: Routes = [
     MatIconModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCardModule,
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatSidenavModule,
+    MatExpansionModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -145,9 +149,12 @@ const routes: Routes = [
     MatButtonModule,
     MatSelectModule,
     MatTableModule,
+    MatCardModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatExpansionModule,
+    MatSidenavModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],
