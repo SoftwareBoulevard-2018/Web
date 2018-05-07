@@ -19,6 +19,16 @@
 .error{
   color: red;
 }
+.element-text1 {
+  text-align: center;
+}
+.element-text2 {
+  text-align: center;
+}
+.element-text3 {
+  text-align: center;
+  color: #009494;
+}
 mat-hint{
   color: #009494;
 }

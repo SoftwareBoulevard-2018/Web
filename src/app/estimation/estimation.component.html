@@ -22,23 +22,33 @@
         <mat-hint>Required Field</mat-hint>
       </mat-form-field>
     </div>
-    <!--
-        <div class="elementfield3" *ngIf="invalid">
-          <br/>
-          <span class="error">
-            Wrong Estimation. Your team loses one resource point!
-          </span>
-        </div>
--->
-        <br/>
-        <br/>
 
+      <div class="element-text1" *ngIf="incorrect_time">
+        <br/>
+        <span class="error">
+            The cost you guessed wasn't quite right, try again.
+          </span>
+      </div>
+
+      <div class="element-text2" *ngIf="incorrect_cost">
+        <br/>
+        <span class="error">
+            The time you guessed wasn't quite right, try again.
+          </span>
+      </div>
+
+      <div class="element-text3" *ngIf="correct_guess">
+        <br/>
+            Your guess was correct! You can now exit and continue with the project.
+      </div>
+
+    <br/>
         <div class="elementfield2">
           <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
-            Cancel
+            Exit
           </button>
 
-          <button mat-raised-button color="warn" type="submit" [disabled] = "!guess.valid" class="forsubmit">
+          <button mat-raised-button color="warn" type="submit" [disabled] = "(!guess.valid||correct_guess)" class="forsubmit">
             Validate
           </button>
         </div>
