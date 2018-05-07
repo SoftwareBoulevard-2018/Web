@@ -1,3 +1,4 @@
+<!-- Login form -->
 <div class="wrap-login100">
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
 
@@ -21,6 +22,7 @@
       </mat-form-field>
     </div>
 
+    <!-- Error message if data is invalid -->
     <div class="element" *ngIf="invalid">
       <br/>
       <span class="error">

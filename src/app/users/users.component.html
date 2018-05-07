@@ -5,8 +5,10 @@
   </button>
 </div>
 
+<!-- Users table -->
 <div class="container mat-elevation-z8">
 
+  <!-- Filter -->
   <div class="header">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -85,6 +87,7 @@
       </mat-cell>
     </ng-container>
 
+    <!-- Table rows -->
     <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
     <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
   </mat-table>
