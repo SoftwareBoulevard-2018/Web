@@ -73,7 +73,7 @@ export class UpdateProjectComponent implements OnInit {
 
   redirect2(event, element) {
     this.service.project_to_be_updated = this.search_project2(element.project_name);
-    this.router.navigate(['home/set-up/update-project/update-Instant-project']);
+    this.router.navigate(['home/set-up/update-project/update-instant-project']);
   }
 
 }
