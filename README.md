@@ -94,5 +94,16 @@ The Email (communication) component allows users to communicate between them. Al
 
 ### Components related to recruit members, choose project, elicitation project and generate resources:
 
-Recruit members: This component is responsible for allowing the creation of accounts for new users. It has a form that validates the input data. The form contains the following fields: name, username, password, confirmation for the password and role. All fields are required to create a user. Only the game administrator has permissions to access this component. Its URL route is /home/users/create and it's located in /web/src/app/create-user.
+Recruit members: This component is responsible for allowing Project Managers to add members to their company. It has a dropdown list with the users that belong to the category team members (Analyst, Developer and Tester) and who do not belong to any company. For each user, the username and the user's name. When the desired user is chosen, he is sent an invitation to join the company. Only the project manager has permissions to access this component. Its URL route is home/users/projectmanager/functions and it's located in /web/src/app/recruit-members.
+
+Choose Project: In this component, a Project Manager belonging to a company without an active development can choose a project of two categories (Bidding or Instant). It has a table with all projects available and for each project it will show the Project ID, Project Name, Required K, Rewarded K, Required Analyst Level, Required Developer Level, Required Tester Level. Only Project Managers belonging to a company and without a project already assigned to their company have permission to access this component. If a PM clicks Select on an available project, the project will be assigned to his company. Its URL route is home/users/projectmanager/chooseproject and it's located in /web/src/app/chooseproject.
+
+Cost & Time Estimation: This component allows a Project Manager to elicitate the cost and time for a given Bidding Project. It has a form with two fields, Cost and Time and two buttons, Exit and Validate. The Validate button is used to verify a PM's estimation, everytime its clicked, it will subtract one point out of the resource pool of said PM's company and it will send the information to a list containing estimations. If the estimation is wrong in at least one field, a message will alert the user telling him what did he get wrong. If the estimation is correct, a message will congratulate the user and tell him that he can advance to the next stage of the project. Its URL route is home/users/projectmanager/estimation and it's located in /web/src/app/estimation.
+
+Generate Resources: In this component a Project Manager can add resources to his company's resource pool by way of solving sliding puzzles, though the functionality is pretty bare-bones at the moment. It has a frame containing the puzzle (right now a static image) and a little text, with two buttons to Exit or Validate the puzzle. Its URL route is home/users/projectmanager/generate and it's located in /web/src/app/generateresources.
+
+### Additional Components:
+
+Pmfunctions: This component displays all the actions that a Project Manager can do. It has four buttons (Recruit Member, Choose Project, Estimate Cost & Time and  Generate Resources. Clicking each button will redirect the user to the specified Use Case. Only the PM has permission to access this. Its URL route is home/users/projectmanager and it's located in /web/src/app/pmfunctions.
+
 
