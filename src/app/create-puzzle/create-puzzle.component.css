@@ -30,3 +30,7 @@ table{
   background-size: 100%;
   background-repeat: no-repeat;
 }
+.big{
+  width: 100%;
+  align-content: center;
+}

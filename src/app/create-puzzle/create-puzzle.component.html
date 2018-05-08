@@ -3,20 +3,15 @@
   Load Diagram
 </h1>
 <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
-<input id="puzzle" type="file" accept="image/*" />
+<input id="puzzle" type="file" accept="image/*" (change)="onSelectFile($event)"/>
 <button id="submit" mat-raised-button class="submit">Submit</button>
 </form>
 </div>
 <h1></h1>
 
-<div class="wrap-login100 big-wrap">
+<div class="wrap-login100 big">
 <h1> Define Puzzle </h1>
-<table background="https://d2slcw3kip6qmk.cloudfront.net/marketing/pages/chart/class-diagram-for-hotel-management-system-UML/UML_class_diagram_hotel-949x683.PNG">
-  <tr><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td></tr>
-  <tr><td style="background-color: grey;"></td><td></td><td></td><td></td></tr>
-</table>
+<img [src]="url" height="500">
 </div>
 
 <div class="wrap-login100 big-wrap">
