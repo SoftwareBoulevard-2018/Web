@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class GenerateresourcesComponent implements OnInit {
 
   constructor() { }
-
+  solved_puzzle = false;
   ngOnInit() {
   }
 
