@@ -21,6 +21,7 @@ export class UpdateProjectComponent implements OnInit {
   table_titles = ["id", "name", "update"];
 
   ngOnInit() {
+	// Checks User permissions and transforms the data to the format read by material tables
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
@@ -39,16 +40,19 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
+	// Function necessary by the table filter
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.project2.filter = filterValue;
   }
 
   applyFilter2(filterValue: string) {
+	// Function necessary by the table filter
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.project3.filter = filterValue;
   }
 
   search_project(name) {
+	// Searches project by its name
     for (let project of this.service.projects) {
       if (project.project_name === name) {
         return project;
@@ -57,6 +61,7 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   search_project2(name) {
+	// Searches project by its name
     for (let project of this.service.projects2) {
       if (project.project_name === name) {
         return project;
@@ -65,11 +70,13 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   redirect(event, element) {
+	// Redirects to update bidding project and sends the necessary variables
     this.service.project_to_be_updated = this.search_project(element.project_name);
     this.router.navigate(['home/set-up/update-project/update-bidding-project']);
   }
 
   redirect2(event, element) {
+	// Redirects to update instant project and sends the necessary variables
     this.service.project_to_be_updated = this.search_project2(element.project_name);
     this.router.navigate(['home/set-up/update-project/update-instant-project']);
   }

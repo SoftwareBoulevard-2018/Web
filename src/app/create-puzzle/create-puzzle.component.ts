@@ -19,6 +19,7 @@ export class CreatePuzzleComponent implements OnInit {
 
   onClickSubmit(value){}
 
+  // shows the image when the file is selected
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
@@ -31,6 +32,7 @@ export class CreatePuzzleComponent implements OnInit {
     }
   }
   ngOnInit(){
+	  // Checks user permissions
     if (this.service.user_type === undefined) {
        this.router.navigate([''])
      }

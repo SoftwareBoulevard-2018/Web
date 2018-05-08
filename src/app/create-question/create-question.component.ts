@@ -15,6 +15,7 @@ import { Answer } from "../shared/answer";
 export class CreateQuestionComponent implements OnInit {
 	
   form(){
+    // Defines the default state of the forms
     this.formdata = new FormGroup({
       description: new FormControl('',
         Validators.compose([
@@ -64,6 +65,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   new_description(description){
+	  // Defines if the description has already been taken
     for(let question of this.service.questions){
       if(description === question.description){
         return false;
@@ -73,7 +75,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   constructor(public service: GeneralServiceService, public router: Router) { }
-
+	// These variables are used to create the forms and validate the data input on them
   formdata;
   categories = [ "Analyst", "Developer", "Tester"];
   levels = [ 1, 2, 3, 4, 5];
@@ -91,6 +93,7 @@ export class CreateQuestionComponent implements OnInit {
 
 
   ngOnInit() {
+	// Checks User permissions and establishes the form in the default state
    if (this.service.user_type === undefined) {
       this.router.navigate([''])
     }
@@ -105,6 +108,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   onClickSubmit(data) {
+	// Validates the data input on the form and if it's correct then creates the question
     this.auxiliary = this.new_description(data.description);
 	if (data.veracity1 === true && data.veracity2 === true && data.veracity3 === true && data.veracity4 === true){
 		this.repeated_description = false;
