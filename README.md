@@ -60,8 +60,11 @@ Not Found: This is the component that has the content that will be shown if a no
 
 ## Module 2 - "Game Management" components:
 
-Account creation, log-in, log out
-create user
+### Components related to account creation, log-in and log out:
+
+Create user: This component is responsible for allowing the creation of accounts for new users. 
+It has a form that validates the input data. The form contains the following fields: Name, Username, password, confirmation for the password and role. All fields are required to create a user. Only the game administrator has permissions to access this component. Its URL route is /home/users/create and its located in /web/src/app/create-user.
+
 login
 users
 update user
