@@ -7,12 +7,11 @@ import {Question} from './shared/question';
 import {Answer} from './shared/answer';
 import { Parameter } from './shared/parameter'
 import {Estimation} from './shared/estimation';
-// import { BiddingProject } from './shared/project';
-// import { InstantProject } from './shared/project';
-// import { BiddingProject } from './shared/project';
 
 @Injectable()
 export class GeneralServiceService {
+
+  // Variables used for data session
 
   user_type;
 
@@ -21,6 +20,8 @@ export class GeneralServiceService {
   loggedusr;
 
   threshold;
+
+  // Variables used as dummy database for the mocked frontend
 
   users = [new User("Andres Felipe Aguilar","afaguilarr",
     "ElMejor123","Developer","UNAL",3,12,5),
@@ -47,9 +48,8 @@ export class GeneralServiceService {
 			   new Answer("llorar",true),new Answer("proceder",true))];
 
   parameter = [new Parameter(10)];
-  user_to_be_updated;
 
-  user_to_be_watched;
+  user_to_be_updated;
 
   project_to_be_updated;
 
