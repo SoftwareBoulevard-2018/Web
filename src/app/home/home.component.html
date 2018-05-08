@@ -1,8 +1,10 @@
+<!-- This component will show 3 different menus depending on the user in session -->
 <div class="w3-container">
   <h1>Welcome {{this.service.username}}!</h1>
   <h3>Here you have some pages you can visit:</h3>
 
-  <div class="w3-col" *ngIf="this.service.user_type === 'Game Administrator'">
+  <!-- Game administrator menu -->
+  <div class="w3-col" *ngIf="this.service.user_type === 'Game Administrator'; else other_view">
 
     <div class="w3-quarter">
       <div class="w3-card-4" (click)="redirect1($event)">
@@ -96,82 +98,163 @@
 
   </div>
 
-  <div class="w3-row"  *ngIf="this.service.user_type !== 'Game Administrator'">
+  <ng-template #other_view>
+    <!-- Player menu -->
+    <div class="w3-row"  *ngIf="this.service.user_type === 'Team Member'; else project_manager_view">
 
-    <div class="w3-third">
-      <div class="w3-card-4" (click)="redirect1($event)">
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="redirect1($event)">
 
-        <img src="https://image.freepik.com/free-icon/male-user-silhouette_318-35708.jpg" alt="Person">
+          <img src="https://image.freepik.com/free-icon/male-user-silhouette_318-35708.jpg" alt="Person">
 
-        <div class="w3-container">
+          <div class="w3-container">
 
-          <h4>
-            <b>
-              My status
-            </b>
-          </h4>
-
-          <p>
-            Here you can see all your information!
-          </p>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="w3-third">
-      <div class="w3-card-4" (click)="redirect2($event)">
-
-        <img src="https://image.freepik.com/free-vector/technology-company-logo-template_1061-20.jpg" alt="Person">
-
-        <div class="w3-container">
-
-          <h4>
-            <b>
-              My company
-            </b>
-          </h4>
-
-          <p>
-            Here you can see the information of your company!
-          </p>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="w3-third">
-      <div class="w3-card-4" (click)="redirect3($event)">
-
-        <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg" alt="Person">
-
-        <div class="w3-container">
-
-          <h4>
-            <b *ngIf="this.service.user_type === 'Team Member'; else projectmanager_txt">
-              PLAY!
-            </b>
-            <ng-template #projectmanager_txt>
+            <h4>
               <b>
-                Functions
+                My status
               </b>
-            </ng-template>
-          </h4>
+            </h4>
 
-          <p *ngIf="this.service.user_type === 'Team Member'; else pmanager_txt">
-            Start learning while you have fun!
-          </p>
-          <ng-template #pmanager_txt>
             <p>
-              Here you can see your functions on the game.
-          </p>
-            </ng-template>
+              Here you can see all your information!
+            </p>
 
+          </div>
         </div>
       </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="redirect2($event)">
+
+          <img src="https://image.freepik.com/free-vector/technology-company-logo-template_1061-20.jpg" alt="Person">
+
+          <div class="w3-container">
+
+            <h4>
+              <b>
+                My company
+              </b>
+            </h4>
+
+            <p>
+              Here you can see the information of your company!
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="redirect3($event)">
+
+          <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg" alt="Person">
+
+          <div class="w3-container">
+
+            <h4>
+              <!-- team members -->
+              <b>
+                PLAY!
+              </b>
+            </h4>
+
+            <p>
+              Start learning while you have fun!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="redirect4($event)">
+
+          <img src="https://image.freepik.com/free-icon/multiple-users-silhouette_318-49546.jpg" alt="Person">
+
+          <div class="w3-container">
+
+            <h4>
+              <b>
+                Join team
+              </b>
+            </h4>
+
+            <p>
+              Join team while you have fun!
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-  </div>
+    <ng-template #project_manager_view>
+      <!-- Project manager menu -->
+      <div class="w3-row">
 
+        <div class="w3-third">
+          <div class="w3-card-4" (click)="redirect1($event)">
 
+            <img src="https://image.freepik.com/free-icon/male-user-silhouette_318-35708.jpg" alt="Person">
+
+            <div class="w3-container">
+
+              <h4>
+                <b>
+                  My status
+                </b>
+              </h4>
+
+              <p>
+                Here you can see all your information!
+              </p>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="w3-third">
+          <div class="w3-card-4" (click)="redirect2($event)">
+
+            <img src="https://image.freepik.com/free-vector/technology-company-logo-template_1061-20.jpg" alt="Person">
+
+            <div class="w3-container">
+
+              <h4>
+                <b>
+                  My company
+                </b>
+              </h4>
+
+              <p>
+                Here you can see the information of your company!
+              </p>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="w3-third">
+          <div class="w3-card-4" (click)="redirect3($event)">
+
+            <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg" alt="Person">
+
+            <div class="w3-container">
+
+              <h4>
+                <!-- Project managers have a special menu-->
+                <b>
+                  Functions
+                </b>
+              </h4>
+
+              <p>
+                  Here you can see your functions on the game.
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
 </div>

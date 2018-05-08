@@ -1,4 +1,9 @@
+<!-- The view will be different for each kind of user seen, first it is determined if the user is a game administrator -->
+
 <div class="w3-row body" *ngIf="!(this.service.user_to_be_updated.role === 'Game Administrator'); else game_administrator_view">
+
+  <!-- This will show the company of the user, if it's an unaffiliated user, it will show another view -->
+
   <div class="w3-third"*ngIf="this.current_company !== undefined; else no_company">
     <mat-list role="list">
       <mat-list-item role="listitem">
@@ -20,6 +25,9 @@
       </button>
     </div>
   </div>
+
+  <!-- This will be shown if the user has no company -->
+
   <ng-template #no_company>
     <div class="w3-third">
       <mat-list role="list">
@@ -34,52 +42,98 @@
       </div>
     </div>
   </ng-template>
-  <div *ngIf="!(this.service.user_to_be_updated.role === 'Project Manager'); else project_manager_view">
-    <div class="w3-third">
-      <mat-list role="list">
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>date_range</mat-icon>
-          <h4 mat-line>Started playing on:</h4>
-          <p mat-line>{{date_formatter(this.service.user_to_be_updated.creation_date)}}</p>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Name:</h4>
-          <p mat-line>{{this.service.user_to_be_updated.name}}</p>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>perm_identity</mat-icon>
-          <h4 mat-line>Username:</h4>
-          <p mat-line>{{this.service.user_to_be_updated.username}}</p>
-          </mat-list-item>
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>assignment</mat-icon>
-          <h4 mat-line>Role:</h4>
-          <p mat-line>{{this.service.user_to_be_updated.role}}</p>
-          </mat-list-item>
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>equalizer</mat-icon>
-          <h4 mat-line>Competency:</h4>
-          <p mat-line>{{this.service.user_to_be_updated.competency}}</p>
-        </mat-list-item>
-      </mat-list>
-      <div class="centered_button">
-        <button mat-raised-button (click)="redirect($event)" *ngIf="this.service.user_type === 'Game Administrator'">
-          Update this user.
-        </button>
-      </div>
+
+  <!-- This is the data of the user -->
+
+  <div class="w3-third">
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>date_range</mat-icon>
+        <h4 mat-line>Started playing on:</h4>
+        <p mat-line>{{date_formatter(this.service.user_to_be_updated.creation_date)}}</p>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <h4 mat-line>Name:</h4>
+        <p mat-line>{{this.service.user_to_be_updated.name}}</p>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>perm_identity</mat-icon>
+        <h4 mat-line>Username:</h4>
+        <p mat-line>{{this.service.user_to_be_updated.username}}</p>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <h4 mat-line>Role:</h4>
+        <p mat-line>{{this.service.user_to_be_updated.role}}</p>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>equalizer</mat-icon>
+        <h4 mat-line>Competency:</h4>
+        <p mat-line>{{this.service.user_to_be_updated.competency}}</p>
+      </mat-list-item>
+    </mat-list>
+    <div class="centered_button">
+      <button mat-raised-button (click)="redirect($event)" *ngIf="this.service.user_type === 'Game Administrator'">
+        Update this user.
+      </button>
     </div>
+  </div>
+
+  <!-- This will show the efficiency of the user, it will different a team member and a project manager -->
+  <!-- Team member: it will show right answers vs wrong answers -->
+
+  <div class="w3-third" *ngIf="!(this.service.user_to_be_updated.role === 'Project Manager'); else project_manager_view">
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>check</mat-icon>
+        <h4 mat-line>Questions answered right:</h4>
+        <p mat-line>{{this.service.user_to_be_updated.questions_answered_right}}</p>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>close</mat-icon>
+        <h4 mat-line>Questions ansered wrong:</h4>
+        <p mat-line>{{this.service.user_to_be_updated.questions_answered_wrong}}</p>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>assessment</mat-icon>
+        <h4 mat-line>User performance:</h4>
+        <p mat-line>{{this.performance.toFixed(2)}} %</p>
+      </mat-list-item>
+    </mat-list>
+    <div class="center">
+
+      <!-- The progress spinner (which is actually a performance spinner) will be shown only if at least one question was answered right -->
+
+      <mat-progress-spinner
+        class="example-margin"
+        [color]="color"
+        [mode]="mode"
+        [value]="this.performance" *ngIf="this.performance !== 0; else bad_guy">
+      </mat-progress-spinner>
+
+      <!-- If there are zero questions answered right it will show a sad face instead -->
+
+      <ng-template #bad_guy>
+        <img src="https://images.vexels.com/media/users/3/134775/isolated/preview/fe9e24622975f54832c4345e683e5f93-emoticon-enfermo-emoji-by-vexels.png">
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Project manager: it will show right estimations vs wrong estimations -->
+
+  <ng-template #project_manager_view>
     <div class="w3-third">
       <mat-list role="list">
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>check</mat-icon>
-          <h4 mat-line>Questions answered right:</h4>
-          <p mat-line>{{this.service.user_to_be_updated.questions_answered_right}}</p>
+          <h4 mat-line>Right estimations:</h4>
+          <p mat-line>{{this.right_estimations}}</p>
         </mat-list-item>
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>close</mat-icon>
-          <h4 mat-line>Questions ansered wrong:</h4>
-          <p mat-line>{{this.service.user_to_be_updated.questions_answered_wrong}}</p>
+          <h4 mat-line>Wrong estimations:</h4>
+          <p mat-line>{{this.wrong_estimations}}</p>
         </mat-list-item>
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>assessment</mat-icon>
@@ -88,50 +142,28 @@
         </mat-list-item>
       </mat-list>
       <div class="center">
+
+        <!-- The progress spinner (which is actually a performance spinner) will be shown only if at least one estimation was done right -->
+
         <mat-progress-spinner
           class="example-margin"
           [color]="color"
           [mode]="mode"
-          [value]="this.performance" *ngIf="this.performance !== 0; else bad_guy">
+          [value]="this.performance" *ngIf="this.performance !== 0; else bad_guy2">
         </mat-progress-spinner>
-        <ng-template #bad_guy>
+
+        <!-- If there are zero estimations done right it will show a sad face instead -->
+
+        <ng-template #bad_guy2>
           <img src="https://images.vexels.com/media/users/3/134775/isolated/preview/fe9e24622975f54832c4345e683e5f93-emoticon-enfermo-emoji-by-vexels.png">
         </ng-template>
       </div>
     </div>
-  </div>
-  <ng-template #project_manager_view>
-    <div class="w3-third">
-      <mat-list role="list">
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>date_range</mat-icon>
-          <h4 mat-line>Started playing on:</h4>
-          <p mat-line>{{date_formatter(this.service.user_to_be_updated.creation_date)}}</p>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Name:</h4>
-          <p mat-line>{{this.service.user_to_be_updated.name}}</p>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>perm_identity</mat-icon>
-          <h4 mat-line>Username:</h4>
-          <p mat-line>{{this.service.user_to_be_updated.username}}</p>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <mat-icon mat-list-icon>assignment</mat-icon>
-          <h4 mat-line>Role:</h4>
-          <p mat-line>{{this.service.user_to_be_updated.role}}</p>
-        </mat-list-item>
-      </mat-list>
-      <div class="centered_button">
-        <button mat-raised-button (click)="redirect($event)" *ngIf="this.service.user_type === 'Game Administrator'">
-          Update this user.
-        </button>
-      </div>
-    </div>
   </ng-template>
 </div>
+
+<!-- This will be shown if the user to be seen is a game administrator -->
+
 <ng-template #game_administrator_view>
   <div class="body">
     <mat-list role="list">

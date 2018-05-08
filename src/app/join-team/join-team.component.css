@@ -1,0 +1,33 @@
+.invitations {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.invitations > div > * {
+  display: inline;
+}
+
+.invitations > div > p {
+  font-size: 1.1rem;
+  color: #333333;
+}
+
+.companyName {
+  margin: 0 3rem 0 0;
+}
+
+.accept, .reject {
+  margin: 0.2rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 2px;
+}
+
+.accept {
+  background-color: #00FF00;
+}
+
+.reject {
+  background-color: #FF0000;
+}
+

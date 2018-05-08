@@ -1,3 +1,4 @@
+<!-- This will be shown to redirect the admin to create a new company -->
 <div class="w3-container">
   <h1>Companies</h1>
   <button mat-raised-button class="create" (click)="redirect3($event)">
@@ -5,8 +6,10 @@
   </button>
 </div>
 
+<!-- This will contain the table -->
 <div class="container mat-elevation-z8">
 
+  <!-- Filter -->
   <div class="header">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -89,9 +92,12 @@
       </mat-cell>
     </ng-container>
 
+    <!-- Defines the rows -->
     <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
     <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
   </mat-table>
+
+  <!-- Pagination will be implemented later -->
   <!------<mat-paginator #paginator
                  [pageSize]="10"
                  [pageSizeOptions]="[5, 10, 20]"

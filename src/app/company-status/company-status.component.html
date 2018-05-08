@@ -1,17 +1,17 @@
+<!-- This will be shown if the user doesn't have a company associated -->
 <div *ngIf="current_company === undefined; else show_company">
   <div class="padlock">
     <img src="https://vignette.wikia.nocookie.net/fakemon/images/0/0e/Forever_Alone.png/revision/latest?cb=20130216001235&path-prefix=es">
   </div>
-
-  <h1>
+  <h1 class="not_a_member">
     You aren't a member of any company right now.
   </h1>
 </div>
 
+<!-- Info displayed if the user has a company -->
 <ng-template #show_company>
-
   <div class="w3-row">
-    <div class="w3-half">
+    <div class="w3-third">
       <mat-list role="list">
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>date_range</mat-icon>
@@ -26,7 +26,14 @@
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>perm_identity</mat-icon>
           <h4 mat-line>Project manager:</h4>
-          <p mat-line>{{current_company.project_manager.name}} - {{current_company.project_manager.username}}</p>
+          <p mat-line *ngIf="current_company.project_manager !== undefined; else pending_project_manager">
+            {{current_company.project_manager.name}} - {{current_company.project_manager.username}}
+          </p>
+          <ng-template #pending_project_manager>
+            <p mat-line>
+              None
+            </p>
+          </ng-template>
         </mat-list-item>
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>assignment</mat-icon>
@@ -52,8 +59,22 @@
             </p>
           </ng-template>
         </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon mat-list-icon>school</mat-icon>
+          <h4 mat-line>Current project:</h4>
+          <p mat-line *ngIf="current_company.current_project_name !== undefined; else pending_project_name">
+            {{current_company.current_project_name}}
+          </p>
+          <ng-template #pending_project_name>
+            <p mat-line>
+              None
+            </p>
+          </ng-template>
+
+        </mat-list-item>
       </mat-list>
       <div class="centered_button">
+        <!-- This will be shown if the user in session is a game administrator or a project manager -->
         <button mat-raised-button (click)="redirect($event)" *ngIf="this.service.user_type === 'Game Administrator'
            || this.service.user_type === 'Project Manager'">
           Update this company.
@@ -61,16 +82,86 @@
       </div>
     </div>
 
-    <div class="w3-half">
+    <div class="w3-twothird">
+
       <mat-list role="list">
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>photo</mat-icon>
           <h4 mat-line>Company logo:</h4>
         </mat-list-item>
       </mat-list>
-      <div class="center">
+
+      <!-- Company logo, only shown if there is a logo -->
+      <div class="center" *ngIf="(current_company.image !== undefined) && (current_company.image !== ''); else no_image">
         <img src="{{this.current_company.image}}">
       </div>
+
+      <!-- If company has no logo -->
+      <ng-template #no_image>
+        <h1 class="error">
+          This company has no logo.
+        </h1>
+      </ng-template>
+
+      <!-- Table of users on the company, only shown if there are members on the company -->
+      <div class="container mat-elevation-z8" *ngIf="current_company.team_members.length !== 0; else no_members">
+
+        <div class="header">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+        </div>
+
+        <mat-table #table [dataSource]="users2">
+
+          <!-- Competency Column -->
+          <ng-container matColumnDef="competency">
+            <mat-header-cell *matHeaderCellDef> Competency </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.competency }} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          </ng-container>
+
+          <!-- Username Column -->
+          <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+          </ng-container>
+
+          <!-- Role Column -->
+          <ng-container matColumnDef="role">
+            <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+          </ng-container>
+
+          <!-- Correct Answers Column -->
+          <ng-container matColumnDef="correct_answers">
+            <mat-header-cell *matHeaderCellDef> Correct answers </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.questions_answered_right}} </mat-cell>
+          </ng-container>
+
+          <!-- Wrong Ansers Column -->
+          <ng-container matColumnDef="wrong_answers">
+            <mat-header-cell *matHeaderCellDef> Wrong answers </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.questions_answered_wrong}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
+        </mat-table>
+      </div>
+
+      <!-- If company has no members -->
+      <ng-template #no_members>
+        <h1 class="error">
+          This company has no members.
+        </h1>
+      </ng-template>
     </div>
   </div>
+
 </ng-template>

@@ -1,9 +1,11 @@
+<!-- Create company form -->
 <div class="wrap-login100 big-wrap">
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <span class="login100-form-title p-b-34 p-t-27">
       Create company
     </span>
 
+    <!-- Inputs, only the name is required -->
     <div class="element">
       <mat-form-field class="big-input">
         <input matInput placeholder="Name" name="name" formControlName="name">
@@ -31,6 +33,7 @@
       </mat-form-field>
     </div>
 
+    <!-- Error or success messages -->
     <div class="element" *ngIf="invalid">
       <br/>
       <span class="error">
@@ -55,6 +58,7 @@
     <br/>
     <br/>
 
+    <!-- Submit button -->
     <div class="element element2">
       <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
         Create

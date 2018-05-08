@@ -1,10 +1,13 @@
+// Fundamental imports
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
+// Service imports
 import { GeneralServiceService } from './general-service.service';
 
+// Angular imports
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatIconModule, MatButtonModule } from '@angular/material';
 import { MatSelectModule, MatListModule } from '@angular/material';
@@ -12,6 +15,7 @@ import { MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Components imports
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -44,7 +48,12 @@ import { UpdateParametersComponent} from './update-parameters/update-parameters.
 import { ReportsComponent } from './reports/reports.component';
 import { NewInstantProjectComponent } from './new-instant-project/new-instant-project.component';
 import { NewBiddingProjectComponent } from './new-bidding-project/new-bidding-project.component';
+import { PlayComponent } from './play/play.component';
+import { PlaySkillComponent } from './play-skill/play-skill.component';
+import { PlayDevelopComponent } from './play-develop/play-develop.component';
+import { JoinTeamComponent } from './join-team/join-team.component';
 
+// App routes
 const routes: Routes = [
   {'path': '', 'component': LoginComponent},
   {'path': 'home', 'component': HomeComponent},
@@ -73,9 +82,14 @@ const routes: Routes = [
   {'path': 'home/users/projectmanager/functions/chooseproject', 'component': ChooseprojectComponent},
   {'path': 'home/users/projectmanager/functions/estimation', 'component': EstimationComponent},
   {'path': 'home/users/projectmanager/functions/recruit', 'component': RecruitMemberComponent},
+  {'path': 'home/play', 'component': PlayComponent},
+  {'path': 'home/play/skill', 'component': PlaySkillComponent},
+  {'path': 'home/play/develop', 'component': PlayDevelopComponent},
+  {'path': 'home/join-team', 'component': JoinTeamComponent},
   {'path': '**', 'component': NotFoundComponent}
 ];
 
+// NgModule variables
 @NgModule({
   declarations: [
     AppComponent,
@@ -109,7 +123,11 @@ const routes: Routes = [
     UpdateParametersComponent,
     NewInstantProjectComponent,
     NewBiddingProjectComponent,
-    ReportsComponent
+    ReportsComponent,
+    PlayComponent,
+    PlaySkillComponent,
+    PlayDevelopComponent,
+    JoinTeamComponent
   ],
   imports: [
     BrowserModule,
