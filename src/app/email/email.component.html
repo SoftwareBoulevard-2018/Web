@@ -40,7 +40,7 @@
 						<table style="width: 100%;height: inherit; text-align: left; overflow: auto;">
 							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of cenviados" >
 								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
-								<td (click)="leer(correo,1)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
+								<td (click)="leer(correo,1)" style="margin-left: 0.5em">	{{correo.receiver}}</td>
 								<td (click)="leer(correo,1)">{{correo.asunto}}</td>
 								<td (click)="leer(correo,1)">{{correo.fecha}}</td>
 							</tr>
@@ -49,11 +49,11 @@
 					<!--espacio para escribir un nuevo email-->
 					<div *ngIf="newe" id="new" >
 						<table id="tablanuevo">
-							<tr><td><h5 style="display: inline-block;">Select Receiver: </h5><input id="inputto" type="text"/></td></tr>
-							<tr><td><h5 style="display: inline-block;">Subject: </h5><input id="inputsub" type="text"/></td></tr>
-							<tr><input type="textarea" id="inputcontenido"/></tr>
+							<tr><td><h5 style="display: inline-block;">Select Receiver: </h5><input type="text" class="form-control" id="inputto" #to type="text"/></td></tr>
+							<tr><td><h5 style="display: inline-block;">Subject: </h5><input id="inputsub" #sub type="text"/></td></tr>
+							<tr><input type="textarea" #cont id="inputcontenido"/></tr>
 						</table>
-							<button id="enviarnuevo">Send Email</button>
+							<button id="enviarnuevo" (click)="enviar(to.value,sub.value,cont.value)">Send Email</button>
 					</div>
 				</div>
 

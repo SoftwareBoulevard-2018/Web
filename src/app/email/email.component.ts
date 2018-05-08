@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
+import { FormGroup, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-email',
@@ -22,6 +23,7 @@ export class EmailComponent implements OnInit {
   uname;
   newe = false;
   sent=false;
+  inputto;
   crecibidos = [
 {id: 0, asunto:"Prueba 1", remitente:"Fulanito 1", fecha:"20/04/2018", state:"sent", content:"1"},
 {id: 1, asunto:"Prueba 2", remitente:"Fulanito 2", fecha:"20/04/2018", state:"sent", content:"2"},
@@ -106,5 +108,9 @@ cenviados =[
   	this.sent=false;
   	this.recibidos=false;
   }
-
+  enviar(to,sub,cont){
+    this.cenviados.push(
+      {id: 1, asunto:sub,receiver to, remitente:this.service.username, fecha:"08/05/2018", state:"sent", content:cont}
+    );
+  }
 }

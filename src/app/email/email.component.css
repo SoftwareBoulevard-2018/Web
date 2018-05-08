@@ -189,6 +189,7 @@ naranja #FF5729
 	color: #F5F2DC; 
 	height: 100%; 
 	margin: 0 3% 3% 0; 
+	overflow: auto;
 	padding:0;
 	position: absolute;
 	top: 0;
