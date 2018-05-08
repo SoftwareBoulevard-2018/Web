@@ -10,20 +10,23 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class ChooseprojectComponent implements OnInit {
   table_titles = ['Project_ID', 'Project_Name', 'Required_K', 'Rewarded_K', 'Analyst_Level', 'Developer_Level', 'Tester_Level', 'Select'];
+  correct_guess = true;
   projects = [];
   projects2;
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
-/*  search_project(project_id) {
+  search_project(project_id) {
     for (const project of this.service.projects) {
       if (this.projects === project_id) {
         return project;
       }
     }
-  }*/
+  }
 
   redirect1(event, element) {
+    this.service.user_to_be_updated = this.search_project(element.project_id);
+    this.router.navigate(['home/users/user-status']);
     return ;
   }
   getCompany(username) {

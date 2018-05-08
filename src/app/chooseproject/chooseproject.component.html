@@ -60,7 +60,7 @@
     <ng-container matColumnDef="Select">
       <mat-header-cell *matHeaderCellDef> Select Project </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-raised-button (click)="redirect1($event,element)">
+        <button mat-raised-button (click)="redirect1($event,element)" type="submit" [disabled] = "(!correct_guess)" class="forsubmit">
           Select
         </button>
       </mat-cell>
