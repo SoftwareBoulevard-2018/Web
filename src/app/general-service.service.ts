@@ -33,6 +33,7 @@ export class GeneralServiceService {
     new User("Juan David Fernandez Moreno","judfernandez","fatbastard","Project Manager"),
     new User("Juan Pablo Chaves Morales","jpchavesm","ouiaboo","Developer", "Amazon"),
     new User("Victor Daniel JAramillo Gomez", "vdjaramillog","0000","Developer","UNAL"),
+    new User("Test", "test1","test1","Tester"),
     new User("1", "1","1","Game Administrator")];
 
   projects = [new BiddingProject(1,"FIFA",10,3, 10, 10, 10, 5000,0, 0, 0 ,0),
@@ -71,6 +72,8 @@ export class GeneralServiceService {
                   new Estimation("jjsernaco","FIFA",5500,10)];
 
   company_to_be_updated;
+
+  invitations=[];
 
   constructor() { }
 }

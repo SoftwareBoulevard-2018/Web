@@ -1,0 +1,52 @@
+<div class="announcement">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Generate resources
+    </span>
+    <div class="w3-row">
+      <div class="w3-card-4" (click)="redirect1($event)">
+
+        <div class="correct" *ngIf="solved_puzzle === true">
+          <img src="https://i.imgur.com/7P5RBai.png">
+
+          <div class="w3-container">
+
+            <p>
+              Solve slidding puzzle to generate resources.
+            </p>
+          </div>
+        </div>
+
+        <div class="incorrect" *ngIf="solved_puzzle !== true">
+          <img src="https://i.imgur.com/7MTuui6.png">
+
+          <div class="w3-container">
+
+            <p>
+              Solve slidding puzzle to generate resources.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <br>
+      <div class="element-text3" *ngIf="solved_puzzle">
+        <br/>
+        You have generated resources!
+      </div>
+
+      <br>
+      <br>
+
+    <div class="elementfield2">
+      <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+        Exit
+      </button>
+
+      <button mat-raised-button color="warn" type="submit" (click)="redirectToFunctions($event)" [disabled] = "(!solved_puzzle)" class="forsubmit">
+        Validate
+      </button>
+    </div>
+  </div>
+</div>

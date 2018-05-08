@@ -58,6 +58,7 @@ import { UpdateBiddingProjectComponent } from './update-bidding-project/update-b
 import { UpdateInstantProjectComponent } from './update-instant-project/update-instant-project.component';
 import { UpdateQuestionComponent } from './update-question/update-question.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
+import { GenerateresourcesComponent } from './generateresources/generateresources.component';
 
 // App routes
 const routes: Routes = [
@@ -89,6 +90,7 @@ const routes: Routes = [
   {'path': 'home/users/projectmanager/functions/chooseproject', 'component': ChooseprojectComponent},
   {'path': 'home/users/projectmanager/functions/estimation', 'component': EstimationComponent},
   {'path': 'home/users/projectmanager/functions/recruit', 'component': RecruitMemberComponent},
+  {'path': 'home/users/projectmanager/functions/generate', 'component': GenerateresourcesComponent},
   {'path': 'home/play', 'component': PlayComponent},
   {'path': 'home/play/skill', 'component': PlaySkillComponent},
   {'path': 'home/play/develop', 'component': PlayDevelopComponent},
@@ -121,6 +123,7 @@ const routes: Routes = [
     RecruitMemberComponent,
     ChooseprojectComponent,
     PmfunctionsComponent,
+    GenerateresourcesComponent,
     CreateProjectComponent,
     SetUpComponent,
     UpdateProjectComponent,
@@ -138,7 +141,8 @@ const routes: Routes = [
     PlayDevelopComponent,
     JoinTeamComponent,
     UpdateQuestionComponent,
-    EditQuestionComponent
+    EditQuestionComponent,
+    GenerateresourcesComponent
   ],
   imports: [
     BrowserModule,
