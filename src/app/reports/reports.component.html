@@ -109,7 +109,7 @@
 
         <!-- Resources Column-->
         <ng-container matColumnDef="resources">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Resources </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Resources </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.resources}} </mat-cell>
         </ng-container>
 
@@ -123,8 +123,8 @@
           </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="table_titles_company"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: table_titles_company;"></mat-row>
+        <mat-header-row *matHeaderRowDef="table_titles_company2"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: table_titles_company2;"></mat-row>
       </mat-table>
       <!--<mat-paginator #paginator
                      [pageSize]="10"

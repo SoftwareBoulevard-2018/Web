@@ -27,15 +27,21 @@ export class ReportsComponent implements OnInit {
   //users2;
 
   table_titles_company = ['image', 'name', 'capacity_k', 'status'];
+  table_titles_company2 = ['image', 'name', 'resources', 'status'];
   //table_titles_user = ['name', 'username', 'role', 'company', 'status'];
 
   ngOnInit() {
-    this.companies = JSON.parse(JSON.stringify(this.service.companies));
-    this.companies2 = new MatTableDataSource(this.companies);
-    // this.companies2.paginator = this.paginator;
-    this.companies2.sort = this.sort;
-    /**console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
+      this.router.navigate(['']);
+    } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
+      this.router.navigate(['restricted']);
+    } else {
+      this.companies = JSON.parse(JSON.stringify(this.service.companies));
+      this.companies2 = new MatTableDataSource(this.companies);
+      // this.companies2.paginator = this.paginator;
+      this.companies2.sort = this.sort;
+      /**console.log(this.service.user_type);
+       if (this.service.user_type === undefined) {
       this.router.navigate(['']);
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
       this.router.navigate(['restricted']);
@@ -53,6 +59,7 @@ export class ReportsComponent implements OnInit {
       // this.users2.paginator = this.paginator;
       this.users2.sort = this.sort;
     }*/
+    }
   }
   applyFilterCompany(filterValue: string) {
     // Function used to filter the values on the material table
