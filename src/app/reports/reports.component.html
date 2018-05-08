@@ -9,6 +9,7 @@
         </mat-form-field>
       </div>
 
+      <mat-table #table [dataSource]="companies2" matSort> <!--matSortActive="capacity_k" matSortDirection="desc">
 
        <!-- Logo Column -->
         <ng-container matColumnDef="image">
@@ -102,13 +103,13 @@
 
         <!-- Capacity K Column -->
         <ng-container matColumnDef="capacity_k">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity K </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Capacity K </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.capacity_k}} </mat-cell>
         </ng-container>
 
         <!-- Resources Column-->
         <ng-container matColumnDef="resources">
-          <mat-header-cell *matHeaderCellDef> Resources </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Resources </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.resources}} </mat-cell>
         </ng-container>
 
