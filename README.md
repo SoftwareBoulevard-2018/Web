@@ -87,8 +87,6 @@ Companies: This component is responsible for showing the game administrator the 
 User status: In this component almost all information about a user is shown, its accessible by every kind of user but the game administrator can see the status of every user and each user can see only its status. From here the game administrator can reach the Update user component. Its URL route is /home/users/user-status/ and it's located in /web/src/app/user-status.
 
 Company-status: In this component almost all information about a company is shown, its accessible by every kind of user but the game administrator can see the status of every company and each user can see only its company. From here the game administrator and the project managers can reach the Update company component.  Its URL route is /home/companies/company-status/ and it's located in /web/src/app/company-status.
-### Module 5 - "Communication" component:
-The Email (communication) component allows users to communicate between them. Allows to read inbox, sent emails, write new emails and send it. Shows a notification that counts unread messages. Know more : /src/app/email
 
 ## Module 3 - "Project Manager" components:
 
@@ -105,5 +103,8 @@ Generate Resources: In this component a Project Manager can add resources to his
 ### Additional Components:
 
 Pmfunctions: This component displays all the actions that a Project Manager can do. It has four buttons (Recruit Member, Choose Project, Estimate Cost & Time and  Generate Resources. Clicking each button will redirect the user to the specified Use Case. Only the PM has permission to access this. Its URL route is home/users/projectmanager and it's located in /web/src/app/pmfunctions.
+
+### Module 5 - "Communication" component:
+The Email (communication) component allows users to communicate between them. Allows to read inbox, sent emails, write new emails and send it. Shows a notification that counts unread messages. Know more : /src/app/email
 
 
