@@ -10,6 +10,11 @@
   text-align: center;
 }
 .element{
+  text-align: justify;
+
+}
+.announcement{
+  color: red;
   text-align: center;
 }
 
@@ -24,9 +29,9 @@ button{
   background-color: #009494;
   color: white;
 }
-h1{
+h6{
   margin: 2% auto 1% 0 ;
-  color: #00585E;
+  color: black;
   font-weight: bold;
   text-align: center;
 }

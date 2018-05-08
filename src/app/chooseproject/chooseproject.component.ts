@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
-import {Router} from "@angular/router";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import { User } from "../shared/user";
-import { MatSelect } from "@angular/material";
+import {Router} from '@angular/router';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-chooseproject',
@@ -11,78 +9,63 @@ import { MatSelect } from "@angular/material";
   styleUrls: ['./chooseproject.component.css']
 })
 export class ChooseprojectComponent implements OnInit {
-  formdata;
-  project_managers;
-  invalid = false;
-  success = false;
-  company_find;
-  project;
-  aux;
+  table_titles = ['Project_ID', 'Project_Name', 'Required_K', 'Rewarded_K', 'Analyst_Level', 'Developer_Level', 'Tester_Level', 'Select'];
+  projects = [];
+  projects2;
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
-  form() {
-    this.formdata = new FormGroup({
-      name: new FormControl('',
-        Validators.compose([
-          Validators.required
-        ])),
-      img: new FormControl(''),
-      project_manager: new FormControl('')
-    });
-  }
-
-  possible_members() {
-    this.company_find = this.search_company_pm(this.service.username);
-    this.project_managers = []
-    for (let project of this.service.projects) {
-      if (this.company_find !== undefined) {
-        if (this.company_find.capacity_k >= project.required_k) {
-          this.project_managers.push(project);
-        }
-      }
-
-  else {
-        this.invalid = true;
-
+/*  search_project(project_id) {
+    for (const project of this.service.projects) {
+      if (this.projects === project_id) {
+        return project;
       }
     }
-  }
+  }*/
 
-  search_company_pm (name_pm) {
-    for (let company of this.service.companies) {
-      if (company.project_manager !== undefined) {
-        if (company.project_manager.username === name_pm ) {
-          return company;
+  redirect1(event, element) {
+    return ;
+  }
+  getCompany(username) {
+    for (const user of this.service.users) {
+      if (username === user.username) {
+        for (const company of this.service.companies) {
+          if (user.company_name === company.name) {
+            return company;
+          }
         }
       }
     }
   }
 
-  onClickSubmit(data) {
-    this.aux=[];
-    if(data.project_manager != this.service.username) {
-      this.aux.push(data.project_manager, this.service.username);
-      this.success = true;
-      this.invalid = false;
-    }
-    else{
-      this.success = false;
-      this.invalid = true;
+  getProject(username) {
+    for (const user of this.service.users) {
+      if (username === user.username) {
+        for (const company of this.service.companies) {
+          if (user.company_name === company.name) {
+            for (const project of this.service.projects) {
+              if (company.current_project_name === project.project_name) {
+                return project;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
   ngOnInit() {
+    console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
-      this.router.navigate([''])
-    }
-
-    else if (this.service.user_type === "Team Member" || this.service.user_type === "Game Administrator") {
-      this.router.navigate(['restricted'])
-    }
-    else {
-      this.possible_members();
-      this.form();
+      this.router.navigate(['']);
+    } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Game Administrator') {
+      this.router.navigate(['restricted']);
+    } else {
+      this.projects = JSON.parse(JSON.stringify(this.service.projects));
+      this.projects2 = new MatTableDataSource(this.projects);
+      console.log(this.projects2);
+      // this.users2.paginator = this.paginator;
+      // this.users2.sort = this.sort;
     }
   }
 
