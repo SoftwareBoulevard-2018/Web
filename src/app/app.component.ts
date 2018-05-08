@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { GeneralServiceService } from './general-service.service';
 
+
 @Component({
   selector: 'app-root',
+  // This defines the components that will appear on the whole app, the router-outlet is the one that changes
   template: `
     <app-header></app-header>
     <router-outlet></router-outlet>
@@ -14,7 +16,4 @@ import { GeneralServiceService } from './general-service.service';
 
 export class AppComponent {
   title = 'app';
-  ngOnInit() {
-    console.log("hola mundo");
-  }
 }

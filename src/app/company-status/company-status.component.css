@@ -2,6 +2,10 @@ h1{
   color: #00585E;
   margin: 0 auto 5% 12.5%;
 }
+.not_a_member{
+  text-align: center!important;
+  margin: auto auto 5% auto;
+}
 .padlock{
   margin-top: 5%;
   text-align: center;

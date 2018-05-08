@@ -1,9 +1,12 @@
+<!-- Company update form -->
+<!-- This will be shown if the user in session is a game administrator -->
 <div class="wrap-login100 big-wrap" *ngIf="this.service.user_type === 'Game Administrator'; else p_m">
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <span class="login100-form-title p-b-34 p-t-27 non_mayus">
       UPDATE COMPANY - {{this.service.company_to_be_updated.name}}
     </span>
 
+    <!-- Name, image and project manager inputs -->
     <div class="element">
       <mat-form-field class="big-input">
         <input matInput placeholder="Name - {{this.service.company_to_be_updated.name}}" name="name" formControlName="name">
@@ -38,6 +41,7 @@
       </mat-form-field>
     </div>
 
+    <!-- Error or success messages -->
     <div class="element" *ngIf="totally_empty">
       <br/>
       <span class="error">
@@ -59,6 +63,7 @@
       </span>
     </div>
 
+    <!-- Error or success messages -->
     <div class="element" *ngIf="success">
       <br/>
       <span class="success">
@@ -69,6 +74,7 @@
     <br/>
     <br/>
 
+    <!-- Button which submits data on the form -->
     <div class="element element2">
       <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
         Update
@@ -78,6 +84,7 @@
   </form>
 </div>
 
+<!-- This will be shown if the user in session is a project manager -->
 <ng-template #p_m>
   <div class="wrap-login100 big-wrap">
     <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
@@ -85,6 +92,7 @@
         UPDATE COMPANY - {{this.service.company_to_be_updated.name}}
       </span>
 
+      <!-- Project managers can only update the image of the company -->
       <div class="company_img">
         <img src="{{this.service.company_to_be_updated.image}}">
       </div>
@@ -95,6 +103,7 @@
         </mat-form-field>
       </div>
 
+      <!-- Error or success messages -->
       <div class="element" *ngIf="totally_empty">
         <br/>
         <span class="error">
@@ -123,6 +132,7 @@
         </span>
       </div>
 
+
       <div class="element" *ngIf="success">
         <br/>
         <span class="success">
@@ -133,6 +143,7 @@
       <br/>
       <br/>
 
+      <!-- Button which submits data on the form -->
       <div class="element element2">
         <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
           Update
