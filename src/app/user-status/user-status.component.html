@@ -1,6 +1,9 @@
 <!-- The view will be different for each kind of user seen, first it is determined if the user is a game administrator -->
+
 <div class="w3-row body" *ngIf="!(this.service.user_to_be_updated.role === 'Game Administrator'); else game_administrator_view">
+
   <!-- This will show the company of the user, if it's an unaffiliated user, it will show another view -->
+
   <div class="w3-third"*ngIf="this.current_company !== undefined; else no_company">
     <mat-list role="list">
       <mat-list-item role="listitem">
@@ -22,7 +25,9 @@
       </button>
     </div>
   </div>
+
   <!-- This will be shown if the user has no company -->
+
   <ng-template #no_company>
     <div class="w3-third">
       <mat-list role="list">
@@ -37,7 +42,9 @@
       </div>
     </div>
   </ng-template>
+
   <!-- This is the data of the user -->
+
   <div class="w3-third">
     <mat-list role="list">
       <mat-list-item role="listitem">
@@ -72,8 +79,10 @@
       </button>
     </div>
   </div>
+
   <!-- This will show the efficiency of the user, it will different a team member and a project manager -->
   <!-- Team member: it will show right answers vs wrong answers -->
+
   <div class="w3-third" *ngIf="!(this.service.user_to_be_updated.role === 'Project Manager'); else project_manager_view">
     <mat-list role="list">
       <mat-list-item role="listitem">
@@ -93,20 +102,26 @@
       </mat-list-item>
     </mat-list>
     <div class="center">
+
       <!-- The progress spinner (which is actually a performance spinner) will be shown only if at least one question was answered right -->
+
       <mat-progress-spinner
         class="example-margin"
         [color]="color"
         [mode]="mode"
         [value]="this.performance" *ngIf="this.performance !== 0; else bad_guy">
       </mat-progress-spinner>
+
       <!-- If there are zero questions answered right it will show a sad face instead -->
+
       <ng-template #bad_guy>
         <img src="https://images.vexels.com/media/users/3/134775/isolated/preview/fe9e24622975f54832c4345e683e5f93-emoticon-enfermo-emoji-by-vexels.png">
       </ng-template>
     </div>
   </div>
+
   <!-- Project manager: it will show right estimations vs wrong estimations -->
+
   <ng-template #project_manager_view>
     <div class="w3-third">
       <mat-list role="list">
@@ -127,14 +142,18 @@
         </mat-list-item>
       </mat-list>
       <div class="center">
+
         <!-- The progress spinner (which is actually a performance spinner) will be shown only if at least one estimation was done right -->
+
         <mat-progress-spinner
           class="example-margin"
           [color]="color"
           [mode]="mode"
           [value]="this.performance" *ngIf="this.performance !== 0; else bad_guy2">
         </mat-progress-spinner>
+
         <!-- If there are zero estimations done right it will show a sad face instead -->
+
         <ng-template #bad_guy2>
           <img src="https://images.vexels.com/media/users/3/134775/isolated/preview/fe9e24622975f54832c4345e683e5f93-emoticon-enfermo-emoji-by-vexels.png">
         </ng-template>
@@ -144,6 +163,7 @@
 </div>
 
 <!-- This will be shown if the user to be seen is a game administrator -->
+
 <ng-template #game_administrator_view>
   <div class="body">
     <mat-list role="list">
