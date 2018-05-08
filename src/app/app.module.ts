@@ -7,15 +7,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Service imports
 import { GeneralServiceService } from './general-service.service';
 
-// Angular imports
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
-import { MatIconModule, MatButtonModule } from '@angular/material';
-import { MatSelectModule, MatListModule } from '@angular/material';
+
+
+// Components imports
+
+import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatSidenavModule, MatRadioModule } from '@angular/material';
+import { MatSelectModule, MatListModule, MatExpansionModule } from '@angular/material';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
-// Components imports
+
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -138,11 +142,15 @@ const routes: Routes = [
     MatIconModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCardModule,
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatSidenavModule,
+    MatRadioModule,
+    MatExpansionModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -153,9 +161,13 @@ const routes: Routes = [
     MatButtonModule,
     MatSelectModule,
     MatTableModule,
+    MatCardModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatExpansionModule,
+    MatSidenavModule,
+    MatRadioModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],
