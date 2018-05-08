@@ -40,6 +40,10 @@ export class HeaderComponent implements OnInit {
   redirectCreateCompany(event) {
     this.router.navigate(['home/companies/create']);
   }
+
+  redirectMyFunctions(event){
+    this.router.navigate(['home/users/projectmanager/functions']);
+  }
   redirectUsers(event) {
     this.router.navigate(['home/users']);
   }
