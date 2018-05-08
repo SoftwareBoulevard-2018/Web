@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div *ngIf="!(this.service.user_type === undefined)">
 <div  *ngIf="opene" id ="emailing">
 			<h4 id="temail">Email <button id="cerraremail" (click)="cerraremail()">X</button></h4>
@@ -66,73 +65,4 @@
 	<div *ngIf="!opene" id="iemail" (click)="email()">
 		<div class="notemail">{{nem}}</div>
 	</div>
-=======
-<div *ngIf="!(this.service.user_type === undefined)">
-<div  *ngIf="opene" id ="emailing">
-			<h4 id="temail">Email <button id="cerraremail" (click)="cerraremail()">X</button></h4>
-			<input type="search" style="color:black" name="emailbusqueda" placeholder="Search" id="emailbusqueda">
-			<button (click)="newemail()" id="newemail">New Email<div id="iconnew"></div></button>
-		<section id="email">
-			<nav id="email2botones">
-				<ul>
-					<li class="2botones" (click)="email()">Inbox <h5 class="notemail" style="margin-top: -0.5em; margin-left: 2em">{{nem}}</h5></li>
-					<li class="2botones" (click)="enviados()">Sent</li>
-				</ul>
-			</nav>
-			<div id="emailgeneral">
-				<!-- emailgeneral es el espacio en el que se carga, uno a la vez,
-					los recibidos, el correo que se esta leyendo, el correo que se escribe y los correos enviados. -->
-				<div id="emailinbox" *ngIf="emailinbox">
-					<!--recibidos se activa cuando se inicia el email y cuando se hace click en inbox y carga los correos que el usuario recibe-->
-					<div *ngIf="recibidos">
-						<table style="width: 100%;height: inherit; text-align: left; overflow: auto">
-							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of crecibidos" >
-								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
-								<td (click)="leer(correo,0)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
-								<td (click)="leer(correo,0)">{{correo.asunto}}</td>
-								<td (click)="leer(correo,0)">{{correo.fecha}}</td>
-							</tr>
-						</table>
-					</div>
-					<!--espacio para mostrar un solo correo para su lectura-->
-					<div id="sensub" *ngIf="sensub">
-						<table style="color: #F5F2DC; width:100%">
-							<tr><td>From: <div class="euser">{{sender}}</div></td></tr>
-							<tr><td>To: {{uname}}</td></tr>
-							<tr><td>Subject: {{subject}}</td></tr>
-							<tr><div id="reading">{{contenido}}</div></tr>
-						</table>
-					</div>
-
-					<!--Espacio para mostrar los correos que han sido enviados por el usuario-->
-					<div *ngIf="sent" id = "sent" >
-						<table style="width: 100%;height: inherit; text-align: left; overflow: auto;">
-							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of cenviados" >
-								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
-								<td (click)="leer(correo,1)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
-								<td (click)="leer(correo,1)">{{correo.asunto}}</td>
-								<td (click)="leer(correo,1)">{{correo.fecha}}</td>
-							</tr>
-						</table>
-					</div>
-					<!--espacio para escribir un nuevo email-->
-					<div *ngIf="newe" id="new" >
-						<table id="tablanuevo">
-							<tr><td><h5 style="display: inline-block;">Select Receiver: </h5><input id="inputto" type="text"/></td></tr>
-							<tr><td><h5 style="display: inline-block;">Subject: </h5><input id="inputsub" type="text"/></td></tr>
-							<tr><input type="textarea" id="inputcontenido"/></tr>
-						</table>
-							<button id="enviarnuevo">Send Email</button>
-					</div>
-				</div>
-
-			</div>
-
-		</section>
-	</div>
-	<!--boton para abrir la interface de email-->
-	<div *ngIf="!opene" id="iemail" (click)="email()">
-		<div class="notemail">{{nem}}</div>
-	</div>
->>>>>>> master
 </div>

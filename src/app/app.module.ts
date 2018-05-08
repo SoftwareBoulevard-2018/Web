@@ -42,22 +42,18 @@ import { SetUpComponent } from './set-up/set-up.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
 import { CreateQuestionComponent } from './create-question/create-question.component';
 import { UpdateQuestionComponent} from './update-question/update-question.component';
-import { EditQuestionComponent} from './edit-question/edit-question.component';
 import { CreatePuzzleComponent} from './create-puzzle/create-puzzle.component';
 import { UpdatePuzzleComponent} from './update-puzzle/update-puzzle.component';
 import { UpdateParametersComponent} from './update-parameters/update-parameters.component';
 import { ReportsComponent } from './reports/reports.component';
 import { NewInstantProjectComponent } from './new-instant-project/new-instant-project.component';
 import { NewBiddingProjectComponent } from './new-bidding-project/new-bidding-project.component';
-<<<<<<< HEAD
-import { UpdateBiddingProjectComponent } from './update-bidding-project/update-bidding-project.component';
-import { UpdateInstantProjectComponent } from './update-instant-project/update-instant-project.component';
-=======
 import { PlayComponent } from './play/play.component';
 import { PlaySkillComponent } from './play-skill/play-skill.component';
 import { PlayDevelopComponent } from './play-develop/play-develop.component';
 import { JoinTeamComponent } from './join-team/join-team.component';
->>>>>>> master
+import { UpdateBiddingProjectComponent } from './update-bidding-project/update-bidding-project.component';
+import { UpdateInstantProjectComponent } from './update-instant-project/update-instant-project.component';
 
 // App routes
 const routes: Routes = [
@@ -77,7 +73,6 @@ const routes: Routes = [
   {'path': 'home/set-up/update-project', 'component': UpdateProjectComponent},
   {'path': 'home/set-up/create-question', 'component': CreateQuestionComponent},
   {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
-  {'path': 'home/set-up/edit-question', 'component': EditQuestionComponent},
   {'path': 'home/set-up/create-puzzle', 'component': CreatePuzzleComponent},
   {'path': 'home/set-up/update-puzzle', 'component': UpdatePuzzleComponent},
   {'path': 'home/set-up/update-parameters', 'component': UpdateParametersComponent},
@@ -127,22 +122,18 @@ const routes: Routes = [
     UpdateProjectComponent,
     CreateQuestionComponent,
     UpdateQuestionComponent,
-	EditQuestionComponent,
     CreatePuzzleComponent,
     UpdatePuzzleComponent,
     UpdateParametersComponent,
     NewInstantProjectComponent,
     NewBiddingProjectComponent,
     ReportsComponent,
-<<<<<<< HEAD
     UpdateBiddingProjectComponent,
     UpdateInstantProjectComponent
-=======
     PlayComponent,
     PlaySkillComponent,
     PlayDevelopComponent,
     JoinTeamComponent
->>>>>>> master
   ],
   imports: [
     BrowserModule,
