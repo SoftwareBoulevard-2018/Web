@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { User } from "../shared/user";
 import { MatSelect } from "@angular/material";
 import { Question } from "../shared/question";
+import { Answer } from "../shared/answer";
 
 @Component({
   selector: 'app-create-question',
@@ -27,12 +28,44 @@ export class CreateQuestionComponent implements OnInit {
         Validators.compose([
           Validators.required
         ])),
+	  answer1: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+	  veracity1: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+	  answer2: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+	  veracity2: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+	  answer3: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+	  veracity3: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+	  answer4: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+	  veracity4: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
     });
   }
 
-  new_description(username){
+  new_description(description){
     for(let question of this.service.questions){
-      if(name === question.description){
+      if(description === question.description){
         return false;
       }
     }
@@ -42,14 +75,20 @@ export class CreateQuestionComponent implements OnInit {
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   formdata;
-  invalid = false;
-  invalid_name = false;
+  categories = [ "Analyst", "Developer", "Tester"];
+  levels = [ 1, 2, 3, 4, 5];
+  veracities = [ true, false];
+  repeated_description = false;
+  no_false = false;
   success = false;
-  flawed_name = false;
   hide = true;
   question;
-  auxiliar;
-  categories = [ "Analyst", "Developer", "Tester"];
+  firstAnswer;
+  secondAnswer;
+  thirdAnswer;
+  fourthAnswer;
+  auxiliary;
+
 
   ngOnInit() {
    if (this.service.user_type === undefined) {
@@ -66,34 +105,38 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   onClickSubmit(data) {
-    this.auxiliar = this.new_description(data.description);
-    if (!(/^[a-zA-Z ]+$/.test(data.description))) {
-      this.invalid_name = true;
-      this.invalid = false;
-      this.success = false;
-      this.flawed_name = false;
-    }
-    else if (data.level >= 1 && this.auxiliar) {
-      this.question = new Question(Object.keys(this.service.questions).length ,data.description, data.category, data.level);
+    this.auxiliary = this.new_description(data.description);
+	if (data.veracity1 === true && data.veracity2 === true && data.veracity3 === true && data.veracity4 === true){
+		this.repeated_description = false;
+		this.no_false = true;
+		this.success = false;
+	}
+	
+    else if (this.auxiliary) {
+	  this.firstAnswer = new Answer(data.answer1, data.veracity1);
+	  this.secondAnswer = new Answer(data.answer2, data.veracity2);
+	  this.thirdAnswer = new Answer(data.answer3, data.veracity3);
+	  this.fourthAnswer = new Answer(data.answer4, data.veracity4);
+      this.question = new Question(Object.keys(this.service.questions).length ,data.description, data.category, data.level, this.firstAnswer, this.secondAnswer, this.thirdAnswer, this.fourthAnswer);
       this.service.questions.push(this.question);
       console.log(this.service.questions);
       this.form();
-      this.invalid_name = false;
-      this.invalid = false;
-      this.success = true;
-      this.flawed_name = false;
+	  this.repeated_description = false;
+	  this.no_false = false;
+	  this.success = true;
     }
-    else if(!(this.auxiliar)){
-      this.invalid_name = false;
-      this.invalid = false;
-      this.success = false;
-      this.flawed_name = true;
+	
+	else if(!(this.auxiliary)){
+		this.repeated_description = true;
+		this.no_false = false;
+		this.success = false;
     }
-    else{
-      this.invalid_name = false;
-      this.invalid = true;
-      this.success = false;
-      this.flawed_name = false;
-    }
+	
+	else{
+		this.repeated_description = false;
+		this.no_false = false;
+		this.success = false;
+	}
   }
-}
+  
+}  

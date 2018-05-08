@@ -40,7 +40,7 @@ export class NewInstantProjectComponent implements OnInit {
   }
 
   new_projectname(username){
-    for(let project of this.service.projects){
+    for(let project of this.service.projects2){
       if(name === project.project_name){
         return false;
       }
@@ -82,8 +82,8 @@ export class NewInstantProjectComponent implements OnInit {
       this.flawed_name = false;
     }
     else if (data.kunit >= 1 && this.auxiliar) {
-      this.project = new InstantProject(Object.keys(this.service.projects).length ,data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ);
-      this.service.projects.push(this.project);
+      this.project = new InstantProject(Object.keys(this.service.projects2).length ,data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ);
+      this.service.projects2.push(this.project);
       console.log(this.service.projects);
       this.form();
       this.invalid_name = false;
