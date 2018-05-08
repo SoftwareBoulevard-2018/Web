@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import {Router} from "@angular/router";
-import {EmailComponent} from "../email/email.component";
 import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
 
 @Component({
@@ -10,14 +9,14 @@ import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
   styleUrls: ['./update-question.component.css']
 })
 export class UpdateQuestionComponent implements OnInit {
-	
+
 
   constructor(public service: GeneralServiceService, public router: Router) { }
-  
+
   questions = [];
   questions2;
-  
-  table_titles = ["id","decription","update"];
+
+  table_titles = ["id","decription","category", "level", "update"];
 
   ngOnInit() {
     console.log(this.service.user_type);
@@ -32,13 +31,12 @@ export class UpdateQuestionComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.questions2.filter = filterValue;
   }
 
   search_question(description){
-    for(let question of this.questions){
+    for(let question of this.service.questions){
       if(description === question.description){
         return question;
       }
@@ -49,5 +47,5 @@ export class UpdateQuestionComponent implements OnInit {
     this.service.question_to_be_updated = this.search_question(element.description);
     this.router.navigate(['home/set-up/edit-question']);
   }
-  
+
 }

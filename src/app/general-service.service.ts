@@ -43,7 +43,7 @@ export class GeneralServiceService {
     new InstantProject(5, "Supermarket system", 3, 11, 12, 10)];
 
   questions = [new Question(1,"Enserio esta es tu pregunta?","Analyst",5),
-			   new Question(1,"Que procede?","Developer",3)];
+		new Question(1,"Que procede?","Developer",3)];
 
   parameter = [new Parameter(10)];
 
