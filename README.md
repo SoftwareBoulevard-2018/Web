@@ -60,22 +60,32 @@ Not Found: This is the component that has the content that will be shown if a no
 
 ## Module 2 - "Game Management" components:
 
-### Components related to account creation, log-in and log out:
+### Components related to account creation, account updates, log-in and log out:
 
-Create user: This component is responsible for allowing the creation of accounts for new users. 
-It has a form that validates the input data. The form contains the following fields: Name, Username, password, confirmation for the password and role. All fields are required to create a user. Only the game administrator has permissions to access this component. Its URL route is /home/users/create and its located in /web/src/app/create-user.
+Create user: This component is responsible for allowing the creation of accounts for new users. It has a form that validates the input data. The form contains the following fields: name, username, password, confirmation for the password and role. All fields are required to create a user. Only the game administrator has permissions to access this component. Its URL route is /home/users/create and it's located in /web/src/app/create-user.
 
-login
-users
-update user
-header - note
+Update user: This component is responsible for allowing the update of user accounts. It has a form that validates the input data. The form contains the following fields: name, username, password, confirmation for the password and role. Only one field is required to update a user. Only the game administrator has permissions to access this component. Its URL route is /home/users/user-status/update and it's located in /web/src/app/update-user.
 
-Create/update companies
-create-company
-update company
+Login: This component is responsible for allowing users to access the platform. It has a form that validates the input data. The form contains the following fields: username and password. These fields are required. In case the user is already logged in on the platform, it redirects them to the home page according to the user role. Its URL route is the root '/' and its located in /web/src/app/login.
 
-Generate/view reports/view players/team Status
-reports
-user status
-Companies
-company-status
+Logout: This is **not** a component, it's a functionality included in the header component.
+
+### Components related to company creation and company updates.
+
+Create company: This component is responsible for allowing the creation of new companies. It has a form that validates the input data. The form contains the following fields: name, URL of the company's logo and project manager. Only the name field is required to create a company. Only the game administrator has permissions to access this component. Its URL route is /home/companies/create and it's located in /web/src/app/create-company.
+
+Update company: This component is responsible for allowing the update of companies. It has a form that validates the input data. The form contains the following fields: name, URL of an image and project manager. Only one field is required to update a company.The game administrator and the project managers have permissions to access this component but the project manager can only update the image. Its URL route is /home/companies/company-status/update and it's located in /web/src/app/update-company.
+
+### Components related to generating and viewing reports, viewing players, viewing companies and viewing their status.
+
+Reports: In this component all the reports are shown to the game administrator, they are on tables and each table is shown in a tab. Its URL route is /home/reports and it's located in /web/src/app/reports.
+
+Users: This component is responsible for showing the game administrator the characteristics of each one of the players. It shows a table with the users, also, from this component there are buttons which redirect to the Create user and the Update user components. Its URL route is /home/users/ and its located in /web/src/app/users.
+
+Companies: This component is responsible for showing the game administrator the characteristics of each one of the companies. It shows a table with the companies, also, from this component there are buttons which redirect to the Create company and the Update company components. Its URL route is /home/companies/ and its located in /web/src/app/companies.
+
+User status: In this component almost all information about a user is shown, its accessible by every kind of user but the game administrator can see the status of every user and each user can see only its status. From here the game administrator can reach the Update user component. Its URL route is /home/users/user-status/ and it's located in /web/src/app/user-status.
+
+Company-status: In this component almost all information about a company is shown, its accessible by every kind of user but the game administrator can see the status of every company and each user can see only its company. From here the game administrator and the project managers can reach the Update company component.  Its URL route is /home/companies/company-status/ and it's located in /web/src/app/company-status.
+### Module 5 - "Communication" component:
+The Email (communication) component allows users to communicate between them. Allows to read inbox, sent emails, write new emails and send it. Shows a notification that counts unread messages. Know more : /src/app/email
