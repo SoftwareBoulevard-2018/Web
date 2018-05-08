@@ -1,0 +1,36 @@
+.w3-card-4{
+  width: 65%;
+  margin:auto;
+  border-radius: 5%;
+  background-color: #00585E;
+  cursor: pointer;
+  border-style: solid;
+  border-color: #009494;
+}
+img{
+  margin-bottom: 5%;
+  border-radius: 5%;
+  width: 100%;
+}
+h1{
+  margin: 2% auto 1% 0 ;
+  color: #00585E;
+  font-weight: bold;
+}
+h3{
+  margin: 0 auto 2% 0;
+  color: #00585E;
+  font-weight: bold;
+}
+h4{
+  color: white;
+}
+p{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  color: white;
+}
+.element-text3{
+  text-align: center;
+  color: #009494;
+}
