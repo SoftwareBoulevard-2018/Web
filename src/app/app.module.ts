@@ -90,7 +90,8 @@ const routes: Routes = [
   {'path': 'home/play/skill', 'component': PlaySkillComponent},
   {'path': 'home/play/develop', 'component': PlayDevelopComponent},
   {'path': 'home/join-team', 'component': JoinTeamComponent},
-  {'path': '**', 'component': NotFoundComponent}
+  {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
+  {'path': 'home/set-up/edit-question', 'component': EditQuestionComponent}
 ];
 
 // NgModule variables
