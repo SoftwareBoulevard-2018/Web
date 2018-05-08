@@ -1,16 +1,24 @@
+// Fundamental imports
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
+// Service imports
 import { GeneralServiceService } from './general-service.service';
 
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
-import { MatIconModule, MatButtonModule } from '@angular/material';
-import { MatSelectModule, MatListModule } from '@angular/material';
+
+
+// Components imports
+
+import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatSidenavModule, MatRadioModule } from '@angular/material';
+import { MatSelectModule, MatListModule, MatExpansionModule } from '@angular/material';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -49,6 +57,7 @@ import { PlaySkillComponent } from './play-skill/play-skill.component';
 import { PlayDevelopComponent } from './play-develop/play-develop.component';
 import { JoinTeamComponent } from './join-team/join-team.component';
 
+// App routes
 const routes: Routes = [
   {'path': '', 'component': LoginComponent},
   {'path': 'home', 'component': HomeComponent},
@@ -84,6 +93,7 @@ const routes: Routes = [
   {'path': '**', 'component': NotFoundComponent}
 ];
 
+// NgModule variables
 @NgModule({
   declarations: [
     AppComponent,
@@ -125,29 +135,39 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    MatTabsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCardModule,
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatSidenavModule,
+    MatRadioModule,
+    MatExpansionModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
     MatFormFieldModule,
     MatInputModule,
+    MatTabsModule,
     MatIconModule,
     MatButtonModule,
     MatSelectModule,
     MatTableModule,
+    MatCardModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatExpansionModule,
+    MatSidenavModule,
+    MatRadioModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],

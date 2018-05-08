@@ -1,4 +1,4 @@
-import {User} from "./user";
+import {User} from './user';
 
 export class Company {
   name: string;
@@ -9,7 +9,7 @@ export class Company {
   capacity_k: number;
   resources: number;
   team_members: User[];
-  // The following are dummy values,
+  // The following are dummy variables,
   // that means they are not going to be in the final models but still they are necessary to show some content
   current_project_name: string;
 

@@ -6,7 +6,7 @@ export class User {
     role: string;
     company_name: string;
     competency: number;
-    // The following are dummy values,
+    // The following are dummy variables,
     // that means they are not going to be in the final models but still they are necessary to show some content
     questions_answered_right: number;
     questions_answered_wrong: number;
