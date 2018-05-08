@@ -7,19 +7,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Service imports
 import { GeneralServiceService } from './general-service.service';
 
-
-
-// Components imports
-
+// Angular imports
 import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
 import { MatIconModule, MatButtonModule, MatSidenavModule, MatRadioModule } from '@angular/material';
 import { MatSelectModule, MatListModule, MatExpansionModule } from '@angular/material';
+import {CdkTableModule} from '@angular/cdk/table';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
+import {MatSortModule} from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 
-
+// Components imports
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -140,6 +139,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSortModule,
+    CdkTableModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
@@ -158,8 +159,10 @@ const routes: Routes = [
     MatInputModule,
     MatTabsModule,
     MatIconModule,
+    CdkTableModule,
     MatButtonModule,
     MatSelectModule,
+    MatSortModule,
     MatTableModule,
     MatCardModule,
     MatPaginatorModule,
