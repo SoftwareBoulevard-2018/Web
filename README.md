@@ -28,17 +28,34 @@ Now the app is running on your localhost:4200 and you can open it from your brow
 
 /web/src/styleSheets/ -> Here are located all imported css files.
 
+/web/src/app/app.module.ts -> This file contains all the information about the libraries imported, components created and URL routes of the application.
+
 /web/src/app/general-service.service.ts -> The file we are using as dummy database.
 
 /web/src/app/ -> Here are located all the important files for us, the files we created and modified, all the other folder and files are related with the components we will describe next.
 
+## Components structure:
+
+component.css file -> These files will contain all the aesthetics of a component.
+
+component.html file -> These files will contain all the content of a component.
+
+component.spec.ts file -> These files contain the tests for the functions on component.ts files.
+
+component.ts file -> These files contain all the logic of the component.
+
 ## General components:
 
-App
+App: This is the father component, the atributes, templates, and everything programmed here will be used in all the other components. It doesn't have a route inside the application and its files are located in /web/src/app/, in this component we defined the general structure of the webpage as header - body - footer, and we defined that all the bodies will contain the mail component.
+
 header
+
 footer
+
 home
+
 restricted
+
 notfound
 
 ## Module 2 - "Game Management" components:
