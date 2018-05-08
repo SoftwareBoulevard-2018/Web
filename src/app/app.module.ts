@@ -129,7 +129,7 @@ const routes: Routes = [
     NewBiddingProjectComponent,
     ReportsComponent,
     UpdateBiddingProjectComponent,
-    UpdateInstantProjectComponent
+    UpdateInstantProjectComponent,
     PlayComponent,
     PlaySkillComponent,
     PlayDevelopComponent,
