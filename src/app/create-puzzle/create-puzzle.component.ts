@@ -13,6 +13,7 @@ export class CreatePuzzleComponent implements OnInit {
 
   name = 'Angular 4';
   url = '';
+  formdata;
 
   constructor(public service: GeneralServiceService, public router: Router){}
 
