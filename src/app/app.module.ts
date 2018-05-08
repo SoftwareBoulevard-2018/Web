@@ -41,7 +41,6 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { SetUpComponent } from './set-up/set-up.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
 import { CreateQuestionComponent } from './create-question/create-question.component';
-import { UpdateQuestionComponent} from './update-question/update-question.component';
 import { CreatePuzzleComponent} from './create-puzzle/create-puzzle.component';
 import { UpdatePuzzleComponent} from './update-puzzle/update-puzzle.component';
 import { UpdateParametersComponent} from './update-parameters/update-parameters.component';
@@ -54,6 +53,8 @@ import { PlayDevelopComponent } from './play-develop/play-develop.component';
 import { JoinTeamComponent } from './join-team/join-team.component';
 import { UpdateBiddingProjectComponent } from './update-bidding-project/update-bidding-project.component';
 import { UpdateInstantProjectComponent } from './update-instant-project/update-instant-project.component';
+import { UpdateQuestionComponent } from './update-question/update-question.component';
+import { EditQuestionComponent } from './edit-question/edit-question.component';
 
 // App routes
 const routes: Routes = [
@@ -72,7 +73,6 @@ const routes: Routes = [
   {'path': 'home/set-up/create-project', 'component': CreateProjectComponent},
   {'path': 'home/set-up/update-project', 'component': UpdateProjectComponent},
   {'path': 'home/set-up/create-question', 'component': CreateQuestionComponent},
-  {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
   {'path': 'home/set-up/create-puzzle', 'component': CreatePuzzleComponent},
   {'path': 'home/set-up/update-puzzle', 'component': UpdatePuzzleComponent},
   {'path': 'home/set-up/update-parameters', 'component': UpdateParametersComponent},
@@ -121,7 +121,6 @@ const routes: Routes = [
     SetUpComponent,
     UpdateProjectComponent,
     CreateQuestionComponent,
-    UpdateQuestionComponent,
     CreatePuzzleComponent,
     UpdatePuzzleComponent,
     UpdateParametersComponent,
@@ -133,7 +132,9 @@ const routes: Routes = [
     PlayComponent,
     PlaySkillComponent,
     PlayDevelopComponent,
-    JoinTeamComponent
+    JoinTeamComponent,
+    UpdateQuestionComponent,
+    EditQuestionComponent
   ],
   imports: [
     BrowserModule,

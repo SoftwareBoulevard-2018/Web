@@ -42,8 +42,10 @@ export class GeneralServiceService {
     new InstantProject(4, "Gana system", 2, 18, 18, 16),
     new InstantProject(5, "Supermarket system", 3, 11, 12, 10)];
 
-  questions = [new Question(1,"Enserio esta es tu pregunta?","Analyst",5),
-		new Question(1,"Que procede?","Developer",3)];
+  questions = [new Question(1,"Enserio esta es tu pregunta?","Analyst",5,new Answer("si",true),new Answer("no",false),
+			   new Answer("profe no me haga bullying",false),new Answer("todo grabado profe",false)),
+			   new Question(1,"Que procede?","Developer",3,new Answer("no se we",true),new Answer("proceder",true),
+			   new Answer("ni puta idea",false),new Answer("valer",false))];
 
   parameter = [new Parameter(10)];
 
