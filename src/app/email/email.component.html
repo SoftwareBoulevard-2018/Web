@@ -1,12 +1,12 @@
 <div *ngIf="!(this.service.user_type === undefined)">
 <div  *ngIf="opene" id ="emailing">
 			<h4 id="temail">Email <button id="cerraremail" (click)="cerraremail()">X</button></h4>
-			<input type="search" name="emailbusqueda" value="Search" id="emailbusqueda">
-			<button (click)="newemail()" id="newemail">New Email</button>
+			<input type="search" style="color:black" name="emailbusqueda" placeholder="Search" id="emailbusqueda">
+			<button (click)="newemail()" id="newemail">New Email<div id="iconnew"></div></button>
 		<section id="email">
 			<nav id="email2botones">
 				<ul>
-					<li class="2botones" (click)="email()">Inbox </li>
+					<li class="2botones" (click)="email()">Inbox <h5 class="notemail" style="margin-top: -0.5em; margin-left: 2em">{{nem}}</h5></li>
 					<li class="2botones" (click)="enviados()">Sent</li>
 				</ul>
 			</nav>
@@ -47,12 +47,13 @@
 						</table>
 					</div>
 					<!--espacio para escribir un nuevo email-->
-					<div *ngIf="newe" id="new" style="height: inherit">
+					<div *ngIf="newe" id="new" >
 						<table id="tablanuevo">
-							<tr><td>To: <input id="inputto" type="text"/></td></tr>
-							<tr><td>Subject: <input id="inputsub" type="text"/></td></tr>
+							<tr><td><h5 style="display: inline-block;">Select Receiver: </h5><input id="inputto" type="text"/></td></tr>
+							<tr><td><h5 style="display: inline-block;">Subject: </h5><input id="inputsub" type="text"/></td></tr>
 							<tr><input type="textarea" id="inputcontenido"/></tr>
 						</table>
+							<button id="enviarnuevo">Send Email</button>
 					</div>
 				</div>
 
@@ -62,6 +63,6 @@
 	</div>
 	<!--boton para abrir la interface de email-->
 	<div *ngIf="!opene" id="iemail" (click)="email()">
-		<div id="notemail">{{nem}}</div>
+		<div class="notemail">{{nem}}</div>
 	</div>
 </div>
