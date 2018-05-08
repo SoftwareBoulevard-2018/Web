@@ -99,4 +99,6 @@ export class ReportsComponent implements OnInit {
     // Redirects to User update and defines the necessary variables
     this.service.user_to_be_updated = this.search_user(element.username);
     this.router.navigate(['home/users/user-status/update']);
-  }*/
+  }*/
+
+}
