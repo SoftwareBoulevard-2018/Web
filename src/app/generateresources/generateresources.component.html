@@ -29,15 +29,22 @@
         </div>
 
       </div>
-    <br>
-    <br>
+
+      <br>
+      <div class="element-text3" *ngIf="solved_puzzle">
+        <br/>
+        You have generated resources!
+      </div>
+
+      <br>
+      <br>
 
     <div class="elementfield2">
       <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
         Exit
       </button>
 
-      <button mat-raised-button color="warn" type="submit" [disabled] = "(!guess.valid||correct_guess)" class="forsubmit">
+      <button mat-raised-button color="warn" type="submit" (click)="redirectToFunctions($event)" [disabled] = "(!solved_puzzle)" class="forsubmit">
         Validate
       </button>
     </div>
