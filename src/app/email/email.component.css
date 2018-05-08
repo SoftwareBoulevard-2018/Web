@@ -25,11 +25,6 @@ naranja #FF5729
 	top:1em;
 	width: 90%;
 }
-#emailinbox{
-	height: 100%;
-	overflow: auto;
-	width: 100%;
-}
 #emailing{
 	background: #F5F2DC;
 	border: 1px solid #454445;
@@ -184,11 +179,16 @@ naranja #FF5729
 	visibility: visible;
 	width: 92%;
 }
-#sensub, #sent{
+#recibidos{
+	height: 100%;
+	overflow: auto;
+}
+#leyendo, #sent{
 	background: #454445;
 	color: #F5F2DC; 
 	height: 100%; 
 	margin: 0 3% 3% 0; 
+	overflow: auto;
 	padding:0;
 	position: absolute;
 	top: 0;
