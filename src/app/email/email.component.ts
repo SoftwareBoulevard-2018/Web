@@ -110,7 +110,7 @@ cenviados =[
   }
   enviar(to,sub,cont){
     this.cenviados.push(
-      {id: 1, asunto:sub,receiver to, remitente:this.service.username, fecha:Date.now, state:"sent", content:cont}
+      {id: 1, asunto:sub,receiver to, remitente:this.service.username, fecha:"08/05/2018", state:"sent", content:cont}
     );
   }
 }
