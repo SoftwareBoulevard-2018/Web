@@ -48,15 +48,15 @@ component.ts file -> These files contain all the logic of the component.
 
 App: This is the father component, the atributes, templates, and everything programmed here will be used in all the other components. It doesn't have a route inside the application and its files are located in /web/src/app/, in this component we defined the general structure of the webpage as header - body - footer, and we defined that all the bodies will contain the mail component.
 
-Header: This is the component that has the content that will be shown in the header of the app, from here they can reach all mayor functionalities on the app, also it changes depending on the role of the user who logged in. It hasn't an specific URL route and its located in /web/src/app/header.
+Header: This is the component that has the content that will be shown in the header of the app, from here they can reach all mayor functionalities on the app, also it changes depending on the role of the user who logged in. It doesn't have an specific URL route and its located in /web/src/app/header.
 
-Footer: This is the component that has the content that will be shown in the footer of the app, it hasn't an specific URL route and its located in /web/src/app/footer.
+Footer: This is the component that has the content that will be shown in the footer of the app, it doesn't have an specific URL route and its located in /web/src/app/footer.
 
 Home: This component is where the user reaches after logging in, from here they can reach all mayor functionalities on the app, also it changes depending on the role of the user who logged in. Its route in the app is /home and its located in web/src/app/home.
 
 Restricted: This is the component that has the content that will be shown if an URL in which the user has not permissions to enter is typed. It's URL is /restricted and it's located in /web/src/app/restricted.
 
-Not Found: This is the component that has the content that will be shown if a non-existant URL is typed. It hasn't an specific URL route and it's located in /web/src/app/not-found.
+Not Found: This is the component that has the content that will be shown if a non-existant URL is typed. It doesn't have an specific URL route and it's located in /web/src/app/not-found.
 
 ## Module 2 - "Game Management" components:
 
