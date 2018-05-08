@@ -135,39 +135,39 @@
   </mat-tab>
   <!--------------------------------------------Tab Companies to Tab Users--------------------------------------------->
 
-  <mat-tab label="Users">
+  <!--<mat-tab label="Users">-->
     <!-- Users table -->
-    <div class="containerUser mat-elevation-z8">
+    <!--<div class="containerUser mat-elevation-z8">-->
 
       <!-- Filter -->
-      <div class="header">
+      <!--<div class="header">
         <mat-form-field>
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
-      </div>
+      </div>-->
 
-      <mat-table #table [dataSource]="users2">
+      <!--<mat-table #table [dataSource]="users2">-->
 
         <!-- Name Column -->
-        <ng-container matColumnDef="name">
+        <!--<ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-        </ng-container>
+        </ng-container>-->
 
         <!-- Username Column -->
-        <ng-container matColumnDef="username">
+        <!--<ng-container matColumnDef="username">
           <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
-        </ng-container>
+        </ng-container>-->
 
         <!-- Role Column -->
-        <ng-container matColumnDef="role">
+        <!--<ng-container matColumnDef="role">
           <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
-        </ng-container>
+        </ng-container>-->
 
         <!-- Company Column -->
-        <ng-container matColumnDef="company">
+        <!--<ng-container matColumnDef="company">
           <mat-header-cell *matHeaderCellDef> Company </mat-header-cell>
           <mat-cell *matCellDef="let element">
             <p *ngIf="!(element.company_name === undefined); else pending_company">
@@ -179,28 +179,28 @@
               </p>
             </ng-template>
           </mat-cell>
-        </ng-container>
+        </ng-container>-->
 
         <!-- Status Column -->
-        <ng-container matColumnDef="status">
+        <!--<ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
           <mat-cell *matCellDef="let element">
             <button mat-raised-button (click)="redirect($event,element)">
               See status
             </button>
           </mat-cell>
-        </ng-container>
+        </ng-container>-->
 
         <!-- Table rows -->
-        <mat-header-row *matHeaderRowDef="table_titles_user"></mat-header-row>
+        <!--<mat-header-row *matHeaderRowDef="table_titles_user"></mat-header-row>
         <mat-row *matRowDef="let row; columns: table_titles_user;"></mat-row>
-      </mat-table>
+      </mat-table>-->
       <!------<mat-paginator #paginator
                      [pageSize]="10"
                      [pageSizeOptions]="[5, 10, 20]"
                      [showFirstLastButtons]="true">
       </mat-paginator>------->
-    </div>
+    <!--</div>-->
 
-  </mat-tab>
+  <!--</mat-tab>-->
 </mat-tab-group>

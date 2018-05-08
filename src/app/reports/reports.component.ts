@@ -46,8 +46,12 @@ export class ReportsComponent implements OnInit {
       }
       this.users2 = new MatTableDataSource(this.users);
       console.log(this.users2);
+      this.users = JSON.parse(JSON.stringify(this.service.users));
+      for (const user of this.users) {
+        user.hide_password = true;
+      }
       // this.users2.paginator = this.paginator;
-      // this.users2.sort = this.sort;
+      this.users2.sort = this.sort;
     }
   }
   applyFilterCompany(filterValue: string) {
@@ -69,14 +73,6 @@ export class ReportsComponent implements OnInit {
     this.service.company_to_be_updated = this.search_company(element.name);
     this.router.navigate(['home/companies/company-status']);
   }
-
-  redirect2Company(event, element) {
-    this.service.company_to_be_updated = this.search_company(element.name);
-    this.router.navigate(['home/companies/company-status/update']);
-  }
-  /*redirect3Company(event) {
-    this.router.navigate(['home/companies/create']);
-  }*/
 
   applyFilter(filterValue: string) {
     // Function necessary by the table filter
@@ -103,9 +99,6 @@ export class ReportsComponent implements OnInit {
     // Redirects to User update and defines the necessary variables
     this.service.user_to_be_updated = this.search_user(element.username);
     this.router.navigate(['home/users/user-status/update']);
-  }
-  redirect3(event) {
-    this.router.navigate(['home/users/create']);
   }
 
 }
