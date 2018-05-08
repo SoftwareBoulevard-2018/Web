@@ -41,10 +41,8 @@ export class GeneralServiceService {
     new InstantProject(4, "Gana system", 2, 18, 18, 16),
     new InstantProject(5, "Supermarket system", 3, 11, 12, 10)];
 
-  questions = [new Question(1,"Enserio esta es tu pregunta?","Analyst",5,new Answer("si",true),new Answer("no",false),
-			   new Answer("profe, no me haga bullying",false),new Answer("todo grabado profe",false)),
-			   new Question(1,"Que procede?","Developer",3,new Answer("ni puta idea",true),new Answer("no ce we",false),
-			   new Answer("llorar",true),new Answer("proceder",true))];
+  questions = [new Question(1,"Enserio esta es tu pregunta?","Analyst",5),
+			   new Question(1,"Que procede?","Developer",3)];
 
   parameter = [new Parameter(10)];
   user_to_be_updated;
@@ -54,6 +52,8 @@ export class GeneralServiceService {
   project_to_be_updated;
 
   parameter_to_be_updated = this.parameter[0];
+
+  question_to_be_updated;
 
   companies = [new Company("UNAL",this.users[1],
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png",1,
