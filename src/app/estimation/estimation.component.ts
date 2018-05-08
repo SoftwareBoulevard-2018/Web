@@ -16,6 +16,7 @@ export class EstimationComponent implements OnInit {
   incorrect_time = false;
   incorrect_cost = false;
   correct_guess = false;
+  can_estimate = true;
 
   constructor(public service: GeneralServiceService, public router: Router) {
   }
@@ -93,15 +94,28 @@ export class EstimationComponent implements OnInit {
   ngOnInit() {
     if (this.service.user_type === undefined) {
      this.router.navigate(['']);
-    } else if (this.service.user_type === "Team Member") {
-      this.router.navigate(['restricted']);
-    } else {
-      let userCompany = this.getCompany(this.service.username);
-      if(userCompany.resources >= 1) {
-        this.form();
+    }
+    else if (this.service.user_type === "Team Member") {
+        this.router.navigate(['restricted']);
+    }
+    else {
+      let has_company = true;
+      let has_enough_resources = true;
+      let has_bidding_project = true;
+
+      const userCompany = this.getCompany(this.service.username);
+      const userProject = this.getProject(this.service.username);
+      has_company = (userCompany !== undefined);
+      if(has_company){
+        has_enough_resources = (userCompany.resources >= 1);
+      }
+      has_bidding_project = userProject instanceof BiddingProject;
+
+      if (has_company && has_enough_resources && has_bidding_project){
+          this.form();
       }
       else {
-        // TODO : POPUP WARNING ABOUT LACK OF RESOURCES
+        this.can_estimate = false;
       }
     }
   }

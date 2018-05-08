@@ -1,57 +1,73 @@
 
-<<div class="estimation-form">
-  <form class="estimation-form" [formGroup]="guess" (ngSubmit) = "onClickSubmit(guess.value)" >
+<div class="wrap-login100 big-wrap" *ngIf="this.can_estimate">
+  <form class="login100-form" [formGroup]="guess" (ngSubmit) = "onClickSubmit(guess.value)" >
+    <div class="correct_case">
+      <span class="login100-form-title p-b-34 p-t-27">
+              Cost & Time Estimation
+      </span>
 
-    <span class="login100-form-title p-b-34 p-t-27">
-						Cost & Time Estimation
-    </span>
 
-
-    <div class="elementfield">
-      <mat-form-field>
-        <input matInput placeholder="Cost (USD)" name="cost" formControlName="cost">
-        <mat-hint>Required Field</mat-hint>
-      </mat-form-field>
-    </div>
-
-    <br/>
-
-    <div class="elementfield1">
-      <mat-form-field>
-        <input matInput placeholder="Time (man-hours)" name="time" formControlName="time">
-        <mat-hint>Required Field</mat-hint>
-      </mat-form-field>
-    </div>
-
-      <div class="element-text1" *ngIf="incorrect_time">
-        <br/>
-        <span class="error">
-            The cost you guessed wasn't quite right, try again.
-          </span>
+      <div class="elementfield">
+        <mat-form-field>
+          <input matInput placeholder="Cost (USD)" name="cost" formControlName="cost">
+          <mat-hint>Required Field</mat-hint>
+        </mat-form-field>
       </div>
 
-      <div class="element-text2" *ngIf="incorrect_cost">
-        <br/>
-        <span class="error">
-            The time you guessed wasn't quite right, try again.
-          </span>
+      <br/>
+
+      <div class="elementfield1">
+        <mat-form-field>
+          <input matInput placeholder="Time (man-hours)" name="time" formControlName="time">
+          <mat-hint>Required Field</mat-hint>
+        </mat-form-field>
       </div>
 
-      <div class="element-text3" *ngIf="correct_guess">
-        <br/>
-            Your guess was correct! You can now exit and continue with the project.
-      </div>
-
-    <br/>
-        <div class="elementfield2">
-          <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
-            Exit
-          </button>
-
-          <button mat-raised-button color="warn" type="submit" [disabled] = "(!guess.valid||correct_guess)" class="forsubmit">
-            Validate
-          </button>
+        <div class="element-text1" *ngIf="incorrect_time">
+          <br/>
+          <span class="error">
+              The cost you guessed wasn't quite right, try again.
+            </span>
         </div>
 
-      </form>
+        <div class="element-text2" *ngIf="incorrect_cost">
+          <br/>
+          <span class="error">
+              The time you guessed wasn't quite right, try again.
+            </span>
+        </div>
+
+        <div class="element-text3" *ngIf="correct_guess">
+          <br/>
+              Your guess was correct! You can now exit and continue with the project.
+        </div>
+
+      <br/>
+          <div class="elementfield2">
+            <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+              Exit
+            </button>
+
+            <button mat-raised-button color="warn" type="submit" [disabled] = "(!guess.valid||correct_guess)" class="forsubmit">
+              Validate
+            </button>
+          </div>
     </div>
+  </form>
+</div>
+
+
+<div class="wrap-login100 big-wrap" *ngIf="!this.can_estimate">
+  <span class="login100-form-title p-b-34 p-t-27">
+    Cost & Time Estimation
+  </span>
+  <form class="announcement" [formGroup]="guess" (ngSubmit) = "onClickSubmit(guess.value)">
+    You don't meet the requirements to estimate a project right now.
+    <br>
+    -Do you have a company?
+    <br>
+    -Does your company has enough resources?
+    <br>
+    -Is your chosen project a Bidding Project?
+  </form>
+</div>

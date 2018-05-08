@@ -29,6 +29,10 @@
   text-align: center;
   color: #009494;
 }
+.announcement {
+  text-align: center;
+  color: red;
+}
 mat-hint{
   color: #009494;
 }
