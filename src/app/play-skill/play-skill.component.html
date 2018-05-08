@@ -4,48 +4,28 @@
     <p>Team members: 2</p>
   </div>
 
-  <script language = "javascript">
-    angular
-      .module('firstApplication', ['ngMaterial'])
-      .controller('radioButtonsController', radioButtonsController);
 
-    function radioButtonsController ($scope) {
-      $scope.radioData = [
-        { label: 'Pregunta A', value: 'Pregunta A' },
-        { label: 'Pregunta B', value: 'Pregunta B' },
-        { label: 'Pregunta C', value: 'Pregunta C'},
-        { label: 'Pregunta D', value: 'Pregunta D' }
-      ];
-      $scope.group = 'Banana';
-    }
-  </script>
 
-  <div class="container">
-    <mat-card-content>
-      <mat-radio-group >
+<div class="wrap-login100">
 
-      <h3>Soy una pregunta</h3><br>
-
-        <mat-radio-button >
-          Soy una pregunta A
-        </mat-radio-button>
-        <mat-radio-button>
-          Soy una pregunta b
-        </mat-radio-button>
-        <mat-radio-button>
-          Soy una pregunta c
-        </mat-radio-button>
-        <mat-radio-button>
-          Soy una pregunta d
-        </mat-radio-button>
-
+      <div >
+        <h3>I'm a question</h3><br>
+        <div class="options">
+          <input type="radio" name="option" id="optionA">
+          <label for="optionA">I'm the A answer</label><br>
+          <input type="radio" name="option" id="optionB">
+          <label for="optionB">I'm the B answer</label><br>
+          <input type="radio" name="option" id="optionC">
+          <label for="optionC">I'm the C answer</label><br>
+          <input type="radio" name="option" id="optionD">
+          <label for="optionD">I'm the D answer</label><br>
+        </div>
         <br>
-      </mat-radio-group>
         <button mat-raised-button color="primary">Send</button>
-    </mat-card-content>
-  </div>
+      </div >
 
 </div>
+
 
 <!--
 Desarrollador
