@@ -42,6 +42,7 @@ import { SetUpComponent } from './set-up/set-up.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
 import { CreateQuestionComponent } from './create-question/create-question.component';
 import { UpdateQuestionComponent} from './update-question/update-question.component';
+import { EditQuestionComponent} from './edit-question/edit-question.component';
 import { CreatePuzzleComponent} from './create-puzzle/create-puzzle.component';
 import { UpdatePuzzleComponent} from './update-puzzle/update-puzzle.component';
 import { UpdateParametersComponent} from './update-parameters/update-parameters.component';
@@ -76,6 +77,7 @@ const routes: Routes = [
   {'path': 'home/set-up/update-project', 'component': UpdateProjectComponent},
   {'path': 'home/set-up/create-question', 'component': CreateQuestionComponent},
   {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
+  {'path': 'home/set-up/edit-question', 'component': EditQuestionComponent},
   {'path': 'home/set-up/create-puzzle', 'component': CreatePuzzleComponent},
   {'path': 'home/set-up/update-puzzle', 'component': UpdatePuzzleComponent},
   {'path': 'home/set-up/update-parameters', 'component': UpdateParametersComponent},
@@ -125,6 +127,7 @@ const routes: Routes = [
     UpdateProjectComponent,
     CreateQuestionComponent,
     UpdateQuestionComponent,
+	EditQuestionComponent,
     CreatePuzzleComponent,
     UpdatePuzzleComponent,
     UpdateParametersComponent,
