@@ -1,4 +1,4 @@
-.containerCompany, .containerUser {
+.containerCompany/*, .containerUser*/ {
   display: flex;
   flex-direction: column;
   max-height: 500px;
