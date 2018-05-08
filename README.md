@@ -76,7 +76,7 @@ Create company: This component is responsible for allowing the creation of new c
 
 Update company: This component is responsible for allowing the update of companies. It has a form that validates the input data. The form contains the following fields: name, URL of an image and project manager. Only one field is required to update a company.The game administrator and the project managers have permissions to access this component but the project manager can only update the image. Its URL route is /home/companies/company-status/update and it's located in /web/src/app/update-company.
 
-### Components related to geenerating and viewing reports, viewing players, viewing companies and viewing their status.
+### Components related to generating and viewing reports, viewing players, viewing companies and viewing their status.
 
 Reports: In this component all the reports are shown to the game administrator, they are on tables and each table is shown in a tab. Its URL route is /home/reports and it's located in /web/src/app/reports.
 
