@@ -8,13 +8,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GeneralServiceService } from './general-service.service';
 
 // Angular imports
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
-import { MatIconModule, MatButtonModule } from '@angular/material';
-import { MatSelectModule, MatListModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatSidenavModule, MatRadioModule } from '@angular/material';
+import { MatSelectModule, MatListModule, MatExpansionModule } from '@angular/material';
+import {CdkTableModule} from '@angular/cdk/table';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
+import {MatSortModule} from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
+
 // Components imports
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -55,6 +58,7 @@ import { UpdateBiddingProjectComponent } from './update-bidding-project/update-b
 import { UpdateInstantProjectComponent } from './update-instant-project/update-instant-project.component';
 import { UpdateQuestionComponent } from './update-question/update-question.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
+import { GenerateresourcesComponent } from './generateresources/generateresources.component';
 
 // App routes
 const routes: Routes = [
@@ -86,6 +90,7 @@ const routes: Routes = [
   {'path': 'home/users/projectmanager/functions/chooseproject', 'component': ChooseprojectComponent},
   {'path': 'home/users/projectmanager/functions/estimation', 'component': EstimationComponent},
   {'path': 'home/users/projectmanager/functions/recruit', 'component': RecruitMemberComponent},
+  {'path': 'home/users/projectmanager/functions/generate', 'component': GenerateresourcesComponent},
   {'path': 'home/play', 'component': PlayComponent},
   {'path': 'home/play/skill', 'component': PlaySkillComponent},
   {'path': 'home/play/develop', 'component': PlayDevelopComponent},
@@ -118,6 +123,7 @@ const routes: Routes = [
     RecruitMemberComponent,
     ChooseprojectComponent,
     PmfunctionsComponent,
+    GenerateresourcesComponent,
     CreateProjectComponent,
     SetUpComponent,
     UpdateProjectComponent,
@@ -135,7 +141,8 @@ const routes: Routes = [
     PlayDevelopComponent,
     JoinTeamComponent,
     UpdateQuestionComponent,
-    EditQuestionComponent
+    EditQuestionComponent,
+    GenerateresourcesComponent
   ],
   imports: [
     BrowserModule,
@@ -144,13 +151,19 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSortModule,
+    CdkTableModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCardModule,
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatSidenavModule,
+    MatRadioModule,
+    MatExpansionModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -158,12 +171,18 @@ const routes: Routes = [
     MatInputModule,
     MatTabsModule,
     MatIconModule,
+    CdkTableModule,
     MatButtonModule,
     MatSelectModule,
+    MatSortModule,
     MatTableModule,
+    MatCardModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatExpansionModule,
+    MatSidenavModule,
+    MatRadioModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService],
