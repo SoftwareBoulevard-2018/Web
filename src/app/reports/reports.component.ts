@@ -19,22 +19,21 @@ export class ReportsComponent implements OnInit {
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   companies = [];
   companies2;
   users = [];
   users2;
-  // table_titles_company = ["creation_date", "image", "name", "project manager", "capacity_k", "status", "update"];
 
-  table_titles_company = ['image', 'name', 'capacity_k', 'status', 'update'];
-  table_titles_user = ['creation_date', 'name', 'username', 'password', 'role', 'company', 'status', 'update'];
+  table_titles_company = ['image', 'name', 'capacity_k', 'status'];
+  table_titles_user = ['name', 'username', 'role', 'company', 'status'];
 
   ngOnInit() {
     this.companies = JSON.parse(JSON.stringify(this.service.companies));
     this.companies2 = new MatTableDataSource(this.companies);
     // this.companies2.paginator = this.paginator;
-    // this.companies2.sort = this.sort;
+    this.companies2.sort = this.sort;
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);

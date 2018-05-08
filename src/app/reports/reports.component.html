@@ -9,15 +9,9 @@
         </mat-form-field>
       </div>
 
-      <mat-table #table [dataSource]="companies2" matSort> <!--matSort matSortActive="name" start="desc" matSortDisableClear-->
+      <mat-table #table [dataSource]="companies2" matSort matSortActive="capacity_k" matSortDirection="desc">
 
-        <!-- Creation Date Column
-        <ng-container matColumnDef="creation_date">
-          <mat-header-cell *matHeaderCellDef> Creation Date </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.creation_date.substring(0,10)}} </mat-cell>
-        </ng-container>-->
-
-        <!-- Logo Column -->
+       <!-- Logo Column -->
         <ng-container matColumnDef="image">
           <mat-header-cell *matHeaderCellDef> Logo </mat-header-cell>
           <mat-cell *matCellDef="let element">
@@ -38,32 +32,18 @@
           <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
         </ng-container>
 
-        <!-- Project manager Column
-        <ng-container matColumnDef="project manager">
-          <mat-header-cell *matHeaderCellDef> Project manager </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <p *ngIf="!(element.project_manager === undefined); else pending_project_manager">
-              {{element.project_manager.username}}
-            </p>
-            <ng-template #pending_project_manager>
-              <p class="pending">
-                Pending
-              </p>
-            </ng-template>
-          </mat-cell>
-        </ng-container>-->
 
         <!-- Capacity K Column -->
         <ng-container matColumnDef="capacity_k">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity K </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Capacity K </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.capacity_k}} </mat-cell>
         </ng-container>
 
-        <!-- Resources Column -->
+        <!-- Resources Column
         <ng-container matColumnDef="resources">
           <mat-header-cell *matHeaderCellDef> Resources </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.resources}} </mat-cell>
-        </ng-container>
+        </ng-container>-->
 
         <!-- Status Column -->
         <ng-container matColumnDef="status">
@@ -71,16 +51,6 @@
           <mat-cell *matCellDef="let element">
             <button mat-raised-button (click)="redirect1Company($event,element)">
               See status
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <!-- Update Column -->
-        <ng-container matColumnDef="update">
-          <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <button mat-raised-button (click)="redirect2Company($event,element)">
-              Update
             </button>
           </mat-cell>
         </ng-container>
@@ -95,7 +65,7 @@
       </mat-paginator>-->
     </div>
   </mat-tab>
-
+  <!--------------------------------------------Tab Companies to Tab Users--------------------------------------------->
   <mat-tab label="Users">
     <!-- Users table -->
     <div class="containerUser mat-elevation-z8">
@@ -109,12 +79,6 @@
 
       <mat-table #table [dataSource]="users2">
 
-        <!-- Creation Date Column -->
-        <ng-container matColumnDef="creation_date">
-          <mat-header-cell *matHeaderCellDef> Creation Date </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.creation_date.substring(0,10)}} </mat-cell>
-        </ng-container>
-
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
@@ -125,17 +89,6 @@
         <ng-container matColumnDef="username">
           <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
-        </ng-container>
-
-        <!-- Password Column -->
-        <ng-container matColumnDef="password">
-          <mat-header-cell *matHeaderCellDef> Password </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <button mat-raised-button (click)="element.hide_password = false"
-                    *ngIf="element.hide_password">
-              Show password
-            </button>
-            <p *ngIf="!element.hide_password">{{element.password}}</p> </mat-cell>
         </ng-container>
 
         <!-- Role Column -->
@@ -165,16 +118,6 @@
           <mat-cell *matCellDef="let element">
             <button mat-raised-button (click)="redirect($event,element)">
               See status
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <!-- Update Column -->
-        <ng-container matColumnDef="update">
-          <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <button mat-raised-button (click)="redirect2($event,element)">
-              Update
             </button>
           </mat-cell>
         </ng-container>

@@ -11,7 +11,9 @@ import { GeneralServiceService } from './general-service.service';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatIconModule, MatButtonModule } from '@angular/material';
 import { MatSelectModule, MatListModule } from '@angular/material';
+import {CdkTableModule} from '@angular/cdk/table';
 import { MatTableModule, MatPaginatorModule } from '@angular/material';
+import {MatSortModule} from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -136,6 +138,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSortModule,
+    CdkTableModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatSelectModule,
@@ -150,8 +154,10 @@ const routes: Routes = [
     MatInputModule,
     MatTabsModule,
     MatIconModule,
+    CdkTableModule,
     MatButtonModule,
     MatSelectModule,
+    MatSortModule,
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
