@@ -91,7 +91,7 @@ const routes: Routes = [
   {'path': 'home/play/develop', 'component': PlayDevelopComponent},
   {'path': 'home/join-team', 'component': JoinTeamComponent},
   {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
-  {'path': 'home/set-up/edit-question', 'component': EditQuestionComponent}
+  {'path': 'home/set-up/update-question/edit-question', 'component': EditQuestionComponent}
 ];
 
 // NgModule variables
