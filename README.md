@@ -104,6 +104,28 @@ Generate Resources: In this component a Project Manager can add resources to his
 
 Pmfunctions: This component displays all the actions that a Project Manager can do. It has four buttons (Recruit Member, Choose Project, Estimate Cost & Time and  Generate Resources. Clicking each button will redirect the user to the specified Use Case. Only the PM has permission to access this. Its URL route is home/users/projectmanager and it's located in /web/src/app/pmfunctions.
 
+## Module 4 - "Play team role" components
+
+#### Component about how to join a team
+
+join-team: this component shown how would be the primary window with the company invitations to the player.
+There are three elements, the company name, and two buttons to accept or reject the invitations.
+
+location: src/app/join-team 
+
+#### Components about to play: 
+play: Grants access to the selection panel to choose between develop's question or skill's question
+
+location:  src/app/play
+
+play-develop:  show a question to advance in the project and allow choose one the answer and decides if this answer is correct, when the player uses the send button
+
+location: src/app/play-develop
+
+play-develop:  show a question to advance in the project and allow choose one the answer and decides if this answer is correct, when the player uses the send button
+
+location: src/app/play-skill
+
 ### Module 5 - "Communication" component:
 The Email (communication) component allows users to communicate between them. Allows to read inbox, sent emails, write new emails and send it. Shows a notification that counts unread messages. Know more : /src/app/email
 
