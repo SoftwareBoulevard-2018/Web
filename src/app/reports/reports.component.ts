@@ -23,18 +23,18 @@ export class ReportsComponent implements OnInit {
 
   companies = [];
   companies2;
-  users = [];
-  users2;
+  //users = [];
+  //users2;
 
   table_titles_company = ['image', 'name', 'capacity_k', 'status'];
-  table_titles_user = ['name', 'username', 'role', 'company', 'status'];
+  //table_titles_user = ['name', 'username', 'role', 'company', 'status'];
 
   ngOnInit() {
     this.companies = JSON.parse(JSON.stringify(this.service.companies));
     this.companies2 = new MatTableDataSource(this.companies);
     // this.companies2.paginator = this.paginator;
     this.companies2.sort = this.sort;
-    console.log(this.service.user_type);
+    /**console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
@@ -52,7 +52,7 @@ export class ReportsComponent implements OnInit {
       }
       // this.users2.paginator = this.paginator;
       this.users2.sort = this.sort;
-    }
+    }*/
   }
   applyFilterCompany(filterValue: string) {
     // Function used to filter the values on the material table
@@ -74,7 +74,7 @@ export class ReportsComponent implements OnInit {
     this.router.navigate(['home/companies/company-status']);
   }
 
-  applyFilter(filterValue: string) {
+  /**applyFilter(filterValue: string) {
     // Function necessary by the table filter
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
@@ -99,6 +99,4 @@ export class ReportsComponent implements OnInit {
     // Redirects to User update and defines the necessary variables
     this.service.user_to_be_updated = this.search_user(element.username);
     this.router.navigate(['home/users/user-status/update']);
-  }
-
-}
+  }*/
