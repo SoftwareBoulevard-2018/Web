@@ -3,9 +3,49 @@
 
   <div class="invitations">
     <div>
-      <p class="companyName">Empresa 1</p>
-      <div class="accept"  (click)="redirect1($event)">Accept</div>
-      <div class="reject"  (click)="redirect2($event)">Reject</div>
+
+      <p class="companyName">
+      <mat-card-actions>
+        UNAL
+      </mat-card-actions>
+
+      </p>
+
+
+      <button mat-raised-button (click)="redirect1($event)">Accept</button>
+      <button mat-raised-button (click)="redirect2($event)">Reject</button>
+    </div>
+
+  </div>
+  <div class="invitations">
+    <div>
+
+      <p class="companyName">
+        <mat-card-actions>
+          Google
+        </mat-card-actions>
+
+      </p>
+
+
+      <button mat-raised-button (click)="redirect1($event)">Accept</button>
+      <button mat-raised-button (click)="redirect2($event)">Reject</button>
+    </div>
+
+  </div>
+  <div class="invitations">
+    <div>
+
+      <p class="companyName">
+        <mat-card-actions>
+          Otra compañia X
+        </mat-card-actions>
+
+      </p>
+
+
+      <button mat-raised-button (click)="redirect1($event)">Accept</button>
+      <button mat-raised-button (click)="redirect2($event)">Reject</button>
     </div>
 
   </div>
