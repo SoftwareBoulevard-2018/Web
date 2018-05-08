@@ -25,10 +25,18 @@ export class ChooseprojectComponent implements OnInit {
   }
 
   redirect1(event, element) {
-    this.service.user_to_be_updated = this.search_project(element.project_id);
-    this.router.navigate(['home/users/user-status']);
-    return ;
+    const username = this.service.username;
+    for (const user of this.service.users) {
+      if (username === user.username) {
+        for (const company of this.service.companies) {
+          if (user.company_name === company.name) {
+            company.current_project_name = element.project_name;
+          }
+        }
+      }
+    }
   }
+
   getCompany(username) {
     for (const user of this.service.users) {
       if (username === user.username) {
@@ -55,6 +63,10 @@ export class ChooseprojectComponent implements OnInit {
         }
       }
     }
+  }
+
+  redirectToFunctions(event) {
+    this.router.navigate(['home/users/projectmanager/functions']);
   }
 
   ngOnInit() {

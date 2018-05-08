@@ -82,6 +82,15 @@
     </span>
     <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
       You do not have a company assigned so you can not choose a project. You must ask the game administrator to assign one to you
+
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
     </form>
   </div>
 </div>
@@ -93,20 +102,18 @@
     </span>
     <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
       Your company already has a project assigned
+
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
     </form>
   </div>
 </div>
-
-<!--<div class="announcement" *ngIf="!getReady(this.service.username) && getCompany(this.service.username) !== undefined">
-  <div class="wrap-login100 big-wrap">
-    <span class="login100-form-title p-b-34 p-t-27">
-      Choose Project
-    </span>
-    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
-      Your company is missing at least one member per role
-    </form>
-  </div>
-</div>-->
 
 <br/>
 <br/>

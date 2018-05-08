@@ -24,6 +24,9 @@
 .success{
   color: #009494;
 }
+.element-exit{
+  text-align: center;
+}
 
 button{
   background-color: #009494;
