@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import {Router} from "@angular/router";
+
 import {EmailComponent} from "../email/email.component";
 import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
 
@@ -9,7 +10,15 @@ import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
   templateUrl: './play-skill.component.html',
   styleUrls: ['./play-skill.component.css']
 })
-export class PlaySkillComponent implements OnInit {
+export class PlaySkillComponent {
+Qasnwer: String;
+
+answers = [
+  'Respuesta a',
+  'Respuesta b',
+  'Respuesta c',
+  'Respuesta d',
+];
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
