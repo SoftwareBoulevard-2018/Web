@@ -55,6 +55,7 @@ import { PlayComponent } from './play/play.component';
 import { PlaySkillComponent } from './play-skill/play-skill.component';
 import { PlayDevelopComponent } from './play-develop/play-develop.component';
 import { JoinTeamComponent } from './join-team/join-team.component';
+import { GenerateresourcesComponent } from './generateresources/generateresources.component';
 
 // App routes
 const routes: Routes = [
@@ -85,6 +86,7 @@ const routes: Routes = [
   {'path': 'home/users/projectmanager/functions/chooseproject', 'component': ChooseprojectComponent},
   {'path': 'home/users/projectmanager/functions/estimation', 'component': EstimationComponent},
   {'path': 'home/users/projectmanager/functions/recruit', 'component': RecruitMemberComponent},
+  {'path': 'home/users/projectmanager/functions/generate', 'component': GenerateresourcesComponent},
   {'path': 'home/play', 'component': PlayComponent},
   {'path': 'home/play/skill', 'component': PlaySkillComponent},
   {'path': 'home/play/develop', 'component': PlayDevelopComponent},
@@ -116,6 +118,7 @@ const routes: Routes = [
     RecruitMemberComponent,
     ChooseprojectComponent,
     PmfunctionsComponent,
+    GenerateresourcesComponent,
     CreateProjectComponent,
     SetUpComponent,
     UpdateProjectComponent,
@@ -130,7 +133,8 @@ const routes: Routes = [
     PlayComponent,
     PlaySkillComponent,
     PlayDevelopComponent,
-    JoinTeamComponent
+    JoinTeamComponent,
+    GenerateresourcesComponent
   ],
   imports: [
     BrowserModule,

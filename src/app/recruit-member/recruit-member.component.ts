@@ -18,6 +18,7 @@ export class RecruitMemberComponent implements OnInit {
   hide = true;
   user;
   aux;
+  sumary;
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
@@ -48,12 +49,33 @@ export class RecruitMemberComponent implements OnInit {
   }
 
   onClickSubmit(data) {
-  this.aux=[];
-  if(data.project_manager != this.service.username) {
-    this.aux.push(data.project_manager, this.service.username);
-    console.log(this.aux);
-    this.success = true;
-    this.invalid = false;
+  if (data.project_manager !== this.service.username) {
+    this.sumary = 0;
+    this.aux = this.service.username.concat("-");
+    this.aux = this.aux.concat(data.project_manager);
+    if (this.service.invitations.length === 0 ) {
+      this.service.invitations.push( this.aux);
+      console.log(this.service.invitations);
+      this.success = true;
+      this.invalid = false;
+    }
+    else{
+      for (let inv of this.service.invitations){
+        this.sumary = this.sumary + 1;
+        if (this.aux === inv) {
+          this.invalid = true;
+          this.success = false;
+          break;
+        }
+        else if (this.aux !== inv && this.sumary === this.service.invitations.length ){
+          this.service.invitations.push( this.aux);
+          console.log(this.service.invitations);
+          this.success = true;
+          this.invalid = false;
+          break;
+        }
+    }
+    }
   }
   else{
     this.success = false;
