@@ -28,6 +28,9 @@ Now the app is running on your localhost:4200 and you can open it from your brow
 
 /web/src/styleSheets/ -> Here are located all imported css files.
 
+/web/src/app/general-service.service.ts -> The file we are using as dummy database.
+
+/web/src/app/ -> Here are located all the important files for us, the files we created and modified, all the other folder and files are related with the components we will describe next.
 
 ## General components:
 
