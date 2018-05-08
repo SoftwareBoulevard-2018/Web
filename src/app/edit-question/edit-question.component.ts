@@ -14,6 +14,7 @@ export class EditQuestionComponent implements OnInit {
   constructor(public service: GeneralServiceService, public router: Router) { }
   
     form(){
+	// Defines the default state of the forms
     this.formdata = new FormGroup({
       description: new FormControl(''),
       category: new FormControl(''),
@@ -29,6 +30,7 @@ export class EditQuestionComponent implements OnInit {
     });
   }
   
+  // These variables are used to create the forms and validate the data input on them
   categories = [ "Analyst", "Developer", "Tester"];
   levels = [ 1, 2, 3, 4, 5];
   veracities = [ true, false];
@@ -38,6 +40,7 @@ export class EditQuestionComponent implements OnInit {
   invalid_name;
 
   ngOnInit() {
+	// Checks User permissions and establishes the form in the default state
     if (this.service.user_type === undefined) {
        this.router.navigate([''])
      }

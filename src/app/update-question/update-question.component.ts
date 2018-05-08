@@ -19,6 +19,7 @@ export class UpdateQuestionComponent implements OnInit {
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   ngOnInit() {
+	// Checks User permissions and transforms the data to the format read by material tables
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
@@ -35,11 +36,13 @@ export class UpdateQuestionComponent implements OnInit {
   }
   
   applyFilter(filterValue: string) {
+	// Function necessary by the table filter
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.question1.filter = filterValue;
   }
   
   search_question(description) {
+	// Searches question by its description
     for (let question of this.service.questions) {
       if (question.description === description) {
         return question;
@@ -48,6 +51,7 @@ export class UpdateQuestionComponent implements OnInit {
   }
   
   redirect(event, element) {
+	// Redirects to edit question and sends the necessary variables
     this.service.question_to_be_updated = this.search_question(element.description);
     this.router.navigate(['home/set-up/update-question/edit-question']);
   }

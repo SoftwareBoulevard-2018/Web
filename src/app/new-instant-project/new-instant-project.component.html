@@ -1,3 +1,4 @@
+<!-- Instant project creation form -->
 <div class="wrap-login100 big-wrap">
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <br/>
@@ -49,6 +50,8 @@
     </div>
 
     <br/>
+	
+	<!-- Messages if validations fail -->
 
     <div class="element" *ngIf="invalid">
       <br/>
@@ -81,6 +84,7 @@
     <br/>
     <br/>
 
+	<!-- Submit button -->
     <div class="element element2">
       <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
         Create

@@ -14,6 +14,7 @@ export class UpdateInstantProjectComponent implements OnInit {
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   form(){
+	// Defines the default state of the forms
     this.formdata = new FormGroup({
       name: new FormControl(''),
       analystQ: new FormControl(''),
@@ -23,12 +24,14 @@ export class UpdateInstantProjectComponent implements OnInit {
     });
   }
 
+  // These variables are used to create the forms and validate the data input on them
   formdata;
   invalid;
   success;
   invalid_name;
 
   ngOnInit() {
+	// Checks User permissions and establishes the form in the default state
     if (this.service.user_type === undefined) {
        this.router.navigate([''])
      }
