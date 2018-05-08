@@ -4,7 +4,7 @@
   max-height: 500px;
   min-width: 300px;
   width: 80%;         /*User 90%*/
-  margin: auto;
+  margin: 5% auto auto auto;
 }
 .mat-table {
   overflow: auto;
