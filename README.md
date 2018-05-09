@@ -58,6 +58,44 @@ Restricted: This is the component that has the content that will be shown if an 
 
 Not Found: This is the component that has the content that will be shown if a non-existant URL is typed. It doesn't have an specific URL route and it's located in /web/src/app/not-found.
 
+## Module 1 - "Game Set-up" components:
+
+### General component for Game set-up:
+
+Set up: This component contains all the buttons of actions that the game administrator can perform in terms of the game setup, these buttons are: create project, update project, create question, update question, create puzzle, update puzzle and update parameters. Its URL route is /home/set-up and it's located in /web/src/app/set-up
+
+### Comoponents related to project creation and project update:
+
+Create project: This component is responsible for showing the two types of projects that can be created in software boulevard, so that the game administrator can select which of them he wants to create. Its URL route is /home/set-up/create-project and it's located in /web/src/app/create-user.
+
+New bidding project: This component is responsible for the creation of bidding projects. It has a form that validates the input data. The form contain the following fields: name, kunit, time, cost, krequired, analyst level, developer level, tester level, amount of analyst questions, amount of developer questions and amount of tester questions. Its URL route is /home/set-up/create-project/new-bidding-project and it's located in /web/src/app/new-bidding-project.
+
+New instant project: This component is responsible for the creation of instant projects. It has a form that validates the input data. The form contain the following fields: name, kunit, amount of analyst questions, amount of developer questions and amount of tester questions. Its URL route is /home/set-up/create-project/new-instant-project and it´s located in /web/src/app/new-instant-project.
+
+Update project: This component is responsible for showing the projects available to the game administrator, dividing them into instant project and bidding project, and there you can select which one you want to update.Its URL route is /home/set-up/update-project and it's located in /web/src/app/update-project.
+
+Update instant project: This component is responsible for showing the project selected by the game administrator and allowing the update of values ​​to the instant project. Its URL route is /home/set-up/update-project/update-instant-project and it´s located in /web/src/app/update-instant-project.
+
+Update bidding project: This component is responsible for showing the project selected by the game administrator and allowing the update of values ​​to the bidding project. Its URL route is /home/set-up/update-project/update-bidding-project and it´s located in /web/src/app/update-bidding-project.
+
+### Comoponents related to question creation and question update:
+
+Create question: This component is responsible for allowing the game administrator to create new questions. It has a form that validates the input data. The form contain the following fields: desription, question category, question level, and the fourth answers whit its validates. Its URL route is /home/set-up/create-question and it's located in /web/src/app/create-question.
+
+Update question: This component is responsible for displaying the questions that are found in the database to the game administrator, so that he can select which one he wants to update. Its URL route is /home/set-up/update-question and it´s located in /web/src/app/update-question.
+
+Edit question:This component is responsible for showing the question selected by the game administrator and allowing the update of values ​​to the question. Its URL route is /home/set-up/update-question/edit-question and it´s located in /web/src/app/edit-question.
+
+### Components related to puzzle creation and puzzle update:
+
+Create puzzle: This is the component responsible for the creation of the puzzles, here the game administrator must upload an image that is stored on your computer, which must be a diagram, it will appear on the screen, you must also write the amount of resources it provides to the project manager solve the puzzle. Its URL route is /home/set-up/create-puzzle and it's located in /web/src/app/create-puzzle.
+
+Update puzzle:This is the component responsible for the update of puzzles, here the puzzles that are stored will be displayed, and the game administrator will select the one that he wants to update.Its URL route is /home/set-up/update-puzzle and it's located in /web/src/app/update-puzzle.
+
+### Component related to parameter update.
+
+Update parameters: This is the component responsible for updating the threshold, which will be general for all projects and all estimates that will be made. Its URL route is /home/set-up/update-parametersand it's located in /web/src/app/update-parameters.
+
 ## Module 2 - "Game Management" components:
 
 ### Components related to account creation, account updates, log-in and log out:
@@ -87,12 +125,46 @@ Companies: This component is responsible for showing the game administrator the 
 User status: In this component almost all information about a user is shown, its accessible by every kind of user but the game administrator can see the status of every user and each user can see only its status. From here the game administrator can reach the Update user component. Its URL route is /home/users/user-status/ and it's located in /web/src/app/user-status.
 
 Company-status: In this component almost all information about a company is shown, its accessible by every kind of user but the game administrator can see the status of every company and each user can see only its company. From here the game administrator and the project managers can reach the Update company component.  Its URL route is /home/companies/company-status/ and it's located in /web/src/app/company-status.
-### Module 5 - "Communication" component:
-The Email (communication) component allows users to communicate between them. Allows to read inbox, sent emails, write new emails and send it. Shows a notification that counts unread messages. Know more : /src/app/email
 
 ## Module 3 - "Project Manager" components:
 
 ### Components related to recruit members, choose project, elicitation project and generate resources:
 
-Recruit members: This component is responsible for allowing the creation of accounts for new users. It has a form that validates the input data. The form contains the following fields: name, username, password, confirmation for the password and role. All fields are required to create a user. Only the game administrator has permissions to access this component. Its URL route is /home/users/create and it's located in /web/src/app/create-user.
+Recruit members: This component is responsible for allowing Project Managers to add members to their company. It has a dropdown list with the users that belong to the category team members (Analyst, Developer and Tester) and who do not belong to any company. For each user, the username and the user's name. When the desired user is chosen, he is sent an invitation to join the company. Only the project manager has permissions to access this component. Its URL route is home/users/projectmanager/functions and it's located in /web/src/app/recruit-members.
+
+Choose Project: In this component, a Project Manager belonging to a company without an active development can choose a project of two categories (Bidding or Instant). It has a table with all projects available and for each project it will show the Project ID, Project Name, Required K, Rewarded K, Required Analyst Level, Required Developer Level, Required Tester Level. Only Project Managers belonging to a company and without a project already assigned to their company have permission to access this component. If a PM clicks Select on an available project, the project will be assigned to his company. Its URL route is home/users/projectmanager/chooseproject and it's located in /web/src/app/chooseproject.
+
+Cost & Time Estimation: This component allows a Project Manager to elicitate the cost and time for a given Bidding Project. It has a form with two fields, Cost and Time and two buttons, Exit and Validate. The Validate button is used to verify a PM's estimation, everytime its clicked, it will subtract one point out of the resource pool of said PM's company and it will send the information to a list containing estimations. If the estimation is wrong in at least one field, a message will alert the user telling him what did he get wrong. If the estimation is correct, a message will congratulate the user and tell him that he can advance to the next stage of the project. Its URL route is home/users/projectmanager/estimation and it's located in /web/src/app/estimation.
+
+Generate Resources: In this component a Project Manager can add resources to his company's resource pool by way of solving sliding puzzles, though the functionality is pretty bare-bones at the moment. It has a frame containing the puzzle (right now a static image) and a little text, with two buttons to Exit or Validate the puzzle. Its URL route is home/users/projectmanager/generate and it's located in /web/src/app/generateresources.
+
+### Additional Components:
+
+Pmfunctions: This component displays all the actions that a Project Manager can do. It has four buttons (Recruit Member, Choose Project, Estimate Cost & Time and  Generate Resources. Clicking each button will redirect the user to the specified Use Case. Only the PM has permission to access this. Its URL route is home/users/projectmanager and it's located in /web/src/app/pmfunctions.
+
+## Module 4 - "Play team role" components
+
+#### Component about how to join a team
+
+join-team: this component shown how would be the primary window with the company invitations to the player.
+There are three elements, the company name, and two buttons to accept or reject the invitations.
+
+location: src/app/join-team 
+
+#### Components about to play: 
+play: Grants access to the selection panel to choose between develop's question or skill's question
+
+location:  src/app/play
+
+play-develop:  show a question to advance in the project and allow choose one the answer and decides if this answer is correct, when the player uses the send button
+
+location: src/app/play-develop
+
+play-develop:  show a question to advance in the project and allow choose one the answer and decides if this answer is correct, when the player uses the send button
+
+location: src/app/play-skill
+
+### Module 5 - "Communication" component:
+The Email (communication) component allows users to communicate between them. Allows to read inbox, sent emails, write new emails and send it. Shows a notification that counts unread messages. Know more : /src/app/email
+
 
