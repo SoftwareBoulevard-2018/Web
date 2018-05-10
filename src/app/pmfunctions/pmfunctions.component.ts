@@ -42,7 +42,7 @@ export class PmfunctionsComponent implements OnInit {
 
   redirect7(event) {
     if(this.service.user_type === "Project Manager"){
-      this.router.navigate(['restricted']);
+      this.router.navigate(['home/users/projectmanager/functions/generate']);
     }
     else{
       this.router.navigate(['home/recruit']);

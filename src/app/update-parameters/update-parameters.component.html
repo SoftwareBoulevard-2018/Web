@@ -1,3 +1,4 @@
+<!-- parameters update form -->
 <div class="wrap-login100 big-wrap">
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <span class="login100-form-title p-b-34 p-t-27 non_mayus">
@@ -9,6 +10,8 @@
         <input matInput placeholder="Threshold - {{ this.service.parameter_to_be_updated.threshold }}" name="threshold" formControlName="threshold">
       </mat-form-field>
     </div>
+	
+	<!-- Messages if validations fail -->
 
     <div class="element" *ngIf="repeated_field">
       <br/>
@@ -27,6 +30,7 @@
     <br/>
     <br/>
 
+	<!-- Submit button -->
     <div class="element element2">
       <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
         Update

@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import { FormGroup, FormControl} from '@angular/forms';
@@ -94,7 +95,7 @@ export class EmailComponent implements OnInit {
   /*esta funcion envia el mensaje que se esta escribiendo*/
   enviar(to,sub,cont){
     this.cenviados.push(
-      {id: 1, asunto:sub,receiver to, remitente:this.service.username, fecha:"08/05/2018", state:"sent", content:cont}
+      {id: 1, asunto:sub,receiver: to, remitente:this.service.username, fecha:"08/05/2018", state:"sent", content:cont}
     );
   }
 }

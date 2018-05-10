@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  width: 90%;
+  margin: auto;
+}
+.w3-container {
+  text-align: center;
+}
+button{
+  background-color: #009494;
+  color: white;
+}
+.create{
+  width: 30%;
+  margin: 0 auto 2% auto;
+}
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+mat-header-cell{
+  font-size: medium;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Arial";
+  color: #009494;
+}
+
+mat-cell{
+  text-align: center;
+  font-family: "Arial";
+  color: #00585E;
+}
+
+p{
+  font-family: "Arial";
+  color: #00585E;
+}
+h1{
+  margin: 2% auto 1% 0 ;
+  color: #00585E;
+  font-weight: bold;
+  text-align: center;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.pending{
+  color: red!important;
+  font-weight: bold;
+}
