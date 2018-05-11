@@ -1,53 +1,38 @@
-<div class="w3-container">
-  <h1>Welcome to invitations {{this.service.username}}!</h1>
-
-  <div class="invitations">
-    <div>
-
-      <p class="companyName">
-      <mat-card-actions>
-        UNAL
-      </mat-card-actions>
-
-      </p>
 
 
-      <button mat-raised-button (click)="redirect1($event)">Accept</button>
-      <button mat-raised-button (click)="redirect2($event)">Reject</button>
-    </div>
+  <mat-card class="welcome">
+  <h2  >Here are yours invitations</h2>
+  </mat-card>
 
-  </div>
-  <div class="invitations">
-    <div>
+  <ng-container>
+  <mat-list>
 
-      <p class="companyName">
-        <mat-card-actions>
-          Google
-        </mat-card-actions>
+    <mat-list-item>
+      <img mat-list-avatar src="{{this.service.companies[0].image}}">
+      <div matLine>
+       {{this.service.companies[0].name}}
+        <button mat-button class="accept" (click)="redirect1($event)">Accept</button>
+        <button mat-button color="warn" (click)="redirect2($event)">Reject</button>
 
-      </p>
+      </div>
+    </mat-list-item>
 
+    <mat-list-item>
+      <img mat-list-avatar src="{{this.service.companies[1].image}}">
+      <div matLine>
+        {{this.service.companies[1].name}}
+        <button mat-button class="accept" (click)="redirect1($event)">Accept</button>
+        <button mat-button color="warn" (click)="redirect2($event)">Reject</button>
 
-      <button mat-raised-button (click)="redirect1($event)">Accept</button>
-      <button mat-raised-button (click)="redirect2($event)">Reject</button>
-    </div>
+      </div>
+    </mat-list-item>
+    <mat-list-item>
+      <img mat-list-avatar src="{{this.service.companies[2].image}}">
+      <div matLine>
+        {{this.service.companies[2].name}}
+        <button mat-button class="accept" (click)="redirect1($event)">Accept</button>
+        <button mat-button color="warn" (click)="redirect2($event)">Reject</button>
 
-  </div>
-  <div class="invitations">
-    <div>
-
-      <p class="companyName">
-        <mat-card-actions>
-          Otra compañia X
-        </mat-card-actions>
-
-      </p>
-
-
-      <button mat-raised-button (click)="redirect1($event)">Accept</button>
-      <button mat-raised-button (click)="redirect2($event)">Reject</button>
-    </div>
 
   </div>
 
-</div>
