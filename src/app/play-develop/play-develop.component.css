@@ -1,8 +1,8 @@
-.resoucesAndTeamMembers {
+.questionGen {
   width: 100%;
-  display: flex;
+  display: inline-flex;
+  flex-direction: column;
   justify-content: space-around;
-  margin: 0.6rem;
 }
 
 .container {
