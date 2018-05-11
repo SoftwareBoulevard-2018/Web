@@ -7,21 +7,13 @@
 
 
 <div class="wrap-login100">
-
+  <h3>{{quest.description}}</h3>
       <div >
-        <h3>I'm a question</h3><br>
-        <div class="options">
-          <input type="radio" name="option" id="optionA">
-          <label for="optionA">I'm the A answer</label><br>
-          <input type="radio" name="option" id="optionB">
-          <label for="optionB">I'm the B answer</label><br>
-          <input type="radio" name="option" id="optionC">
-          <label for="optionC">I'm the C answer</label><br>
-          <input type="radio" name="option" id="optionD">
-          <label for="optionD">I'm the D answer</label><br>
-        </div>
-        <br>
-        <button mat-raised-button color="primary">Send</button>
+        <mat-radio-group class="questionGen" [(ngModel)]="control">
+          <mat-radio-button *ngFor="let ans of quest.questions" [value]="ans">{{ans.description}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <button mat-raised-button color="primary" [disabled]="!control">Send</button>
       </div >
 
 </div>
