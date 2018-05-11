@@ -1,7 +1,10 @@
-.invitations {
-  margin-top: 2rem;
-  display: flex;
+.welcome {
+
+  color: #009494;
   justify-content: center;
+  width: 100%;
+  text-align: center;
+
 }
 
 .invitations > div > * {
@@ -17,17 +20,13 @@
   margin: 0 3rem 0 0;
 }
 
-.accept, .reject {
-  margin: 0.2rem;
-  padding: 0.3rem 0.5rem;
-  border-radius: 2px;
-}
 
-.accept {
-  background-color: #00FF00;
+.accept{
+  color: #009494;
+  margin: 10%;
 }
 
 .reject {
-  background-color: #FF0000;
+  color: #bd4147;
 }
 

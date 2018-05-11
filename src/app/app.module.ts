@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 // Service imports
 import { GeneralServiceService } from './general-service.service';
@@ -146,6 +146,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     MatTabsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -169,6 +170,7 @@ const routes: Routes = [
   exports: [
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
     MatTabsModule,
     MatIconModule,
     CdkTableModule,

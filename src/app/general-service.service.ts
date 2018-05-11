@@ -5,7 +5,7 @@ import {BiddingProject} from './shared/biddingProject';
 import { InstantProject } from './shared/instantProject';
 import {Question} from './shared/question';
 import {Answer} from './shared/answer';
-import { Parameter } from './shared/parameter'
+import { Parameter } from './shared/parameter';
 import {Estimation} from './shared/estimation';
 
 @Injectable()
