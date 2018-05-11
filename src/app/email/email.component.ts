@@ -23,10 +23,10 @@ export class EmailComponent implements OnInit {
   subject;
   contenido;
   /*crecibidos se usara para conservar localmente los mensajes que ha recibido el usuario actual*/
-  crecibidos = [{id: 0, asunto:"Ready to play this week", remitente:"juclondonome", fecha:"20/04/2018", state:"sent", content:"Hi Victor.\nI'm ready to play now, just send me an email to let me know."},
+  crecibidos = [{id: 0, asunto:"Ready to play", remitente:"juclondonome", fecha:"20/04/2018", state:"sent", content:"Hi Victor.\nI'm ready to play now, just send me an email to let me know."},
                 {id: 1, asunto:"I'm busy this weekend", remitente:"vdjaramillog", fecha:"19/04/2018", state:"sent", content:"Hello every one,\nright this weekend is my sister's marrige so i wont be able to work. \n Happy weeekend"},
                 {id:2,asunto:"Hell this is hard",remitente:"bmaring",fecha:"15/04/2017",state:"sent",content:"Hi, my name is Bianca, i've been trying to solve a cuple puzzles this weekend, but they imposible. \nIf any body can help me, i will apreciated."},
-                {id:3,asusnto:"Hi team members, new team member",remitente:"cmzapata",fecha:"10/04/2017",state:"sent",content:"There is a new team member in your team, very good in solving Analyst questions. \n Good night."}];
+                {id:3,asunto:"New team member",remitente:"cmzapata",fecha:"10/04/2017",state:"sent",content:"There is a new team member in your team, very good in solving Analyst questions. \n Good night."}];
   /*crecibidos se usara para conservar localmente los mensajes que ha enviado el usuario actual*/
   cenviados =[];
   /* fromto se usa para decdir que textp se muestra en la interfaz de lectura*/ fromto = "From";
