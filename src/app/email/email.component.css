@@ -622,3 +622,7 @@ naranja #FF5729
 	margin-top: 10px;
 	overflow-y: auto;
 }
+
+.email-body-container .main-email-container .read-email-container .email-content-container p{
+	color: #000;
+}
