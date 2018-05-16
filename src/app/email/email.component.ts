@@ -1,14 +1,17 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import { FormGroup, FormControl} from '@angular/forms';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-email',
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.css']
 })
-export class EmailComponent implements OnInit {
+export class EmailComponent implements OnInit  {
+
+  
 
     constructor(public service: GeneralServiceService) { }
   /*controla la apertura de la interfaz de email*/  abriremail = false;
@@ -26,14 +29,18 @@ export class EmailComponent implements OnInit {
   crecibidos = [{id: 0, asunto:"Ready to play", remitente:"juclondonome", fecha:"20/04/2018", state:"sent", content:"Hi Victor.\nI'm ready to play now, just send me an email to let me know."},
                 {id: 1, asunto:"I'm busy this weekend", remitente:"vdjaramillog", fecha:"19/04/2018", state:"sent", content:"Hello every one,\nright this weekend is my sister's marrige so i wont be able to work. \n Happy weeekend"},
                 {id:2,asunto:"Hell this is hard",remitente:"bmaring",fecha:"15/04/2017",state:"sent",content:"Hi, my name is Bianca, i've been trying to solve a cuple puzzles this weekend, but they imposible. \nIf any body can help me, i will apreciated."},
-                {id:3,asunto:"New team member",remitente:"cmzapata",fecha:"10/04/2017",state:"sent",content:"There is a new team member in your team, very good in solving Analyst questions. \n Good night."}];
-  /*crecibidos se usara para conservar localmente los mensajes que ha enviado el usuario actual*/
+                {id:3,asunto:"New team member",remitente:"cmzapata",fecha:"10/04/2017",state:"sent",content:"There is a new team member in your team, very good in solving Analyst questions. \n Good night."}];  
+  
+  
+                /*crecibidos se usara para conservar localmente los mensajes que ha enviado el usuario actual*/
   cenviados =[];
   /* fromto se usa para decdir que textp se muestra en la interfaz de lectura*/ fromto = "From";
   /*recibido se usa para mostrar el texto To en la interfaz de lectura*/ recibido = true;
   ngOnInit() {
   	this.Fnem();
   }
+
+  
   /*Fnem calcula la cantidad de mensajes nuevos en el array que 
   los va a almacenar, crecibidos*/
   Fnem(){
@@ -101,4 +108,77 @@ export class EmailComponent implements OnInit {
       {id: 1, asunto:sub,receiver: to, remitente:this.service.username, fecha:"08/05/2018", state:"sent", content:cont}
     );
   }
+
+  emailWindowOpen = true;
+  inInbox = true;
+  inAEmail = false;
+
+  selectedEmail : Email;
+
+  table_titles = ['username', 'subject-content', 'date'];
+  dataSource = new MatTableDataSource(EMAILS);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+
+  openCloseEmail(){
+    this.emailWindowOpen = !this.emailWindowOpen;
+  }
+
+  readEmail(email) {
+    this.selectedEmail = email;
+    this.inInbox = false;
+    this.inAEmail = true;
+  }
+
+  toInbox(){
+    this.inAEmail = false;
+    this.inInbox = true;
+
+    setTimeout(() => this.ngAfterViewInit());
+    // this.ngAfterViewInit();
+  }
+
 }
+
+export interface Email {
+  id: number;
+  sender: string;
+  // receiver: string;
+  subject: string;
+  content: string;
+  date: string;
+  state: string;
+}
+
+const EMAILS : Email[] = [
+  {id: 0, subject:"Ready to play", sender:"juclondonome", date:"20/04/2018", state:"unread", content:"Hi Victor.\nI'm ready to play now, just send me an email to let me know."},
+  {id: 1, subject:"I'm busy this weekend", sender:"vdjaramillog", date:"19/04/2018", state:"unread", content:"Hello every one,\nright this weekend is my sister's marrige so i wont be able to work. \n Happy weeekend"},
+  {id:2,subject:"Hell this is hard",sender:"bmaring",date:"15/04/2017",state:"read",content:"Hi, my name is Bianca, i've been trying to solve a cuple puzzles this weekend, but they imposible. \nIf any body can help me, i will apreciated."},
+  {id:3,subject:"New team member",sender:"cmzapata",date:"10/04/2017",state:"unread",content:"There is a new team member in your team, very good in solving Analyst questions. \n Good night."},
+  {id: 0, subject:"Ready to play", sender:"juclondonome", date:"20/04/2018", state:"read", content:"Hi Victor.\nI'm ready to play now, just send me an email to let me know."},
+  {id: 1, subject:"I'm busy this weekend", sender:"vdjaramillog", date:"19/04/2018", state:"unread", content:"Hello every one,\nright this weekend is my sister's marrige so i wont be able to work. \n Happy weeekend"},
+  {id:2,subject:"Hell this is hard",sender:"bmaring",date:"15/04/2017",state:"read",content:"Hi, my name is Bianca, i've been trying to solve a cuple puzzles this weekend, but they imposible. \nIf any body can help me, i will apreciated."},
+  {id:3,subject:"New team member",sender:"cmzapata",date:"10/04/2017",state:"read",content:"There is a new team member in your team, very good in solving Analyst questions. \n Good night."},
+  {id: 0, subject:"Ready to play", sender:"juclondonome", date:"20/04/2018", state:"unread", content:"Hi Victor.\nI'm ready to play now, just send me an email to let me know."},
+  {id: 1, subject:"I'm busy this weekend", sender:"vdjaramillog", date:"19/04/2018", state:"read", content:"Hello every one,\nright this weekend is my sister's marrige so i wont be able to work. \n Happy weeekend"},
+  {id:2,subject:"Hell this is hard",sender:"bmaring",date:"15/04/2017",state:"read",content:"Hi, my name is Bianca, i've been trying to solve a cuple puzzles this weekend, but they imposible. \nIf any body can help me, i will apreciated."},
+  {id:3,subject:"New team member",sender:"cmzapata",date:"10/04/2017",state:"read",content:"There is a new team member in your team, very good in solving Analyst questions. \n Good night."},
+  {id: 0, subject:"Ready to play", sender:"juclondonome", date:"20/04/2018", state:"unread", content:"Hi Victor.\nI'm ready to play now, just send me an email to let me know."},
+  {id: 1, subject:"I'm busy this weekend", sender:"vdjaramillog", date:"19/04/2018", state:"read", content:"Hello every one,\nright this weekend is my sister's marrige so i wont be able to work. \n Happy weeekend"},
+  {id:2,subject:"Hell this is hard",sender:"bmaring",date:"15/04/2017",state:"read",content:"Hi, my name is Bianca, i've been trying to solve a cuple puzzles this weekend, but they imposible. \nIf any body can help me, i will apreciated."},
+  {id:3,subject:"New team member",sender:"cmzapata",date:"10/04/2017",state:"unread",content:"There is a new team member in your team, very good in solving Analyst questions. \n Good night."},
+]
+
+  
+  
