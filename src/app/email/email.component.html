@@ -115,7 +115,7 @@
 			
 			<div class="buttons-container">
 
-				<div class="w3-row newemail-button">
+				<div class="w3-row newemail-button" (click)="toNewEmail()">
 					<span class="w3-col l9 s9">New Email</span>
 					<div class="icon-newemail w3-col l3 s3"></div>
 				</div>
@@ -213,6 +213,43 @@
 
 			</div>
 
+			<div *ngIf="inNewEmail" class="new-email-container mat-elevation-z8">
+
+				<form class="" [formGroup]="formdata" (ngSubmit) = "submitEmail(formdata.value)" >
+
+					<div class="select-receivers-container">
+
+						<input  placeholder="Select Receivers" name="receivers" formControlName="receivers">
+
+					</div>
+					
+					
+					
+					<div class="subject-container">
+
+						<input placeholder="Subject" name="subject" type="text" autocomplete="off" formControlName="subject">
+
+					</div>
+					
+					<mat-divider></mat-divider>
+					
+					<div class="content-container">
+
+						<textarea  placeholder="Write the content of the email here" name="content" formControlName="content"></textarea>
+
+					</div>
+					
+					
+						<!-- Submit button -->
+					<div class="send-email-button-container">
+						<button mat-raised-button type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+						Send
+						</button>
+					</div>
+					
+				</form>
+				
+			</div>
 		</div>
 	
 	</div>

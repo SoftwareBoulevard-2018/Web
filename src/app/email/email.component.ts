@@ -1,8 +1,9 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
-import { FormGroup, FormControl} from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
+ 
 
 @Component({
   selector: 'app-email',
@@ -11,9 +12,29 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 })
 export class EmailComponent implements OnInit  {
 
-  
+  formdata;
 
-    constructor(public service: GeneralServiceService) { }
+
+  constructor(public service: GeneralServiceService) { }
+
+  newEmailForm() {
+    // Defines the default state of the forms
+    this.formdata = new FormGroup({
+      receivers: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+      subject: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+      content: new FormControl('',
+        Validators.compose([
+          Validators.minLength(2)
+        ]))
+    });
+  }
+
   /*controla la apertura de la interfaz de email*/  abriremail = false;
   /*controla la apertura de la interfaz de recibidos, 
   abierta por defecto cuando se abre email*/recibidos = false;
@@ -37,7 +58,9 @@ export class EmailComponent implements OnInit  {
   /* fromto se usa para decdir que textp se muestra en la interfaz de lectura*/ fromto = "From";
   /*recibido se usa para mostrar el texto To en la interfaz de lectura*/ recibido = true;
   ngOnInit() {
-  	this.Fnem();
+    this.Fnem();
+    
+    this.newEmailForm();
   }
 
   
@@ -110,8 +133,9 @@ export class EmailComponent implements OnInit  {
   }
 
   emailWindowOpen = true;
-  inInbox = true;
+  inInbox = false;
   inAEmail = false;
+  inNewEmail = true;
 
   selectedEmail : Email;
 
@@ -138,15 +162,21 @@ export class EmailComponent implements OnInit  {
   readEmail(email) {
     this.selectedEmail = email;
     this.inInbox = false;
+    this.inNewEmail = false;
     this.inAEmail = true;
   }
 
   toInbox(){
     this.inAEmail = false;
+    this.inNewEmail = false;
     this.inInbox = true;
-
     setTimeout(() => this.ngAfterViewInit());
-    // this.ngAfterViewInit();
+  }
+
+  toNewEmail(){
+    this.inAEmail = false;
+    this.inInbox = false;
+    this.inNewEmail = true;
   }
 
 }

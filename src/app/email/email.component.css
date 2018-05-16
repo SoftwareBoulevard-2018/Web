@@ -262,7 +262,7 @@ naranja #FF5729
     position: fixed;
 	right: 20px;
 	bottom: 20px;
-	z-index: 1000;
+	z-index: 1050;
 	transition: all .5s ease-in-out;  
 	cursor: pointer;
 }
@@ -566,7 +566,6 @@ naranja #FF5729
 	height: 100%;
 	padding: 5px;
 	overflow: hidden;
-	display: block;
 }
 
 .email-body-container .main-email-container .read-email-container .subject-container h2 {
@@ -625,4 +624,73 @@ naranja #FF5729
 
 .email-body-container .main-email-container .read-email-container .email-content-container p{
 	color: #000;
+}
+
+/* NEW EMAIL */
+
+.email-body-container .main-email-container .new-email-container{
+	background: #fff;
+	height: 100%;
+	padding: 5px;
+	overflow: hidden;
+}
+
+.new-email-container input::placeholder , .new-email-container textarea::placeholder {
+	color: #000;
+	opacity: 0.7;
+}
+
+.email-body-container .main-email-container .new-email-container .select-receivers-container {
+	height: 40px;
+	padding: 5px;
+}
+
+.email-body-container .main-email-container .new-email-container .select-receivers-container input {
+	padding: 5px;
+	width: 100%;
+}
+
+.email-body-container .main-email-container .new-email-container .subject-container {
+	height: 40px;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+.email-body-container .main-email-container .new-email-container .subject-container input {
+	padding: 5px;
+	width: 100%;
+	border: 2px solid rgb(66, 66, 66, 0.5);
+	border-radius: 5px;
+}
+
+.email-body-container .main-email-container .new-email-container .subject-container input:focus {
+	border: 2px solid #00585E!important;
+}
+
+.email-body-container .main-email-container .new-email-container .content-container {
+	height: 40%;
+	padding: 10px;
+	padding-bottom: 20px;
+	margin-top: 10px;
+	background: rgba(231, 231, 231, 0.85);
+	border-radius: 5px;
+}
+
+.email-body-container .main-email-container .new-email-container .content-container textarea {
+	padding: 5px;
+	height: 330px;
+	height: 300px;
+	width: 100%;
+	resize: none;
+	border-radius: 5px;
+	border: 2px solid rgb(66, 66, 66, 0.5);
+}
+
+.email-body-container .main-email-container .new-email-container .content-container textarea:focus {
+	border: 2px solid #00585E!important;
+}
+
+.send-email-button-container {
+	text-align: center;
+	margin-top: 10px;
 }
