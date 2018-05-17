@@ -163,6 +163,21 @@ export class EmailComponent implements OnInit  {
     this.dataSource.filter = filterValue;
   }
 
+  searchUserFn(term: string, item){
+    term = term.toLowerCase();
+    let nameMatch = item.name.toLowerCase().indexOf(term) > -1;
+    let roleMatch = item.role.toLowerCase().indexOf(term) > -1;
+    let usernameMatch = item.username.toLowerCase().indexOf(term) > -1;
+    let companyMatch: boolean;
+
+    if ( item['company_name'] ) {
+      companyMatch = item.company_name.toLowerCase().indexOf(term) > -1;
+    } else {
+      companyMatch = false;
+    }
+
+    return nameMatch || roleMatch || usernameMatch || companyMatch;  
+  }
 
   openCloseEmail(){
     this.emailWindowOpen = !this.emailWindowOpen;

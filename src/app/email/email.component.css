@@ -717,4 +717,33 @@ naranja #FF5729
 
 .ng-select.ng-select-multiple.custom .ng-select-container .ng-value-container .ng-value .ng-value-icon.left:hover {
 	background-color: rgb(245, 245, 245);
+	font-weight: bold;
+	color: red;
 } 
+
+.ng-select.ng-select-multiple.custom .ng-dropdown-panel {
+	border: 2px solid #00585E;
+}
+
+.ng-select.ng-select-multiple.custom .ng-option {
+	border-bottom: 2px solid #00585e;
+	-webkit-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+
+.ng-select.ng-select-multiple.custom .ng-option.ng-option-marked {
+	background-color: rgba(231, 231, 231, 0.85);
+}
+
+.ng-select.ng-select-multiple.custom .ng-option.ng-option-selected {
+	background-color: #009494;
+	color: #fff;
+	-webkit-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+
+.ng-select.ng-select-multiple.custom .ng-option .user-info {
+	margin-top: 6px;
+}

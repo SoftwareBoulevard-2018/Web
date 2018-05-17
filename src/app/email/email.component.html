@@ -227,7 +227,31 @@
 							bindLabel="name"
 							placeholder="Select receivers"
 							[(ngModel)]="selectedUsers"
-							formControlName="receivers">
+							formControlName="receivers"
+							[searchFn] ="searchUserFn">
+							
+							<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+
+								<div style="margin: 10px 0;" class="card">
+									<div class="card-body w3-row">
+
+										<div class="w3-col l7 s7">
+											<h4 class="card-title"><strong [ngOptionHighlight]="search">{{item.name}}</strong></h4>
+											<h6 class="card-subtitle mb-2 text-muted" [ngOptionHighlight]="search">{{item.username}}</h6>
+										</div>
+
+										<div class="w3-col w3-col l5 s5 user-info">
+											<h6 *ngIf="item.role !== 'Game Administrator' && item['company_name']">
+												Company: <strong [ngOptionHighlight]="search">{{item.company_name}}</strong></h6>
+											<h6 *ngIf="item.role !== 'Game Administrator' && !item['company_name']">
+												Company: Unassigned</h6>
+											<h6>Role: <strong [ngOptionHighlight]="search">{{item.role}}</strong></h6>
+										</div>
+
+									</div>
+								</div>
+							</ng-template>
+
 						</ng-select>
 
 					</div>	
