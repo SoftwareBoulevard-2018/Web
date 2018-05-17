@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 
 // Service imports
 import { GeneralServiceService } from './general-service.service';
@@ -17,6 +18,7 @@ import {MatSortModule} from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 // Components imports
 import { AppComponent } from './app.component';
@@ -164,6 +166,8 @@ const routes: Routes = [
     MatSidenavModule,
     MatRadioModule,
     MatExpansionModule,
+    NgSelectModule,
+    FormsModule,
     RouterModule.forRoot(routes)
   ],
   exports: [

@@ -632,7 +632,7 @@ naranja #FF5729
 	background: #fff;
 	height: 100%;
 	padding: 5px;
-	overflow: hidden;
+	overflow: auto;
 }
 
 .new-email-container input::placeholder , .new-email-container textarea::placeholder {
@@ -641,19 +641,14 @@ naranja #FF5729
 }
 
 .email-body-container .main-email-container .new-email-container .select-receivers-container {
-	height: 40px;
 	padding: 5px;
 }
 
-.email-body-container .main-email-container .new-email-container .select-receivers-container input {
-	padding: 5px;
-	width: 100%;
-}
 
 .email-body-container .main-email-container .new-email-container .subject-container {
 	height: 40px;
 	padding: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 }
 
 .email-body-container .main-email-container .new-email-container .subject-container input {
@@ -668,18 +663,13 @@ naranja #FF5729
 }
 
 .email-body-container .main-email-container .new-email-container .content-container {
-	height: 40%;
-	padding: 10px;
-	padding-bottom: 20px;
-	margin-top: 10px;
-	background: rgba(231, 231, 231, 0.85);
-	border-radius: 5px;
+	padding: 5px;
+	padding-bottom: 0;
 }
 
 .email-body-container .main-email-container .new-email-container .content-container textarea {
 	padding: 5px;
-	height: 330px;
-	height: 300px;
+	height: 334px;
 	width: 100%;
 	resize: none;
 	border-radius: 5px;
@@ -690,7 +680,41 @@ naranja #FF5729
 	border: 2px solid #00585E!important;
 }
 
-.send-email-button-container {
+.email-body-container .main-email-container .new-email-container .send-email-button-container {
 	text-align: center;
-	margin-top: 10px;
+	margin-top: 5px;
 }
+
+.email-body-container .main-email-container .new-email-container .send-email-button-container button {
+	background-color: #00585E;
+	color: #fff;
+}
+
+.ng-select.custom .ng-select-container {
+	border: 2px solid rgb(66, 66, 66, 0.5);
+}
+
+.ng-select.custom.ng-select-focused .ng-select-container{
+	border: 2px solid #00585E;
+	box-shadow: none;
+}
+
+.email-body-container .main-email-container .new-email-container .ng-select.custom .ng-select-container .ng-placeholder {
+	color: #000;
+	opacity: 0.7;
+}
+
+.ng-select.ng-select-multiple.custom .ng-select-container .ng-value-container .ng-value {
+	border: 1px solid rgb(66, 66, 66, 0.5);
+	background-color: rgb(245, 245, 245);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.ng-select.ng-select-multiple.custom .ng-select-container .ng-value-container .ng-value .ng-value-icon.left {
+	border-right: none;
+}
+
+.ng-select.ng-select-multiple.custom .ng-select-container .ng-value-container .ng-value .ng-value-icon.left:hover {
+	background-color: rgb(245, 245, 245);
+} 

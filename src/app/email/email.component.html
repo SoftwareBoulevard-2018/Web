@@ -215,23 +215,28 @@
 
 			<div *ngIf="inNewEmail" class="new-email-container mat-elevation-z8">
 
+
 				<form class="" [formGroup]="formdata" (ngSubmit) = "submitEmail(formdata.value)" >
 
 					<div class="select-receivers-container">
 
-						<input  placeholder="Select Receivers" name="receivers" formControlName="receivers">
+						<ng-select class="custom"
+							[items]="users"
+							[multiple]="true"
+							[closeOnSelect]="false"
+							bindLabel="name"
+							placeholder="Select receivers"
+							[(ngModel)]="selectedUsers"
+							formControlName="receivers">
+						</ng-select>
 
-					</div>
-					
-					
-					
+					</div>	
+
 					<div class="subject-container">
 
 						<input placeholder="Subject" name="subject" type="text" autocomplete="off" formControlName="subject">
 
 					</div>
-					
-					<mat-divider></mat-divider>
 					
 					<div class="content-container">
 
@@ -248,7 +253,7 @@
 					</div>
 					
 				</form>
-				
+
 			</div>
 		</div>
 	

@@ -1,9 +1,11 @@
-
 import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
-import { FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
- 
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { AppComponent } from '../app.component';
+
+
 
 @Component({
   selector: 'app-email',
@@ -14,8 +16,10 @@ export class EmailComponent implements OnInit  {
 
   formdata;
 
+  users = [];
 
-  constructor(public service: GeneralServiceService) { }
+  constructor(public service: GeneralServiceService) { 
+  }
 
   newEmailForm() {
     // Defines the default state of the forms
@@ -61,6 +65,9 @@ export class EmailComponent implements OnInit  {
     this.Fnem();
     
     this.newEmailForm();
+
+    this.users = JSON.parse(JSON.stringify(this.service.users));
+
   }
 
   
@@ -132,12 +139,14 @@ export class EmailComponent implements OnInit  {
     );
   }
 
-  emailWindowOpen = true;
-  inInbox = false;
+  emailWindowOpen = false;
+  inInbox = true;
   inAEmail = false;
-  inNewEmail = true;
+  inNewEmail = false;
 
   selectedEmail : Email;
+
+  selectedUsers = [];
 
   table_titles = ['username', 'subject-content', 'date'];
   dataSource = new MatTableDataSource(EMAILS);
@@ -157,6 +166,7 @@ export class EmailComponent implements OnInit  {
 
   openCloseEmail(){
     this.emailWindowOpen = !this.emailWindowOpen;
+    this.users = JSON.parse(JSON.stringify(this.service.users));
   }
 
   readEmail(email) {
