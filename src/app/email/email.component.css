@@ -479,7 +479,7 @@ naranja #FF5729
 	margin-bottom: 5px;
 }
 
-.email-body-container .email-controls .buttons-container .inbox-sent-buttons-container .inbox.active {
+.email-body-container .email-controls .buttons-container .inbox-sent-buttons-container .control-button.active {
 	background-color: #00585E;
 }
 
@@ -727,6 +727,7 @@ naranja #FF5729
 
 .ng-select.ng-select-multiple.custom .ng-option {
 	border-bottom: 2px solid #00585e;
+	height: 78px;
 	-webkit-transition: all .3s ease;
 	-o-transition: all .3s ease;
 	transition: all .3s ease;
