@@ -18,28 +18,28 @@
 
       <div class="elementfield1">
         <mat-form-field>
-          <input matInput placeholder="Time (man-hours)" name="time" formControlName="time">
+          <input matInput placeholder="Time (person-hours)" name="time" formControlName="time">
           <mat-hint>Required Field</mat-hint>
         </mat-form-field>
       </div>
 
-        <div class="element-text1" *ngIf="incorrect_time">
+        <div class="element-text1" *ngIf="incorrect_cost">
           <br/>
           <span class="error">
-              The cost you guessed wasn't quite right, try again.
+              The cost you estimated wasn't quite right, try again.
             </span>
         </div>
 
-        <div class="element-text2" *ngIf="incorrect_cost">
+        <div class="element-text2" *ngIf="incorrect_time">
           <br/>
           <span class="error">
-              The time you guessed wasn't quite right, try again.
+              The time you estimated wasn't quite right, try again.
             </span>
         </div>
 
         <div class="element-text3" *ngIf="correct_guess">
           <br/>
-              Your guess was correct! You can now exit and continue with the project.
+              Your estimation was correct! You can now exit and continue with the project.
         </div>
 
       <br/>
@@ -69,5 +69,12 @@
     -Does your company has enough resources?
     <br>
     -Is your chosen project a Bidding Project?
+    <br>
+    <br>
+    <div class="elementexit5">
+      <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+        Exit
+      </button>
+    </div>
   </form>
 </div>
