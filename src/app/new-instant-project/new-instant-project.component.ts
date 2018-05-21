@@ -15,6 +15,7 @@ import { MatSelect } from "@angular/material";
 export class NewInstantProjectComponent implements OnInit {
 
   form(){
+	// Defines the default state of the forms
     this.formdata = new FormGroup({
       name: new FormControl('',
         Validators.compose([
@@ -40,7 +41,8 @@ export class NewInstantProjectComponent implements OnInit {
   }
 
   new_projectname(username){
-    for(let project of this.service.projects){
+	 // Defines if the project name has already been taken
+    for(let project of this.service.projects2){
       if(name === project.project_name){
         return false;
       }
@@ -50,6 +52,7 @@ export class NewInstantProjectComponent implements OnInit {
 
   constructor(public service: GeneralServiceService, public router: Router) { }
 
+  // These variables are used to create the forms and validate the data input on them
   formdata;
   invalid = false;
   invalid_name = false;
@@ -60,6 +63,7 @@ export class NewInstantProjectComponent implements OnInit {
   auxiliar;
 
   ngOnInit() {
+	// Checks User permissions and establishes the form in the default state
    if (this.service.user_type === undefined) {
       this.router.navigate([''])
     }
@@ -74,6 +78,7 @@ export class NewInstantProjectComponent implements OnInit {
   }
 
   onClickSubmit(data) {
+	// Validates the data input on the form and if it's correct then creates the project
     this.auxiliar = this.new_projectname(data.name);
     if (!(/^[a-zA-Z ]+$/.test(data.name))) {
       this.invalid_name = true;
@@ -82,8 +87,8 @@ export class NewInstantProjectComponent implements OnInit {
       this.flawed_name = false;
     }
     else if (data.kunit >= 1 && this.auxiliar) {
-      this.project = new InstantProject(Object.keys(this.service.projects).length ,data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ);
-      this.service.projects.push(this.project);
+      this.project = new InstantProject(Object.keys(this.service.projects2).length ,data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ);
+      this.service.projects2.push(this.project);
       console.log(this.service.projects);
       this.form();
       this.invalid_name = false;

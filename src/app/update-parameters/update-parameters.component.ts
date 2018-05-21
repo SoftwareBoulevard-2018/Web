@@ -14,11 +14,13 @@ export class UpdateParametersComponent implements OnInit {
   constructor(public service: GeneralServiceService, public router: Router) { }
 
   form(){
+	// Defines the default state of the forms
     this.formdata = new FormGroup({
       threshold: new FormControl('')
     });
   }
 
+  // These variables are used to create the forms and validate the data input on them
   formdata;
   totally_empty = false;
   success = false;
@@ -26,6 +28,7 @@ export class UpdateParametersComponent implements OnInit {
   repeated_field = false;
 
   ngOnInit() {
+	// Checks User permissions and establishes the form in the default state
     if (this.service.user_type === undefined) {
        this.router.navigate([''])
      }
@@ -40,6 +43,7 @@ export class UpdateParametersComponent implements OnInit {
   }
 
   onClickSubmit(data) {
+	// Validates the data input on the form and if it's correct then updates the parameters
     if(data.threshold === this.service.parameter_to_be_updated.threshold){
       this.totally_empty = false;
       this.success = false;
