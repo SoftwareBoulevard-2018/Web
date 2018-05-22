@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-update-user',
@@ -10,6 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class UpdateUserComponent implements OnInit {
 
+  user_to_be_updated;
   formdata;
   invalid = false;
   invalid_name = false;
@@ -22,8 +24,8 @@ export class UpdateUserComponent implements OnInit {
   user;
   auxiliar;
 
-  constructor(public service: GeneralServiceService, public router: Router) {}
-  form() {
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {}
+  form(userId) {
     // Establishes the default state of a form
     this.formdata = new FormGroup({
       name: new FormControl(''),
@@ -32,19 +34,29 @@ export class UpdateUserComponent implements OnInit {
       confirmation: new FormControl(''),
       role: new FormControl('')
     });
+    this.getUserById(userId);
   }
 
-  new_username(username, current_username) {
-    // Defines if a username is unique
-    if (username === current_username) {
-      return false;
-    }
-    for (const user of this.service.users) {
-      if (username === user.username) {
-        return false;
-      }
-    }
-    return true;
+  updateUser(user, userId) {
+    return this.httpService.updateUser(user, userId).subscribe(data => {
+      console.log(data);
+      this.form(userId);
+    });
+  }
+
+  getUserById(userId) {
+    return this.httpService.getUserById(userId).subscribe(data => { this.user_to_be_updated = data; });
+  }
+
+  getUserByUsername(formdata) {
+    return this.httpService.getUserByUsername(formdata.username).subscribe(data => {
+        this.auxiliar = false;
+        this.validations(this.auxiliar, formdata);
+      },
+      error => {
+        this.auxiliar = (formdata.username !== this.user_to_be_updated.username);
+        this.validations(this.auxiliar, formdata);
+      });
   }
 
   ngOnInit() {
@@ -54,13 +66,17 @@ export class UpdateUserComponent implements OnInit {
      } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
        this.router.navigate(['restricted']);
      } else {
-    this.form();
+      this.form(this.service.user_to_be_updated);
     }
   }
 
   onClickSubmit(data) {
     // Makes distinct validations and if they are alright updates the user
-    this.auxiliar = this.new_username(data.username, this.service.user_to_be_updated.username);
+    this.getUserByUsername(data);
+  }
+
+  validations(auxiliar, data) {
+    console.log(data);
     if (!(/^[a-zA-Z ]+$/.test(data.name)) && !(data.name === '')) {
       this.invalid_name = true;
       this.totally_empty = false;
@@ -82,15 +98,15 @@ export class UpdateUserComponent implements OnInit {
       this.success = false;
       this.flawed_username = false;
       this.repeated_field = false;
-    } else if (data.name === this.service.user_to_be_updated.name || data.username === this.service.user_to_be_updated.username
-      || data.password === this.service.user_to_be_updated.password || data.role === this.service.user_to_be_updated.role) {
+    } else if (data.name === this.user_to_be_updated.name || data.username === this.user_to_be_updated.username
+      || data.password === this.user_to_be_updated.password || data.role === this.user_to_be_updated.role) {
       this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = false;
       this.success = false;
       this.flawed_username = false;
       this.repeated_field = true;
-    } else if (!(this.auxiliar)) {
+    } else if (!(auxiliar)) {
       this.invalid_name = false;
       this.totally_empty = false;
       this.invalid = false;
@@ -99,13 +115,13 @@ export class UpdateUserComponent implements OnInit {
       this.repeated_field = false;
     } else {
       if (!(data.name === '')) {
-        this.service.user_to_be_updated.name = data.name;
+        this.user_to_be_updated.name = data.name;
       } if (!(data.username === '')) {
-        this.service.user_to_be_updated.username = data.username;
+        this.user_to_be_updated.username = data.username;
       } if (!(data.password === '')) {
-        this.service.user_to_be_updated.password = data.password;
+        this.user_to_be_updated.password = data.password;
       } if (!(data.role === '' || data.role === undefined)) {
-        this.service.user_to_be_updated.role = data.role;
+        this.user_to_be_updated.role = data.role;
       }
       this.invalid_name = false;
       this.totally_empty = false;
@@ -113,9 +129,8 @@ export class UpdateUserComponent implements OnInit {
       this.success = true;
       this.flawed_username = false;
       this.repeated_field = false;
-      this.form();
+      this.updateUser(this.user_to_be_updated, this.user_to_be_updated.id);
     }
-    console.log(this.service.users);
   }
 
 }
