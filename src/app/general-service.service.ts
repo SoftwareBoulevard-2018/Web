@@ -42,10 +42,10 @@ export class GeneralServiceService {
     new InstantProject(4, "Gana system", 2, 18, 18, 16),
     new InstantProject(5, "Supermarket system", 3, 11, 12, 10)];
 
-  questions = [new Question(1,"one UML diagram:","Analyst",5,new Answer("EP",false),new Answer("KAOS",false),
+  /* questions = [new Question(1,"one UML diagram:","Analyst",5,new Answer("EP",false),new Answer("KAOS",false),
 			   new Answer("Problems",false),new Answer("Class",true)),
 			   new Question(2,"alphas:","Developer",3,new Answer("Work",true),new Answer("Team",true),
-			   new Answer("UML",false),new Answer("EP",false))];
+			   new Answer("UML",false),new Answer("EP",false))]; */
 
   parameter = [new Parameter(10)];
 

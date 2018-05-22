@@ -23,7 +23,7 @@ export class CompanyStatusComponent implements OnInit {
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
-      this.search_user_company();
+      // this.search_user_company();
     } else {
       this.current_company = this.service.company_to_be_updated;
     }
@@ -32,7 +32,7 @@ export class CompanyStatusComponent implements OnInit {
       this.users2 = new MatTableDataSource(this.users);
     }
   }
-  search_user_company() {
+  /*search_user_company() {
     // Searches for the company of the user in session
     for (const user of this.service.users) {
       if (user.username === this.service.username) {
@@ -43,7 +43,7 @@ export class CompanyStatusComponent implements OnInit {
       }
     }
     this.current_company = undefined;
-  }
+  } */
   search_company (company_name) {
     for (const company of this.service.companies) {
       if (company.name === company_name) {
