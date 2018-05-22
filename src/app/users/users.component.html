@@ -18,9 +18,9 @@
   <mat-table #table [dataSource]="users2">
 
     <!-- Creation Date Column -->
-    <ng-container matColumnDef="creation_date">
+    <ng-container matColumnDef="createdAt">
       <mat-header-cell *matHeaderCellDef> Creation Date </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.creation_date.substring(0,10)}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.createdAt.substring(0,10)}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
@@ -39,10 +39,8 @@
     <ng-container matColumnDef="password">
       <mat-header-cell *matHeaderCellDef> Password </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-raised-button (click)="element.hide_password = false"
-                *ngIf="element.hide_password">
-          Show password
-        </button>
+        <mat-icon mat-list-icon (click)="element.hide_password = false"
+                  *ngIf="element.hide_password">lock</mat-icon>
         <p *ngIf="!element.hide_password">{{element.password}}</p> </mat-cell>
     </ng-container>
 
@@ -56,8 +54,8 @@
     <ng-container matColumnDef="company">
       <mat-header-cell *matHeaderCellDef> Company </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <p *ngIf="!(element.company_name === undefined); else pending_company">
-          {{element.company_name}}
+        <p *ngIf="!(element.companyName === undefined); else pending_company">
+          {{element.companyName}}
         </p>
         <ng-template #pending_company>
           <p class="pending">
@@ -71,9 +69,7 @@
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-raised-button (click)="redirect($event,element)">
-          See status
-        </button>
+        <mat-icon mat-list-icon (click)="redirect($event,element)">remove_red_eye</mat-icon>
       </mat-cell>
     </ng-container>
 
@@ -81,9 +77,7 @@
     <ng-container matColumnDef="update">
       <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-raised-button (click)="redirect2($event,element)">
-          Update
-        </button>
+        <mat-icon mat-list-icon (click)="redirect2($event,element)">create</mat-icon>
       </mat-cell>
     </ng-container>
 
