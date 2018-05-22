@@ -1,0 +1,67 @@
+<!-- Instant project update form -->
+<div class="wrap-login100 big-wrap">
+  <form class="login100-form" [formGroup]="formdata" >
+    <span class="login100-form-title p-b-34 p-t-27 non_mayus">
+      UPDATE INSTANT PROJECT - {{ this.service.project_to_be_updated.project_name }}
+    </span>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput placeholder="Name - {{ this.service.project_to_be_updated.project_name  }}" name="name" formControlName="name">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Rewarded k unit - {{ this.service.project_to_be_updated.rewarded_k }}" formControlName="kunit" min="1" max="20">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Amount of analyst questions - {{ this.service.project_to_be_updated.amount_analyst_question}}" formControlName="analystQ" min="1" max="50">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Amount of developer questions - {{ this.service.project_to_be_updated.amount_developer_question}}" formControlName="developerQ" min="1" max="50">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Amount of tester questions - {{ this.service.project_to_be_updated.amount_tester_question }}" formControlName="testerQ" min="1" max="50">
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element" *ngIf="success">
+      <br/>
+      <span class="success">
+        Project successfully updated.
+      </span>
+    </div>
+
+
+    <br/>
+    <br/>
+
+	<!-- Submit button -->
+    <div class="element element2">
+      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+        Update
+      </button>
+    </div>
+
+  </form>
+</div>
