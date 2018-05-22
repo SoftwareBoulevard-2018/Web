@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {BiddingProject} from '../shared/biddingProject';
 import {GeneralServiceService} from '../general-service.service';
 import {Router} from '@angular/router';
+import {PuzzleTile} from '../shared/puzzleTile';
 
 @Component({
   selector: 'app-generateresources',
@@ -11,6 +12,9 @@ import {Router} from '@angular/router';
 export class GenerateresourcesComponent implements OnInit {
 
   solved_puzzle = false;
+  correct_matrix: PuzzleTile[][];
+  current_matrix: PuzzleTile[][];
+
   redirect1($event) {
     this.solved_puzzle = true;
   }
@@ -19,6 +23,27 @@ export class GenerateresourcesComponent implements OnInit {
 
   redirectToFunctions(event) {
     this.router.navigate(['home/users/projectmanager/functions']);
+  }
+
+  initializePuzzle() {
+    // poner en el onInit
+    // llenar matrices
+    // shuffle current_matrix
+    // dibujar current_matrix
+    // comparar current con correct y habilitar validate cuando sea necesario
+  }
+
+  isMovableTile(tile: PuzzleTile) {
+
+  }
+
+  // candidate is the name of the tile the user wants to move
+  moveTile(candidate) {
+
+  }
+
+  getTile(number) {
+
   }
 
   ngOnInit() {
