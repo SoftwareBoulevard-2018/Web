@@ -134,6 +134,18 @@ export class GenerateresourcesComponent implements OnInit {
 
   }
 
+  getCompany(username) {
+    for (const user of this.service.users) {
+      if (username === user.username) {
+        for (const company of this.service.companies) {
+          if (user.company_name === company.name) {
+            return company;
+          }
+        }
+      }
+    }
+  }
+
   ngOnInit() {
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);

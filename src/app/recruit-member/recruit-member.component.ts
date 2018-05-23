@@ -47,6 +47,20 @@ export class RecruitMemberComponent implements OnInit {
       }
     }
   }
+  getCompany(username) {
+    for (const user of this.service.users) {
+      if (username === user.username) {
+        for (const company of this.service.companies) {
+          if (user.company_name === company.name) {
+            return company;
+          }
+        }
+      }
+    }
+  }
+  redirectToFunctions(event) {
+    this.router.navigate(['home/users/projectmanager/functions']);
+  }
   // the method of the button
   onClickSubmit(data) {
   if (data.project_manager !== this.service.username) {
