@@ -98,7 +98,31 @@ export class GenerateresourcesComponent implements OnInit {
   }
 
   isMovableTile(tile: PuzzleTile) {
+    const tile_position = tile.getCurrent_placement();
+    const tuple = this.mapArrayToMatrix(tile_position);
+    const tile_i = tuple[0];
+    const tile_j = tuple[1];
 
+    const tile_up = this.current_matrix[tile_i - 1][tile_j];
+    const tile_down = this.current_matrix[tile_i + 1][tile_j];
+    const tile_left = this.current_matrix[tile_i][tile_j - 1];
+    const tile_right = this.current_matrix[tile_i][tile_j + 1];
+
+    if (tile_up !== undefined && tile_up.isEmpty === true) {
+      return [tile_i - 1, tile_j];
+    }
+    if (tile_down !== undefined && tile_down.isEmpty === true) {
+      return [tile_i + 1, tile_j];
+    }
+    if (tile_left !== undefined && tile_left.isEmpty === true) {
+      return [tile_i, tile_j - 1];
+    }
+    if (tile_right !== undefined && tile_right.isEmpty === true) {
+      return [tile_i, tile_j + 1];
+    }
+    else {
+      return [-1, -1];  // cant move the piece
+    }
   }
 
   // candidate is the name of the tile the user wants to move
