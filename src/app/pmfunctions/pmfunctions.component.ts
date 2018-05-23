@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
-import {Router} from "@angular/router";
-import {EmailComponent} from "../email/email.component";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-pmfunctions',
@@ -14,46 +13,40 @@ export class PmfunctionsComponent implements OnInit {
   }
 
   redirect4(event) {
-    if(this.service.user_type === "Project Manager"){
+    if (this.service.user_type === 'Project Manager') {
       this.router.navigate(['home/users/projectmanager/functions/recruit']);
-    }
-    else{
+    } else {
       this.router.navigate(['home/users/user-status']);
     }
   }
 
   redirect5(event) {
-    if(this.service.user_type === "Project Manager"){
+    if (this.service.user_type === 'Project Manager') {
       this.router.navigate(['home/users/projectmanager/functions/chooseproject']);
-    }
-    else{
+    } else {
       this.router.navigate(['home/companies/company-status']);
     }
   }
 
   redirect6(event) {
-    if(this.service.user_type === "Project Manager"){
+    if (this.service.user_type === 'Project Manager') {
       this.router.navigate(['home/users/projectmanager/functions/estimation']);
-    }
-    else{
+    } else {
       this.router.navigate(['home/recruit']);
     }
   }
 
   redirect7(event) {
-    if(this.service.user_type === "Project Manager"){
+    if (this.service.user_type === 'Project Manager') {
       this.router.navigate(['home/users/projectmanager/functions/generate']);
-    }
-    else{
+    } else {
       this.router.navigate(['home/recruit']);
     }
   }
 
-  home_user_type;
-
   ngOnInit() {
     if (this.service.user_type === undefined) {
-      this.router.navigate([''])
+      this.router.navigate(['']);
     }
   }
 }
