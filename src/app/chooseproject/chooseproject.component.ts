@@ -29,7 +29,7 @@ export class ChooseprojectComponent implements OnInit {
     for (const user of this.service.users) {
       if (username === user.username) {
         for (const company of this.service.companies) {
-          if (user.company_name === company.name) {
+          if (user.companyName === company.name) {
             company.current_project_name = element.project_name;
           }
         }
@@ -41,7 +41,7 @@ export class ChooseprojectComponent implements OnInit {
     for (const user of this.service.users) {
       if (username === user.username) {
         for (const company of this.service.companies) {
-          if (user.company_name === company.name) {
+          if (user.companyName === company.name) {
             return company;
           }
         }
@@ -53,7 +53,7 @@ export class ChooseprojectComponent implements OnInit {
     for (const user of this.service.users) {
       if (username === user.username) {
         for (const company of this.service.companies) {
-          if (user.company_name === company.name) {
+          if (user.companyName === company.name) {
             for (const project of this.service.projects) {
               if (company.current_project_name === project.project_name) {
                 return project;

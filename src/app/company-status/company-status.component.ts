@@ -36,8 +36,8 @@ export class CompanyStatusComponent implements OnInit {
     // Searches for the company of the user in session
     for (const user of this.service.users) {
       if (user.username === this.service.username) {
-        if (!(user.company_name === undefined)) {
-          this.current_company = this.search_company(user.company_name);
+        if (!(user.companyName === undefined)) {
+          this.current_company = this.search_company(user.companyName);
           return;
         }
       }

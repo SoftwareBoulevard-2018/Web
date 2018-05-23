@@ -88,12 +88,12 @@
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>check</mat-icon>
         <h4 mat-line>Questions answered right:</h4>
-        <p mat-line>{{this.user.right}}</p>
+        <p mat-line>{{this.user.correctTrainingQuestions + this.user.correctProjectQuestions}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>close</mat-icon>
         <h4 mat-line>Questions ansered wrong:</h4>
-        <p mat-line>{{this.user.wrong}}</p>
+        <p mat-line>{{this.user.resourcesSpent - (this.user.correctTrainingQuestions + this.user.correctProjectQuestions)}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>assessment</mat-icon>
@@ -128,12 +128,12 @@
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>check</mat-icon>
           <h4 mat-line>Right estimations:</h4>
-          <p mat-line>{{this.user.right}}</p>
+          <p mat-line>{{this.user.correctTrainingQuestions + this.user.correctProjectQuestions}}</p>
         </mat-list-item>
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>close</mat-icon>
           <h4 mat-line>Wrong estimations:</h4>
-          <p mat-line>{{this.user.wrong}}</p>
+          <p mat-line>{{this.user.resourcesSpent - (this.user.correctTrainingQuestions + this.user.correctProjectQuestions)}}</p>
         </mat-list-item>
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>assessment</mat-icon>

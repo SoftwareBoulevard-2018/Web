@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     if (this.service.user_type === 'Game Administrator') {
       this.router.navigate(['home/users']);
     } else {
-      this.service.user_to_be_updated = this.search_user(this.service.username);
+      this.service.user_to_be_updated = this.service.user.id;
       this.router.navigate(['home/users/user-status']);
     }
   }
@@ -44,8 +44,7 @@ export class HomeComponent implements OnInit {
   redirect4(event) {
     if (this.service.user_type === 'Game Administrator') {
       this.router.navigate(['home/set-up']);
-    }
-    else {
+    } else {
       this.router.navigate(['home/join-team']);
     }
   }
@@ -56,11 +55,11 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['']);
     }
   }
-  search_user(username) {
+  /* search_user(username) {
     for (const user of this.service.users) {
       if (user.username === username) {
         return user;
       }
     }
-  }
+  } */
 }

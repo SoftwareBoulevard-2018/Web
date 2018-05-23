@@ -22,7 +22,7 @@ export class HttpService {
   static usersURL = '/users';
   static usersURL2 = '/username';
   static companiesURL = '/companies';
-  static loginURL = '/authentication';
+  static loginURL = '/login';
 
   // All services related to Users
   getAllUsers() {
@@ -49,5 +49,14 @@ export class HttpService {
   }
   getCompanyById(companyId: string) {
     return this.http.get<Company>(HttpService.apiURL + HttpService.companiesURL + '/' + companyId);
+  }
+
+  // All services related to companies
+  getSession() {
+    return this.http.get<User>(HttpService.apiURL + HttpService.loginURL);
+  }
+  login(username, password) {
+    return this.http.post<User>(HttpService.apiURL + HttpService.loginURL,
+      JSON.stringify({ username: username, password: password }), HttpService.httpOptions);
   }
 }
