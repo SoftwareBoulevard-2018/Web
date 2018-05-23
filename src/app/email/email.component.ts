@@ -4,7 +4,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { AppComponent } from '../app.component';
-
+import { Email } from '../shared/email';
 
 
 @Component({
@@ -156,6 +156,3 @@ const EMAILS : Email[] = [
   {id:2,subject:"Hell this is hard",sender:"bmaring",date:"15/04/2017",state:"read",content:"Hi, my name is Bianca, i've been trying to solve a cuple puzzles this weekend, but they imposible. \nIf any body can help me, i will apreciated."},
   {id:3,subject:"New team member",sender:"cmzapata",date:"10/04/2017",state:"unread",content:"There is a new team member in your team, very good in solving Analyst questions. \n Good night."},
 ]
-
-  
-  
