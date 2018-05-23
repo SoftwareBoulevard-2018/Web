@@ -12,12 +12,12 @@ import {PuzzleTile} from '../shared/puzzleTile';
 export class GenerateresourcesComponent implements OnInit {
 
   solved_puzzle = false;
-  correct_matrix: PuzzleTile[][];
-  current_matrix: PuzzleTile[][];
+  correct_matrix = [];
+  current_matrix = [];
   solvable_puzzles = [[15, 2, 1, 12, 8, 5, 6, 11, 4, 9, 10, 7, 3, 14, 13, 16],
                       [6, 1, 10, 2, 7, 11, 4, 14, 5, 16, 9, 15, 8, 12, 13, 3]];
 
-  redirect1($event) {
+  redirect1(event) {
     this.solved_puzzle = true;
   }
   constructor(public service: GeneralServiceService, public router: Router) {
@@ -30,13 +30,14 @@ export class GenerateresourcesComponent implements OnInit {
   initializePuzzle() {
     let position = 0;
     for (let i = 0; i <= 3; i++) {
+      this.correct_matrix.push([]);
       for (let j = 0; j <= 3; j++) {
         position += 1;
         if (i === 3 && j === 3) {     // empty piece
-          this.correct_matrix[i][j] = new PuzzleTile(position, position, true);
+          this.correct_matrix[i].push(new PuzzleTile(position, position, true));
         }
         else {
-          this.correct_matrix[i][j] = new PuzzleTile(position, position, false);
+          this.correct_matrix[i].push(new PuzzleTile(position, position, false));
         }
       }
     }
@@ -85,9 +86,12 @@ export class GenerateresourcesComponent implements OnInit {
     let conf_position = 0;
 
     for (let i = 0; i <= 3; i++) {
+      this.current_matrix.push([]);
       for (let j = 0; j <= 3; j++) {
         const tuple = this.mapArrayToMatrix(configuration[conf_position]);
-        this.current_matrix[i][j] = this.correct_matrix[tuple[0]][tuple[1]];
+        let nextTile = this.correct_matrix[tuple[0]][tuple[1]];
+        nextTile.setCurrent_placement(conf_position + 1);
+        this.current_matrix[i].push(nextTile);
         conf_position += 1;
       }
     }
