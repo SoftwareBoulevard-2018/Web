@@ -1,66 +1,240 @@
+<div class="overlay" [ngClass]="{'open': emailWindowOpen}" (click)="openCloseEmail()"></div>
 
-<div *ngIf="!(this.service.user_type === undefined)">
-<div  *ngIf="abriremail" id ="emailing">
-			<h4 id="temail">Email <button id="cerraremail" (click)="cerraremail()">X</button></h4>
-			<input type="search" style="color:black" name="emailbusqueda" placeholder="Search" id="emailbusqueda">
-			<!--bot[on que lleva a la interfaz para escribir nuevo email-->
-			<button (click)="newemail()" id="newemail">New Email<div id="iconnew"></div></button>
-		<section id="email">
-			<!--botones azules laterales (inbox y sent)-->
-			<nav id="email2botones">
-				<ul>
-					<li class="2botones" (click)="email()">Inbox <h5 class="notemail" style="margin-top: -0.5em; margin-left: 2em">{{nrecibidos}}</h5></li>
-					<li class="2botones" (click)="enviados()">Sent</li>
-				</ul>
-			</nav>
-			<div id="emailgeneral">
-				<!-- emailgeneral es el espacio en el que se carga, uno a la vez,
-					los recibidos, el correo que se esta leyendo, el correo que se escribe y los correos enviados. -->
-					<!--recibidos se activa cuando se inicia el email y cuando se hace click en inbox y carga los correos que el usuario recibe-->
-					<div id="recibidos" *ngIf="recibidos">
-						<table style="width: 100%;height: inherit; text-align: left; overflow: auto">
-							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correo of crecibidos" >
-								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
-								<td (click)="leer(correo,0)" style="margin-left: 0.5em">	{{correo.remitente}}</td>
-								<td (click)="leer(correo,0)">{{correo.asunto}}</td>
-								<td (click)="leer(correo,0)">{{correo.fecha}}</td>
-							</tr>
-						</table>
-					</div>
-					<!--espacio para mostrar un solo correo para su lectura-->
-					<div id="leyendo" *ngIf="leyendo">
-						<table style="color: #F5F2DC; width:100%">
-							<tr><td>{{fromto}} <div class="euser">{{sender}}</div></td></tr>
-							<tr><td>Subject: {{subject}}</td></tr>
-							<tr><div id="reading">{{contenido}}</div></tr>
-						</table>
-					</div>
+<div *ngIf="!(this.service.user_type === undefined)"  class="open-email-button" (click)="openCloseEmail()" [ngClass]="{'open': emailWindowOpen}">
+	<div class="email-count-badge">{{numNoReadEmails}}</div>
 
-					<!--Espacio para mostrar los correos que han sido enviados por el usuario-->
-					<div *ngIf="sent" id = "sent" >
-						<table style="width: 100%;height: inherit; text-align: left; overflow: auto;">
-							<tr style="padding: 2% 0 0 0" class="inboxitem" *ngFor=" let correoe of cenviados" >
-								<td style="margin-left: 1em"><input style="display: block;width: 1em; height: 1em; border: 1px solid #454445;" type="checkbox"/></td>
-								<td (click)="leer(correoe,1)" style="margin-left: 0.5em">{{correoe.receiver}}</td>
-								<td (click)="leer(correoe,1)">{{correoe.asunto}}</td>
-								<td (click)="leer(correoe,1)">{{correoe.fecha}}</td>
-							</tr>
-						</table>
-					</div>
-					<!--espacio para escribir un nuevo email-->
-					<div *ngIf="enuevo" id="new" >
-						<table id="tablanuevo">
-							<tr><td><h5 style="display: inline-block;">Select Receiver: </h5><input required="" type="text" class="form-control" id="inputto" #to type="text"/></td></tr>
-							<tr><td><h5 style="display: inline-block;">Subject: </h5><input required="" id="inputsub" #sub type="text"/></td></tr>
-							<tr><input required type="textarea" #cont id="inputcontenido"/></tr>
-						</table>
-							<button id="enviarnuevo" (click)="enviar(to.value,sub.value,cont.value)">Send Email</button>
-					</div>
-			</div>
-		</section>
+	<div class="close-boton">
+		<span class="bar1"></span>
+		<span class="bar2"></span>
 	</div>
-	<!--boton para abrir la interface de email-->
-	<div *ngIf="!abriremail" id="iemail" (click)="email()">
-		<div class="notemail">{{nrecibidos}}</div>
-	</div>
+
 </div>
+
+
+
+
+<section class="email-container mat-elevation-z20" [ngClass]="{'open': emailWindowOpen}">
+
+	<div class="w3-row email-header-container">
+
+		<div class="w3-col l3 s3 email-logo"></div>
+
+		<div class="w3-col l9 s9 search-input-container">
+
+			<mat-form-field>
+				<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" [disabled]="!inInbox">
+			</mat-form-field>
+
+		</div>
+
+	</div>
+
+	<div class="w3-row email-body-container">
+
+		<div class="w3-col l3 s3 email-controls">
+			
+			<div class="buttons-container">
+
+				<div class="w3-row newemail-button" (click)="toNewEmail()">
+					<span class="w3-col l9 s9">New Email</span>
+					<div class="icon-newemail w3-col l3 s3"></div>
+				</div>
+
+				<div class="inbox-sent-buttons-container">
+
+					<div class="inbox control-button w3-row" [ngClass]="{'active': inInbox}" (click)="toInbox()">
+
+						<span class="w3-col l9 s9">Inbox</span>
+
+						<div class="w3-col l3 s3 badge-container">
+							<span class="email-count-badge-inbox">{{numNoReadEmails}}</span>
+						</div>
+
+					</div>
+
+					<div class="sent control-button" [ngClass]="{'active': inSent}" (click)="toSent()">Sent</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="w3-col l9 s9 main-email-container">
+			
+			<div *ngIf="inInbox"  class="emails-table-container mat-elevation-z8">
+
+				<mat-table  #table [dataSource]="dataSource">
+
+					
+						<!-- Sender Column -->
+						<ng-container matColumnDef="username">
+							<mat-header-cell *matHeaderCellDef> Sender </mat-header-cell>
+							<mat-cell *matCellDef="let email"> {{email.sender}} </mat-cell>
+						</ng-container>
+					
+						<!-- Email Column -->
+						<ng-container matColumnDef="subject-content">
+							<mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+							<mat-cell *matCellDef="let email"> <span class="subject">{{email.subject}}</span>  <span class="content">- {{email.content}}</span> </mat-cell>
+						</ng-container>
+					
+						<!-- Date Column -->
+						<ng-container matColumnDef="date">
+							<mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+							<mat-cell *matCellDef="let email"> {{email.date}} </mat-cell>
+						</ng-container>
+					
+						
+						<mat-row *matRowDef="let row; columns: table_titles;" [ngClass]="{'unread': 'unread' == row.state}" (click)="readEmail(row)" >
+							
+						</mat-row>
+						
+				</mat-table>
+
+				<mat-paginator  #paginator
+					[pageSize]="9"
+					[showFirstLastButtons]="true">
+  				</mat-paginator>
+			</div>
+
+			<div *ngIf="inSent"  class="emails-table-container mat-elevation-z8">
+
+				<mat-table  #table [dataSource]="dataSource">
+
+					
+						<!-- Sender Column -->
+						<ng-container matColumnDef="username">
+							<mat-header-cell *matHeaderCellDef> Sender </mat-header-cell>
+							<mat-cell *matCellDef="let email"> {{email.sender}} </mat-cell>
+						</ng-container>
+					
+						<!-- Email Column -->
+						<ng-container matColumnDef="subject-content">
+							<mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+							<mat-cell *matCellDef="let email"> <span class="subject">{{email.subject}}</span>  <span class="content">- {{email.content}}</span> </mat-cell>
+						</ng-container>
+					
+						<!-- Date Column -->
+						<ng-container matColumnDef="date">
+							<mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+							<mat-cell *matCellDef="let email"> {{email.date}} </mat-cell>
+						</ng-container>
+					
+						
+						<mat-row *matRowDef="let row; columns: table_titles;" [ngClass]="{'unread': 'unread' == row.state}" (click)="readEmail(row)" >
+							
+						</mat-row>
+						
+				</mat-table>
+
+				<mat-paginator  #paginator
+					[pageSize]="9"
+					[showFirstLastButtons]="true">
+  				</mat-paginator>
+			</div>
+
+			<div *ngIf="inAEmail" class="read-email-container mat-elevation-z8">
+				<div class="w3-row subject-container">
+					<h2>{{selectedEmail.subject}}</h2>
+					<mat-divider></mat-divider>
+				</div>
+
+				<div class="w3-row email-info-container">
+						<div class="w3-col l9 s9 receiver-sender">
+							<div class="w3-row">
+								<div class="w3-col image">
+								</div>
+
+								<div class="w3-rest">
+									<div class="w3-row sender">
+											<h4>{{selectedEmail.sender}}</h4>
+									</div>
+									<div class="w3-row receiver">
+										<p>to me {{selectedEmail.receiver}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="w3-col l3 s3 date">
+							<h6>{{selectedEmail.date}}</h6>
+						</div>
+				</div>
+
+				<div class="w3-row email-content-container">
+					<p>{{selectedEmail.content}}</p>
+				</div>
+
+			</div>
+
+			<div *ngIf="inNewEmail" class="new-email-container mat-elevation-z8">
+
+
+				<form class="" [formGroup]="formdata" (ngSubmit) = "submitEmail(formdata.value)" >
+
+					<div class="select-receivers-container">
+
+						<ng-select class="custom"
+							[items]="users"
+							[multiple]="true"
+							[closeOnSelect]="false"
+							bindLabel="name"
+							placeholder="Select receivers"
+							[(ngModel)]="selectedUsers"
+							formControlName="receivers"
+							[searchFn] ="searchUserFn">
+							
+							<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+
+								<div class="card">
+									<div class="card-body w3-row">
+
+										<div class="w3-col l7 s7">
+											<h4 class="card-title"><strong [ngOptionHighlight]="search">{{item.name}}</strong></h4>
+											<h6 class="card-subtitle mb-2 text-muted" [ngOptionHighlight]="search">{{item.username}}</h6>
+										</div>
+
+										<div class="w3-col w3-col l5 s5 user-info">
+											<h6 *ngIf="item.role !== 'Game Administrator' && item['company_name']">
+												Company: <strong [ngOptionHighlight]="search">{{item.company_name}}</strong></h6>
+											<h6 *ngIf="item.role !== 'Game Administrator' && !item['company_name']">
+												Company: Unassigned</h6>
+											<h6>Role: <strong [ngOptionHighlight]="search">{{item.role}}</strong></h6>
+										</div>
+
+									</div>
+								</div>
+							</ng-template>
+
+						</ng-select>
+
+					</div>	
+
+					<div class="subject-container">
+
+						<input placeholder="Subject" name="subject" type="text" autocomplete="off" formControlName="subject">
+
+					</div>
+					
+					<div class="content-container">
+
+						<textarea  placeholder="Write the content of the email here" name="content" formControlName="content"></textarea>
+
+					</div>
+					
+					
+						<!-- Submit button -->
+					<div class="send-email-button-container">
+						<button mat-raised-button type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+						Send
+						</button>
+					</div>
+					
+				</form>
+
+			</div>
+		</div>
+	
+	</div>
+
+</section>

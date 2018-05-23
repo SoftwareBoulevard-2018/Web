@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
-import { ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 
 // Service imports
 import { GeneralServiceService } from './general-service.service';
@@ -19,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 // Components imports
 import { AppComponent } from './app.component';
@@ -168,6 +169,7 @@ const routes: Routes = [
     MatRadioModule,
     MatExpansionModule,
     HttpClientModule,
+    NgSelectModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
