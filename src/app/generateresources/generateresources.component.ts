@@ -14,6 +14,8 @@ export class GenerateresourcesComponent implements OnInit {
   solved_puzzle = false;
   correct_matrix: PuzzleTile[][];
   current_matrix: PuzzleTile[][];
+  solvable_puzzles = [[15, 2, 1, 12, 8, 5, 6, 11, 4, 9, 10, 7, 3, 14, 13, 16],
+                      [6, 1, 10, 2, 7, 11, 4, 14, 5, 16, 9, 15, 8, 12, 13, 3]];
 
   redirect1($event) {
     this.solved_puzzle = true;
@@ -26,11 +28,69 @@ export class GenerateresourcesComponent implements OnInit {
   }
 
   initializePuzzle() {
-    // poner en el onInit
-    // llenar matrices
-    // shuffle current_matrix
+    let position = 0;
+    for (let i = 0; i <= 3; i++) {
+      for (let j = 0; j <= 3; j++) {
+        position += 1;
+        if (i === 3 && j === 3) {     // empty piece
+          this.correct_matrix[i][j] = new PuzzleTile(position, position, true);
+        }
+        else {
+          this.correct_matrix[i][j] = new PuzzleTile(position, position, false);
+        }
+      }
+    }
+    this.shuffleMatrix();   // scrambles the matrix that represents the puzzle the user has to solve
+
+    console.log(this.correct_matrix);
+    console.log(this.current_matrix);
     // dibujar current_matrix
     // comparar current con correct y habilitar validate cuando sea necesario
+  }
+
+  mapArrayToMatrix(n: number) {
+    if (n === 4) {
+      return [0, 3];
+    }
+    else if (n === 8) {
+      return [1, 3];
+    }
+    else if (n === 12) {
+      return [2, 3];
+    }
+    else if (n === 16) {
+      return [3, 3];
+    }
+    else if (n >= 1 && n <= 3) {
+      return [0, (n % 4) - 1];
+    }
+    else if (n >= 5 && n <= 7) {
+      return [1, (n % 4) - 1];
+    }
+    else if (n >= 9 && n <= 11) {
+      return [2, (n % 4) - 1];
+    }
+    else if (n >= 13 && n <= 15) {
+      return [3, (n % 4) - 1];
+    }
+  }
+
+  randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  shuffleMatrix() {
+    const configuration_number = this.randomIntFromInterval(0, this.solvable_puzzles.length - 1);
+    const configuration = this.solvable_puzzles[configuration_number];
+    let conf_position = 0;
+
+    for (let i = 0; i <= 3; i++) {
+      for (let j = 0; j <= 3; j++) {
+        const tuple = this.mapArrayToMatrix(configuration[conf_position]);
+        this.current_matrix[i][j] = this.correct_matrix[tuple[0]][tuple[1]];
+        conf_position += 1;
+      }
+    }
   }
 
   isMovableTile(tile: PuzzleTile) {
@@ -38,7 +98,7 @@ export class GenerateresourcesComponent implements OnInit {
   }
 
   // candidate is the name of the tile the user wants to move
-  moveTile(candidate) {
+  moveTile($event) {
 
   }
 
@@ -50,8 +110,11 @@ export class GenerateresourcesComponent implements OnInit {
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
     }
-    else if (this.service.user_type === "Team Member") {
+    else if (this.service.user_type === 'Team Member') {
       this.router.navigate(['restricted']);
+    }
+    else {
+      this.initializePuzzle();
     }
   }
 
