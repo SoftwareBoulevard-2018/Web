@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GeneralServiceService } from '../general-service.service';
 import { Router } from '@angular/router';
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public service: GeneralServiceService, public router: Router) { }
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   // Variables necessary to define the form and validate the input data
   invalid = false;
@@ -34,26 +35,30 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onClickSubmit(data) {
-    // This is the function that validates the form data and it's activated when the log in button is clicked
-    for (const user of this.service.users) {
-      if (data.username === user.username && data.password === user.password) {
-        if (user.role === 'Analyst' || user.role === 'Developer' || user.role === 'Tester') {
+  login(username, password) {
+    return this.httpService.login(username, password).subscribe( data => {
+        if (data.role === 'Analyst' || data.role === 'Developer' || data.role === 'Tester') {
           this.service.user_type = 'Team Member';
-          this.service.username = data.username;
+          this.service.user = data;
           this.router.navigate(['home']);
-          } else if (user.role === 'Project Manager') {
+        } else if (data.role === 'Project Manager') {
           this.service.user_type = 'Project Manager';
-          this.service.username = data.username;
+          this.service.user = data;
           this.router.navigate(['home']);
         } else {
           this.service.user_type = 'Game Administrator';
-          this.service.username = data.username;
+          this.service.user = data;
           this.router.navigate(['home']);
         }
         this.service.loggedusr = true;
-      }
-      this.invalid = true;
-    }
+      },
+      error => {
+        this.invalid = true;
+      });
+  }
+
+  onClickSubmit(data) {
+    // This is the function that validates the form data and it's activated when the log in button is clicked
+    this.login(data.username, data.password);
   }
 }

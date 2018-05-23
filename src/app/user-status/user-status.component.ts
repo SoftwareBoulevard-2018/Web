@@ -25,7 +25,7 @@ export class UserStatusComponent implements OnInit {
       this.router.navigate(['']);
     }
     this.getUserById(this.service.user_to_be_updated);
-    // this.current_company = this.search_company(this.service.user_to_be_updated.company_name);
+    // this.current_company = this.search_company(this.service.user_to_be_updated.companyName);
     /* if (this.service.user_to_be_updated.role === 'Developer' || this.service.user_to_be_updated.role === 'Tester'
     || this.service.user_to_be_updated.role === 'Analyst') {
       if ((this.service.user_to_be_updated.questions_answered_wrong + this.service.user_to_be_updated.questions_answered_right) !== 0) {
@@ -47,8 +47,13 @@ export class UserStatusComponent implements OnInit {
 
   getUserById(userId) {
     return this.httpService.getUserById(userId).subscribe(data => { this.user = data;
-      this.user.right = 10;
-      this.user.wrong = 10;
+    if ( this.user.resourcesSpent === 0 || (this.user.correcTrainingQuestions === 0
+      && this.user.correctProjectQuestions === 0) ) {
+      this.performance = 0;
+    } else {
+      this.performance = (this.user.correcTrainingQuestions +
+        this.user.correctProjectQuestions) / this.user.resourcesSpent;
+    }
       this.getCompanyById(data.companyId);
     });
   }
@@ -73,10 +78,10 @@ export class UserStatusComponent implements OnInit {
   /* date_formatter(date?: Date) {
     return date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate();
   } */
-  /* search_company (company_name) {
+  /* search_company (companyName) {
     // Searches for a company by its name
     for (const company of this.service.companies) {
-      if (company.name === company_name) {
+      if (company.name === companyName) {
         return company;
       }
     }

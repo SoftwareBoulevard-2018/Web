@@ -19,14 +19,14 @@ export class HeaderComponent implements OnInit {
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   ngOnInit() {
-    this.getAllCompanies();
-    this.getUserById('5b0221ef5e9e8127bc3f1a5a');
-    this.getUserByUsername('jpchaves');
+    // this.getAllCompanies();
+    // this.getUserById('5b0221ef5e9e8127bc3f1a5a');
+    // this.getUserByUsername('jpchaves');
     // this.createUser(this.user);
     // this.updateUser(this.user, '5b0221ef5e9e8127bc3f1a5a');
   }
 
-  getAllCompanies() {
+  /* getAllCompanies() {
     return this.httpService.getAllCompanies().subscribe(data => console.log(data));
   }
   getUserById(userId) {
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   }
   getUserByUsername(username) {
     return this.httpService.getUserByUsername(username).subscribe(data => console.log(data));
-  }
+  } */
   /* createUser(user) {
     return this.httpService.createUser(user).subscribe(data => console.log(data));
   } */
