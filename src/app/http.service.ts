@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from './shared/user';
 import { Company } from './shared/company';
+import { Email } from './shared/email';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
@@ -23,6 +24,7 @@ export class HttpService {
   static usersURL2 = '/username';
   static companiesURL = '/companies';
   static loginURL = '/login';
+  static emailURL = '/emails';
 
   // All services related to Users
   getAllUsers() {
@@ -58,5 +60,10 @@ export class HttpService {
   login(username, password) {
     return this.http.post<User>(HttpService.apiURL + HttpService.loginURL,
       JSON.stringify({ username: username, password: password }), HttpService.httpOptions);
+  }
+  
+  //All services related to email
+  read(idUsuario) {
+     return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/' + idUsuario);
   }
 }
