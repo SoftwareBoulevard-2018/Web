@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import {Router} from '@angular/router';
 import {MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
+import {Company} from '../shared/company';
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-companies',
@@ -10,7 +12,7 @@ import {MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
 })
 export class CompaniesComponent implements OnInit {
 
-  constructor(public service: GeneralServiceService, public router: Router) {
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {
   }
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -19,9 +21,9 @@ export class CompaniesComponent implements OnInit {
   // Variables used for the creation of the material table
 
   companies = [];
-  companies2;
+  companies2: MatTableDataSource<Company>;
 
-  table_titles = ['creation_date', 'image', 'name', 'project manager', 'capacity_k', 'resources', 'status', 'update'];
+  table_titles = ['createdAt', 'image', 'name', 'projectManager', 'capacityK', 'companyResource', 'status', 'update'];
 
 
 
@@ -33,11 +35,45 @@ export class CompaniesComponent implements OnInit {
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
       this.router.navigate(['restricted']);
     } else {
-      this.companies = JSON.parse(JSON.stringify(this.service.companies));
+      /* this.companies = JSON.parse(JSON.stringify(this.service.companies));
+      this.companies2 = new MatTableDataSource(this.companies); */
       this.companies2 = new MatTableDataSource(this.companies);
+      this.getAllCompanies();
       // this.users2.paginator = this.paginator;
       // this.users2.sort = this.sort;
     }
+  }
+
+  getAllCompanies() {
+    return this.httpService.getAllCompanies().subscribe(data => this.listCompanies(data));
+  }
+
+  listCompanies(data) {
+    console.log(data);
+    this.companies = [];
+    for (const value of Object.values(data.data)) {
+      this.getUserByRoleCompany('Project Manager', value);
+    }
+  }
+
+  getUserByRoleCompany(role, company) {
+    return this.httpService.getUserByRoleCompany(role, company.id).subscribe(data => {
+      const fuck = JSON.parse(JSON.stringify(data));
+      company.projectManager = fuck.username;
+      this.companies.push({ id: company.id, createdAt: company.createdAt,
+        name: company.name, image: company.image,
+        capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager});
+      this.companies2.data = this.companies;
+      console.log(this.companies2);
+      console.log(data);
+    }, error => {
+      company.projectManager = undefined;
+      this.companies.push({ id: company.id, createdAt: company.createdAt,
+        name: company.name, image: company.image,
+        capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager});
+      this.companies2.data = this.companies;
+      console.log(this.companies2);
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -57,13 +93,13 @@ export class CompaniesComponent implements OnInit {
 
   redirect(event, element) {
     // Redirects to the company status defining the necessary variable
-    this.service.company_to_be_updated = this.search_company(element.name);
+    this.service.company_to_be_updated = element.id;
     this.router.navigate(['home/companies/company-status']);
   }
 
   redirect2(event, element) {
     // Redirects to the company update defining the necessary variable
-    this.service.company_to_be_updated = this.search_company(element.name);
+    this.service.company_to_be_updated = element.id;
     this.router.navigate(['home/companies/company-status/update']);
   }
   redirect3(event) {

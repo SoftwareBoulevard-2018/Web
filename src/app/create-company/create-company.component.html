@@ -26,20 +26,20 @@
     <div class="element">
       <mat-form-field class="big-input">
         <mat-select placeholder="Select a project manager" name="project_manager" formControlName="project_manager">
-          <mat-option *ngFor="let user of project_managers" [value]="user.username">
+          <mat-option *ngFor="let user of project_managers" [value]="user.id">
             {{ user.username }} - {{ user.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
-    <!-- Error or success messages -->
+    <!-- Error or success messages
     <div class="element" *ngIf="invalid">
       <br/>
       <span class="error">
         A company with that name already exists.
       </span>
-    </div>
+    </div> -->
 
     <div class="element" *ngIf="invalid_url">
       <br/>
