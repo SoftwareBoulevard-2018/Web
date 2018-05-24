@@ -95,16 +95,17 @@ export class EmailComponent implements OnInit  {
     this.read();
   }
   read(){
-  	return this.httpService.read(this.service.user._id).subscribe( data => {
+/*  	return this.httpService.read(this.service.user._id).subscribe( data => {
         // Aquí va el código donde el argumento data es lo que vino en la consulta
     	this.EReceived = data.data;
     	this.newNotification();
     }, error => {
         console.log(error);
     });
-
+*/
 
   }
+ 
   readEmail(email) {
     this.selectedEmail = email;
     this.inInbox = false;
