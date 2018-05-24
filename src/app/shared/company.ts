@@ -2,39 +2,46 @@ import {User} from './user';
 
 export class Company {
   name: string;
-  creation_date: Date;
-  project_manager: User;
+  createdAt: Date;
   image: string;
-  active_project: number;
-  capacity_k: number;
-  resources: number;
-  team_members: User[];
-  // The following are dummy variables,
-  // that means they are not going to be in the final models but still they are necessary to show some content
-  current_project_name: string;
+  capacityK: number;
+  companyResource: number;
+  numberOfCorrectDevelopingAttempsByAnalyst: number;
+  numberOfCorrectDevelopingAttempsByDeveloper: number;
+  numberOfCorrectDevelopingAttempsByTester: number;
 
-  constructor(name?: string, project_manager?: User, image?: string,
-              active_project?: number, capacity_k?: number, resources?: number, team_members?: User[], current_project_name?: string) {
+  constructor(name?: string, image?: string,
+              capacityK?: number, companyResource?: number,
+              numberOfCorrectDevelopingAttempsByAnalyst?: number,
+              numberOfCorrectDevelopingAttempsByDeveloper?: number,
+              numberOfCorrectDevelopingAttempsByTester?: number) {
     this.name = name;
-    this.creation_date = new Date();
-    this.project_manager = project_manager;
+    this.createdAt = new Date();
     this.image = image;
-    this.active_project = active_project;
-    if (!(capacity_k === undefined)){
-      this.capacity_k = capacity_k;
+    if (!(capacityK === undefined)) {
+      this.capacityK = capacityK;
     } else {
-      this.capacity_k = 0;
+      this.capacityK = 0;
     }
-    if (!(resources === undefined)){
-      this.resources = resources;
+    if (!(companyResource === undefined)) {
+      this.companyResource = companyResource;
     } else {
-      this.resources = 0;
+      this.companyResource = 0;
     }
-    if (!(team_members === undefined)){
-      this.team_members = team_members;
+    if (!(numberOfCorrectDevelopingAttempsByAnalyst === undefined)) {
+      this.numberOfCorrectDevelopingAttempsByAnalyst = numberOfCorrectDevelopingAttempsByAnalyst;
     } else {
-      this.team_members = [];
+      this.numberOfCorrectDevelopingAttempsByAnalyst = 0;
     }
-    this.current_project_name = current_project_name;
+    if (!(numberOfCorrectDevelopingAttempsByDeveloper === undefined)) {
+      this.numberOfCorrectDevelopingAttempsByDeveloper = numberOfCorrectDevelopingAttempsByDeveloper;
+    } else {
+      this.numberOfCorrectDevelopingAttempsByDeveloper = 0;
+    }
+    if (!(numberOfCorrectDevelopingAttempsByTester === undefined)) {
+      this.numberOfCorrectDevelopingAttempsByTester = numberOfCorrectDevelopingAttempsByTester;
+    } else {
+      this.numberOfCorrectDevelopingAttempsByTester = 0;
+    }
   }
 }

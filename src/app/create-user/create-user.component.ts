@@ -3,6 +3,7 @@ import { GeneralServiceService } from '../general-service.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { User } from '../shared/user';
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-create-user',
@@ -23,7 +24,7 @@ export class CreateUserComponent implements OnInit {
   user;
   auxiliar;
 
-  constructor(public service: GeneralServiceService, public router: Router) { }
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
   form() {
     // Defines the default state of the forms
     this.formdata = new FormGroup({
@@ -50,7 +51,22 @@ export class CreateUserComponent implements OnInit {
     });
   }
 
-  new_username(username) {
+  getUserByUsername(formdata) {
+    return this.httpService.getUserByUsername(formdata.username).subscribe(data => {
+      this.auxiliar = false;
+      this.validations(this.auxiliar, formdata);
+      },
+      error => {
+      this.auxiliar = true;
+      this.validations(this.auxiliar, formdata);
+    });
+  }
+
+  createUser(user) {
+    return this.httpService.createUser(user).subscribe(data => console.log(data));
+  }
+
+  /* new_username(username) {
     // Defines if the username is not already taken
     for (const user of this.service.users) {
       if (username === user.username) {
@@ -58,7 +74,7 @@ export class CreateUserComponent implements OnInit {
       }
     }
     return true;
-  }
+  } */
 
 
   ngOnInit() {
@@ -74,16 +90,21 @@ export class CreateUserComponent implements OnInit {
 
   onClickSubmit(data) {
     // Validates the data input on the form and if it's correct then creates the user
-    this.auxiliar = this.new_username(data.username);
+    // this.auxiliar = this.new_username(data.username);
+    this.getUserByUsername(data);
+  }
+
+  validations(auxiliar, data) {
     if (!(/^[a-zA-Z ]+$/.test(data.name))) {
       this.invalid_name = true;
       this.invalid = false;
       this.success = false;
       this.flawed_username = false;
-    } else if (data.password === data.confirmation && this.auxiliar) {
+    } else if (data.password === data.confirmation && auxiliar) {
       this.user = new User(data.name, data.username, data.password, data.role);
-      this.service.users.push(this.user);
-      console.log(this.service.users);
+      this.createUser(this.user);
+      // this.service.users.push(this.user);
+      // console.log(this.service.users);
       this.form();
       this.invalid_name = false;
       this.invalid = false;

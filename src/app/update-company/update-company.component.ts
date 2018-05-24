@@ -155,11 +155,11 @@ export class UpdateCompanyComponent implements OnInit {
   update_members(company_name, company) {
     // Updates the data of the company's members
     if (!(company.project_manager === undefined)) {
-      company.project_manager.company_name = company_name;
+      company.project_manager.companyName = company_name;
     }
     if (!(company.team_members === [])) {
       for (const team_member of company.team_members) {
-        team_member.company_name = company_name;
+        team_member.companyName = company_name;
       }
     }
   }
