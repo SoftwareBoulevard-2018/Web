@@ -64,6 +64,6 @@ export class HttpService {
   
   //All services related to email
   read(idUsuario) {
-     return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/' + idUsuario);
+     return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/read/' + idUsuario);
   }
 }
