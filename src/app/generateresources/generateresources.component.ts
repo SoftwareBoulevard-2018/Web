@@ -98,35 +98,42 @@ export class GenerateresourcesComponent implements OnInit {
   }
 
   isMovableTile(tile: PuzzleTile) {
-    const tile_position = tile.getCurrent_placement();
-    const tuple = this.mapArrayToMatrix(tile_position);
-    const tile_i = tuple[0];
-    const tile_j = tuple[1];
+    const direction = this.mapArrayToMatrix(tile.getCurrent_placement());
+    const tile_i = direction[0];
+    const tile_j = direction[1];
 
-    const tile_up = this.current_matrix[tile_i - 1][tile_j];
-    const tile_down = this.current_matrix[tile_i + 1][tile_j];
-    const tile_left = this.current_matrix[tile_i][tile_j - 1];
-    const tile_right = this.current_matrix[tile_i][tile_j + 1];
+    let candidates = [[tile_i - 1, tile_j], [tile_i + 1, tile_j], [tile_i, tile_j - 1], [tile_i, tile_j + 1]];
 
-    if (tile_up !== undefined && tile_up.isEmpty === true) {
-      return [tile_i - 1, tile_j];
+    // filter locations outside of the matrix
+    for (let tuple of candidates) {
+      if (tuple[0] < 0 || tuple[0] > 3 || tuple[1] < 0 || tuple[1] > 3) {
+        candidates.splice(candidates.indexOf(tuple), 1);
+      }
+      else {
+        let potential_tile = this.current_matrix[tuple[0]][tuple[1]];
+        if (potential_tile.isEmpty) {
+          return tuple;
+        }
+      }
     }
-    if (tile_down !== undefined && tile_down.isEmpty === true) {
-      return [tile_i + 1, tile_j];
-    }
-    if (tile_left !== undefined && tile_left.isEmpty === true) {
-      return [tile_i, tile_j - 1];
-    }
-    if (tile_right !== undefined && tile_right.isEmpty === true) {
-      return [tile_i, tile_j + 1];
-    }
-    else {
-      return [-1, -1];  // cant move the piece
-    }
+    return -1;  // cant move the piece
   }
 
   // candidate is the name of the tile the user wants to move
-  moveTile($event) {
+  moveTile(candidate: PuzzleTile) {
+    const empty_direction = this.isMovableTile(candidate);
+    if (empty_direction !== -1) {
+      const emptyTile = this.current_matrix[empty_direction[0]][empty_direction[1]];
+      const newCurrentPlacement = this.current_matrix[empty_direction[0]][empty_direction[1]].getCurrent_placement();
+      const newEmptyPlacement = candidate.getCurrent_placement();
+      const newEmptyTuple = this.mapArrayToMatrix(newEmptyPlacement);
+
+      candidate.setCurrent_placement(newCurrentPlacement);
+      emptyTile.setCurrent_placement(newEmptyPlacement);
+
+      this.current_matrix[empty_direction[0]][empty_direction[1]] = candidate;
+      this.current_matrix[newEmptyTuple[0]][newEmptyTuple[1]] = emptyTile;
+    }
 
   }
 
@@ -143,6 +150,7 @@ export class GenerateresourcesComponent implements OnInit {
     }
     else {
       this.initializePuzzle();
+      this.moveTile(new PuzzleTile(13, 15, false));
     }
   }
 
