@@ -42,11 +42,7 @@ export class GenerateresourcesComponent implements OnInit {
       }
     }
     this.shuffleMatrix();   // scrambles the matrix that represents the puzzle the user has to solve
-
-    console.log(this.correct_matrix);
-    console.log(this.current_matrix);
     // dibujar current_matrix
-    // comparar current con correct y habilitar validate cuando sea necesario
   }
 
   mapArrayToMatrix(n: number) {
@@ -124,7 +120,7 @@ export class GenerateresourcesComponent implements OnInit {
     const empty_direction = this.isMovableTile(candidate);
     if (empty_direction !== -1) {
       const emptyTile = this.current_matrix[empty_direction[0]][empty_direction[1]];
-      const newCurrentPlacement = this.current_matrix[empty_direction[0]][empty_direction[1]].getCurrent_placement();
+      const newCurrentPlacement = emptyTile.getCurrent_placement();
       const newEmptyPlacement = candidate.getCurrent_placement();
       const newEmptyTuple = this.mapArrayToMatrix(newEmptyPlacement);
 
@@ -135,6 +131,21 @@ export class GenerateresourcesComponent implements OnInit {
       this.current_matrix[newEmptyTuple[0]][newEmptyTuple[1]] = emptyTile;
     }
 
+  }
+
+  verifyPuzzle(event) {
+    let isSolved = true;
+    console.log(isSolved);
+    for (let i = 0; i <= 3; i++) {
+      for (let j = 0; j <= 3; j++) {
+        const current_placement = this.current_matrix[i][j].getCurrent_placement();
+        const real_placement = this.current_matrix[i][j].getReal_placement();
+        isSolved = isSolved && (current_placement === real_placement);
+        console.log(isSolved);
+      }
+    }
+    console.log(isSolved);
+    return isSolved;
   }
 
   getTile(number) {
