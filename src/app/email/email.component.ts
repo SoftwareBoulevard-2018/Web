@@ -4,7 +4,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { AppComponent } from '../app.component';
-import { Email } from '../shared/email';
+/*import { Email } from '../shared/email';*/
 
 
 @Component({
