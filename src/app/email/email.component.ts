@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { AppComponent } from '../app.component';
 import { HttpService } from '../http.service';
 import { Email } from '../shared/email';
 
@@ -29,9 +27,9 @@ export class EmailComponent implements OnInit  {
   selectedEmail : Email;
   numNoReadEmails : number = 0;
   selectedUsers = [];
-  EReceived : Email[];
-  table_titles = ['subject', 'content', 'createdAt'];
-  dataSource = new MatTableDataSource(this.EReceived);
+  EReceived = [];
+  table_titles = ['sender','subject', 'createdAt'];
+  dataSource:MatTableDataSource<Email>;
 
   constructor(public httpService: HttpService, public service: GeneralServiceService) { 
   }
@@ -92,13 +90,27 @@ export class EmailComponent implements OnInit  {
   openCloseEmail(){
     this.emailWindowOpen = !this.emailWindowOpen;
     this.users = JSON.parse(JSON.stringify(this.service.users));
+    this.dataSource = new MatTableDataSource(this.EReceived);
     this.read();
+
   }
   read(){
+    this.EReceived = [];
   	return this.httpService.read(this.service.user._id).subscribe( data => {
         // Aquí va el código donde el argumento data es lo que vino en la consulta
-    	this.EReceived = data.data;
-    	this.newNotification();
+    	const datos =JSON.parse(JSON.stringify(data));
+      for(let i = 0; i<datos.data.length;i++){
+          this.EReceived.push({id:datos.data[i].id,
+            sender:datos.data[i].sender,
+            subject:datos.data[i].subject,
+            receivers:datos.data[i].receivers,
+            content:datos.data[i].content,
+            createdAt:datos.data[i].createdAt,
+            acknowledgment: datos.data[i].acknowledgment});
+      }
+      console.log(this.EReceived);
+      this.dataSource.data = this.EReceived;
+       this.newNotification();
     }, error => {
         console.log(error);
     });
