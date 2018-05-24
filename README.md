@@ -125,5 +125,46 @@ Companies: This component is responsible for showing the game administrator the 
 User status: In this component almost all information about a user is shown, its accessible by every kind of user but the game administrator can see the status of every user and each user can see only its status. From here the game administrator can reach the Update user component. Its URL route is /home/users/user-status/ and it's located in /web/src/app/user-status.
 
 Company-status: In this component almost all information about a company is shown, its accessible by every kind of user but the game administrator can see the status of every company and each user can see only its company. From here the game administrator and the project managers can reach the Update company component.  Its URL route is /home/companies/company-status/ and it's located in /web/src/app/company-status.
+
+## Module 3 - "Project Manager" components:
+
+### Components related to recruit members, choose project, elicitation project and generate resources:
+
+Recruit members: This component is responsible for allowing Project Managers to add members to their company. It has a dropdown list with the users that belong to the category team members (Analyst, Developer and Tester) and who do not belong to any company. For each user, the username and the user's name. When the desired user is chosen, he is sent an invitation to join the company. Only the project manager has permissions to access this component. Its URL route is home/users/projectmanager/functions and it's located in /web/src/app/recruit-members.
+
+Choose Project: In this component, a Project Manager belonging to a company without an active development can choose a project of two categories (Bidding or Instant). It has a table with all projects available and for each project it will show the Project ID, Project Name, Required K, Rewarded K, Required Analyst Level, Required Developer Level, Required Tester Level. Only Project Managers belonging to a company and without a project already assigned to their company have permission to access this component. If a PM clicks Select on an available project, the project will be assigned to his company. Its URL route is home/users/projectmanager/chooseproject and it's located in /web/src/app/chooseproject.
+
+Cost & Time Estimation: This component allows a Project Manager to elicitate the cost and time for a given Bidding Project. It has a form with two fields, Cost and Time and two buttons, Exit and Validate. The Validate button is used to verify a PM's estimation, everytime its clicked, it will subtract one point out of the resource pool of said PM's company and it will send the information to a list containing estimations. If the estimation is wrong in at least one field, a message will alert the user telling him what did he get wrong. If the estimation is correct, a message will congratulate the user and tell him that he can advance to the next stage of the project. Its URL route is home/users/projectmanager/estimation and it's located in /web/src/app/estimation.
+
+Generate Resources: In this component a Project Manager can add resources to his company's resource pool by way of solving sliding puzzles, though the functionality is pretty bare-bones at the moment. It has a frame containing the puzzle (right now a static image) and a little text, with two buttons to Exit or Validate the puzzle. Its URL route is home/users/projectmanager/generate and it's located in /web/src/app/generateresources.
+
+### Additional Components:
+
+Pmfunctions: This component displays all the actions that a Project Manager can do. It has four buttons (Recruit Member, Choose Project, Estimate Cost & Time and  Generate Resources. Clicking each button will redirect the user to the specified Use Case. Only the PM has permission to access this. Its URL route is home/users/projectmanager and it's located in /web/src/app/pmfunctions.
+
+## Module 4 - "Play team role" components
+
+#### Component about how to join a team
+
+join-team: this component shown how would be the primary window with the company invitations to the player.
+There are three elements, the company name, and two buttons to accept or reject the invitations.
+
+location: src/app/join-team 
+
+#### Components about to play: 
+play: Grants access to the selection panel to choose between develop's question or skill's question
+
+location:  src/app/play
+
+play-develop:  show a question to advance in the project and allow choose one the answer and decides if this answer is correct, when the player uses the send button
+
+location: src/app/play-develop
+
+play-develop:  show a question to advance in the project and allow choose one the answer and decides if this answer is correct, when the player uses the send button
+
+location: src/app/play-skill
+
 ### Module 5 - "Communication" component:
 The Email (communication) component allows users to communicate between them. Allows to read inbox, sent emails, write new emails and send it. Shows a notification that counts unread messages. Know more : /src/app/email
+
+

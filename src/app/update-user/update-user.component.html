@@ -2,13 +2,13 @@
 <div class="wrap-login100 big-wrap">
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <span class="login100-form-title p-b-34 p-t-27 non_mayus">
-      UPDATE USER - {{ this.service.user_to_be_updated.username }}
+      UPDATE USER - {{ this.user_to_be_updated.username }}
     </span>
 
     <!-- Inputs, just one of them is necessary -->
     <div class="element">
       <mat-form-field class="big-input">
-        <input matInput placeholder="Name - {{ this.service.user_to_be_updated.name }}" name="name" formControlName="name">
+        <input matInput placeholder="Name - {{ this.user_to_be_updated.name }}" name="name" formControlName="name">
       </mat-form-field>
     </div>
 
@@ -16,7 +16,7 @@
 
     <div class="element">
       <mat-form-field class="big-input">
-        <input matInput placeholder="Username - {{ this.service.user_to_be_updated.username }}" name="username" formControlName="username">
+        <input matInput placeholder="Username - {{ this.user_to_be_updated.username }}" name="username" formControlName="username">
       </mat-form-field>
     </div>
 
@@ -42,7 +42,7 @@
 
     <div class="element">
       <mat-form-field class="big-input">
-        <mat-select placeholder="Role - {{ this.service.user_to_be_updated.role }}" name="role" formControlName="role">
+        <mat-select placeholder="Role - {{ this.user_to_be_updated.role }}" name="role" formControlName="role">
           <mat-option [value]=''>
             None
           </mat-option>

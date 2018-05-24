@@ -1,21 +1,10 @@
-.resoucesAndTeamMembers {
+.questionGen {
   width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin: 0.6rem;
-}
-example-radio-group {
   display: inline-flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 
-example-radio-button {
-  margin: 5px;
-}
-
-example-selected-value {
-  margin: 15px 0;
-}
 .container {
   display: flex;
   justify-content: center;
