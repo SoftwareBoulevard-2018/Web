@@ -13,7 +13,7 @@ export class UserStatusComponent implements OnInit {
   // These variables help to define the efficiency (performance) of the users and the style of the performance bar
   current_company;
   user;
-  performance = 50;
+  performance;
   color = 'primary';
   mode = 'determinate';
 
@@ -47,14 +47,18 @@ export class UserStatusComponent implements OnInit {
 
   getUserById(userId) {
     return this.httpService.getUserById(userId).subscribe(data => { this.user = data;
-    if ( this.user.resourcesSpent === 0 || (this.user.correcTrainingQuestions === 0
+    if ( this.user.resourcesSpent === 0 || (this.user.correctTrainingQuestions === 0
       && this.user.correctProjectQuestions === 0) ) {
       this.performance = 0;
     } else {
-      this.performance = (this.user.correcTrainingQuestions +
+      this.performance = (this.user.correctTrainingQuestions +
         this.user.correctProjectQuestions) / this.user.resourcesSpent;
     }
       this.getCompanyById(data.companyId);
+    console.log(this.user);
+      console.log(this.user.correctProjectQuestions);
+      console.log(this.user.correctTrainingQuestions);
+    console.log(this.performance);
     });
   }
 

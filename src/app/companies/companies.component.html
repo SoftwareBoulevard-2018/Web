@@ -19,16 +19,16 @@
   <mat-table #table [dataSource]="companies2">
 
     <!-- Creation Date Column -->
-    <ng-container matColumnDef="creation_date">
+    <ng-container matColumnDef="createdAt">
       <mat-header-cell *matHeaderCellDef> Creation Date </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.creation_date.substring(0,10)}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.createdAt.substring(0,10)}} </mat-cell>
     </ng-container>
 
     <!-- Logo Column -->
     <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef> Logo </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <div class="company_img" *ngIf="!(element.image === undefined || element.image === ''); else pending_image">
+        <div class="company_img" *ngIf="!(element.image === undefined || element.image === null || element.image === ''); else pending_image">
           <img src="{{element.image}}">
         </div>
         <ng-template #pending_image>
@@ -46,11 +46,11 @@
     </ng-container>
 
     <!-- Project manager Column -->
-    <ng-container matColumnDef="project manager">
+    <ng-container matColumnDef="projectManager">
       <mat-header-cell *matHeaderCellDef> Project manager </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <p *ngIf="!(element.project_manager === undefined); else pending_project_manager">
-          {{element.project_manager.username}}
+        <p *ngIf="!(element.projectManager === undefined); else pending_project_manager">
+          {{element.projectManager}}
         </p>
         <ng-template #pending_project_manager>
           <p class="pending">
@@ -61,15 +61,15 @@
     </ng-container>
 
     <!-- Capacity K Column -->
-    <ng-container matColumnDef="capacity_k">
+    <ng-container matColumnDef="capacityK">
       <mat-header-cell *matHeaderCellDef> Capacity K </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.capacity_k}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.capacityK}} </mat-cell>
     </ng-container>
 
-    <!-- Resources Column -->
-    <ng-container matColumnDef="resources">
+    <!-- companyResource Column -->
+    <ng-container matColumnDef="companyResource">
       <mat-header-cell *matHeaderCellDef> Resources </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.resources}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.companyResource}} </mat-cell>
     </ng-container>
 
     <!-- Status Column -->
