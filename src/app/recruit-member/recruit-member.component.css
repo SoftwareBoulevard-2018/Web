@@ -8,6 +8,14 @@
 .element2{
   margin-bottom: 10px;
 }
+.announcement {
+  text-align: center;
+  color: red;
+}
+button{
+  background-color: #009494;
+  color: white;
+}
 .error{
   color: red;
 }

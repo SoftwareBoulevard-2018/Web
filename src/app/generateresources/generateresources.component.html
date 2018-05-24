@@ -1,4 +1,4 @@
-<div class="announcement">
+<div class="announcement" *ngIf="getCompany(this.service.username)!== undefined">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Generate resources
@@ -174,5 +174,24 @@
         Validate
       </button>
     </div>
+  </div>
+</div>
+<div class="announcement" *ngIf="getCompany(this.service.username)=== undefined">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Generate resources
+    </span>
+    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+      You do not have a company assigned so you can not choose a project. You must ask the game administrator to assign one to you
+
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
   </div>
 </div>
