@@ -17,6 +17,7 @@ export class EstimationComponent implements OnInit {
   incorrect_cost = false;
   correct_guess = false;
   can_estimate = true;
+  have_resources = true;
 
   constructor(public service: GeneralServiceService, public router: Router) {
   }
@@ -90,7 +91,12 @@ export class EstimationComponent implements OnInit {
       this.service.estimations.push( new Estimation(this.service.username, project_name, guess.cost, guess.time));
     }
   }
-
+  haveResources() {
+    if (this.getCompany(this.service.username) !== undefined) {
+      const userCompany = this.getCompany(this.service.username);
+      return (userCompany.resources >= 1);
+    }
+  }
   ngOnInit() {
     if (this.service.user_type === undefined) {
      this.router.navigate(['']);

@@ -67,23 +67,20 @@
 
 					
 						<!-- Sender Column -->
-						<ng-container matColumnDef="username">
+						<ng-container matColumnDef="sender">
 							<mat-header-cell *matHeaderCellDef> Sender </mat-header-cell>
 							<mat-cell *matCellDef="let email"> {{email.sender}} </mat-cell>
 						</ng-container>
 					
 						<!-- Email Column -->
 						<ng-container matColumnDef="subject-content">
-							<mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-							<mat-cell *matCellDef="let email"> <span class="subject">{{email.subject}}</span>  <span class="content">- {{email.content}}</span> </mat-cell>
+							<mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+							<mat-cell *matCellDef="let email"><span class="subject">{{email.subject}}</span><span class="content"> - {{email.content}}</span></mat-cell>
 						</ng-container>
-					
-						<!-- Date Column -->
-						<ng-container matColumnDef="date">
+						<ng-container matColumnDef="createdAt">
 							<mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-							<mat-cell *matCellDef="let email"> {{email.date}} </mat-cell>
+							<mat-cell *matCellDef="let email"> {{email.createdAt}} </mat-cell>
 						</ng-container>
-					
 						
 						<mat-row *matRowDef="let row; columns: table_titles;" [ngClass]="{'unread': 'unread' == row.state}" (click)="readEmail(row)" >
 							

@@ -1,11 +1,11 @@
-<div class="wrap-login100 big-wrap">
+<div class="wrap-login100 big-wrap" *ngIf="getCompany(this.service.username)!== undefined">
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <span class="login100-form-title p-b-34 p-t-27">
       Invite People
     </span>
 
 
-
+    <!-- the list element that will show you the username and the name of the person that you can invite -->
     <div class="element">
       <mat-form-field class="big-input">
         <mat-select placeholder="Select a user without a team" name="project_manager" formControlName="project_manager">
@@ -15,7 +15,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-
+    <!-- if the event is invalid you will receive a error message -->
     <div class="element" *ngIf="invalid">
       <br/>
       <span class="error">
@@ -23,7 +23,7 @@
       </span>
     </div>
 
-
+    <!-- if the event is success you will receive a error message -->
     <div class="element" *ngIf="success">
       <br/>
       <span class="success">
@@ -33,12 +33,35 @@
 
     <br/>
     <br/>
-
+    <!-- the button for send the invitation -->
     <div class="element element2">
+      <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+        Exit
+      </button>
       <button mat-raised-button color="warn" type="submit" class="forsubmit">
         Send invitation
       </button>
     </div>
 
   </form>
+</div>
+
+<div class="announcement" *ngIf="getCompany(this.service.username)=== undefined">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Invite People
+    </span>
+    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+      You do not have a company assigned so you can not choose a project. You must ask the game administrator to assign one to you
+
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,44 +1,170 @@
-<div class="announcement">
+<div class="announcement" *ngIf="getCompany(this.service.username)!== undefined">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Generate resources
     </span>
+
+    <!--First row of the matrix of frames of the puzzle-->
     <div class="w3-row">
-      <div class="w3-card-4" (click)="redirect1($event)">
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,1)">
 
-        <div class="correct" *ngIf="solved_puzzle === true">
-          <img src="https://i.imgur.com/7P5RBai.png">
-
-          <div class="w3-container">
-
-            <p>
-              Solve slidding puzzle to generate resources.
-            </p>
+          <div class="1">
+            <img src="https://i.imgur.com/7MTuui6.png">
           </div>
         </div>
+      </div>
 
-        <div class="incorrect" *ngIf="solved_puzzle !== true">
-          <img src="https://i.imgur.com/7MTuui6.png">
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,2)">
 
-          <div class="w3-container">
-
-            <p>
-              Solve slidding puzzle to generate resources.
-            </p>
+          <div class="2">
+            <img src="https://i.imgur.com/7MTuui6.png">
           </div>
         </div>
-
       </div>
 
-      <br>
-      <div class="element-text3" *ngIf="solved_puzzle">
-        <br/>
-        You have generated resources!
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,3)">
+
+          <div class="3">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
       </div>
 
-      <br>
-      <br>
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,4)">
 
+          <div class="4">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Second row of the matrix of frames of the puzzle-->
+    <div class="w3-row">
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,5)">
+
+          <div class="5">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,6)">
+
+          <div class="6">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,7)">
+
+          <div class="7">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,8)">
+
+          <div class="8">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Third row of the matrix of frames of the puzzle-->
+    <div class="w3-row">
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,9)">
+
+          <div class="9">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,10)">
+
+          <div class="10">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,11)">
+
+          <div class="11">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,12)">
+
+          <div class="12">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Fourth row of the matrix of frames of the puzzle-->
+    <div class="w3-row">
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,13)">
+
+          <div class="13">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,14)">
+
+          <div class="14">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,15)">
+
+          <div class="15">
+            <img src="https://i.imgur.com/7MTuui6.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-quarter">
+        <div class="w3-card-4" (click)="moveTile($event,16)">
+
+          <div class="16">
+            <img src="https://dondelaviste.cl/public/images/species/1/delfin_austral.png">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="element-text3" *ngIf="solved_puzzle">
+      <br/>
+      You have generated resources!
+    </div>
     <div class="elementfield2">
       <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
         Exit
@@ -48,5 +174,24 @@
         Validate
       </button>
     </div>
+  </div>
+</div>
+<div class="announcement" *ngIf="getCompany(this.service.username)=== undefined">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Generate resources
+    </span>
+    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+      You do not have a company assigned so you can not choose a project. You must ask the game administrator to assign one to you
+
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
   </div>
 </div>
