@@ -32,24 +32,32 @@ export class AppComponent {
     this.data[key] = this.storage.get(key);
     console.log(this.data[key]);
     if (this.data[key] !== undefined || this.data[key] !== null) {
-      if (this.data[key].role === 'Analyst' || this.data[key].role === 'Developer'
-        || this.data[key].role === 'Tester') {
-        this.service.user_type = 'Team Member';
-        this.service.user = this.data[key];
-        this.router.navigate(['home']);
-      } else if (this.data[key].role === 'Project Manager') {
-        this.service.user_type = 'Project Manager';
-        this.service.user = this.data[key];
-        this.router.navigate(['home']);
-      } else {
-        this.service.user_type = 'Game Administrator';
-        this.service.user = this.data[key];
-        this.router.navigate(['home']);
-      }
-      this.service.loggedusr = true;
+      this.getUserInSession(this.data[key].id);
     } else {
       console.log('There is no user logged in');
     }
+  }
+
+  getUserInSession(userId) {
+    this.httpService.getUserById(userId).subscribe( data => {
+      console.log(data);
+      if (data.role === 'Analyst' || data.role === 'Developer'
+        || data.role === 'Tester') {
+        this.service.user_type = 'Team Member';
+        this.service.user = data;
+        this.router.navigate(['home']);
+      } else if (data.role === 'Project Manager') {
+        this.service.user_type = 'Project Manager';
+        this.service.user = data;
+        this.router.navigate(['home']);
+      } else {
+        this.service.user_type = 'Game Administrator';
+        this.service.user = data;
+        this.router.navigate(['home']);
+      }
+      this.service.loggedusr = true;
+      console.log(this.service.user);
+    });
   }
 
   ngOnInit() {

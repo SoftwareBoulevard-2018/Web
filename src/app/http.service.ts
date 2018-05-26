@@ -21,10 +21,11 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  // static apiURL = 'http://localhost:3000';
+  // static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
+  static usersURL3 = '/usersByRole';
   static companiesURL = '/companies';
   static loginURL = '/login';
   static emailURL = '/emails';
@@ -50,6 +51,10 @@ export class HttpService {
   getUserByRoleCompany(role, companyId) {
     return this.http.post<User[]>(HttpService.apiURL + HttpService.usersURL + HttpService.usersURL2,
       JSON.stringify({ role: role, companyId: companyId }), HttpService.httpOptions);
+  }
+  getUsersByRole(role) {
+    return this.http.post<User[]>(HttpService.apiURL + HttpService.usersURL + HttpService.usersURL3,
+      JSON.stringify({ role1: role }), HttpService.httpOptions);
   }
 
   // All services related to companies
@@ -87,7 +92,7 @@ export class HttpService {
   }
   sended(idUsuario) {
      return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sended/' + idUsuario);
-  }  
+  }
   updateState(idUsuario, idEmail){
     return this.http.post<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/',
       JSON.stringify({idUsuario: idUsuario, idEmail: idEmail}), HttpService.httpOptions);

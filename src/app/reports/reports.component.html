@@ -1,21 +1,82 @@
 <mat-tab-group>
-  <mat-tab label="Best Company by Capacity K">
+  <mat-tab label="Companies by Resources">
 
     <div class="containerCompany mat-elevation-z8">
 
       <div class="header">
         <mat-form-field>
-          <input matInput (keyup)="applyFilterCompany($event.target.value)" placeholder="Filter">
+          <input matInput (keyup)="applyFilterCompany($event.target.value, companies_by_resources2)" placeholder="Filter">
         </mat-form-field>
       </div>
 
-      <mat-table #table [dataSource]="companies2" matSort> <!--matSortActive="capacity_k" matSortDirection="desc">
+      <mat-table #table [dataSource]="companies_by_resources2" matSort> <!--matSortActive="capacity_k" matSortDirection="desc">
 
        <!-- Logo Column -->
         <ng-container matColumnDef="image">
           <mat-header-cell *matHeaderCellDef> Logo </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <div class="company_img" *ngIf="!(element.image === undefined || element.image === ''); else pending_image">
+            <div class="company_img" *ngIf="!(element.image === undefined || element.image === '' ||
+            element.image === null); else pending_image">
+              <img src="{{element.image}}">
+            </div>
+            <ng-template #pending_image>
+              <p class="pending">
+                Pending
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Resources Column-->
+        <ng-container matColumnDef="resources">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Resources </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.resources}} </mat-cell>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-icon mat-list-icon (click)="redirect1Company($event,element)">remove_red_eye</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="table_titles_companies_by_resources"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: table_titles_companies_by_resources;"></mat-row>
+      </mat-table>
+      <!--<mat-paginator #paginator
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     [showFirstLastButtons]="true">
+      </mat-paginator>-->
+    </div>
+  </mat-tab>
+  <!--------------------------------------------Tab Capacity K to Tab Resources--------------------------------------------->
+
+  <mat-tab label="Companies by Capacity K">
+
+    <div class="containerCompany mat-elevation-z8">
+
+      <div class="header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilterCompany($event.target.value, companies_by_capacityK2)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <mat-table #table [dataSource]="companies_by_capacityK2" matSort> <!--matSortActive="capacity_k" matSortDirection="desc">
+
+       <!-- Logo Column -->
+        <ng-container matColumnDef="image">
+          <mat-header-cell *matHeaderCellDef> Logo </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <div class="company_img" *ngIf="!(element.image === undefined || element.image === '' ||
+            element.image === null); else pending_image">
               <img src="{{element.image}}">
             </div>
             <ng-template #pending_image>
@@ -36,95 +97,19 @@
         <!-- Capacity K Column -->
         <ng-container matColumnDef="capacity_k">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity K </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.capacity_k}} </mat-cell>
-        </ng-container>
-
-        <!-- Resources Column-->
-        <ng-container matColumnDef="resources">
-          <mat-header-cell *matHeaderCellDef> Resources </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.resources}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.capacityK}} </mat-cell>
         </ng-container>
 
         <!-- Status Column -->
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-raised-button (click)="redirect1Company($event,element)">
-              See status
-            </button>
+            <mat-icon mat-list-icon (click)="redirect1Company($event,element)">remove_red_eye</mat-icon>
           </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="table_titles_company"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: table_titles_company;"></mat-row>
-      </mat-table>
-      <!--<mat-paginator #paginator
-                     [pageSize]="10"
-                     [pageSizeOptions]="[5, 10, 20]"
-                     [showFirstLastButtons]="true">
-      </mat-paginator>-->
-    </div>
-  </mat-tab>
-  <!--------------------------------------------Tab Capacity K to Tab Resources--------------------------------------------->
-
-  <mat-tab label="Best Company by Resources">
-
-    <div class="containerCompany mat-elevation-z8">
-
-      <div class="header">
-        <mat-form-field>
-          <input matInput (keyup)="applyFilterCompany($event.target.value)" placeholder="Filter">
-        </mat-form-field>
-      </div>
-
-      <mat-table #table [dataSource]="companies2" matSort> <!--matSortActive="capacity_k" matSortDirection="desc">
-
-       <!-- Logo Column -->
-        <ng-container matColumnDef="image">
-          <mat-header-cell *matHeaderCellDef> Logo </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <div class="company_img" *ngIf="!(element.image === undefined || element.image === ''); else pending_image">
-              <img src="{{element.image}}">
-            </div>
-            <ng-template #pending_image>
-              <p class="pending">
-                Pending
-              </p>
-            </ng-template>
-          </mat-cell>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-        </ng-container>
-
-
-        <!-- Capacity K Column -->
-        <ng-container matColumnDef="capacity_k">
-          <mat-header-cell *matHeaderCellDef> Capacity K </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.capacity_k}} </mat-cell>
-        </ng-container>
-
-        <!-- Resources Column-->
-        <ng-container matColumnDef="resources">
-          <mat-header-cell *matHeaderCellDef> Resources </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.resources}} </mat-cell>
-        </ng-container>
-
-        <!-- Status Column -->
-        <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <button mat-raised-button (click)="redirect1Company($event,element)">
-              See status
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="table_titles_company2"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: table_titles_company2;"></mat-row>
+        <mat-header-row *matHeaderRowDef="table_titles_companies_by_capacityK"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: table_titles_companies_by_capacityK;"></mat-row>
       </mat-table>
       <!--<mat-paginator #paginator
                      [pageSize]="10"
@@ -135,72 +120,73 @@
   </mat-tab>
   <!--------------------------------------------Tab Companies to Tab Users--------------------------------------------->
 
-  <!--<mat-tab label="Users">-->
+  <mat-tab label="Team members by efficiency">
     <!-- Users table -->
-    <!--<div class="containerUser mat-elevation-z8">-->
+    <div class="containerCompany mat-elevation-z8">
 
       <!-- Filter -->
-      <!--<div class="header">
+      <div class="header">
         <mat-form-field>
-          <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          <input matInput (keyup)="applyFilterCompany($event.target.value, users_by_efficiency2)" placeholder="Filter">
         </mat-form-field>
-      </div>-->
+      </div>
 
-      <!--<mat-table #table [dataSource]="users2">-->
+      <mat-table #table [dataSource]="users_by_efficiency2" matSort>
 
         <!-- Name Column -->
-        <!--<ng-container matColumnDef="name">
+        <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-        </ng-container>-->
+        </ng-container>
 
         <!-- Username Column -->
-        <!--<ng-container matColumnDef="username">
+        <ng-container matColumnDef="username">
           <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
-        </ng-container>-->
+        </ng-container>
 
         <!-- Role Column -->
-        <!--<ng-container matColumnDef="role">
+        <ng-container matColumnDef="role">
           <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
-        </ng-container>-->
+        </ng-container>
 
-        <!-- Company Column -->
-        <!--<ng-container matColumnDef="company">
-          <mat-header-cell *matHeaderCellDef> Company </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <p *ngIf="!(element.companyName === undefined); else pending_company">
-              {{element.companyName}}
-            </p>
-            <ng-template #pending_company>
-              <p class="pending">
-                Pending
-              </p>
-            </ng-template>
-          </mat-cell>
-        </ng-container>-->
+        <!-- Correct Answers Column -->
+        <ng-container matColumnDef="correct">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Correct answers </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.correct }}</mat-cell>
+        </ng-container>
+
+        <!-- Wrong Answers Column -->
+        <ng-container matColumnDef="wrong">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Wrong answers </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.wrong }}</mat-cell>
+        </ng-container>
+
+        <!-- Efficiency Column -->
+        <ng-container matColumnDef="efficiency">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Efficiency </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.efficiency.toFixed(2) }} %</mat-cell>
+        </ng-container>
 
         <!-- Status Column -->
-        <!--<ng-container matColumnDef="status">
+        <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-raised-button (click)="redirect($event,element)">
-              See status
-            </button>
+            <mat-icon mat-list-icon (click)="redirect($event,element)">remove_red_eye</mat-icon>
           </mat-cell>
-        </ng-container>-->
+        </ng-container>
 
         <!-- Table rows -->
-        <!--<mat-header-row *matHeaderRowDef="table_titles_user"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: table_titles_user;"></mat-row>
-      </mat-table>-->
-      <!------<mat-paginator #paginator
+        <mat-header-row *matHeaderRowDef="table_titles_users_by_efficiency"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: table_titles_users_by_efficiency;"></mat-row>
+      </mat-table>
+      <!--<mat-paginator #paginator
                      [pageSize]="10"
                      [pageSizeOptions]="[5, 10, 20]"
                      [showFirstLastButtons]="true">
-      </mat-paginator>------->
-    <!--</div>-->
+      </mat-paginator>-->
+    </div>
 
-  <!--</mat-tab>-->
+  </mat-tab>
 </mat-tab-group>
