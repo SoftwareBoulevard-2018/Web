@@ -50,8 +50,8 @@ export class UserStatusComponent implements OnInit {
       && this.user.correctProjectQuestions === 0) ) {
       this.performance = 0;
     } else {
-      this.performance = (this.user.correctTrainingQuestions +
-        this.user.correctProjectQuestions) / this.user.resourcesSpent;
+      this.performance = ((this.user.correctTrainingQuestions +
+        this.user.correctProjectQuestions) / this.user.resourcesSpent) * 100;
     }
       this.getCompanyById(data.companyId);
     console.log(this.user);
