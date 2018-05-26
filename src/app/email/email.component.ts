@@ -28,7 +28,7 @@ export class EmailComponent implements OnInit  {
   numNoReadEmails : number = 0;
   selectedUsers = [];
   EReceived = [];
-  table_titles = ['sender','subject-content', 'createdAt'];
+  table_titles = ['sender','subject', 'createdAt'];
   dataSource:MatTableDataSource<Email>;
 
   constructor(public httpService: HttpService, public service: GeneralServiceService) { 
@@ -56,12 +56,20 @@ export class EmailComponent implements OnInit  {
   ngOnInit() {
     this.newEmailForm();
     this.users = JSON.parse(JSON.stringify(this.service.users));
+    this.getUsers();
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  getUsers(){
+    return this.httpService.getAllUsers().subscribe(data => {
+      this.users=JSON.parse(JSON.stringify(data));
+      console.log(this.users);
+    });
   }
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -148,5 +156,8 @@ export class EmailComponent implements OnInit  {
     this.inNewEmail = true;
   }
 
-
+  submitEmail(data){
+    alert(data);
+    console.log(data);
+  }
 }
