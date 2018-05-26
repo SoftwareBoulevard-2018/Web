@@ -16,7 +16,7 @@
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>date_range</mat-icon>
           <h4 mat-line>Created on:</h4>
-          <p mat-line>{{date_formatter(current_company.creation_date)}}</p>
+          <p mat-line>{{current_company.createdAt.substring(0,10)}}</p>
         </mat-list-item>
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>work</mat-icon>
@@ -26,8 +26,8 @@
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>perm_identity</mat-icon>
           <h4 mat-line>Project manager:</h4>
-          <p mat-line *ngIf="current_company.project_manager !== undefined; else pending_project_manager">
-            {{current_company.project_manager.name}} - {{current_company.project_manager.username}}
+          <p mat-line *ngIf="current_company.projectManager !== undefined; else pending_project_manager">
+            {{current_company.projectManager.username}}
           </p>
           <ng-template #pending_project_manager>
             <p mat-line>
@@ -38,8 +38,8 @@
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>assignment</mat-icon>
           <h4 mat-line>Capacity K:</h4>
-          <p mat-line *ngIf="current_company.capacity_k !== 0; else no_capacity_k">
-            {{current_company.capacity_k}}
+          <p mat-line *ngIf="current_company.capacityK !== 0; else no_capacity_k">
+            {{current_company.capacityK}}
           </p>
           <ng-template #no_capacity_k>
             <p mat-line>
@@ -50,8 +50,8 @@
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>equalizer</mat-icon>
           <h4 mat-line>Resources:</h4>
-          <p mat-line *ngIf="current_company.resources !== 0; else no_resources">
-            {{current_company.resources}}
+          <p mat-line *ngIf="current_company.companyResource !== 0; else no_resources">
+            {{current_company.companyResource}}
           </p>
           <ng-template #no_resources>
             <p mat-line>
@@ -59,7 +59,7 @@
             </p>
           </ng-template>
         </mat-list-item>
-        <mat-list-item role="listitem">
+        <!--<mat-list-item role="listitem">
           <mat-icon mat-list-icon>school</mat-icon>
           <h4 mat-line>Current project:</h4>
           <p mat-line *ngIf="current_company.current_project_name !== undefined; else pending_project_name">
@@ -71,7 +71,7 @@
             </p>
           </ng-template>
 
-        </mat-list-item>
+        </mat-list-item> -->
       </mat-list>
       <div class="centered_button">
         <!-- This will be shown if the user in session is a game administrator or a project manager -->
@@ -92,7 +92,8 @@
       </mat-list>
 
       <!-- Company logo, only shown if there is a logo -->
-      <div class="center" *ngIf="(current_company.image !== undefined) && (current_company.image !== ''); else no_image">
+      <div class="center" *ngIf="(current_company.image !== undefined) && (current_company.image !== '') &&
+      (current_company.image !== null); else no_image">
         <img src="{{this.current_company.image}}">
       </div>
 
@@ -104,7 +105,7 @@
       </ng-template>
 
       <!-- Table of users on the company, only shown if there are members on the company -->
-      <div class="container mat-elevation-z8" *ngIf="current_company.team_members.length !== 0; else no_members">
+      <div class="container mat-elevation-z8" *ngIf="this.users.length !== 0; else no_members">
 
         <div class="header">
           <mat-form-field>
@@ -141,13 +142,14 @@
           <!-- Correct Answers Column -->
           <ng-container matColumnDef="correct_answers">
             <mat-header-cell *matHeaderCellDef> Correct answers </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.questions_answered_right}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{(element.correctProjectQuestions + element.correctTrainingQuestions)}} </mat-cell>
           </ng-container>
 
-          <!-- Wrong Ansers Column -->
+          <!-- Wrong Answers Column -->
           <ng-container matColumnDef="wrong_answers">
             <mat-header-cell *matHeaderCellDef> Wrong answers </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.questions_answered_wrong}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.resourcesSpent -
+              (element.correctProjectQuestions + element.correctTrainingQuestions)}} </mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>

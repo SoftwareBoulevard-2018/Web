@@ -304,16 +304,17 @@ naranja #FF5729
 	padding: 5px;
 }
 
-.main-email-container .mat-column-date {
+.main-email-container .mat-column-createdAt {
 	text-align: right;
 	flex: 0 0 100px;
 }
 
-.main-email-container .mat-column-username {
+.main-email-container .mat-column-sender {
 	flex: 0 0 150px;
 }
 
-.main-email-container .mat-column-subject-content {
+
+.main-email-container .mat-column-subject-content , .main-email-container .mat-column-sender {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
@@ -331,7 +332,16 @@ naranja #FF5729
 	background: #fff;
 }
 
-.main-email-container .mat-row.unread .mat-column-username , .mat-row.unread  .subject , .mat-row.unread  .mat-column-date {
+.main-email-container .mat-column-createdAt{
+	text-align: right;
+}
+
+.main-email-container .mat-column-createdAt .hour {
+	font-size: 14px;
+	color: rgb(116, 116, 116);
+}
+
+.main-email-container .mat-row.unread .mat-column-username , .mat-row.unread  .subject , .mat-row.unread  .mat-column-createdAt {
 	font-weight: bold;
 }
 

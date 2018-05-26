@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpService} from '../http.service';
+import {Company} from '../shared/company';
 
 @Component({
   selector: 'app-update-company',
@@ -12,18 +14,18 @@ export class UpdateCompanyComponent implements OnInit {
 
   // Variables necessary to the form's functionalit and the data input validations
   formdata;
+  current_company;
   project_managers;
   invalid_url = false;
   lacking_project_manager = false;
   totally_empty = false;
-  invalid = false;
   invalid_name = false;
   success = false;
   repeated_field = false;
   hide = true;
   user;
 
-  constructor(public service: GeneralServiceService, public router: Router) { }
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   form() {
     // Establishes the form's default state
@@ -32,9 +34,44 @@ export class UpdateCompanyComponent implements OnInit {
       img: new FormControl(''),
       project_manager: new FormControl('')
     });
+    this.getCompanyById(this.service.company_to_be_updated);
   }
 
-  possible_project_managers() {
+  getUserByRoleCompany(role, companyId) {
+    return this.httpService.getUserByRoleCompany(role, companyId).subscribe( data => {
+        console.log(data);
+        if (Array.isArray(data)) {
+          this.project_managers = data;
+        } else {
+          this.project_managers = [data];
+        }
+        console.log(this.project_managers);
+      }, error => {
+        this.project_managers = [];
+      }
+    );
+  }
+
+  getCompanyById(companyId) {
+    return this.httpService.getCompanyById(companyId).subscribe( data => {
+      this.current_company = data;
+      this.getCurrentProjectManager('Project Manager', companyId);
+      });
+  }
+
+  getCurrentProjectManager(role, companyId) {
+    return this.httpService.getUserByRoleCompany(role, companyId).subscribe( data => {
+        if (data[0] === undefined) {
+          this.lacking_project_manager = true;
+          this.getUserByRoleCompany('Project Manager', null);
+        } else {
+          this.lacking_project_manager = false;
+        }
+      }
+    );
+  }
+
+  /*possible_project_managers() {
     // Searches for the available project managers
     this.project_managers = [];
     for (const user of this.service.users) {
@@ -67,7 +104,7 @@ export class UpdateCompanyComponent implements OnInit {
     } else {
       this.lacking_project_manager = false;
     }
-  }
+  } */
 
   ngOnInit() {
     // Defines if there is a project manager in the company, the currently
@@ -77,9 +114,7 @@ export class UpdateCompanyComponent implements OnInit {
      } else if (this.service.user_type === 'Team Member') {
        this.router.navigate(['restricted']);
      } else {
-    this.current_project_manager();
-    this.possible_project_managers();
-    this.form();
+      this.form();
     }
   }
 
@@ -90,7 +125,6 @@ export class UpdateCompanyComponent implements OnInit {
       this.invalid_url = false;
       this.invalid_name = false;
       this.totally_empty = true;
-      this.invalid = false;
       this.success = false;
       this.repeated_field = false;
     } else if ((!(data.img.substring(0, 4) === 'http') || (!(data.img.substring(data.img.length - 3) === 'jpg')
@@ -98,50 +132,55 @@ export class UpdateCompanyComponent implements OnInit {
       this.invalid_url = true;
       this.invalid_name = false;
       this.totally_empty = false;
-      this.invalid = false;
-      this.success = false;
-      this.repeated_field = false;
-    } else if (!(this.new_name(data.name))) {
-      this.invalid_url = false;
-      this.invalid_name = false;
-      this.totally_empty = false;
-      this.invalid = true;
       this.success = false;
       this.repeated_field = false;
     } else if (data.name === this.service.company_to_be_updated.name || data.img === this.service.company_to_be_updated.image) {
       this.invalid_url = false;
       this.invalid_name = false;
       this.totally_empty = false;
-      this.invalid = false;
       this.success = false;
       this.repeated_field = true;
-    } else if (this.new_name(data.name)) {
+    } else {
         if (!(data.name === '')) {
-          this.service.company_to_be_updated.name = data.name;
-          this.update_members(data.name, this.service.company_to_be_updated);
+          this.updateName(data.name);
         }
         if (!(data.img === '')) {
-          this.service.company_to_be_updated.image = data.img;
+          this.updateImage(data.img);
         }
         if (!(data.project_manager === '' || data.project_manager === undefined || !(this.lacking_project_manager))) {
-          this.service.company_to_be_updated.project_manager = this.search_modify_user(data.project_manager,
-            this.service.company_to_be_updated.name);
+          this.updateUser({ companyId: this.service.company_to_be_updated }, data.project_manager);
         }
       this.invalid_url = false;
       this.invalid_name = false;
       this.totally_empty = false;
-      this.invalid = false;
       this.success = true;
       this.repeated_field = false;
-      this.possible_project_managers();
-      this.current_project_manager();
-      console.log(this.service.companies);
-      this.form();
     }
-    console.log(this.service.companies);
   }
 
-  search_modify_user(username, company_name) {
+  updateName(newName) {
+    return this.httpService.updateCompany({ name: newName }, this.service.company_to_be_updated).subscribe( data => {
+      console.log('success');
+      this.form();
+    });
+  }
+
+  updateImage(newImage) {
+    return this.httpService.updateCompany({ image: newImage }, this.service.company_to_be_updated).subscribe( data => {
+      console.log('success');
+      this.form();
+    });
+  }
+
+  updateUser(user, userId) {
+    return this.httpService.updateUser(user, userId).subscribe(data => {
+        console.log('success');
+        this.form();
+      }
+    );
+  }
+
+  /* search_modify_user(username, company_name) {
     // Searches for an user and updates it
     for (const user of this.service.users) {
       if (user.username === username) {
@@ -162,6 +201,6 @@ export class UpdateCompanyComponent implements OnInit {
         team_member.companyName = company_name;
       }
     }
-  }
+  } */
 
 }

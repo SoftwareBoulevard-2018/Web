@@ -58,21 +58,25 @@ export class CompaniesComponent implements OnInit {
 
   getUserByRoleCompany(role, company) {
     return this.httpService.getUserByRoleCompany(role, company.id).subscribe(data => {
-      const fuck = JSON.parse(JSON.stringify(data));
-      company.projectManager = fuck.username;
-      this.companies.push({ id: company.id, createdAt: company.createdAt,
-        name: company.name, image: company.image,
-        capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager});
-      this.companies2.data = this.companies;
-      console.log(this.companies2);
-      console.log(data);
-    }, error => {
-      company.projectManager = undefined;
-      this.companies.push({ id: company.id, createdAt: company.createdAt,
-        name: company.name, image: company.image,
-        capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager});
-      this.companies2.data = this.companies;
-      console.log(this.companies2);
+        const fuck = JSON.parse(JSON.stringify(data));
+      if (fuck[0] !== undefined) {
+        company.projectManager = fuck[0].username;
+        this.companies.push({
+          id: company.id, createdAt: company.createdAt,
+          name: company.name, image: company.image,
+          capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager
+        });
+        this.companies2.data = this.companies;
+        console.log(this.companies2);
+        console.log(data);
+      } else {
+        company.projectManager = undefined;
+        this.companies.push({ id: company.id, createdAt: company.createdAt,
+          name: company.name, image: company.image,
+          capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager});
+        this.companies2.data = this.companies;
+        console.log(this.companies2);
+      }
     });
   }
 
