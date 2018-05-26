@@ -63,7 +63,7 @@
 			
 			<div *ngIf="inInbox"  class="emails-table-container mat-elevation-z8">
 
-				<mat-table  #table [dataSource]="dataSource">
+				<mat-table  #table [dataSource]="TInbox">
 
 					
 						<!-- Sender Column -->
@@ -96,13 +96,13 @@
 
 			<div *ngIf="inSent"  class="emails-table-container mat-elevation-z8">
 
-				<mat-table  #table [dataSource]="dataSourceS">
+				<mat-table  #table [dataSource]="TSent">
 
 					
 						<!-- Sender Column -->
-						<ng-container matColumnDef="username">
-							<mat-header-cell *matHeaderCellDef> Sender </mat-header-cell>
-							<mat-cell *matCellDef="let email"> {{email.sender}} </mat-cell>
+						<ng-container matColumnDef="receivers">
+							<mat-header-cell *matHeaderCellDef> Receivers </mat-header-cell>
+							<mat-cell *matCellDef="let email"> {{email.receivers}} </mat-cell>
 						</ng-container>
 					
 						<!-- Email Column -->
@@ -118,7 +118,7 @@
 						</ng-container>
 					
 						
-						<mat-row *matRowDef="let row; columns: table_titles;" [ngClass]="{'unread': 'unread' == row.state}" (click)="readEmail(row)" >
+						<mat-row *matRowDef="let row; columns: table_titles_sent;" [ngClass]="{'unread': 'unread' == row.state}" (click)="readEmail(row)" >
 							
 						</mat-row>
 						

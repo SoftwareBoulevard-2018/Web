@@ -30,16 +30,17 @@ export class EmailComponent implements OnInit  {
   EReceived = [];
   ESent = [];
   table_titles = ['sender','subject-content', 'createdAt'];
-  dataSource:MatTableDataSource<Email>;
-  dataSourceS:MatTableDataSource<Email>;
+  table_titles_sent =['receivers','subject-content', 'createdAt'];
+  TInbox:MatTableDataSource<Email>;
+  TSent:MatTableDataSource<Email>;
   constructor(public httpService: HttpService, public service: GeneralServiceService) { 
   }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-    this.dataSourceS.filter = filterValue;
+    this.TInbox.filter = filterValue;
+    this.TSent.filter = filterValue;
   }
 
   getUsers(){
@@ -68,8 +69,8 @@ export class EmailComponent implements OnInit  {
     this.numNoReadEmails = this.EReceived.length;
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSourceS.paginator = this.paginator;
+    this.TInbox.paginator = this.paginator;
+    this.TSent.paginator = this.paginator;
   }
   ngOnInit() {
     this.newEmailForm();
@@ -78,11 +79,9 @@ export class EmailComponent implements OnInit  {
   openCloseEmail(){
     this.emailWindowOpen = !this.emailWindowOpen;
     this.users = JSON.parse(JSON.stringify(this.service.users));
-    this.dataSource = new MatTableDataSource(this.EReceived);
-    this.dataSourceS = new MatTableDataSource(this.ESent);
-    this.read();
-    this.getUsers();
-    this.sent();
+    this.TInbox = new MatTableDataSource(this.EReceived);
+    this.TSent = new MatTableDataSource(this.ESent);
+    this.starter();
   }
   read(){
     this.EReceived = [];
@@ -97,7 +96,7 @@ export class EmailComponent implements OnInit  {
             content:datos.data[i].content,
             createdAt:datos.data[i].createdAt});
       }
-      this.dataSource.data = this.EReceived;
+      this.TInbox.data = this.EReceived;
        this.newNotification();
     }, error => {
         console.log(error);
@@ -132,12 +131,16 @@ export class EmailComponent implements OnInit  {
           acknowledgment: datos.data[i].acknowledgment
         });
       }
-      this.dataSourceS.data = this.ESent;
+      this.TSent.data = this.ESent;
       console.log(this.ESent);
       /*data source*/
     });
   }
-
+  public starter(){
+    this.read();
+    this.getUsers();
+    this.sent();
+  }
  submitEmail(data){
    let rec :[string] = [""]; 
    for(let i = 0; i<data.receivers.length;i++){
