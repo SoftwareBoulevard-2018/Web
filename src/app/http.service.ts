@@ -81,4 +81,15 @@ export class HttpService {
   read(idUsuario) {
      return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/read/' + idUsuario);
   }
+  send(email: Email){
+    return this.http.post<Email>(HttpService.apiURL + HttpService.emailURL + '/send/',
+      JSON.stringify(email), HttpService.httpOptions);
+  }
+  sended(idUsuario) {
+     return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sended/' + idUsuario);
+  }  
+  updateState(idUsuario, idEmail){
+    return this.http.post<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/',
+      JSON.stringify({idUsuario: idUsuario, idEmail: idEmail}), HttpService.httpOptions);
+  }
 }
