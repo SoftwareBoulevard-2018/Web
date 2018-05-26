@@ -102,7 +102,7 @@
 						<!-- Sender Column -->
 						<ng-container matColumnDef="receivers">
 							<mat-header-cell *matHeaderCellDef> Receivers </mat-header-cell>
-							<mat-cell *matCellDef="let email"> {{email.receivers}} </mat-cell>
+							<mat-cell *matCellDef="let email"> <h5 *ngFor="let rec of email.receivers"> {{rec}}</h5></mat-cell>
 						</ng-container>
 					
 						<!-- Email Column -->
