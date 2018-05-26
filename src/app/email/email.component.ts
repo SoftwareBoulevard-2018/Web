@@ -28,12 +28,25 @@ export class EmailComponent implements OnInit  {
   numNoReadEmails : number = 0;
   selectedUsers = [];
   EReceived = [];
+  ESent = [];
   table_titles = ['sender','subject-content', 'createdAt'];
   dataSource:MatTableDataSource<Email>;
-
+  dataSourceS:MatTableDataSource<Email>;
   constructor(public httpService: HttpService, public service: GeneralServiceService) { 
   }
 
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+    this.dataSourceS.filter = filterValue;
+  }
+
+  getUsers(){
+    return this.httpService.getAllUsers().subscribe(data => {
+      this.users=JSON.parse(JSON.stringify(data));
+    });
+  }
   newEmailForm() {
     // Defines the default state of the forms
     this.formdata = new FormGroup({
@@ -51,33 +64,45 @@ export class EmailComponent implements OnInit  {
         ]))
     });
   }
-
-
+  newNotification(){
+    this.numNoReadEmails = this.EReceived.length;
+  }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSourceS.paginator = this.paginator;
+  }
   ngOnInit() {
     this.newEmailForm();
     this.getUsers();
   }
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  openCloseEmail(){
+    this.emailWindowOpen = !this.emailWindowOpen;
+    this.users = JSON.parse(JSON.stringify(this.service.users));
+    this.dataSource = new MatTableDataSource(this.EReceived);
+    this.dataSourceS = new MatTableDataSource(this.ESent);
+    this.read();
+    this.getUsers();
+    this.sent();
   }
-
-  getUsers(){
-    return this.httpService.getAllUsers().subscribe(data => {
-      this.users=JSON.parse(JSON.stringify(data));
-      console.log(this.users);
+  read(){
+    this.EReceived = [];
+    return this.httpService.read(this.service.user._id).subscribe( data => {
+        // Aquí va el código donde el argumento data es lo que vino en la consulta
+      const datos =JSON.parse(JSON.stringify(data));
+      for(let i = 0; i<datos.data.length;i++){
+          this.EReceived.push({id:datos.data[i].id,
+            sender:datos.data[i].sender,
+            subject:datos.data[i].subject,
+            receivers:datos.data[i].receivers,
+            content:datos.data[i].content,
+            createdAt:datos.data[i].createdAt});
+      }
+      this.dataSource.data = this.EReceived;
+       this.newNotification();
+    }, error => {
+        console.log(error);
     });
-  }
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
-  newNotification(){
-  	this.numNoReadEmails = this.EReceived.length;
-  }
+   }
   searchUserFn(term: string, item){
     term = term.toLowerCase();
     let nameMatch = item.name.toLowerCase().indexOf(term) > -1;
@@ -93,36 +118,40 @@ export class EmailComponent implements OnInit  {
 
     return nameMatch || roleMatch || usernameMatch || companyMatch;  
   }
-
-  openCloseEmail(){
-    this.emailWindowOpen = !this.emailWindowOpen;
-    this.users = JSON.parse(JSON.stringify(this.service.users));
-    this.dataSource = new MatTableDataSource(this.EReceived);
-    this.read();
-    this.getUsers();
-  }
-  read(){
-    this.EReceived = [];
-  	return this.httpService.read(this.service.user._id).subscribe( data => {
-        // Aquí va el código donde el argumento data es lo que vino en la consulta
-    	const datos =JSON.parse(JSON.stringify(data));
+  sent(){
+    this.ESent = [];
+    return this.httpService.sended(this.service.user.id).subscribe(data =>{
+      const datos =JSON.parse(JSON.stringify(data));
       for(let i = 0; i<datos.data.length;i++){
-          this.EReceived.push({id:datos.data[i].id,
-            sender:datos.data[i].sender,
-            subject:datos.data[i].subject,
-            receivers:datos.data[i].receivers,
-            content:datos.data[i].content,
-            createdAt:datos.data[i].createdAt,
-            acknowledgment: datos.data[i].acknowledgment});
+        this.ESent.push({
+          id:datos.data[i].id,
+          subject:datos.data[i].subject,
+          receivers:datos.data[i].receivers,
+          content:datos.data[i].content,
+          createdAt:datos.data[i].createdAt,
+          acknowledgment: datos.data[i].acknowledgment
+        });
       }
-      console.log(this.EReceived);
-      this.dataSource.data = this.EReceived;
-       this.newNotification();
-    }, error => {
-        console.log(error);
+      this.dataSource.data = this.ESent;
+      console.log(this.ESent);
+      /*data source*/
     });
+  }
 
-
+ submitEmail(data){
+   let rec :[string] = [""]; 
+   for(let i = 0; i<data.receivers.length;i++){
+     console.log(data.receivers[i].id.toString());
+     rec[i]= data.receivers[i].id.toString();
+   }
+   console.log(rec);
+    let email = new Email(
+        this.service.user.id,
+        data.subject,
+        rec,
+        data.content,
+      )
+    return this.httpService.send(email).subscribe(data => console.log(data));
   }
   readEmail(email) {
     this.selectedEmail = email;
@@ -154,14 +183,5 @@ export class EmailComponent implements OnInit  {
     this.inSent = false;
     this.inNewEmail = true;
   }
-
- submitEmail(data){
-    let email = new Email(
-        ""+this.service.user.id,
-        data.subject,
-        [this.service.user.id],
-        data.content,
-      )
-    return this.httpService.send(email).subscribe(data => console.log(data));
-  }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 }
