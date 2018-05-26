@@ -10,11 +10,14 @@
 .w3-container {
   text-align: center;
 }
+button{
+  background-color: #009494;
+  color: white;
+}
 .create{
-  width: 30%;
+  width: 30em;
   margin: 0 auto 2% auto;
 }
-
 .mat-table {
   overflow: auto;
   max-height: 500px;
@@ -69,4 +72,7 @@ img{
 .pending{
   color: red!important;
   font-weight: bold;
+}
+.mat-icon{
+  cursor: pointer;
 }

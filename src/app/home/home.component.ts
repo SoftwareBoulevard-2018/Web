@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     if (this.service.user_type === 'Game Administrator') {
       this.router.navigate(['home/companies']);
     } else {
+      this.service.company_to_be_updated = this.service.user.companyId;
       this.router.navigate(['home/companies/company-status']);
     }
   }

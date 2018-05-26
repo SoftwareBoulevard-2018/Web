@@ -3,25 +3,25 @@
 <div class="wrap-login100 big-wrap" *ngIf="this.service.user_type === 'Game Administrator'; else p_m">
   <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <span class="login100-form-title p-b-34 p-t-27 non_mayus">
-      UPDATE COMPANY - {{this.service.company_to_be_updated.name}}
+      UPDATE COMPANY - {{this.current_company.name}}
     </span>
 
     <!-- Name, image and project manager inputs -->
     <div class="element">
       <mat-form-field class="big-input">
-        <input matInput placeholder="Name - {{this.service.company_to_be_updated.name}}" name="name" formControlName="name">
+        <input matInput placeholder="Name - {{this.current_company.name}}" name="name" formControlName="name">
       </mat-form-field>
     </div>
 
     <br/>
 
     <div class="company_img">
-      <img src="{{this.service.company_to_be_updated.image}}">
+      <img src="{{this.current_company.image}}">
     </div>
 
     <div class="element">
       <mat-form-field class="big-input">
-        <input matInput placeholder="URL - {{this.service.company_to_be_updated.image}}" name="img" formControlName="img">
+        <input matInput placeholder="URL - {{this.current_company.image}}" name="img" formControlName="img">
       </mat-form-field>
     </div>
 
@@ -34,7 +34,7 @@
           <mat-option [value]=''>
             None
           </mat-option>
-          <mat-option *ngFor="let user of project_managers" [value]="user.username">
+          <mat-option *ngFor="let user of project_managers" [value]="user.id">
             {{ user.username }} - {{ user.name }}
           </mat-option>
         </mat-select>
@@ -56,12 +56,12 @@
       </span>
     </div>
 
-    <div class="element" *ngIf="invalid">
+    <!--<div class="element" *ngIf="invalid">
       <br/>
       <span class="error">
         A company with that name already exists.
       </span>
-    </div>
+    </div>-->
 
     <!-- Error or success messages -->
     <div class="element" *ngIf="success">
@@ -89,17 +89,17 @@
   <div class="wrap-login100 big-wrap">
     <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
       <span class="login100-form-title p-b-34 p-t-27 non_mayus">
-        UPDATE COMPANY - {{this.service.company_to_be_updated.name}}
+        UPDATE COMPANY - {{this.current_company.name}}
       </span>
 
       <!-- Project managers can only update the image of the company -->
       <div class="company_img">
-        <img src="{{this.service.company_to_be_updated.image}}">
+        <img src="{{this.current_company.image}}">
       </div>
 
       <div class="element">
         <mat-form-field class="big-input">
-          <input matInput placeholder="URL - {{this.service.company_to_be_updated.image}}" name="img" formControlName="img">
+          <input matInput placeholder="URL - {{this.current_company.image}}" name="img" formControlName="img">
         </mat-form-field>
       </div>
 
@@ -125,12 +125,12 @@
       </span>
       </div>
 
-      <div class="element" *ngIf="invalid">
+      <!--<div class="element" *ngIf="invalid">
         <br/>
         <span class="error">
           A company with that name already exists.
         </span>
-      </div>
+      </div>-->
 
 
       <div class="element" *ngIf="success">

@@ -20,6 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {StorageServiceModule} from 'angular-webstorage-service';
+
 
 // Components imports
 import { AppComponent } from './app.component';
@@ -170,6 +172,7 @@ const routes: Routes = [
     MatExpansionModule,
     HttpClientModule,
     NgSelectModule,
+    StorageServiceModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -191,6 +194,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatRadioModule,
     HttpClientModule,
+    StorageServiceModule,
     BrowserAnimationsModule
   ],
   providers: [GeneralServiceService, HttpService],

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GeneralServiceService } from '../general-service.service';
 import { Router } from '@angular/router';
 import {HttpService} from '../http.service';
+import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ import {HttpService} from '../http.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
+  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,
+              public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   // Variables necessary to define the form and validate the input data
   invalid = false;
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
 
   login(username, password) {
     return this.httpService.login(username, password).subscribe( data => {
+      this.saveInLocal('userInSession', data);
         if (data.role === 'Analyst' || data.role === 'Developer' || data.role === 'Tester') {
           this.service.user_type = 'Team Member';
           this.service.user = data;
@@ -55,6 +58,11 @@ export class LoginComponent implements OnInit {
       error => {
         this.invalid = true;
       });
+  }
+
+  saveInLocal(key, val): void {
+    console.log('recieved= key:' + key + 'value:' + val);
+    this.storage.set(key, val);
   }
 
   onClickSubmit(data) {
