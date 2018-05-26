@@ -79,7 +79,15 @@
 						</ng-container>
 						<ng-container matColumnDef="createdAt">
 							<mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-							<mat-cell *matCellDef="let email"> {{email.createdAt}} </mat-cell>
+							<mat-cell *matCellDef="let email">  
+								<div class="w3-row date">
+									{{emailDate(email.createdAt)}}
+								</div>
+								<div class="w3-row hour">
+									{{emailHour(email.createdAt)}}
+								</div>
+
+							</mat-cell>
 						</ng-container>
 						
 						<mat-row *matRowDef="let row; columns: table_titles;" [ngClass]="{'unread': 'unread' == row.state}" (click)="readEmail(row)" >
@@ -102,7 +110,7 @@
 						<!-- Sender Column -->
 						<ng-container matColumnDef="receivers">
 							<mat-header-cell *matHeaderCellDef> Receivers </mat-header-cell>
-							<mat-cell *matCellDef="let email"> {{email.receivers}} </mat-cell>
+							<mat-cell *matCellDef="let email"> <h5 *ngFor="let rec of email.receivers"> {{rec}}</h5></mat-cell>
 						</ng-container>
 					
 						<!-- Email Column -->
@@ -154,7 +162,7 @@
 						</div>
 
 						<div class="w3-col l3 s3 date">
-							<h6>{{selectedEmail.date}}</h6>
+							<h6>{{selectedEmail.createdAt}}</h6>
 						</div>
 				</div>
 

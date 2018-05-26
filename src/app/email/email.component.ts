@@ -132,7 +132,6 @@ export class EmailComponent implements OnInit  {
         });
       }
       this.TSent.data = this.ESent;
-      console.log(this.ESent);
       /*data source*/
     });
   }
@@ -162,8 +161,28 @@ export class EmailComponent implements OnInit  {
     this.inNewEmail = false;
     this.inSent = false;
     this.inAEmail = true;
+    alert(email.id);
+     if(email.acknowledgment == undefined){
+       email.acknowledgment = [];
+      email.acknowledgment[0]=this.service.user.id;
+      console.log("agregar1");
+      this.updateState(email,email.id);
+     }else{
+       var found = undefined;
+      for(let i =0;i<email.acknowledge.length;i++){
+        if(email.acknowledgment[i]==this.service.user.id){
+          found=true;
+        }
+      }
+      if(found == undefined){
+        email.acknowledgment.push(this.service.user.id);
+        console.log("agregar2");
+        this.updateState(email,email.id);
+      }
+     }
+     this.starter();
+    
   }
-
   toInbox(){
     this.inAEmail = false;
     this.inNewEmail = false;
@@ -186,5 +205,18 @@ export class EmailComponent implements OnInit  {
     this.inSent = false;
     this.inNewEmail = true;
   }
+  updateState(email, emailId){
+    return this.httpService.updateState(emailId,email).subscribe(data => {});
+  }
+  emailDate(isoDate){
+    let date = new Date(isoDate);
+    return (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear());
+  }
+
+  emailHour(isoDate){
+    let date = new Date(isoDate);
+    return (date.getHours() + ":" + date.getMinutes());
+  }
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 }
