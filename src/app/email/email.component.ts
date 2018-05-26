@@ -156,8 +156,13 @@ export class EmailComponent implements OnInit  {
     this.inNewEmail = true;
   }
 
-  submitEmail(data){
-    alert(data);
-    console.log(data);
+ submitEmail(data){
+    let email = new Email(
+        ""+this.service.user.id,
+        data.subject,
+        [this.service.user.id],
+        data.content,
+      )
+    return this.httpService.send(email).subscribe(data => console.log(data));
   }
 }
