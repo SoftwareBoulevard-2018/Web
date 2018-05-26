@@ -186,17 +186,6 @@ export class EmailComponent implements OnInit  {
     this.inSent = false;
     this.inNewEmail = true;
   }
-
- submitEmail2(data){
-    let email = new Email(
-        ""+this.service.user.id,
-        data.subject,
-        [this.service.user.id],
-        data.content,
-      )
-    return this.httpService.send(email).subscribe(data => console.log(data));
-  }
-
   emailDate(isoDate){
     let date = new Date(isoDate);
     return (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear());
