@@ -28,7 +28,7 @@ export class EmailComponent implements OnInit  {
   numNoReadEmails : number = 0;
   selectedUsers = [];
   EReceived = [];
-  table_titles = ['sender','subject', 'createdAt'];
+  table_titles = ['sender','subject-content', 'createdAt'];
   dataSource:MatTableDataSource<Email>;
 
   constructor(public httpService: HttpService, public service: GeneralServiceService) { 
