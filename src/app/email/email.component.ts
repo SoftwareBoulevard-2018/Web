@@ -164,4 +164,14 @@ export class EmailComponent implements OnInit  {
       )
     return this.httpService.send(email).subscribe(data => console.log(data));
   }
+
+  emailDate(isoDate){
+    let date = new Date(isoDate);
+    return (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear());
+  }
+
+  emailHour(isoDate){
+    let date = new Date(isoDate);
+    return (date.getHours() + ":" + date.getMinutes());
+  }
 }
