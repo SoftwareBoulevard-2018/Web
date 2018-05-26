@@ -55,7 +55,6 @@ export class EmailComponent implements OnInit  {
 
   ngOnInit() {
     this.newEmailForm();
-    this.users = JSON.parse(JSON.stringify(this.service.users));
     this.getUsers();
   }
 
@@ -100,7 +99,7 @@ export class EmailComponent implements OnInit  {
     this.users = JSON.parse(JSON.stringify(this.service.users));
     this.dataSource = new MatTableDataSource(this.EReceived);
     this.read();
-
+    this.getUsers();
   }
   read(){
     this.EReceived = [];
