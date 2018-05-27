@@ -86,7 +86,7 @@ export class EmailComponent implements OnInit  {
       for(let i = 0; i<datos.data.length;i++){
           this.EReceived.push({
             id:datos.data[i].id,
-            sender:this.findUserById(datos.data[i].sender),
+            sender:datos.data[i].sender,
             subject:datos.data[i].subject,
             receivers:datos.data[i].receivers,
             content:datos.data[i].content,
@@ -164,31 +164,31 @@ export class EmailComponent implements OnInit  {
       )
     return this.httpService.send(email).subscribe(data => console.log(data));
   }
-  readEmail(email) {
+  readEmail(email,v) {
     this.selectedEmail = email;
     this.inInbox = false;
     this.inNewEmail = false;
     this.inSent = false;
     this.inAEmail = true;
-    alert(email.id);
-     if(email.acknowledgment == undefined){
+     if(v==0){
+       if(email.acknowledgment == undefined){
        email.acknowledgment = [];
       email.acknowledgment[0]=this.service.user.id;
-      console.log("agregar1");
       this.updateState(email,email.id);
      }else{
        var found = undefined;
-      for(let i =0;i<email.acknowledge.length;i++){
+      for(let i =0;i<email.acknowledgment.length;i++){
         if(email.acknowledgment[i]==this.service.user.id){
           found=true;
         }
       }
       if(found == undefined){
         email.acknowledgment.push(this.service.user.id);
-        console.log("agregar2");
         this.updateState(email,email.id);
       }
      }
+     }
+     
      this.starter();
     
   }
