@@ -115,13 +115,8 @@ export class EmailComponent implements OnInit  {
   }
   sent(){
     this.ESent = [];
-    return this.httpService.sended(this.service.user.id).subscribe(data =>{
+    return this.httpService.sent(this.service.user.id).subscribe(data =>{
       const datos =JSON.parse(JSON.stringify(data));
-      for(let i = 0; i<datos.data.length;i++){
-        for(let j= 0; j<datos.data[i].receivers.length;j++){
-              datos.data[i].receivers[j]=this.findUserById(datos.data[i].receivers[j]);
-        }
-      }
       for(let i = 0; i<datos.data.length;i++){
         this.ESent.push({
           id:datos.data[i].id,
