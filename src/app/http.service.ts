@@ -3,6 +3,7 @@ import { User } from './shared/user';
 import { Id } from './shared/id';
 import { Company } from './shared/company';
 import { Email } from './shared/email';
+import { Puzzle } from './shared/puzzle';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
@@ -21,13 +22,14 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  // static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static companiesURL = '/companies';
   static loginURL = '/login';
   static emailURL = '/emails';
+  static puzzlesURL = '/puzzles'
 
   // All services related to Users
   getAllUsers() {
@@ -81,4 +83,10 @@ export class HttpService {
   read(idUsuario) {
      return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/read/' + idUsuario);
   }
+  
+  //All services related to Puzzle
+  createPuzzle(puzzle : Puzzle) {
+	  return this.http.post<Puzzle>(HttpService.apiURL + HttpService.puzzlesURL,JSON.stringify(puzzle), HttpService.httpOptions);
+  }
+  
 }

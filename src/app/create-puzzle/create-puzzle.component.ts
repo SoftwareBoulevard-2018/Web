@@ -3,6 +3,8 @@ import { GeneralServiceService } from '../general-service.service';
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { MatSelect } from "@angular/material";
+import {HttpService} from '../http.service';
+import { Puzzle } from '../shared/puzzle';
 
 @Component({
   selector: 'app-create-puzzle',
@@ -14,10 +16,15 @@ export class CreatePuzzleComponent implements OnInit {
   name = 'Angular 4';
   url = '';
   formdata;
+  puzzle;
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router){}
 
-  constructor(public service: GeneralServiceService, public router: Router){}
-
-  onClickSubmit(value){}
+  
+  onClickSubmit(formdata){
+	  this.puzzle = new Puzzle(formdata.resources, this.url);
+	  return this.httpService.createPuzzle(this.puzzle).subscribe(formdata => console.log(formdata));
+  }
+  
 
   // shows the image when the file is selected
   onSelectFile(event) {
@@ -32,13 +39,5 @@ export class CreatePuzzleComponent implements OnInit {
     }
   }
   ngOnInit(){
-	  // Checks user permissions
-    if (this.service.user_type === undefined) {
-       this.router.navigate([''])
-     }
-
-    else if (this.service.user_type === "Team Member" || this.service.user_type === "Project Manager") {
-       this.router.navigate(['restricted'])
-     }
   }
 }
