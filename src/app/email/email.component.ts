@@ -16,7 +16,6 @@ export class EmailComponent implements OnInit  {
 
 
   formdata;
-
   users = [];
   emailWindowOpen = false;
   inInbox = true;
@@ -75,7 +74,7 @@ export class EmailComponent implements OnInit  {
   ngOnInit() {
     this.newEmailForm();
     this.getUsers();
-  }
+}
   openCloseEmail(){
     this.emailWindowOpen = !this.emailWindowOpen;
     this.users = JSON.parse(JSON.stringify(this.service.users));
@@ -121,6 +120,7 @@ export class EmailComponent implements OnInit  {
     this.ESent = [];
     return this.httpService.sended(this.service.user.id).subscribe(data =>{
       const datos =JSON.parse(JSON.stringify(data));
+      console.log(data);
       for(let i = 0; i<datos.data.length;i++){
         this.ESent.push({
           id:datos.data[i].id,
@@ -132,14 +132,14 @@ export class EmailComponent implements OnInit  {
         });
       }
       this.TSent.data = this.ESent;
-      console.log(this.ESent);
       /*data source*/
     });
   }
-  public starter(){
-    this.read();
-    this.getUsers();
-    this.sent();
+  starter(){
+       this.read();
+       this.getUsers();
+       this.sent();
+       this.newNotification();
   }
  submitEmail(data){
    let rec :[string] = [""]; 
@@ -162,8 +162,28 @@ export class EmailComponent implements OnInit  {
     this.inNewEmail = false;
     this.inSent = false;
     this.inAEmail = true;
+    alert(email.id);
+     if(email.acknowledgment == undefined){
+       email.acknowledgment = [];
+      email.acknowledgment[0]=this.service.user.id;
+      console.log("agregar1");
+      this.updateState(email,email.id);
+     }else{
+       var found = undefined;
+      for(let i =0;i<email.acknowledge.length;i++){
+        if(email.acknowledgment[i]==this.service.user.id){
+          found=true;
+        }
+      }
+      if(found == undefined){
+        email.acknowledgment.push(this.service.user.id);
+        console.log("agregar2");
+        this.updateState(email,email.id);
+      }
+     }
+     this.starter();
+    
   }
-
   toInbox(){
     this.inAEmail = false;
     this.inNewEmail = false;
@@ -185,6 +205,9 @@ export class EmailComponent implements OnInit  {
     this.inInbox = false;
     this.inSent = false;
     this.inNewEmail = true;
+  }
+  updateState(email, emailId){
+    return this.httpService.updateState(emailId,email).subscribe(data => {});
   }
   emailDate(isoDate){
     let date = new Date(isoDate);
