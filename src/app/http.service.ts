@@ -26,6 +26,7 @@ export class HttpService {
   static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
+  static usersURL3 = '/usersByRole';
   static companiesURL = '/companies';
   static loginURL = '/login';
   static emailURL = '/emails';
@@ -52,6 +53,10 @@ export class HttpService {
   getUserByRoleCompany(role, companyId) {
     return this.http.post<User[]>(HttpService.apiURL + HttpService.usersURL + HttpService.usersURL2,
       JSON.stringify({ role: role, companyId: companyId }), HttpService.httpOptions);
+  }
+  getUsersByRole(role) {
+    return this.http.post<User[]>(HttpService.apiURL + HttpService.usersURL + HttpService.usersURL3,
+      JSON.stringify({ role1: role }), HttpService.httpOptions);
   }
 
   // All services related to companies
@@ -83,10 +88,24 @@ export class HttpService {
   read(idUsuario) {
      return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/read/' + idUsuario);
   }
+<<<<<<< HEAD
   
   //All services related to Puzzle
   createPuzzle(puzzle : Puzzle) {
 	  return this.http.post<Puzzle>(HttpService.apiURL + HttpService.puzzlesURL,JSON.stringify(puzzle), HttpService.httpOptions);
   }
   
+=======
+  send(email: Email){
+    return this.http.post<Email>(HttpService.apiURL + HttpService.emailURL + '/send/',
+      JSON.stringify(email), HttpService.httpOptions);
+  }
+  sent(idUsuario) {
+     return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sent/' + idUsuario);
+  }  
+  updateState(idEmail, email){
+    return this.http.put<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/'+idEmail,
+      JSON.stringify(email), HttpService.httpOptions);
+  }
+>>>>>>> master
 }

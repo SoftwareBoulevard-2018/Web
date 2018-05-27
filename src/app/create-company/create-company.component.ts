@@ -36,11 +36,13 @@ export class CreateCompanyComponent implements OnInit {
 
   getUserByRoleCompany(role, companyId) {
     return this.httpService.getUserByRoleCompany(role, companyId).subscribe( data => {
+        console.log(data);
       if (Array.isArray(data)) {
         this.project_managers = data;
       } else {
         this.project_managers = [data];
       }
+      console.log(this.project_managers);
     }, error => {
       this.project_managers = [];
       }
@@ -96,14 +98,11 @@ export class CreateCompanyComponent implements OnInit {
       this.createCompany(data);
       this.invalid_url = false;
       this.success = true;
-      this.form();
     }
-    console.log(this.service.companies);
   }
 
   createCompany(formdata) {
     return this.httpService.createCompany(new Company(formdata.name, formdata.img)).subscribe( data => {
-      console.log(formdata.project_manager);
       this.updateUser({ companyId: data.id }, formdata.project_manager);
     });
   }
@@ -111,6 +110,7 @@ export class CreateCompanyComponent implements OnInit {
   updateUser(user, userId) {
     return this.httpService.updateUser(user, userId).subscribe(data => {
         console.log('success');
+        this.form();
       }
     );
   }

@@ -7,6 +7,10 @@
 .elementfield1{
   text-align: center;
 }
+button{
+  background-color: #009494;
+  color: white;
+}
 .elementfield2{
   text-align: center;
 }
@@ -32,6 +36,10 @@
 .announcement {
   text-align: center;
   color: red;
+}
+.elementexit5 {
+  text-align: center;
+  color: black;
 }
 mat-hint{
   color: #009494;

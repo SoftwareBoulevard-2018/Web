@@ -11,7 +11,6 @@ import {HttpService} from '../http.service';
 export class UserStatusComponent implements OnInit {
 
   // These variables help to define the efficiency (performance) of the users and the style of the performance bar
-  current_company;
   user;
   performance;
   color = 'primary';
@@ -51,8 +50,8 @@ export class UserStatusComponent implements OnInit {
       && this.user.correctProjectQuestions === 0) ) {
       this.performance = 0;
     } else {
-      this.performance = (this.user.correctTrainingQuestions +
-        this.user.correctProjectQuestions) / this.user.resourcesSpent;
+      this.performance = ((this.user.correctTrainingQuestions +
+        this.user.correctProjectQuestions) / this.user.resourcesSpent) * 100;
     }
       this.getCompanyById(data.companyId);
     console.log(this.user);
@@ -64,6 +63,8 @@ export class UserStatusComponent implements OnInit {
 
   getCompanyById(companyId) {
     return this.httpService.getCompanyById(companyId).subscribe(data => {
+      const fuck = JSON.parse(JSON.stringify(data));
+      this.user.id = fuck.id;
       this.user.companyName = data.name;
       this.user.companyImage = data.image;
     }, error => {
@@ -76,7 +77,7 @@ export class UserStatusComponent implements OnInit {
   }
   redirect2(event) {
     // redirects to company status defining the necessary data
-    this.service.company_to_be_updated = this.current_company.id;
+    this.service.company_to_be_updated = this.user.id;
     this.router.navigate(['home/companies/company-status']);
   }
   /* date_formatter(date?: Date) {

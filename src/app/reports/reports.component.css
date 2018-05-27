@@ -57,3 +57,6 @@ img{
   color: red!important;
   font-weight: bold;
 }
+.mat-icon{
+  cursor: pointer;
+}

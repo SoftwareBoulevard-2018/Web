@@ -1,3 +1,4 @@
+/* the text alignment are assigned and the color of the text messages */
 /deep/ .mat-input-underline{
   border-bottom: 1px solid #009494!important;
 }
@@ -6,6 +7,14 @@
 }
 .element2{
   margin-bottom: 10px;
+}
+.announcement {
+  text-align: center;
+  color: red;
+}
+button{
+  background-color: #009494;
+  color: white;
 }
 .error{
   color: red;

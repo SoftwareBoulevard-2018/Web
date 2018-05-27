@@ -76,9 +76,7 @@
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-raised-button (click)="redirect($event,element)">
-          See status
-        </button>
+        <mat-icon mat-list-icon (click)="redirect($event,element)">remove_red_eye</mat-icon>
       </mat-cell>
     </ng-container>
 
@@ -86,9 +84,7 @@
     <ng-container matColumnDef="update">
       <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-raised-button (click)="redirect2($event,element)">
-          Update
-        </button>
+        <mat-icon mat-list-icon (click)="redirect2($event,element)">create</mat-icon>
       </mat-cell>
     </ng-container>
 

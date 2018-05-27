@@ -15,11 +15,6 @@ export class CompaniesComponent implements OnInit {
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {
   }
 
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ViewChild(MatSort) sort: MatSort;
-
-  // Variables used for the creation of the material table
-
   companies = [];
   companies2: MatTableDataSource<Company>;
 
@@ -35,12 +30,8 @@ export class CompaniesComponent implements OnInit {
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
       this.router.navigate(['restricted']);
     } else {
-      /* this.companies = JSON.parse(JSON.stringify(this.service.companies));
-      this.companies2 = new MatTableDataSource(this.companies); */
       this.companies2 = new MatTableDataSource(this.companies);
       this.getAllCompanies();
-      // this.users2.paginator = this.paginator;
-      // this.users2.sort = this.sort;
     }
   }
 
@@ -58,21 +49,25 @@ export class CompaniesComponent implements OnInit {
 
   getUserByRoleCompany(role, company) {
     return this.httpService.getUserByRoleCompany(role, company.id).subscribe(data => {
-      const fuck = JSON.parse(JSON.stringify(data));
-      company.projectManager = fuck.username;
-      this.companies.push({ id: company.id, createdAt: company.createdAt,
-        name: company.name, image: company.image,
-        capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager});
-      this.companies2.data = this.companies;
-      console.log(this.companies2);
-      console.log(data);
-    }, error => {
-      company.projectManager = undefined;
-      this.companies.push({ id: company.id, createdAt: company.createdAt,
-        name: company.name, image: company.image,
-        capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager});
-      this.companies2.data = this.companies;
-      console.log(this.companies2);
+        const fuck = JSON.parse(JSON.stringify(data));
+      if (fuck[0] !== undefined) {
+        company.projectManager = fuck[0].username;
+        this.companies.push({
+          id: company.id, createdAt: company.createdAt,
+          name: company.name, image: company.image,
+          capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager
+        });
+        this.companies2.data = this.companies;
+        console.log(this.companies2);
+        console.log(data);
+      } else {
+        company.projectManager = undefined;
+        this.companies.push({ id: company.id, createdAt: company.createdAt,
+          name: company.name, image: company.image,
+          capacityK: company.capacityK, companyResource: company.companyResource, projectManager: company.projectManager});
+        this.companies2.data = this.companies;
+        console.log(this.companies2);
+      }
     });
   }
 
@@ -81,14 +76,6 @@ export class CompaniesComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.companies2.filter = filterValue;
-  }
-
-  search_company(name) {
-    for (const company of this.service.companies) {
-      if (company.name === name) {
-        return company;
-      }
-    }
   }
 
   redirect(event, element) {

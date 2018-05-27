@@ -1,17 +1,14 @@
 export class Email{
-	id: string;
 	sender: string;
+	subject: string
 	receivers: [string];
 	content: string;
-	createdAt: string;
 	acknowledgment: [string];
-	constructor( id?: string, sender?:  string, receivers?: [string], content?: string, state?: string, 
-		createdAt?: string, acknowledgment?: [string]){
-		this.id = id;
+	constructor(sender?:  string, subject?: string, receivers?: [string], content?: string){
 		this.receivers = receivers;
+		this.subject = subject;
 		this.sender = sender;
 		this.content = content;
-		this.createdAt = createdAt;
-		this.acknowledgment = acknowledgment;
+		this.acknowledgment = [""];
 	}
 }
