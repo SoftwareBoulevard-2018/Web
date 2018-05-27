@@ -111,7 +111,7 @@
 						<!-- Sender Column -->
 						<ng-container matColumnDef="receivers">
 							<mat-header-cell *matHeaderCellDef> Receivers </mat-header-cell>
-							<mat-cell *matCellDef="let email"> <span *ngFor="let receiver of email.receivers"> {{receiver}},</span></mat-cell>
+							<mat-cell *matCellDef="let email"> <span *ngFor="let receiver of email.receivers"> {{findUserById(receiver)}},</span></mat-cell>
 						</ng-container>
 					
 						<!-- Email Column -->
@@ -163,7 +163,7 @@
 											<h4>{{findUserById(selectedEmail.sender)}}</h4>
 									</div>
 									<div class="w3-row receiver">
-										<p>to me {{selectedEmail.receiver}}</p>
+										<p>to me <span *ngFor="let receiver of selectedEmail.receivers"> {{findUserById(receiver)}} - </span></p>
 									</div>
 								</div>
 							</div>
