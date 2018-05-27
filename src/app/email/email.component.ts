@@ -16,7 +16,6 @@ export class EmailComponent implements OnInit  {
 
 
   formdata;
-
   users = [];
   emailWindowOpen = false;
   inInbox = true;
@@ -75,7 +74,7 @@ export class EmailComponent implements OnInit  {
   ngOnInit() {
     this.newEmailForm();
     this.getUsers();
-  }
+}
   openCloseEmail(){
     this.emailWindowOpen = !this.emailWindowOpen;
     this.users = JSON.parse(JSON.stringify(this.service.users));
@@ -121,6 +120,7 @@ export class EmailComponent implements OnInit  {
     this.ESent = [];
     return this.httpService.sended(this.service.user.id).subscribe(data =>{
       const datos =JSON.parse(JSON.stringify(data));
+      console.log(data);
       for(let i = 0; i<datos.data.length;i++){
         this.ESent.push({
           id:datos.data[i].id,
@@ -135,10 +135,11 @@ export class EmailComponent implements OnInit  {
       /*data source*/
     });
   }
-  public starter(){
-    this.read();
-    this.getUsers();
-    this.sent();
+  starter(){
+       this.read();
+       this.getUsers();
+       this.sent();
+       this.newNotification();
   }
  submitEmail(data){
    let rec :[string] = [""]; 
