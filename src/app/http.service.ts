@@ -23,8 +23,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  // static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -102,8 +102,15 @@ export class HttpService {
   }
 
   //All services related to records
+  createRecord(record: Record) {
+    return this.http.post<any>(HttpService.apiURL + HttpService.recordsURL,
+      JSON.stringify(record), HttpService.httpOptions);
+  }
   getAllRecords() {
     return this.http.get<Record[]>(HttpService.apiURL + HttpService.recordsURL);
+  }
+  getRecordsByCompany(company: string) {
+    return this.http.get<Record[]>(HttpService.apiURL + HttpService.recordsURL + '/' + company);
   }
 
   //All services related to Projects
