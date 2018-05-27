@@ -1,6 +1,7 @@
 <div class="overlay" [ngClass]="{'open': emailWindowOpen}" (click)="openCloseEmail()"></div>
 
 <div *ngIf="!(this.service.user_type === undefined)"  class="open-email-button" (click)="openCloseEmail()" [ngClass]="{'open': emailWindowOpen}">
+	
 	<div class="email-count-badge">{{numNoReadEmails}}</div>
 
 	<div class="close-boton">
@@ -90,7 +91,7 @@
 							</mat-cell>
 						</ng-container>
 						
-						<mat-row *matRowDef="let row; columns: table_titles;" [ngClass]="{'unread': 'unread' == row.state}" (click)="readEmail(row)" >
+						<mat-row *matRowDef="let row; columns: table_titles;" (click)="readEmail(row)" >
 							
 						</mat-row>
 						
