@@ -32,6 +32,8 @@ export class HttpService {
   static loginURL = '/login';
   static emailURL = '/emails';
   static recordsURL = '/records';
+  static getCurrentCompanyURL = '/getCurrentProject';
+  static getBiddingProjectURL = '/biddingProjects';
 
   // All services related to Users
   getAllUsers() {
@@ -112,9 +114,13 @@ export class HttpService {
   getRecordsByCompany(company: string) {
     return this.http.get<Record[]>(HttpService.apiURL + HttpService.recordsURL + '/' + company);
   }
+  getRecordsByFinishDateAndCompany(finishDate, company) {
+    return this.http.post<Record>(HttpService.apiURL + HttpService.recordsURL + HttpService.getCurrentCompanyURL,
+      JSON.stringify({company: company , finishDate: finishDate}), HttpService.httpOptions);
+  }
 
   //All services related to Projects
   getBiddingProjectById(id: String) {
-    return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.recordsURL);
+    return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
   }
 }

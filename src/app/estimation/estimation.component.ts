@@ -23,7 +23,8 @@ export class EstimationComponent implements OnInit {
   can_estimate = true;
   have_resources = true;
   current_company: Company;
-  current_project: InstantProject;    // shouldn't be an instant but a bidding project
+  current_project;    // shouldn't be an instant but a bidding project
+  threshold;
 
   constructor(public service: GeneralServiceService, public httpService: HttpService, public router: Router) {
   }
@@ -42,22 +43,27 @@ export class EstimationComponent implements OnInit {
   }
 
   fillCompany() {
-    this.httpService.getCompanyById(this.service.user.companyId).subscribe((comp: Company) => {
-    this.current_company = comp;
-    this.fillProject(comp);
+    this.httpService.getCompanyById(this.service.user.companyId).subscribe(data => {
+    this.current_company = data;
+    this.fillProject(data);
     });
   }
 
-  fillProject(comp: Company) {
-    this.httpService.getAllRecords().subscribe((records: Record[]) => this.findProjectByRecord(records));
+  fillProject(company) {
+    this.httpService.getRecordsByFinishDateAndCompany(null, company.id).subscribe(data => this.findProjectByRecord(data));
   }
 
-  findProjectByRecord(records: Record[]) {
-    for(let record of records) {
-      if (this.service.user.companyId === record.company) {
-        record.project;
-      }
-    }
+  findProjectByRecord(record) {
+    this.httpService.getBiddingProjectById(record.project).subscribe(data => {this.current_project = data;
+      this.getThreshold();
+    });
+  }
+
+  getThreshold() {
+    this.httpService.getUsersByRole('Game Administrator').subscribe(data => {
+      const data2 = JSON.parse(JSON.stringify(data));
+      this.threshold = data2[0].threshold;
+    });
   }
 
   getProject(username){
@@ -111,6 +117,9 @@ export class EstimationComponent implements OnInit {
   }
 
   sendEstimation(guess) {
+    // const newCompany = [companyResource : this.current_company.companyResource - 1]
+    // updateCompany(newCompany, this.service.user.companyId);
+
     const project_name = this.getProject(this.service.username).project_name;
     if (this.service.username !== undefined && project_name !== undefined && guess.time !== undefined && guess.cost !== undefined ) {
       this.service.estimations.push( new Estimation(this.service.username, project_name, guess.cost, guess.time));
@@ -153,6 +162,9 @@ export class EstimationComponent implements OnInit {
   }
 
   onClickSubmit(guess) {
+    //TODO: Renovar la compañia con cada click
+    //TODO: Primero enviar la solicitud a la bd y luego cambio el recurso en el objeto a mano
+    // this.fillCompany();
     this.correct_guess = false;
     this.incorrect_time = false;
     this.incorrect_cost = false;
