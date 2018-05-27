@@ -8,6 +8,8 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
+import {Record} from "./shared/record";
+import {BiddingProject} from "./shared/biddingProject";
 
 @Injectable()
 
@@ -29,6 +31,7 @@ export class HttpService {
   static companiesURL = '/companies';
   static loginURL = '/login';
   static emailURL = '/emails';
+  static recordsURL = '/records';
 
   // All services related to Users
   getAllUsers() {
@@ -92,9 +95,19 @@ export class HttpService {
   }
   sended(idUsuario) {
      return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sended/' + idUsuario);
-  }  
+  }
   updateState(idEmail, email){
     return this.http.put<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/'+idEmail,
       JSON.stringify(email), HttpService.httpOptions);
+  }
+
+  //All services related to records
+  getAllRecords() {
+    return this.http.get<Record[]>(HttpService.apiURL + HttpService.recordsURL);
+  }
+
+  //All services related to Projects
+  getBiddingProjectById(id: String) {
+    return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.recordsURL);
   }
 }

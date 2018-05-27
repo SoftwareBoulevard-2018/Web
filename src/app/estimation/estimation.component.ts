@@ -5,6 +5,10 @@ import {Router} from '@angular/router';
 import {Company} from '../shared/company';
 import {BiddingProject} from '../shared/biddingProject';
 import {Estimation} from '../shared/estimation';
+import {HttpService} from '../http.service';
+import {User} from "../shared/user";
+import {Record} from "../shared/record";
+import {InstantProject} from "../shared/instantProject";
 
 @Component({
   selector: 'app-estimation',
@@ -18,8 +22,10 @@ export class EstimationComponent implements OnInit {
   correct_guess = false;
   can_estimate = true;
   have_resources = true;
+  current_company: Company;
+  current_project: InstantProject;    // shouldn't be an instant but a bidding project
 
-  constructor(public service: GeneralServiceService, public router: Router) {
+  constructor(public service: GeneralServiceService, public httpService: HttpService, public router: Router) {
   }
 
   form() {
@@ -33,6 +39,25 @@ export class EstimationComponent implements OnInit {
           Validators.required
         ]))
     });
+  }
+
+  fillCompany() {
+    this.httpService.getCompanyById(this.service.user.companyId).subscribe((comp: Company) => {
+    this.current_company = comp;
+    this.fillProject(comp);
+    });
+  }
+
+  fillProject(comp: Company) {
+    this.httpService.getAllRecords().subscribe((records: Record[]) => this.findProjectByRecord(records));
+  }
+
+  findProjectByRecord(records: Record[]) {
+    for(let record of records) {
+      if (this.service.user.companyId === record.company) {
+        record.project;
+      }
+    }
   }
 
   getProject(username){
@@ -98,6 +123,7 @@ export class EstimationComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.fillCompany();
     if (this.service.user_type === undefined) {
      this.router.navigate(['']);
     }
