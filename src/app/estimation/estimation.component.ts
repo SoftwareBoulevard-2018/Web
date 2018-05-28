@@ -30,7 +30,7 @@ export class EstimationComponent implements OnInit {
   min_time;
   max_cost;
   min_cost;
-  has_bidding_project;
+  has_bidding_project = true;
 
   constructor(public service: GeneralServiceService, public httpService: HttpService, public router: Router) {
   }
@@ -51,7 +51,6 @@ export class EstimationComponent implements OnInit {
   fillCompany() {
     this.httpService.getCompanyById(this.service.user.companyId).subscribe(data => {
     this.current_company = data;
-    console.log(this.current_company);
     this.fillProject(data);
     },
       error => {  this.current_company = undefined;
@@ -71,11 +70,14 @@ export class EstimationComponent implements OnInit {
   findProjectByRecord(record) {
     this.httpService.getBiddingProjectById(record.project).subscribe(data => {this.current_project = data;
       this.getThreshold();
+    }, error => {  this.current_project = undefined;
+      this.load_complete = true;
+      this.can_estimate = false;
     });
   }
 
   getThreshold() {
-    this.httpService.getUsersByRole('Game Administrator').subscribe(data => {
+      this.httpService.getUsersByRole('Game Administrator').subscribe(data => {
       const data2 = JSON.parse(JSON.stringify(data));
       this.threshold = data2[0].threshold;
       this.max_time = this.current_project.time + this.current_project.time * this.threshold;
@@ -85,18 +87,15 @@ export class EstimationComponent implements OnInit {
 
       let has_company = true;
       let has_enough_resources = true;
-      let has_bidding_project = true;
 
       has_company = (this.service.user.companyId !== null || this.service.user.companyId !== undefined);
       if(has_company){
         has_enough_resources = (this.current_company.companyResource >= 1);
       }
 
-      has_bidding_project = (this.max_time >= 0);
+      this.has_bidding_project = (this.max_time >= 0);
       this.load_complete = true;
-      this.can_estimate = has_company && has_enough_resources && has_bidding_project;
-      console.log(this.current_company);
-      console.log(this.current_project);
+      this.can_estimate = has_company && has_enough_resources && this.has_bidding_project;
     });
   }
 
