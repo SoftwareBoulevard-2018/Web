@@ -171,7 +171,7 @@
         Exit
       </button>
 
-      <button mat-raised-button color="warn" type="submit" (click)="redirectToFunctions($event)" [disabled] = "(!solved_puzzle)" class="forsubmit">
+      <button mat-raised-button type="submit" (click)="verifyPuzzle($event)" [disabled] = "(!solved_puzzle)" class="forsubmit">
         Validate
       </button>
     </div>

@@ -23,9 +23,6 @@ export class GenerateresourcesComponent implements OnInit {
   solvable_puzzles = [[15, 2, 1, 12, 8, 5, 6, 11, 4, 9, 10, 7, 3, 14, 13, 16],
                       [6, 1, 10, 2, 7, 11, 4, 14, 5, 16, 9, 15, 8, 12, 13, 3]];
 
-  redirect1(event) {
-    this.solved_puzzle = true;
-  }
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {
   }
 
