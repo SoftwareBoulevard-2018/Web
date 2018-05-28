@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
@@ -19,6 +19,7 @@ export class EmailComponent implements OnInit  {
   inSent = false;
   inAEmail = false;
   inNewEmail = false;
+  showAllReceivers = false;
   selectedEmail : Email;
   numNoReadEmails : number = 0;
   selectedUsers = [];
@@ -26,10 +27,22 @@ export class EmailComponent implements OnInit  {
   ESent = [];
   table_titles = ['sender','subject-content', 'createdAt'];
   table_titles_sent =['receivers','subject-content', 'createdAt'];
+
   TInbox:MatTableDataSource<Email>;
   TSent:MatTableDataSource<Email>;
+
   constructor(public httpService: HttpService, public service: GeneralServiceService) { 
   }
+
+  ngOnInit() {
+    this.newEmailForm();
+    this.getUsers();
+    this.TInbox = new MatTableDataSource(this.EReceived);
+    this.TSent = new MatTableDataSource(this.ESent);
+  }
+
+  @ViewChild('paginatorInbox') paginatorInbox: MatPaginator;
+  @ViewChild('paginatorSent') paginatorSent: MatPaginator;
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -43,6 +56,7 @@ export class EmailComponent implements OnInit  {
       this.users=JSON.parse(JSON.stringify(data)).data;
     });
   }
+
   newEmailForm() {
     // Defines the default state of the forms
     this.formdata = new FormGroup({
@@ -63,20 +77,20 @@ export class EmailComponent implements OnInit  {
   newNotification(){
     this.numNoReadEmails = this.EReceived.length;
   }
+
   ngAfterViewInit() {
-    this.TInbox.paginator = this.paginator;
-    this.TSent.paginator = this.paginator;
+    this.TInbox.paginator = this.paginatorInbox;
+    this.TSent.paginator = this.paginatorSent;
   }
-  ngOnInit() {
-    this.newEmailForm();
-    this.getUsers();
-}
+
   openCloseEmail(){
     this.emailWindowOpen = !this.emailWindowOpen;
+
     this.users = JSON.parse(JSON.stringify(this.service.users));
     this.TInbox = new MatTableDataSource(this.EReceived);
     this.TSent = new MatTableDataSource(this.ESent);
     this.starter();
+    setTimeout(() => this.ngAfterViewInit());
   }
   read(){
     this.EReceived = [];
@@ -90,6 +104,7 @@ export class EmailComponent implements OnInit  {
             subject:datos.data[i].subject,
             receivers:datos.data[i].receivers,
             content:datos.data[i].content,
+            acknowledgment: datos.data[i].acknowledgment,
             createdAt:datos.data[i].createdAt});
       }
       this.TInbox.data = this.EReceived;
@@ -120,6 +135,7 @@ export class EmailComponent implements OnInit  {
       for(let i = 0; i<datos.data.length;i++){
         this.ESent.push({
           id:datos.data[i].id,
+          sender:datos.data[i].sender,
           subject:datos.data[i].subject,
           receivers:datos.data[i].receivers,
           content:datos.data[i].content,
@@ -159,39 +175,84 @@ export class EmailComponent implements OnInit  {
       )
     return this.httpService.send(email).subscribe(data => console.log(data));
   }
+
+  checkEmailState(email,userID){
+    var unreaded = true;
+
+    if(email.acknowledgment == undefined){
+      return unreaded;
+    }
+    else {
+      for(let i=0;i<email.acknowledgment.length;i++){
+        if(email.acknowledgment[i]==userID){
+          return !unreaded;
+        }
+      }
+      return unreaded;
+    }
+  }
+
   readEmail(email,v) {
     this.selectedEmail = email;
     this.inInbox = false;
     this.inNewEmail = false;
     this.inSent = false;
     this.inAEmail = true;
-     if(v==0){
-       if(email.acknowledgment == undefined){
-       email.acknowledgment = [];
-      email.acknowledgment[0]=this.service.user.id;
-      this.updateState(email,email.id);
-     }else{
-       var found = undefined;
-      for(let i =0;i<email.acknowledgment.length;i++){
-        if(email.acknowledgment[i]==this.service.user.id){
-          found=true;
-        }
-      }
-      if(found == undefined){
-        email.acknowledgment.push(this.service.user.id);
+    if(v==0){
+      if(email.acknowledgment == undefined){
+        email.acknowledgment = [];
+        email.acknowledgment[0]=this.service.user.id;
         this.updateState(email,email.id);
       }
-     }
-     }
-     
-     this.starter();
-    
+      else{
+        var found = undefined;
+        for(let i=0;i<email.acknowledgment.length;i++){
+          if(email.acknowledgment[i]==this.service.user.id){
+            found=true;
+          }
+        }
+        if(found == undefined){
+          email.acknowledgment.push(this.service.user.id);
+          this.updateState(email,email.id);
+        }
+      }
+    }  
+    this.starter();
   }
+
+  // sheLeftMeInBlue(receiverId){
+
+  // }
+
+  printReceivers(receivers){
+    var receiversName = [];
+    for( let i = 0; i < receivers.length; i++ ){
+      receiversName.push(this.findUserById(receivers[i]));
+    }
+    if (receivers.length == 1){
+      return receiversName[0];
+    }
+    else {
+      var printable;
+      for( let i = 0; i < receivers.length; i++ ){
+        if (i == 0){
+          printable = receiversName[i].split(" ")[0];
+        }
+        else{
+          printable = printable +  ", " + receiversName[i].split(" ")[0];
+        }
+      }
+      return printable;
+    }
+  }
+
+
   toInbox(){
     this.inAEmail = false;
     this.inNewEmail = false;
     this.inSent = false;
     this.inInbox = true;
+    console.log(this.EReceived);
     setTimeout(() => this.ngAfterViewInit());
   }
 
@@ -222,5 +283,22 @@ export class EmailComponent implements OnInit  {
     return (date.getHours() + ":" + date.getMinutes());
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('inEmailReceivers') elementView: ElementRef;
+  containerHeight = 40;
+  displayAllReceivers() {
+
+    if (this.showAllReceivers) {
+      this.containerHeight = 40;
+    }
+    else {
+      var viewHeight;
+      viewHeight = this.elementView.nativeElement.offsetHeight;
+      this.containerHeight = viewHeight + 20;
+
+    }
+    
+    this.showAllReceivers = !this.showAllReceivers;
+  }
+
+  
 }
