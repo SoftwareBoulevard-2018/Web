@@ -116,23 +116,21 @@ export class GenerateresourcesComponent implements OnInit {
     const direction = this.mapArrayToMatrix(tile.getCurrent_placement());
     const tile_i = direction[0];
     const tile_j = direction[1];
-    let candidates2 = [];
 
     let candidates = [[tile_i - 1, tile_j], [tile_i + 1, tile_j], [tile_i, tile_j - 1], [tile_i, tile_j + 1]];
-    candidates2 = candidates;
-    console.log(candidates2 + "todas las szs");
     // filter locations outside of the matrix
-    for (let tuple of candidates) {
+    for (let i = 0; i <= candidates.length - 1; i++) {
+      let tuple = candidates[i];
       if (tuple[0] < 0 || tuple[0] > 3 || tuple[1] < 0 || tuple[1] > 3) {
+
         candidates.splice(candidates.indexOf(tuple), 1);
-        console.log(candidates + "estos es borde");
+        i -= 1;
       }
       else {
         let potential_tile = this.current_matrix[tuple[0]][tuple[1]];
         if (potential_tile.isEmpty) {
           return tuple;
         }
-        console.log(candidates + "aqui no es borde");
       }
     }
     return -1;  // cant move the piece
@@ -140,16 +138,14 @@ export class GenerateresourcesComponent implements OnInit {
 
   // candidate is the name of the tile the user wants to move
   moveTile(event, position_array: number) {
-    console.log(position_array);
-    const tuple = this.mapArrayToMatrix(position_array);
+    let tuple = this.mapArrayToMatrix(position_array);
     let candidate = this.current_matrix[tuple[0]][tuple[1]];
-    const empty_direction = this.isMovableTile(candidate);
+    let empty_direction = this.isMovableTile(candidate);
     if (empty_direction !== -1) {
-      console.log("move your puzzle ;)");
-      const emptyTile = this.current_matrix[empty_direction[0]][empty_direction[1]];
-      const newCurrentPlacement = emptyTile.getCurrent_placement();
-      const newEmptyPlacement = candidate.getCurrent_placement();
-      const newEmptyTuple = this.mapArrayToMatrix(newEmptyPlacement);
+      let emptyTile = this.current_matrix[empty_direction[0]][empty_direction[1]];
+      let newCurrentPlacement = emptyTile.getCurrent_placement();
+      let newEmptyPlacement = candidate.getCurrent_placement();
+      let newEmptyTuple = this.mapArrayToMatrix(newEmptyPlacement);
 
       candidate.setCurrent_placement(newCurrentPlacement);
       emptyTile.setCurrent_placement(newEmptyPlacement);
