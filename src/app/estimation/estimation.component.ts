@@ -22,6 +22,7 @@ export class EstimationComponent implements OnInit {
   correct_guess = false;
   can_estimate = true;
   have_resources = true;
+  load_complete = false;
   current_company;
   current_project;    // shouldn't be an instant but a bidding project
   threshold;
@@ -49,12 +50,21 @@ export class EstimationComponent implements OnInit {
   fillCompany() {
     this.httpService.getCompanyById(this.service.user.companyId).subscribe(data => {
     this.current_company = data;
+    console.log(this.current_company);
     this.fillProject(data);
+    },
+      error => {  this.current_company = undefined;
+                        this.load_complete = true;
+                        this.can_estimate = false;
     });
   }
 
   fillProject(company) {
-    this.httpService.getRecordsByFinishDateAndCompany(null, company.id).subscribe(data => this.findProjectByRecord(data));
+    this.httpService.getRecordsByFinishDateAndCompany(null, company.id).subscribe(data => this.findProjectByRecord(data),
+      error => {  this.current_project = undefined;
+        this.load_complete = true;
+        this.can_estimate = false;
+      });
   }
 
   findProjectByRecord(record) {
@@ -71,8 +81,21 @@ export class EstimationComponent implements OnInit {
       this.min_time = this.current_project.time - this.current_project.time * this.threshold;
       this.max_cost = this.current_project.cost + this.current_project.cost * this.threshold;
       this.min_cost = this.current_project.cost - this.current_project.cost * this.threshold;
-      console.log(this.current_project);
+
+      let has_company = true;
+      let has_enough_resources = true;
+      let has_bidding_project = true;
+
+      has_company = (this.service.user.companyId !== null || this.service.user.companyId !== undefined);
+      if(has_company){
+        has_enough_resources = (this.current_company.companyResource >= 1);
+      }
+
+      has_bidding_project = (this.max_time >= 0);
+      this.load_complete = true;
+      this.can_estimate = has_company && has_enough_resources && has_bidding_project;
       console.log(this.current_company);
+      console.log(this.current_project);
     });
   }
 
@@ -97,6 +120,7 @@ export class EstimationComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.form();
     if (this.service.user_type === undefined) {
      this.router.navigate(['']);
     }
@@ -105,22 +129,6 @@ export class EstimationComponent implements OnInit {
     }
     else {
       this.fillCompany();
-      let has_company = true;
-      let has_enough_resources = true;
-      let has_bidding_project = true;
-
-      has_company = (this.current_company !== undefined);
-      if(has_company){
-        has_enough_resources = (this.current_company.companyResource >= 1);
-      }
-      has_bidding_project = this.current_project instanceof BiddingProject;
-
-      if (has_company && has_enough_resources && has_bidding_project){
-          this.form();
-      }
-      else {
-        this.can_estimate = false;
-      }
     }
   }
 
