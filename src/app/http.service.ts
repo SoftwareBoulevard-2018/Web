@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from './shared/user';
+import { Puzzle } from './shared/puzzle';
 import { Id } from './shared/id';
 import { Company } from './shared/company';
 import { Email } from './shared/email';
@@ -32,6 +33,7 @@ export class HttpService {
   static loginURL = '/login';
   static emailURL = '/emails';
   static recordsURL = '/records';
+  static puzzleURL = '/puzzles';
   static getCurrentCompanyURL = '/getCurrentProject';
   static getBiddingProjectURL = '/biddingProjects';
 
@@ -117,6 +119,11 @@ export class HttpService {
   getRecordsByFinishDateAndCompany(finishDate, company) {
     return this.http.post<Record>(HttpService.apiURL + HttpService.recordsURL + HttpService.getCurrentCompanyURL,
       JSON.stringify({company: company , finishDate: finishDate}), HttpService.httpOptions);
+  }
+
+  //All services related to Puzzles
+  getAllPuzzles() {
+    return this.http.get<Puzzle[]>(HttpService.apiURL + HttpService.puzzleURL);
   }
 
   //All services related to Projects
