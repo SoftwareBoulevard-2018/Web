@@ -36,7 +36,7 @@
 			
 			<div class="buttons-container">
 
-				<div class="w3-row newemail-button" (click)="toNewEmail()">
+				<div class="w3-row newemail-button" [ngClass]="{'active': inNewEmail}" (click)="toNewEmail()">
 					<span class="w3-col l9 s9">New Email</span>
 					<div class="icon-newemail w3-col l3 s3"></div>
 				</div>

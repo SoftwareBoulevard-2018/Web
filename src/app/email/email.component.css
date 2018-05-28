@@ -213,7 +213,7 @@ naranja #FF5729
 	transition: all .4s ease;
 }
 
-.email-body-container .email-controls .buttons-container .newemail-button:hover {
+.email-body-container .email-controls .buttons-container .newemail-button:hover , .email-body-container .email-controls .buttons-container .newemail-button.active {
 	background-color: #009494;
 	-webkit-box-shadow: 0px 0px 15x 0px rgba(0,0,0,0.8);
 	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
@@ -240,6 +240,10 @@ naranja #FF5729
 
 .email-body-container .email-controls .buttons-container .newemail-button:hover .icon-newemail {
 	background-color: rgb(122, 121, 121);
+}
+
+.email-body-container .email-controls .buttons-container .newemail-button.active .icon-newemail {
+	background-color: rgb(122, 121, 121);	
 }
 
 .email-body-container .email-controls .buttons-container .inbox-sent-buttons-container .control-button {
@@ -332,7 +336,7 @@ naranja #FF5729
 }
 
 .main-email-container .mat-row {
-	background: rgba(231, 231, 231, 0.85);
+	background: rgba(240, 240, 240, 0.6);
 	cursor: pointer;
 }
 
@@ -455,7 +459,7 @@ naranja #FF5729
 
 .email-body-container .main-email-container .read-email-container .email-content-container {
 	background: rgb(207, 207, 207);
-	border-radius: 5px 5px 5px 0;
+	border-radius: 0px 5px 5px 5px;
 	padding: 10px;
 	max-height: 77%;
 	margin-right: 5px;	
