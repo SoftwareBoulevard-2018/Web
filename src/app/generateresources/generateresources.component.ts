@@ -3,6 +3,9 @@ import {BiddingProject} from '../shared/biddingProject';
 import {GeneralServiceService} from '../general-service.service';
 import {Router} from '@angular/router';
 import {PuzzleTile} from '../shared/puzzleTile';
+import {HttpService} from "../http.service";
+import {Puzzle} from "../shared/puzzle";
+
 
 @Component({
   selector: 'app-generateresources',
@@ -11,6 +14,8 @@ import {PuzzleTile} from '../shared/puzzleTile';
 })
 export class GenerateresourcesComponent implements OnInit {
 
+  puzzles = [];
+  real_puzzle;
   solved_puzzle = false;
   correct_matrix = [];
   current_matrix = [];
@@ -20,27 +25,40 @@ export class GenerateresourcesComponent implements OnInit {
   redirect1(event) {
     this.solved_puzzle = true;
   }
-  constructor(public service: GeneralServiceService, public router: Router) {
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {
   }
 
   redirectToFunctions(event) {
     this.router.navigate(['home/users/projectmanager/functions']);
   }
 
-  initializePuzzle() {
+  getAllPuzzles() {
+    return this.httpService.getAllPuzzles().subscribe(data => {
+      const data2 = JSON.parse(JSON.stringify((data)));
+      this.real_puzzle = data2.data[this.randomIntFromInterval(0, this.puzzles.length-1)];
+      this.initializePuzzle(data2);
+    });
+  }
+
+  initializePuzzle(data2) {
+    this.puzzles = data2;
+    console.log(data2);
+    let image: string;
     let position = 0;
     for (let i = 0; i <= 3; i++) {
       this.correct_matrix.push([]);
       for (let j = 0; j <= 3; j++) {
         position += 1;
         if (i === 3 && j === 3) {     // empty piece
-          this.correct_matrix[i].push(new PuzzleTile(position, position, true));
+          this.correct_matrix[i].push(new PuzzleTile(position, position, true, 'puzzleImages/black.jpg'));
         }
         else {
-          this.correct_matrix[i].push(new PuzzleTile(position, position, false));
+          image = this.real_puzzle.slicedImage[position-1];
+          this.correct_matrix[i].push(new PuzzleTile(position, position, false, image));
         }
       }
     }
+    console.log(this.correct_matrix);
     this.shuffleMatrix();   // scrambles the matrix that represents the puzzle the user has to solve
     // dibujar current_matrix
   }
@@ -172,8 +190,7 @@ export class GenerateresourcesComponent implements OnInit {
       this.router.navigate(['restricted']);
     }
     else {
-      this.initializePuzzle();
-      this.moveTile(new PuzzleTile(13, 15, false));
+      this.getAllPuzzles();
     }
   }
 
