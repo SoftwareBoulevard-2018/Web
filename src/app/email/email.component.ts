@@ -11,7 +11,6 @@ import { Email } from '../shared/email';
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit  {
-
   formdata;
   users =[];
   emailWindowOpen = false;
@@ -65,7 +64,7 @@ export class EmailComponent implements OnInit  {
   }
   ngAfterViewInit() {
     this.TInbox.paginator = this.paginator;
-    this.TSent.paginator = this.paginator;
+    this.TSent.paginator = this.paginator2;
   }
   ngOnInit() {
     this.newEmailForm();
@@ -222,5 +221,5 @@ export class EmailComponent implements OnInit  {
     return (date.getHours() + ":" + date.getMinutes());
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator; paginator2: MatPaginator;
 }
