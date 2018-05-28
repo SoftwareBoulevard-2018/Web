@@ -95,6 +95,7 @@
     </form>
   </div>
 </div>
+
 <div class="announcement"  *ngIf="!(haveResources()) && this.current_project !== undefined && this.current_company !== undefined && this.load_complete">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
@@ -103,6 +104,26 @@
     <form class="login100-form">
       You do not have enough resources so you can not estimate a project. You have to generate resources in the generate resources window.
 
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="announcement"  *ngIf="!this.has_bidding_project && this.load_complete">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Cost & Time Estimation
+    </span>
+    <form class="login100-form">
+        You cannot estimate an Instant Project!
       <br>
       <br>
       <br>

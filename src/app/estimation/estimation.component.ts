@@ -30,6 +30,7 @@ export class EstimationComponent implements OnInit {
   min_time;
   max_cost;
   min_cost;
+  has_bidding_project;
 
   constructor(public service: GeneralServiceService, public httpService: HttpService, public router: Router) {
   }
