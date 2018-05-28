@@ -224,9 +224,9 @@
 										</div>
 
 										<div class="w3-col w3-col l5 s5 user-info">
-											<h6 *ngIf="item.role !== 'Game Administrator' && item['company_name']">
-												Company: <strong [ngOptionHighlight]="search">{{item.company_name}}</strong></h6>
-											<h6 *ngIf="item.role !== 'Game Administrator' && !item['company_name']">
+											<h6 *ngIf="item.role !== 'Game Administrator' && item['companyName']">
+												Company: <strong [ngOptionHighlight]="search">{{item.companyName}}</strong></h6>
+											<h6 *ngIf="item.role !== 'Game Administrator' && !item['companyName']">
 												Company: Unassigned</h6>
 											<h6>Role: <strong [ngOptionHighlight]="search">{{item.role}}</strong></h6>
 										</div>

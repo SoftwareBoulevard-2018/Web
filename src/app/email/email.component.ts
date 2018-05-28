@@ -52,9 +52,41 @@ export class EmailComponent implements OnInit  {
   }
 
   getUsers(){
-    return this.httpService.getAllUsers().subscribe(data => {
-      this.users=JSON.parse(JSON.stringify(data)).data;
-    });
+    // return this.httpService.getAllUsers().subscribe(data => {
+    //   this.users=JSON.parse(JSON.stringify(data)).data;
+    // });
+    return this.httpService.getAllUsers().subscribe(data => this.listUser(data));
+    
+  }
+
+  getCompanyById(companyId, user) {
+    return this.httpService.getCompanyById(companyId).subscribe(data => {
+      user.companyName = data.name;
+      this.users.push({ id: user.id, createdAt: user.createdAt,
+        name: user.name, username: user.username,
+        password: user.password, role: user.role, companyName: user.companyName});
+    }, error => {
+        user.companyName = undefined;
+        this.users.push({ id: user.id, createdAt: user.createdAt,
+          name: user.name, username: user.username,
+          password: user.password, role: user.role, companyName: user.company_name});
+      });
+  }
+
+  listUser(data) {
+    this.users = [];
+    data = JSON.parse(JSON.stringify(data)).data
+    for (let user of data) {
+      if (user.companyId == null){
+        this.users.push({ id: user.id, createdAt: user.createdAt,
+          name: user.name, username: user.username,
+          password: user.password, role: user.role});
+      }
+      else {
+        this.getCompanyById(user.companyId, user);
+      } 
+    }
+    
   }
 
   newEmailForm() {
@@ -120,8 +152,8 @@ export class EmailComponent implements OnInit  {
     let usernameMatch = item.username.toLowerCase().indexOf(term) > -1;
     let companyMatch: boolean;
 
-    if ( item['company_name'] ) {
-      companyMatch = item.company_name.toLowerCase().indexOf(term) > -1;
+    if ( item['companyName'] ) {
+      companyMatch = item.companyName.toLowerCase().indexOf(term) > -1;
     } else {
       companyMatch = false;
     }
@@ -149,7 +181,7 @@ export class EmailComponent implements OnInit  {
   }
   findUserById(userId){
     for(let i = 0; i<this.users.length;i++){
-      if(this.users[i]._id==userId){
+      if(this.users[i].id==userId){
         return this.users[i].name;
       }
     }
@@ -220,10 +252,6 @@ export class EmailComponent implements OnInit  {
     this.starter();
   }
 
-  // sheLeftMeInBlue(receiverId){
-
-  // }
-
   printReceivers(receivers){
     var receiversName = [];
     for( let i = 0; i < receivers.length; i++ ){
@@ -252,7 +280,6 @@ export class EmailComponent implements OnInit  {
     this.inNewEmail = false;
     this.inSent = false;
     this.inInbox = true;
-    console.log(this.EReceived);
     setTimeout(() => this.ngAfterViewInit());
   }
 
