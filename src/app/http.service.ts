@@ -3,6 +3,7 @@ import { User } from './shared/user';
 import { Id } from './shared/id';
 import { Company } from './shared/company';
 import { Email } from './shared/email';
+import { TrainingAttempt } from './shared/trainingAttempt';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
@@ -21,14 +22,15 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  // static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
   static companiesURL = '/companies';
   static loginURL = '/login';
   static emailURL = '/emails';
+  static trainingAttemptsURL = '/trainingAttempts';
 
   // All services related to Users
   getAllUsers() {
@@ -92,9 +94,14 @@ export class HttpService {
   }
   sent(idUsuario) {
      return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sent/' + idUsuario);
-  }  
+  }
   updateState(idEmail, email){
     return this.http.put<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/'+idEmail,
       JSON.stringify(email), HttpService.httpOptions);
+  }
+
+
+  getAllTrainingAttempts() {
+    return this.http.get<TrainingAttempt[]>(HttpService.apiURL + HttpService.trainingAttemptsURL);
   }
 }
