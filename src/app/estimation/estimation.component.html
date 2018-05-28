@@ -56,7 +56,7 @@
   </form>
 </div>
 
-<div class="announcement" *ngIf="getCompany(this.service.username)=== undefined">
+<div class="announcement" *ngIf="this.current_company === undefined">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Cost & Time Estimation
@@ -76,7 +76,7 @@
   </div>
 </div>
 
-<div class="announcement" *ngIf="getProject(this.service.username)=== undefined && getCompany(this.service.username)!== undefined ">
+<div class="announcement" *ngIf="this.current_project === undefined && this.current_company !== undefined ">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Cost & Time Estimation
@@ -95,7 +95,7 @@
     </form>
   </div>
 </div>
-<div class="announcement"  *ngIf="!(haveResources()) && getProject(this.service.username) !== undefined && getCompany(this.service.username)!== undefined">
+<div class="announcement"  *ngIf="!(haveResources()) && this.current_project !== undefined && this.current_company !== undefined">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Cost & Time Estimation

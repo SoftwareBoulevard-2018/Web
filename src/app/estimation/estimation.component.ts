@@ -22,9 +22,13 @@ export class EstimationComponent implements OnInit {
   correct_guess = false;
   can_estimate = true;
   have_resources = true;
-  current_company: Company;
+  current_company;
   current_project;    // shouldn't be an instant but a bidding project
   threshold;
+  max_time;
+  min_time;
+  max_cost;
+  min_cost;
 
   constructor(public service: GeneralServiceService, public httpService: HttpService, public router: Router) {
   }
@@ -63,76 +67,36 @@ export class EstimationComponent implements OnInit {
     this.httpService.getUsersByRole('Game Administrator').subscribe(data => {
       const data2 = JSON.parse(JSON.stringify(data));
       this.threshold = data2[0].threshold;
+      this.max_time = this.current_project.time + this.current_project.time * this.threshold;
+      this.min_time = this.current_project.time - this.current_project.time * this.threshold;
+      this.max_cost = this.current_project.cost + this.current_project.cost * this.threshold;
+      this.min_cost = this.current_project.cost - this.current_project.cost * this.threshold;
+      console.log(this.current_project);
+      console.log(this.current_company);
     });
   }
 
-  getProject(username){
-    for (let user of this.service.users) {
-      if (username === user.username) {
-        for (let company of this.service.companies) {
-          if (user.company_name === company.name) {
-            for(let project of this.service.projects){
-              if(company.current_project_name === project.project_name) {
-                return project;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
   validate_time(guess) {
-    const current_project = this.getProject(this.service.username);
-    const threshold = this.service.parameter[0].threshold;
-    const real_time = current_project.time;
-
-    const max_time = real_time + real_time * (threshold / 100);
-    const min_time = real_time - real_time * (threshold / 100);
-
-    return (guess.time >= min_time && guess.time <= max_time);
+    return (guess.time >= this.min_time && guess.time <= this.max_time);
   }
 
   validate_cost(guess) {
-    const current_project = this.getProject(this.service.username);
-    const threshold = this.service.parameter[0].threshold;
-    const real_cost = current_project.cost;
-
-    const max_cost = real_cost + real_cost * (threshold / 100);
-    const min_cost = real_cost - real_cost * (threshold / 100);
-
-    return (guess.cost >= min_cost && guess.cost <= max_cost);
-  }
-
-  getCompany(username){
-    for (let user of this.service.users) {
-      if (username === user.username) {
-        for (let company of this.service.companies) {
-          if (user.company_name === company.name) {
-            return company;
-          }
-        }
-      }
-    }
+    return (guess.cost >= this.min_cost && guess.cost <= this.max_cost);
   }
 
   sendEstimation(guess) {
-    // const newCompany = [companyResource : this.current_company.companyResource - 1]
-    // updateCompany(newCompany, this.service.user.companyId);
-
-    const project_name = this.getProject(this.service.username).project_name;
+    const project_name = this.current_project.project_name;
     if (this.service.username !== undefined && project_name !== undefined && guess.time !== undefined && guess.cost !== undefined ) {
-      this.service.estimations.push( new Estimation(this.service.username, project_name, guess.cost, guess.time));
+      // this.service.estimations.push( new Estimation(this.service.username, project_name, guess.cost, guess.time));
     }
   }
+
   haveResources() {
-    if (this.getCompany(this.service.username) !== undefined) {
-      const userCompany = this.getCompany(this.service.username);
-      return (userCompany.resources >= 1);
+    if (this.current_company !== undefined) {
+      return this.current_company.companyResource > 0;
     }
   }
   ngOnInit() {
-    this.fillCompany();
     if (this.service.user_type === undefined) {
      this.router.navigate(['']);
     }
@@ -140,17 +104,16 @@ export class EstimationComponent implements OnInit {
         this.router.navigate(['restricted']);
     }
     else {
+      this.fillCompany();
       let has_company = true;
       let has_enough_resources = true;
       let has_bidding_project = true;
 
-      const userCompany = this.getCompany(this.service.username);
-      const userProject = this.getProject(this.service.username);
-      has_company = (userCompany !== undefined);
+      has_company = (this.current_company !== undefined);
       if(has_company){
-        has_enough_resources = (userCompany.resources >= 1);
+        has_enough_resources = (this.current_company.companyResource >= 1);
       }
-      has_bidding_project = userProject instanceof BiddingProject;
+      has_bidding_project = this.current_project instanceof BiddingProject;
 
       if (has_company && has_enough_resources && has_bidding_project){
           this.form();
@@ -164,12 +127,12 @@ export class EstimationComponent implements OnInit {
   onClickSubmit(guess) {
     //TODO: Renovar la compañia con cada click
     //TODO: Primero enviar la solicitud a la bd y luego cambio el recurso en el objeto a mano
-    // this.fillCompany();
+    this.fillCompany();
+    const newCompany = { companyResource : this.current_company.companyResource - 1 };
+    this.httpService.updateCompany(newCompany, this.service.user.companyId);
     this.correct_guess = false;
     this.incorrect_time = false;
     this.incorrect_cost = false;
-    const userCompany = this.getCompany(this.service.username);
-    userCompany.resources -= 1;   // TODO: Make the change to the database when its fully implemented
     this.sendEstimation(guess);   // TODO: Make the change to the database when its fully implemented
 
     this.incorrect_time = !this.validate_time(guess);
