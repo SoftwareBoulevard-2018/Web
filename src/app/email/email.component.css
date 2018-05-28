@@ -319,6 +319,15 @@ naranja #FF5729
 	text-overflow: ellipsis;
 }
 
+.main-email-container .mat-column-receivers {
+	flex: 0 0 250px;
+}
+
+.main-email-container .mat-column-receivers {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
 .main-email-container .mat-column-subject-content .content {
 	color: rgb(116, 116, 116);
 }

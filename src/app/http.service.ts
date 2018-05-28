@@ -97,9 +97,11 @@ export class HttpService {
     return this.http.post<Email>(HttpService.apiURL + HttpService.emailURL + '/send/',
       JSON.stringify(email), HttpService.httpOptions);
   }
-  sended(idUsuario) {
-     return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sended/' + idUsuario);
-  }
+
+  sent(idUsuario) {
+     return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sent/' + idUsuario);
+  }  
+
   updateState(idEmail, email){
     return this.http.put<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/'+idEmail,
       JSON.stringify(email), HttpService.httpOptions);

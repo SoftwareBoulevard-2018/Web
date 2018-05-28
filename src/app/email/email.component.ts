@@ -5,7 +5,6 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { HttpService } from '../http.service';
 import { Email } from '../shared/email';
 
-
 @Component({
   selector: 'app-email',
   templateUrl: './email.component.html',
@@ -13,16 +12,13 @@ import { Email } from '../shared/email';
 })
 export class EmailComponent implements OnInit  {
 
-
-
   formdata;
-  users = [];
+  users =[];
   emailWindowOpen = false;
   inInbox = true;
   inSent = false;
   inAEmail = false;
   inNewEmail = false;
-
   selectedEmail : Email;
   numNoReadEmails : number = 0;
   selectedUsers = [];
@@ -44,7 +40,7 @@ export class EmailComponent implements OnInit  {
 
   getUsers(){
     return this.httpService.getAllUsers().subscribe(data => {
-      this.users=JSON.parse(JSON.stringify(data));
+      this.users=JSON.parse(JSON.stringify(data)).data;
     });
   }
   newEmailForm() {
@@ -88,7 +84,8 @@ export class EmailComponent implements OnInit  {
         // Aquí va el código donde el argumento data es lo que vino en la consulta
       const datos =JSON.parse(JSON.stringify(data));
       for(let i = 0; i<datos.data.length;i++){
-          this.EReceived.push({id:datos.data[i].id,
+          this.EReceived.push({
+            id:datos.data[i].id,
             sender:datos.data[i].sender,
             subject:datos.data[i].subject,
             receivers:datos.data[i].receivers,
@@ -96,7 +93,7 @@ export class EmailComponent implements OnInit  {
             createdAt:datos.data[i].createdAt});
       }
       this.TInbox.data = this.EReceived;
-       this.newNotification();
+      this.newNotification();
     }, error => {
         console.log(error);
     });
@@ -118,9 +115,8 @@ export class EmailComponent implements OnInit  {
   }
   sent(){
     this.ESent = [];
-    return this.httpService.sended(this.service.user.id).subscribe(data =>{
+    return this.httpService.sent(this.service.user.id).subscribe(data =>{
       const datos =JSON.parse(JSON.stringify(data));
-      console.log(data);
       for(let i = 0; i<datos.data.length;i++){
         this.ESent.push({
           id:datos.data[i].id,
@@ -134,6 +130,13 @@ export class EmailComponent implements OnInit  {
       this.TSent.data = this.ESent;
       /*data source*/
     });
+  }
+  findUserById(userId){
+    for(let i = 0; i<this.users.length;i++){
+      if(this.users[i]._id==userId){
+        return this.users[i].name;
+      }
+    }
   }
   starter(){
        this.read();
@@ -156,31 +159,31 @@ export class EmailComponent implements OnInit  {
       )
     return this.httpService.send(email).subscribe(data => console.log(data));
   }
-  readEmail(email) {
+  readEmail(email,v) {
     this.selectedEmail = email;
     this.inInbox = false;
     this.inNewEmail = false;
     this.inSent = false;
     this.inAEmail = true;
-    alert(email.id);
-     if(email.acknowledgment == undefined){
+     if(v==0){
+       if(email.acknowledgment == undefined){
        email.acknowledgment = [];
       email.acknowledgment[0]=this.service.user.id;
-      console.log("agregar1");
       this.updateState(email,email.id);
      }else{
        var found = undefined;
-      for(let i =0;i<email.acknowledge.length;i++){
+      for(let i =0;i<email.acknowledgment.length;i++){
         if(email.acknowledgment[i]==this.service.user.id){
           found=true;
         }
       }
       if(found == undefined){
         email.acknowledgment.push(this.service.user.id);
-        console.log("agregar2");
         this.updateState(email,email.id);
       }
      }
+     }
+     
      this.starter();
     
   }
