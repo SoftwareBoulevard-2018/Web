@@ -1,13 +1,17 @@
 export class Estimation {
-  username: string;
-  project_name: string;
-  cost: number;
-  time: number;
+  attemptNumber: number;
+  projectManagerUsername: string;
+  projectName: string;
+  estimatedTime: number;
+  estimatedCost: number;
+  state: boolean;
 
-  constructor(username: string, project_name: string, cost: number, time: number) {
-    this.username = username;
-    this.project_name = project_name;
-    this.cost = cost;
-    this.time = time;
+  constructor(attemptNumber: number, projectManagerUsername: string, projectName: string, estimatedTime: number, estimatedCost: number, state: boolean) {
+    this.attemptNumber = attemptNumber;
+    this.projectManagerUsername = projectManagerUsername;
+    this.projectName = projectName;
+    this.estimatedTime = estimatedTime;
+    this.estimatedCost = estimatedCost;
+    this.state = state;
   }
 }

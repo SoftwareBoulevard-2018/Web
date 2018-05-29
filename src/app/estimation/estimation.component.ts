@@ -129,6 +129,7 @@ export class EstimationComponent implements OnInit {
         this.router.navigate(['restricted']);
     }
     else {
+      this.httpService.getEstimationByPMAndProject('afaguilarr','Payroll').subscribe(data => console.log(data));
       this.fillCompany();
     }
   }

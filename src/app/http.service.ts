@@ -27,8 +27,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  //static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -45,6 +45,7 @@ export class HttpService {
   static getBiddingProjectURL = '/biddingProjects';
   static getCurrentProjectManagerURL = '/getCurrentPm';
   static getCurrentProjectManager2URL = '/getCurrentProjectM';
+  static getEstimationByPMAndProjectURL = '/getEstimationByPMAndProject';
 
   // All services related to Users
   getAllUsers() {
@@ -165,11 +166,11 @@ export class HttpService {
       JSON.stringify(estimation), HttpService.httpOptions);
   }
   getEstimationByPMAndProject(projectManagerUsername, projectName) {
-    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getCurrentProjectManagerURL,
+    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationByPMAndProjectURL,
       JSON.stringify({projectManagerUsername: projectManagerUsername , projectName: projectName}), HttpService.httpOptions);
   }
   getEstimationByProjectManagerUsernameAndState(projectManagerUsername, state) {
-    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getCurrentProjectManager2URL,
+    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationByPMAndProjectURL,
       JSON.stringify({projectManagerUsername: projectManagerUsername , state: state}), HttpService.httpOptions);
   }
 
