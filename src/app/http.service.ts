@@ -3,6 +3,8 @@ import { User } from './shared/user';
 import { Id } from './shared/id';
 import { Company } from './shared/company';
 import { Email } from './shared/email';
+import { TrainingAttempt } from './shared/trainingAttempt';
+import { DevelopingAttempt } from './shared/developingAttempt';
 import { Puzzle } from './shared/puzzle';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -33,6 +35,10 @@ export class HttpService {
   static companiesURL = '/companies';
   static loginURL = '/login';
   static emailURL = '/emails';
+  static trainingAttemptsURL = '/trainingAttempts';
+  static developingAttemptsURL = '/developingttempts';
+  static puzzlesURL = '/puzzles';
+  static recordsURL = '/records';
   static puzzleURL = '/puzzles';
   static recordsURL = '/records';
   static estimationURL = '/estimations';
@@ -111,6 +117,25 @@ export class HttpService {
       JSON.stringify(email), HttpService.httpOptions);
   }
 
+  getTrainingAttemptsByState(state) {
+    return this.http.post<TrainingAttempt[]>(HttpService.apiURL + HttpService.trainingAttemptsURL,
+      JSON.stringify({ state1: state }), HttpService.httpOptions);
+  }
+
+  getDevelopingAttemptsByState(state) {
+    return this.http.post<DevelopingAttempt[]>(HttpService.apiURL + HttpService.developingAttemptsURL,
+      JSON.stringify({ state1: state }), HttpService.httpOptions);
+  }
+
+  createTrainingAttempt(trainingAttempt: TrainingAttempt) {
+    return this.http.post<TrainingAttempt[]>(HttpService.apiURL + HttpService.trainingAttemptsURL,
+      JSON.stringify(trainingAttempt), HttpService.httpOptions);
+  }
+
+  createDevelopingAttempt(developingAttempt: DevelopingAttempt) {
+    return this.http.post<DevelopingAttempt[]>(HttpService.apiURL + HttpService.developingAttemptsURL,
+      JSON.stringify(developingAttempt), HttpService.httpOptions);
+
   //All services related to records
   createRecord(record: Record) {
     return this.http.post<any>(HttpService.apiURL + HttpService.recordsURL,
@@ -152,5 +177,6 @@ export class HttpService {
   //All services related to Projects
   getBiddingProjectById(id: String) {
     return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
+
   }
 }

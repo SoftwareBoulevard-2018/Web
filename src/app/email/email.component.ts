@@ -20,7 +20,7 @@ export class EmailComponent implements OnInit  {
   inNewEmail = false;
   showAllReceivers = false;
   selectedEmail : Email;
-  numNoReadEmails : number = 0;
+  static numNoReadEmails;
   selectedUsers = [];
   EReceived = [];
   ESent = [];
@@ -37,9 +37,12 @@ export class EmailComponent implements OnInit  {
     this.getUsers();
     this.TInbox = new MatTableDataSource(this.EReceived);
     this.TSent = new MatTableDataSource(this.ESent);
-   this.EReceived = this.ESent = []
+    this.EReceived = this.ESent = []
+    EmailComponent.numNoReadEmails=0;
   }
-
+  get staticNumNoReadEmails(){
+    return EmailComponent.numNoReadEmails;
+  }
   @ViewChild('paginatorInbox') paginatorInbox: MatPaginator;
   @ViewChild('paginatorSent') paginatorSent: MatPaginator;
   applyFilter(filterValue: string) {
@@ -50,11 +53,7 @@ export class EmailComponent implements OnInit  {
   }
 
   getUsers(){
-    // return this.httpService.getAllUsers().subscribe(data => {
-    //   this.users=JSON.parse(JSON.stringify(data)).data;
-    // });
     return this.httpService.getAllUsers().subscribe(data => this.listUser(data));
-    
   }
 
   getCompanyById(companyId, user) {
@@ -101,7 +100,20 @@ export class EmailComponent implements OnInit  {
     });
   }
   newNotification(){
-    this.numNoReadEmails = this.EReceived.length;
+       var sum = 0;
+      for(let i = 0; i<this.EReceived.length;i++){
+          var acknow = this.EReceived[i].acknowledgment;
+          var verif = false;
+          for(let j=0;j<acknow.length;j++){
+               if(this.service.user._id==acknow[j]){
+                  verif=true;
+               }
+          }
+          if(!verif){
+            sum++
+          }
+      }
+    EmailComponent.numNoReadEmails = sum;
   }
 
   ngAfterViewInit() {
@@ -110,8 +122,8 @@ export class EmailComponent implements OnInit  {
   }
 
   openCloseEmail(){
+    console.log("say hi" + EmailComponent.numNoReadEmails);
     this.emailWindowOpen = !this.emailWindowOpen;
-
     this.users = JSON.parse(JSON.stringify(this.service.users));
     this.TInbox = new MatTableDataSource(this.EReceived);
     this.TSent = new MatTableDataSource(this.ESent);

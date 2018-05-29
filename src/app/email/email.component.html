@@ -2,7 +2,7 @@
 
 <div *ngIf="!(this.service.user_type === undefined)"  class="open-email-button" (click)="openCloseEmail()" [ngClass]="{'open': emailWindowOpen}">
 	
-	<div class="email-count-badge">{{numNoReadEmails}}</div>
+	<div class="email-count-badge">{{staticNumNoReadEmails}}</div>
 
 	<div class="close-boton">
 		<span class="bar1"></span>
@@ -48,7 +48,7 @@
 						<span class="w3-col l9 s9">Inbox</span>
 
 						<div class="w3-col l3 s3 badge-container">
-							<span class="email-count-badge-inbox">{{numNoReadEmails}}</span>
+							<span class="email-count-badge-inbox">{{staticNumNoReadEmails}}</span>
 						</div>
 
 					</div>
