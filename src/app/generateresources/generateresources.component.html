@@ -1,5 +1,5 @@
 
-<div class="announcement" *ngIf="this.load_complete">
+<div class="announcement" *ngIf="(this.load_complete && haveCompany())">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Generate resources
@@ -171,19 +171,19 @@
         Exit
       </button>
 
-      <button mat-raised-button color="warn" type="submit" (click)="redirectToFunctions($event)" [disabled] = "(!solved_puzzle)" class="forsubmit">
+      <button mat-raised-button type="submit" (click)="verifyPuzzle($event)">
         Validate
       </button>
     </div>
   </div>
 </div>
-<!--
-<div class="announcement" *ngIf="getCompany(this.service.username)=== undefined">
+
+<div class="announcement" *ngIf="(this.load_complete && !(haveCompany()))">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Generate resources
     </span>
-    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+    <form class="login100-form">
       You do not have a company assigned so you can not choose a project. You must ask the game administrator to assign one to you
 
       <br>
@@ -197,4 +197,4 @@
     </form>
   </div>
 </div>
--->
+

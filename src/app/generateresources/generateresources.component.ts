@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {PuzzleTile} from '../shared/puzzleTile';
 import {HttpService} from "../http.service";
 import {Puzzle} from "../shared/puzzle";
+import {Company} from "../shared/company";
 
 
 @Component({
@@ -15,17 +16,16 @@ import {Puzzle} from "../shared/puzzle";
 export class GenerateresourcesComponent implements OnInit {
 
   load_complete = false;
+  rewarded_resources: number;
   puzzles = [];
   real_puzzle;
+  pmcompany;
   solved_puzzle = false;
   correct_matrix = [];
   current_matrix = [];
   solvable_puzzles = [[15, 2, 1, 12, 8, 5, 6, 11, 4, 9, 10, 7, 3, 14, 13, 16],
                       [6, 1, 10, 2, 7, 11, 4, 14, 5, 16, 9, 15, 8, 12, 13, 3]];
 
-  redirect1(event) {
-    this.solved_puzzle = true;
-  }
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {
   }
 
@@ -38,6 +38,14 @@ export class GenerateresourcesComponent implements OnInit {
       const data2 = JSON.parse(JSON.stringify((data)));
       this.real_puzzle = data2.data[this.randomIntFromInterval(0, this.puzzles.length-1)];
       this.initializePuzzle(data2);
+      this.getCompanyById(this.service.user.companyId);
+    });
+  }
+
+  getCompanyById(companyId: string) {
+    return this.httpService.getCompanyById(companyId).subscribe(data => {
+      const data2 = JSON.parse(JSON.stringify(data));
+      this.pmcompany = data2;
     });
   }
 
@@ -59,6 +67,7 @@ export class GenerateresourcesComponent implements OnInit {
       }
     }
     console.log(this.correct_matrix);
+    this.rewarded_resources = this.real_puzzle.rewarded_resources;
     this.load_complete = true;
     this.shuffleMatrix();   // scrambles the matrix that represents the puzzle the user has to solve
     // dibujar current_matrix
@@ -167,23 +176,30 @@ export class GenerateresourcesComponent implements OnInit {
         console.log(isSolved);
       }
     }
-    console.log(isSolved);
+    if (isSolved === true){
+      alert("congratulations you have solved the puzzle, " +
+        "you have generated " + this.rewarded_resources + " resources"
+      );
+      this.sendResources();
+      this.router.navigate(['home/users/projectmanager/functions']);
+    }
     return isSolved;
   }
-
-  getTile(number) {
+  sendResources(){
+    const actually_resources = this.pmcompany.companyResource;
+    const total_resources = actually_resources + this.rewarded_resources;
+    return this.httpService.updateCompany({
+        companyResource: total_resources}, this.service.user.companyId).subscribe( data => {
+      console.log('success');
+    });
 
   }
 
-  getCompany(username) {
-    for (const user of this.service.users) {
-      if (username === user.username) {
-        for (const company of this.service.companies) {
-          if (user.company_name === company.name) {
-            return company;
-          }
-        }
-      }
+  haveCompany() {
+    if (this.service.user.companyId === null){
+      return false;
+    } else {
+      return true;
     }
   }
 

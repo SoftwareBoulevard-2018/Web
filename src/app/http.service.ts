@@ -25,8 +25,6 @@ export class HttpService {
   constructor(public http: HttpClient) { }
 
   static apiURL = 'http://35.196.111.251:3000';
-
-   //static apiURL = 'http://localhost:3000';
   //static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
@@ -103,7 +101,7 @@ export class HttpService {
 
   sent(idUsuario) {
      return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sent/' + idUsuario);
-  }  
+  }
 
   updateState(idEmail, email){
     return this.http.put<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/'+idEmail,
