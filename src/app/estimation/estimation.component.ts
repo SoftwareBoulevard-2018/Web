@@ -94,6 +94,7 @@ export class EstimationComponent implements OnInit {
       }
 
       this.has_bidding_project = (this.max_time >= 0);
+      this.enoughResources();
       this.load_complete = true;
       this.can_estimate = has_company && has_enough_resources && this.has_bidding_project;
     });
@@ -114,9 +115,9 @@ export class EstimationComponent implements OnInit {
     }
   }
 
-  haveResources() {
+  enoughResources() {
     if (this.current_company !== undefined) {
-      return this.current_company.companyResource > 0;
+      this.have_resources = this.current_company.companyResource > 0;
     }
   }
   ngOnInit() {
@@ -133,20 +134,22 @@ export class EstimationComponent implements OnInit {
   }
 
   onClickSubmit(guess) {
-    //TODO: Renovar la compañia con cada click
-    //TODO: Primero enviar la solicitud a la bd y luego cambio el recurso en el objeto a mano
+
     this.fillCompany();
-    const newCompany = { companyResource : this.current_company.companyResource - 1 };
-    this.httpService.updateCompany(newCompany, this.service.user.companyId);
     this.correct_guess = false;
     this.incorrect_time = false;
     this.incorrect_cost = false;
-    this.sendEstimation(guess);   // TODO: Make the change to the database when its fully implemented
 
     this.incorrect_time = !this.validate_time(guess);
     this.incorrect_cost = !this.validate_cost(guess);
 
     this.correct_guess = !(this.incorrect_time || this.incorrect_cost);
+    this.current_company.companyResource -= 1;
+    let newResource = this.current_company.companyResource - 1;
+    const newCompany = { companyResource: newResource };
+    this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => console.log('sent estimate'));
+    this.sendEstimation(guess);
+
   }
 
   redirectToFunctions(event) {
