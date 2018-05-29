@@ -40,7 +40,6 @@ export class HttpService {
   static puzzlesURL = '/puzzles';
   static recordsURL = '/records';
   static puzzleURL = '/puzzles';
-  static recordsURL = '/records';
   static estimationURL = '/estimations';
   static getCurrentCompanyURL = '/getCurrentProject';
   static getBiddingProjectURL = '/biddingProjects';
@@ -135,7 +134,7 @@ export class HttpService {
   createDevelopingAttempt(developingAttempt: DevelopingAttempt) {
     return this.http.post<DevelopingAttempt[]>(HttpService.apiURL + HttpService.developingAttemptsURL,
       JSON.stringify(developingAttempt), HttpService.httpOptions);
-
+    }
   //All services related to records
   createRecord(record: Record) {
     return this.http.post<any>(HttpService.apiURL + HttpService.recordsURL,
