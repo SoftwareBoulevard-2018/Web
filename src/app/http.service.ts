@@ -101,7 +101,8 @@ export class HttpService {
   }
 
 
-  getAllTrainingAttempts() {
-    return this.http.get<TrainingAttempt[]>(HttpService.apiURL + HttpService.trainingAttemptsURL);
+  getTrainingAttemptsByState(state) {
+    return this.http.post<TrainingAttempt[]>(HttpService.apiURL + HttpService.trainingAttemptsURL,
+      JSON.stringify({ state1: state }), HttpService.httpOptions);
   }
 }

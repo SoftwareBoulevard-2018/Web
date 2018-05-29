@@ -32,13 +32,13 @@ export class TrainingAttemptsComponent implements OnInit {
       this.router.navigate(['restricted']);
     } else {
       this.companies2 = new MatTableDataSource(this.companies);*/
-      this.getAllTrainingAttempts();
+      this.getTrainingAttemptsByState('wrong');
     /*}
     */
   }
 
-  getAllTrainingAttempts() {
-    return this.httpService.getAllTrainingAttempts().subscribe(data => this.listTrainingAttempts(data));
+  getTrainingAttemptsByState(state: string) {
+    return this.httpService.getTrainingAttemptsByState(state).subscribe(data => this.listTrainingAttempts(data));
   }
 
   listTrainingAttempts(data) {
