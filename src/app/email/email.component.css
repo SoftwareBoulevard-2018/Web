@@ -302,6 +302,7 @@ naranja #FF5729
 .main-email-container .mat-row {
 	padding-right: 10px;
 	padding-left: 10px;
+	height: 48px!important;
 }
 
 .main-email-container .mat-cell {
