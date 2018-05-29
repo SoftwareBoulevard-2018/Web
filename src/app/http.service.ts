@@ -46,6 +46,7 @@ export class HttpService {
   static getCurrentProjectManagerURL = '/getCurrentPm';
   static getCurrentProjectManager2URL = '/getCurrentProjectM';
   static getEstimationByPMAndProjectURL = '/getEstimationByPMAndProject';
+  static getEstimationsByPMAndStateURL = '/getEstimationsByProjectManagerUsernameAndState';
 
   // All services related to Users
   getAllUsers() {
@@ -170,7 +171,7 @@ export class HttpService {
       JSON.stringify({projectManagerUsername: projectManagerUsername , projectName: projectName}), HttpService.httpOptions);
   }
   getEstimationByProjectManagerUsernameAndState(projectManagerUsername, state) {
-    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationByPMAndProjectURL,
+    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationsByPMAndStateURL,
       JSON.stringify({projectManagerUsername: projectManagerUsername , state: state}), HttpService.httpOptions);
   }
 
