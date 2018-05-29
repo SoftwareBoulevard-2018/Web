@@ -262,11 +262,13 @@ export class EmailComponent implements OnInit  {
     else {
       var printable;
       for( let i = 0; i < receivers.length; i++ ){
-        if (i == 0){
-          printable = receiversName[i].split(" ")[0];
-        }
-        else{
-          printable = printable +  ", " + receiversName[i].split(" ")[0];
+        if (receiversName[i] != null){
+          if (i == 0){
+            printable = receiversName[i].split(" ")[0];
+          }
+          else{
+            printable = printable +  ", " + receiversName[i].split(" ")[0];
+          }
         }
       }
       return printable;
