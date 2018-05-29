@@ -43,36 +43,7 @@ export class TrainingAttemptsComponent implements OnInit {
 
   listTrainingAttempts(data) {
     console.log(data);
-    /*
-    this.trainingAttempts = [];
-    for (const value of Object.values(data.data)) {
-      this.getUserByRoleCompany('Project Manager', value);
-    }
-    */
   }
 
-  /*
-  applyFilter(filterValue: string) {
-    // Function used to filter the values on the material table
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.trainingAttempts2.filter = filterValue;
-  }
 
-  redirect(event, element) {
-    // Redirects to the company status defining the necessary variable
-    this.service.company_to_be_updated = element.id;
-    this.router.navigate(['home/companies/company-status']);
-  }
-
-  redirect2(event, element) {
-    // Redirects to the company update defining the necessary variable
-    this.service.company_to_be_updated = element.id;
-    this.router.navigate(['home/companies/company-status/update']);
-  }
-  redirect3(event) {
-    // Redirects to the company creation
-    this.router.navigate(['home/companies/create']);
-  }
-  */
 }
