@@ -7,6 +7,8 @@ import {Question} from './shared/question';
 import {Answer} from './shared/answer';
 import { Parameter } from './shared/parameter';
 import {Estimation} from './shared/estimation';
+import { TrainingAttempt} from './shared/trainingAttempt';
+import { DevelopingAttempt} from './shared/developingAttempt';
 
 @Injectable()
 export class GeneralServiceService {
