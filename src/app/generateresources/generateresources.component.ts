@@ -69,8 +69,7 @@ export class GenerateresourcesComponent implements OnInit {
     console.log(this.correct_matrix);
     this.rewarded_resources = this.real_puzzle.rewarded_resources;
     this.load_complete = true;
-    this.current_matrix = this.correct_matrix;
-    //this.shuffleMatrix();   // scrambles the matrix that represents the puzzle the user has to solve
+    this.shuffleMatrix();   // scrambles the matrix that represents the puzzle the user has to solve
     // dibujar current_matrix
   }
 
