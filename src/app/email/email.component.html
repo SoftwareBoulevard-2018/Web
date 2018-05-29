@@ -23,7 +23,7 @@
 		<div class="w3-col l9 s9 search-input-container">
 
 			<mat-form-field>
-				<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" [disabled]="!inInbox">
+				<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" [disabled]="!inInbox&&!inSent">
 			</mat-form-field>
 
 		</div>
@@ -36,7 +36,7 @@
 			
 			<div class="buttons-container">
 
-				<div class="w3-row newemail-button" (click)="toNewEmail()">
+				<div class="w3-row newemail-button" [ngClass]="{'active': inNewEmail}" (click)="toNewEmail()">
 					<span class="w3-col l9 s9">New Email</span>
 					<div class="icon-newemail w3-col l3 s3"></div>
 				</div>
@@ -53,7 +53,7 @@
 
 					</div>
 
-					<div class="sent control-button" [ngClass]="{'active': inSent}" (click)="toSent()">Sent</div>
+					<div class="sent control-button" [ngClass]="{'active': inSent}" (click)="toSent()">Sent Mail</div>
 
 				</div>
 			</div>
@@ -91,27 +91,26 @@
 							</mat-cell>
 						</ng-container>
 						
-						<mat-row *matRowDef="let row; columns: table_titles;" (click)="readEmail(row,0)" >
+						<mat-row *matRowDef="let row; columns: table_titles;" [ngClass]="{'unread': checkEmailState(row,this.service.user.id)}" (click)="readEmail(row,0)" >
 							
 						</mat-row>
 						
 				</mat-table>
 
-				<mat-paginator  #paginator
+				<mat-paginator  #paginatorInbox
 					[pageSize]="9"
 					[showFirstLastButtons]="true">
-  				</mat-paginator>
+  				</mat-paginator>	
 			</div>
 
 			<div *ngIf="inSent"  class="emails-table-container mat-elevation-z8">
 
 				<mat-table  #table [dataSource]="TSent">
-
 					
 						<!-- Sender Column -->
 						<ng-container matColumnDef="receivers">
 							<mat-header-cell *matHeaderCellDef> Receivers </mat-header-cell>
-							<mat-cell *matCellDef="let email"> <span *ngFor="let receiver of email.receivers"> {{findUserById(receiver)}},</span></mat-cell>
+							<mat-cell *matCellDef="let email">To: {{printReceivers(email.receivers)}} </mat-cell>
 						</ng-container>
 					
 						<!-- Email Column -->
@@ -140,7 +139,8 @@
 						
 				</mat-table>
 
-				<mat-paginator  #paginator2
+
+				<mat-paginator  #paginatorSent
 					[pageSize]="9"
 					[showFirstLastButtons]="true">
   				</mat-paginator>
@@ -153,24 +153,41 @@
 				</div>
 
 				<div class="w3-row email-info-container">
-						<div class="w3-col l9 s9 receiver-sender">
+						<div class="w3-col l10 s10 receiver-sender">
 							<div class="w3-row">
 								<div class="w3-col image">
 								</div>
 
-								<div class="w3-rest">
+								<div class="w3-rest receiver-sender-text-container" [ngClass]="{'open': showAllReceivers}" [style.height.px]="containerHeight">
 									<div class="w3-row sender">
-											<h4>{{findUserById(selectedEmail.sender)}}</h4>
+										<h4>{{findUserById(selectedEmail.sender)}}</h4>
 									</div>
-									<div class="w3-row receiver">
-										<p>to me <span *ngFor="let receiver of selectedEmail.receivers"> {{findUserById(receiver)}} - </span></p>
+									<div class="w3-row receivers-container">
+										<div class="w3-col receivers" #inEmailReceivers>
+											<span>To: </span>
+											<span *ngFor="let receiver of selectedEmail.receivers"> 
+												{{findUserById(receiver)}}
+												<mat-icon *ngIf="!checkEmailState(selectedEmail,receiver)"  mat-list-icon>done_all</mat-icon>	
+												<mat-icon *ngIf="checkEmailState(selectedEmail,receiver)"  mat-list-icon>visibility_off</mat-icon>	
+											</span>
+										</div>
+
+										<div class="w3-col dropdown-icon" (click)="displayAllReceivers()">
+											<mat-icon mat-list-icon>expand_more</mat-icon>	
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<div class="w3-col l3 s3 date">
-							<h6>{{selectedEmail.createdAt}}</h6>
+						<div class="w3-col l2 s2 date">
+
+							<div class="w3-row date">
+									{{emailDate(selectedEmail.createdAt)}}
+							</div>
+							<div class="w3-row hour">
+									{{emailHour(selectedEmail.createdAt)}}
+							</div>
 						</div>
 				</div>
 
@@ -208,9 +225,9 @@
 										</div>
 
 										<div class="w3-col w3-col l5 s5 user-info">
-											<h6 *ngIf="item.role !== 'Game Administrator' && item['company_name']">
-												Company: <strong [ngOptionHighlight]="search">{{item.company_name}}</strong></h6>
-											<h6 *ngIf="item.role !== 'Game Administrator' && !item['company_name']">
+											<h6 *ngIf="item.role !== 'Game Administrator' && item['companyName']">
+												Company: <strong [ngOptionHighlight]="search">{{item.companyName}}</strong></h6>
+											<h6 *ngIf="item.role !== 'Game Administrator' && !item['companyName']">
 												Company: Unassigned</h6>
 											<h6>Role: <strong [ngOptionHighlight]="search">{{item.role}}</strong></h6>
 										</div>

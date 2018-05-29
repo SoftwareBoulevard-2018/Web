@@ -163,7 +163,6 @@ naranja #FF5729
 }
 
 .email-header-container {
-	/* background: rgb(57, 150, 187); */
 	height: 70px;
 	margin-bottom: 15px;
 }
@@ -214,7 +213,7 @@ naranja #FF5729
 	transition: all .4s ease;
 }
 
-.email-body-container .email-controls .buttons-container .newemail-button:hover {
+.email-body-container .email-controls .buttons-container .newemail-button:hover , .email-body-container .email-controls .buttons-container .newemail-button.active {
 	background-color: #009494;
 	-webkit-box-shadow: 0px 0px 15x 0px rgba(0,0,0,0.8);
 	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
@@ -243,8 +242,12 @@ naranja #FF5729
 	background-color: rgb(122, 121, 121);
 }
 
+.email-body-container .email-controls .buttons-container .newemail-button.active .icon-newemail {
+	background-color: rgb(122, 121, 121);	
+}
+
 .email-body-container .email-controls .buttons-container .inbox-sent-buttons-container .control-button {
-	background-color: #009494;
+	background-color: #00585E;
 	padding: 15px 0 15px 20px;
 	color: #fff;
 	transition: all .3s ease-in-out;  
@@ -258,7 +261,7 @@ naranja #FF5729
 }
 
 .email-body-container .email-controls .buttons-container .inbox-sent-buttons-container .control-button.active {
-	background-color: #00585E;
+	background-color: #009494;
 }
 
 .email-body-container .email-controls .buttons-container .inbox-sent-buttons-container .sent {
@@ -266,12 +269,12 @@ naranja #FF5729
 }
 
 .email-body-container .email-controls .buttons-container .inbox-sent-buttons-container .control-button:hover {
-	background-color: #00585E;
+	background-color: #009494;
 }
 
 .email-body-container .email-controls .buttons-container .inbox-sent-buttons-container .email-count-badge-inbox {
-	background: rgb(100, 100, 100);
-	color: white;
+	background: rgb(255, 255, 255);
+	color: black;
 	border-radius: 100%;
 	display: inline-block;
 	font-size: 16px; 
@@ -310,7 +313,7 @@ naranja #FF5729
 }
 
 .main-email-container .mat-column-sender {
-	flex: 0 0 150px;
+	flex: 0 0 200px;
 }
 
 
@@ -320,7 +323,7 @@ naranja #FF5729
 }
 
 .main-email-container .mat-column-receivers {
-	flex: 0 0 250px;
+	flex: 0 0 200px;
 }
 
 .main-email-container .mat-column-receivers {
@@ -333,7 +336,7 @@ naranja #FF5729
 }
 
 .main-email-container .mat-row {
-	background: rgba(231, 231, 231, 0.85);
+	background: rgba(240, 240, 240, 0.6);
 	cursor: pointer;
 }
 
@@ -350,7 +353,7 @@ naranja #FF5729
 	color: rgb(116, 116, 116);
 }
 
-.main-email-container .mat-row.unread .mat-column-username , .mat-row.unread  .subject , .mat-row.unread  .mat-column-createdAt {
+.main-email-container .mat-row.unread .mat-column-sender , .mat-row.unread  .subject , .mat-row.unread  .mat-column-createdAt {
 	font-weight: bold;
 }
 
@@ -362,7 +365,7 @@ naranja #FF5729
 	background: #fff;
 	height: 100%;
 	padding: 5px;
-	overflow: hidden;
+	overflow: auto;
 }
 
 .email-body-container .main-email-container .read-email-container .subject-container h2 {
@@ -391,9 +394,20 @@ naranja #FF5729
 	text-align: right;
 }
 
-.email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .w3-rest {
+.email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .receiver-sender-text-container {
 	height: 40px;
 	margin-left: 45px;
+	-webkit-transition: all .4s ease;
+	-o-transition: all .4s ease;
+	transition: all .4s ease;
+}
+
+.email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .receiver-sender-text-container.open {
+	height: 40px;
+	margin-left: 45px;
+	-webkit-transition: all .4s ease;
+	-o-transition: all .4s ease;
+	transition: all .4s ease;
 }
 
 .email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .w3-rest .sender {
@@ -404,13 +418,48 @@ naranja #FF5729
 	line-height: 20px;
 }
 
-.email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .w3-rest .receiver p {
+.email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .w3-rest .receivers-container {
+	height: 20px;
+}
+
+.email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .w3-rest .receivers-container .receivers {
 	line-height: 20px;
+	display: block;
+	width: 95%;
+	color: rgb(116, 116, 116);
+}
+
+.email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .w3-rest .receivers-container .receivers .mat-icon{
+	height: 20px;
+	width: 16px;
+	font-size: 15px;
+	position: relative;
+	top: 3px;
+	color: #009494;
+}
+
+.email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .w3-rest .receivers-container .dropdown-icon {
+	width: 5%;
+	height: 20px;
+	cursor: pointer;
+	color: rgb(116, 116, 116);	
+}
+
+.email-body-container .main-email-container .read-email-container .email-info-container .receiver-sender .w3-rest .receivers-container .dropdown-icon .mat-icon {
+	position: relative;
+	top: -3px;
+	-webkit-transition: all .4s ease;
+	-o-transition: all .4s ease;
+	transition: all .4s ease;
+}
+
+.email-body-container .email-info-container .receiver-sender .receiver-sender-text-container.open .dropdown-icon .mat-icon { 
+	transform: rotate(180deg);
 }
 
 .email-body-container .main-email-container .read-email-container .email-content-container {
 	background: rgb(207, 207, 207);
-	border-radius: 5px 5px 5px 0;
+	border-radius: 0px 5px 5px 5px;
 	padding: 10px;
 	max-height: 77%;
 	margin-right: 5px;	
