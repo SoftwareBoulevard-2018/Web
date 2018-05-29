@@ -4,6 +4,7 @@ import { Id } from './shared/id';
 import { Company } from './shared/company';
 import { Email } from './shared/email';
 import { TrainingAttempt } from './shared/trainingAttempt';
+import { DevelopingAttempt } from './shared/developingAttempt';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
@@ -31,6 +32,7 @@ export class HttpService {
   static loginURL = '/login';
   static emailURL = '/emails';
   static trainingAttemptsURL = '/trainingAttempts';
+  static developingAttemptsURL = '/developingttempts';
 
   // All services related to Users
   getAllUsers() {
@@ -103,6 +105,11 @@ export class HttpService {
 
   getTrainingAttemptsByState(state) {
     return this.http.post<TrainingAttempt[]>(HttpService.apiURL + HttpService.trainingAttemptsURL,
+      JSON.stringify({ state1: state }), HttpService.httpOptions);
+  }
+
+  getDevelopingAttemptsByState(state) {
+    return this.http.post<DevelopingAttempt[]>(HttpService.apiURL + HttpService.developingAttemptsURL,
       JSON.stringify({ state1: state }), HttpService.httpOptions);
   }
 }
