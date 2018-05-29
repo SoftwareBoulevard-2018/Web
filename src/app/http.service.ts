@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from './shared/user';
-import { Puzzle } from './shared/puzzle';
 import { Id } from './shared/id';
 import { Company } from './shared/company';
 import { Email } from './shared/email';
+import { Puzzle } from './shared/puzzle';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
@@ -32,6 +32,7 @@ export class HttpService {
   static companiesURL = '/companies';
   static loginURL = '/login';
   static emailURL = '/emails';
+  static puzzlesURL = '/puzzles';
   static recordsURL = '/records';
   static puzzleURL = '/puzzles';
   static getCurrentCompanyURL = '/getCurrentProject';

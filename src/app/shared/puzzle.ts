@@ -1,4 +1,5 @@
 export class Puzzle {
+
   rewarded_resources : number;
   slicedImage: string[];
   image: string;
