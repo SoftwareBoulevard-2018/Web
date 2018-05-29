@@ -11,6 +11,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import {Record} from "./shared/record";
 import {BiddingProject} from "./shared/biddingProject";
+import {Estimation} from "./shared/estimation";
 
 @Injectable()
 
@@ -32,11 +33,13 @@ export class HttpService {
   static companiesURL = '/companies';
   static loginURL = '/login';
   static emailURL = '/emails';
-  static puzzlesURL = '/puzzles';
-  static recordsURL = '/records';
   static puzzleURL = '/puzzles';
+  static recordsURL = '/records';
+  static estimationURL = '/estimations';
   static getCurrentCompanyURL = '/getCurrentProject';
   static getBiddingProjectURL = '/biddingProjects';
+  static getCurrentProjectManagerURL = '/getCurrentPm';
+  static getCurrentProjectManager2URL = '/getCurrentProjectM';
 
   // All services related to Users
   getAllUsers() {
@@ -119,6 +122,9 @@ export class HttpService {
   getRecordsByCompany(company: string) {
     return this.http.get<Record[]>(HttpService.apiURL + HttpService.recordsURL + '/' + company);
   }
+  getRecordsByProject(project: string) {
+    return this.http.get<Record[]>(HttpService.apiURL + HttpService.recordsURL + '/' + project);
+  }
   getRecordsByFinishDateAndCompany(finishDate, company) {
     return this.http.post<Record>(HttpService.apiURL + HttpService.recordsURL + HttpService.getCurrentCompanyURL,
       JSON.stringify({company: company , finishDate: finishDate}), HttpService.httpOptions);
@@ -127,6 +133,20 @@ export class HttpService {
   //All services related to Puzzles
   getAllPuzzles() {
     return this.http.get<Puzzle[]>(HttpService.apiURL + HttpService.puzzleURL);
+  }
+
+  //All services related to Estimation
+  createEstimation(estimation: Estimation) {
+    return this.http.post<any>(HttpService.apiURL + HttpService.estimationURL,
+      JSON.stringify(estimation), HttpService.httpOptions);
+  }
+  getEstimationByPMAndProject(projectManagerUsername, projectName) {
+    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getCurrentProjectManagerURL,
+      JSON.stringify({projectManagerUsername: projectManagerUsername , projectName: projectName}), HttpService.httpOptions);
+  }
+  getEstimationByProjectManagerUsernameAndState(projectManagerUsername, state) {
+    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getCurrentProjectManager2URL,
+      JSON.stringify({projectManagerUsername: projectManagerUsername , state: state}), HttpService.httpOptions);
   }
 
   //All services related to Projects
