@@ -1,27 +1,44 @@
 <!-- Puzzle creation form -->
 <div class="wrap-login100 big-wrap">
-<h1>
-  Load Diagram
-</h1>
-<form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
-<input id="puzzle" type="file" accept="image/*" (change)="onSelectFile($event)"/>
-<button id="submit" mat-raised-button class="submit">Submit</button>
-</form>
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+	<br/>
+    <span class="login100-form-title p-b-34">
+      Create Puzzle	   
+    </span>
+	
+	<div class="element">
+      <mat-form-field class="big-input">
+		  <input matInput placeholder="Resources" name="resources" formControlName="resources" type="number" min="0">
+        <mat-hint>Required Field</mat-hint>
+      </mat-form-field>
+    </div>
+	
+	<br/>
+	
+	<span class="login100-form-title p-b-34">
+	Load Diagram 
+	</span>
+	<div class="element">
+		<input id="file" type="file" accept="image/*" (change)="onSelectFile($event)"/>
+	</div>
+	  
+	<br/>
+	
+	<div class="element element2">
+      <button id="submit" mat-raised-button color="warn" class="submit">
+        Create
+      </button>
+    </div>
+	
+  </form>
 </div>
-<h1></h1>
 
 <!-- Image -->
 <div class="wrap-login100 big">
-<h1> Define Puzzle </h1>
+<h1> Image Preview </h1>
 <img [src]="url" height="500">
 </div>
 
-<div class="wrap-login100 big-wrap">
-  <h1> Amount of Resources </h1>
-  <div class="center">
-   <input id="resources" type="number" min="0">
-<button id="Ksubmit" mat-raised-button class="submit">Submit</button>
-</div>
-</div>
+
 
 <!-- table id="puzzle_upload" background="https://d2slcw3kip6qmk.cloudfront.net/marketing/pages/chart/class-diagram-for-hotel-management-system-UML/UML_class_diagram_hotel-949x683.PNG" alt="your image" style="width:100%">-->
