@@ -1,9 +1,13 @@
 export class Puzzle {
-  rewarded_resources: number;
-  imagen: string;
 
-	constructor(rewarded_resources: number, imagen: string) {
-	this.rewarded_resources = rewarded_resources;
-	this.imagen = imagen;
-	}
+  rewarded_resources : number;
+  slicedImage: string[];
+  image: string;
+
+  constructor(rewarded_resources?: number, slicedImage?: string[], image?: string) {
+    this.rewarded_resources = rewarded_resources;
+    this.slicedImage = slicedImage;
+    this.image = image;
+
+  }
 }

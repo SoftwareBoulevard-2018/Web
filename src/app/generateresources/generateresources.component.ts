@@ -3,6 +3,9 @@ import {BiddingProject} from '../shared/biddingProject';
 import {GeneralServiceService} from '../general-service.service';
 import {Router} from '@angular/router';
 import {PuzzleTile} from '../shared/puzzleTile';
+import {HttpService} from "../http.service";
+import {Puzzle} from "../shared/puzzle";
+
 
 @Component({
   selector: 'app-generateresources',
@@ -11,6 +14,9 @@ import {PuzzleTile} from '../shared/puzzleTile';
 })
 export class GenerateresourcesComponent implements OnInit {
 
+  load_complete = false;
+  puzzles = [];
+  real_puzzle;
   solved_puzzle = false;
   correct_matrix = [];
   current_matrix = [];
@@ -20,27 +26,40 @@ export class GenerateresourcesComponent implements OnInit {
   redirect1(event) {
     this.solved_puzzle = true;
   }
-  constructor(public service: GeneralServiceService, public router: Router) {
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {
   }
 
   redirectToFunctions(event) {
     this.router.navigate(['home/users/projectmanager/functions']);
   }
 
-  initializePuzzle() {
+  getAllPuzzles() {
+    return this.httpService.getAllPuzzles().subscribe(data => {
+      const data2 = JSON.parse(JSON.stringify((data)));
+      this.real_puzzle = data2.data[this.randomIntFromInterval(0, this.puzzles.length-1)];
+      this.initializePuzzle(data2);
+    });
+  }
+
+  initializePuzzle(data2) {
+    this.puzzles = data2;
+    let image: string;
     let position = 0;
     for (let i = 0; i <= 3; i++) {
       this.correct_matrix.push([]);
       for (let j = 0; j <= 3; j++) {
         position += 1;
         if (i === 3 && j === 3) {     // empty piece
-          this.correct_matrix[i].push(new PuzzleTile(position, position, true));
+          this.correct_matrix[i].push(new PuzzleTile(position, position, true, 'https://orig00.deviantart.net/23c9/f/2018/148/3/5/black__www_imagesplitter_net__by_jokerpiece-dccr35m.png'));
         }
         else {
-          this.correct_matrix[i].push(new PuzzleTile(position, position, false));
+          image = this.real_puzzle.slicedImage[position-1];
+          this.correct_matrix[i].push(new PuzzleTile(position, position, false, image));
         }
       }
     }
+    console.log(this.correct_matrix);
+    this.load_complete = true;
     this.shuffleMatrix();   // scrambles the matrix that represents the puzzle the user has to solve
     // dibujar current_matrix
   }
@@ -99,11 +118,13 @@ export class GenerateresourcesComponent implements OnInit {
     const tile_j = direction[1];
 
     let candidates = [[tile_i - 1, tile_j], [tile_i + 1, tile_j], [tile_i, tile_j - 1], [tile_i, tile_j + 1]];
-
     // filter locations outside of the matrix
-    for (let tuple of candidates) {
+    for (let i = 0; i <= candidates.length - 1; i++) {
+      let tuple = candidates[i];
       if (tuple[0] < 0 || tuple[0] > 3 || tuple[1] < 0 || tuple[1] > 3) {
+
         candidates.splice(candidates.indexOf(tuple), 1);
+        i -= 1;
       }
       else {
         let potential_tile = this.current_matrix[tuple[0]][tuple[1]];
@@ -116,13 +137,15 @@ export class GenerateresourcesComponent implements OnInit {
   }
 
   // candidate is the name of the tile the user wants to move
-  moveTile(candidate: PuzzleTile) {
-    const empty_direction = this.isMovableTile(candidate);
+  moveTile(event, position_array: number) {
+    let tuple = this.mapArrayToMatrix(position_array);
+    let candidate = this.current_matrix[tuple[0]][tuple[1]];
+    let empty_direction = this.isMovableTile(candidate);
     if (empty_direction !== -1) {
-      const emptyTile = this.current_matrix[empty_direction[0]][empty_direction[1]];
-      const newCurrentPlacement = emptyTile.getCurrent_placement();
-      const newEmptyPlacement = candidate.getCurrent_placement();
-      const newEmptyTuple = this.mapArrayToMatrix(newEmptyPlacement);
+      let emptyTile = this.current_matrix[empty_direction[0]][empty_direction[1]];
+      let newCurrentPlacement = emptyTile.getCurrent_placement();
+      let newEmptyPlacement = candidate.getCurrent_placement();
+      let newEmptyTuple = this.mapArrayToMatrix(newEmptyPlacement);
 
       candidate.setCurrent_placement(newCurrentPlacement);
       emptyTile.setCurrent_placement(newEmptyPlacement);
@@ -172,8 +195,7 @@ export class GenerateresourcesComponent implements OnInit {
       this.router.navigate(['restricted']);
     }
     else {
-      this.initializePuzzle();
-      this.moveTile(new PuzzleTile(13, 15, false));
+      this.getAllPuzzles();
     }
   }
 

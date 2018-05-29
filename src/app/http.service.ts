@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
+import {Record} from "./shared/record";
+import {BiddingProject} from "./shared/biddingProject";
 
 @Injectable()
 
@@ -22,8 +24,10 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  //static apiURL = 'http://35.196.111.251:3000';
-   static apiURL = 'http://localhost:3000';
+  static apiURL = 'http://35.196.111.251:3000';
+
+   //static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -31,6 +35,10 @@ export class HttpService {
   static loginURL = '/login';
   static emailURL = '/emails';
   static puzzlesURL = '/puzzles';
+  static recordsURL = '/records';
+  static puzzleURL = '/puzzles';
+  static getCurrentCompanyURL = '/getCurrentProject';
+  static getBiddingProjectURL = '/biddingProjects';
 
   // All services related to Users
   getAllUsers() {
@@ -92,17 +100,39 @@ export class HttpService {
     return this.http.post<Email>(HttpService.apiURL + HttpService.emailURL + '/send/',
       JSON.stringify(email), HttpService.httpOptions);
   }
+
   sent(idUsuario) {
      return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sent/' + idUsuario);
   }  
+
   updateState(idEmail, email){
     return this.http.put<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/'+idEmail,
       JSON.stringify(email), HttpService.httpOptions);
   }
-  
-  // All services related to puzzle
-    createPuzzle(puzzle: Puzzle) {
-		return this.http.post<Puzzle>(HttpService.apiURL + HttpService.puzzlesURL + '/createPuzzle' ,
-      JSON.stringify(puzzle), HttpService.httpOptions);
+
+  //All services related to records
+  createRecord(record: Record) {
+    return this.http.post<any>(HttpService.apiURL + HttpService.recordsURL,
+      JSON.stringify(record), HttpService.httpOptions);
+  }
+  getAllRecords() {
+    return this.http.get<Record[]>(HttpService.apiURL + HttpService.recordsURL);
+  }
+  getRecordsByCompany(company: string) {
+    return this.http.get<Record[]>(HttpService.apiURL + HttpService.recordsURL + '/' + company);
+  }
+  getRecordsByFinishDateAndCompany(finishDate, company) {
+    return this.http.post<Record>(HttpService.apiURL + HttpService.recordsURL + HttpService.getCurrentCompanyURL,
+      JSON.stringify({company: company , finishDate: finishDate}), HttpService.httpOptions);
+  }
+
+  //All services related to Puzzles
+  getAllPuzzles() {
+    return this.http.get<Puzzle[]>(HttpService.apiURL + HttpService.puzzleURL);
+  }
+
+  //All services related to Projects
+  getBiddingProjectById(id: String) {
+    return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
   }
 }

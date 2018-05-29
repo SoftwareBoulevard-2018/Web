@@ -27,10 +27,10 @@ export class CreatePuzzleComponent implements OnInit {
     });
   }
   
-  onClickSubmit(data){
-	  this.puzzle = new Puzzle(this.formdata.resources, this.url);
-	  return this.httpService.createPuzzle(this.puzzle).subscribe(data => console.log(data));
-  }
+   onClickSubmit(data){
+	/*  this.puzzle = new Puzzle(this.formdata.resources, this.url);
+	  return this.httpService.createPuzzle(this.puzzle).subscribe(data => console.log(data)); */
+  } 
   
 
   // shows the image when the file is selected
