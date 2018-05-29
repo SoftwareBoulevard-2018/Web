@@ -4,7 +4,7 @@ import { GeneralServiceService } from '../general-service.service';
 import { Router } from '@angular/router';
 import {HttpService} from '../http.service';
 import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
-
+import {EmailComponent} from'../email/email.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['home']);
         }
         this.service.loggedusr = true;
+        this.firstEmail(this.service.user._id);
       },
       error => {
         this.invalid = true;
@@ -64,7 +65,26 @@ export class LoginComponent implements OnInit {
     console.log('recieved= key:' + key + 'value:' + val);
     this.storage.set(key, val);
   }
-
+  firstEmail(userId){
+    return this.httpService.read(userId).subscribe(data =>{
+        const datos =JSON.parse(JSON.stringify(data)).data;
+        var sum = 0;
+      for(let i = 0; i<datos.length;i++){
+          var acknow = datos[i].acknowledgment;
+          var verif = false;
+          for(let j=0;j<acknow.length;j++){
+               if(userId==acknow[j]){
+                  verif=true;
+               }
+          }
+          if(!verif){
+            sum++
+          }
+      }
+      EmailComponent.numNoReadEmails=sum;
+      });
+    
+  }
   onClickSubmit(data) {
     // This is the function that validates the form data and it's activated when the log in button is clicked
     this.login(data.username, data.password);
