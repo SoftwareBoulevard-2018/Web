@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
@@ -42,7 +42,6 @@ export class EmailComponent implements OnInit  {
 
   @ViewChild('paginatorInbox') paginatorInbox: MatPaginator;
   @ViewChild('paginatorSent') paginatorSent: MatPaginator;
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
@@ -87,7 +86,6 @@ export class EmailComponent implements OnInit  {
     }
     
   }
-
   newEmailForm() {
     // Defines the default state of the forms
     this.formdata = new FormGroup({
@@ -204,7 +202,7 @@ export class EmailComponent implements OnInit  {
         rec,
         data.content,
       )
-    return this.httpService.send(email).subscribe(data => console.log(data));
+    return this.httpService.send(email).subscribe(data => {this.starter()});
   }
 
   checkEmailState(email,userID){
