@@ -102,7 +102,7 @@ export class HttpService {
   
   // All services related to puzzle
     createPuzzle(puzzle: Puzzle) {
-    return this.http.post<Puzzle>(HttpService.apiURL + HttpService.puzzlesURL,
+		return this.http.post<Puzzle>(HttpService.apiURL + HttpService.puzzlesURL + '/createPuzzle' ,
       JSON.stringify(puzzle), HttpService.httpOptions);
   }
 }

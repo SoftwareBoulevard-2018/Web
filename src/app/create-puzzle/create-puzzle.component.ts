@@ -12,17 +12,24 @@ import { Puzzle } from '../shared/puzzle';
   styleUrls: ['./create-puzzle.component.css']
 })
 export class CreatePuzzleComponent implements OnInit {
-
-  name = 'Angular 4';
   url = '';
   formdata;
   puzzle;
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router){}
 
+  form(){
+    this.formdata = new FormGroup({
+      resources: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+	  file: new FormControl(''),
+    });
+  }
   
-  onClickSubmit(formdata){
-	  this.puzzle = new Puzzle(formdata.resources, this.url);
-	  return this.httpService.createPuzzle(this.puzzle).subscribe(formdata => console.log(formdata));
+  onClickSubmit(data){
+	  this.puzzle = new Puzzle(this.formdata.resources, this.url);
+	  return this.httpService.createPuzzle(this.puzzle).subscribe(data => console.log(data));
   }
   
 
@@ -38,6 +45,7 @@ export class CreatePuzzleComponent implements OnInit {
       }
     }
   }
-  ngOnInit(){
+  ngOnInit() {
+
   }
 }
