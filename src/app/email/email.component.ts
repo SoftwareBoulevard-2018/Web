@@ -32,12 +32,12 @@ export class EmailComponent implements OnInit  {
 
   constructor(public httpService: HttpService, public service: GeneralServiceService) { 
   }
-
   ngOnInit() {
     this.newEmailForm();
     this.getUsers();
     this.TInbox = new MatTableDataSource(this.EReceived);
     this.TSent = new MatTableDataSource(this.ESent);
+   this.EReceived = this.ESent = []
   }
 
   @ViewChild('paginatorInbox') paginatorInbox: MatPaginator;
@@ -61,13 +61,11 @@ export class EmailComponent implements OnInit  {
     return this.httpService.getCompanyById(companyId).subscribe(data => {
       user.companyName = data.name;
       this.users.push({ id: user.id, createdAt: user.createdAt,
-        name: user.name, username: user.username,
-        password: user.password, role: user.role, companyName: user.companyName});
+        name: user.name, username: user.username, role: user.role, companyName: user.companyName});
     }, error => {
         user.companyName = undefined;
         this.users.push({ id: user.id, createdAt: user.createdAt,
-          name: user.name, username: user.username,
-          password: user.password, role: user.role, companyName: user.company_name});
+          name: user.name, username: user.username, role: user.role, companyName: user.company_name});
       });
   }
 
@@ -77,8 +75,7 @@ export class EmailComponent implements OnInit  {
     for (let user of data) {
       if (user.companyId == null){
         this.users.push({ id: user.id, createdAt: user.createdAt,
-          name: user.name, username: user.username,
-          password: user.password, role: user.role});
+          name: user.name, username: user.username, role: user.role});
       }
       else {
         this.getCompanyById(user.companyId, user);
