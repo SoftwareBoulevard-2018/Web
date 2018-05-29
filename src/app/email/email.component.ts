@@ -11,7 +11,6 @@ import { Email } from '../shared/email';
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit  {
-
   formdata;
   users =[];
   emailWindowOpen = false;
@@ -326,6 +325,5 @@ export class EmailComponent implements OnInit  {
     
     this.showAllReceivers = !this.showAllReceivers;
   }
-
-  
+ 
 }
