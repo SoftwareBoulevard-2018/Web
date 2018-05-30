@@ -167,7 +167,7 @@ export class HttpService {
       JSON.stringify(estimation), HttpService.httpOptions);
   }
   getEstimationByPMAndProject(projectManagerUsername, projectName) {
-    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationByPMAndProjectURL,
+    return this.http.post<Estimation[]>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationByPMAndProjectURL,
       JSON.stringify({projectManagerUsername: projectManagerUsername , projectName: projectName}), HttpService.httpOptions);
   }
   getEstimationByProjectManagerUsernameAndState(projectManagerUsername, state) {
