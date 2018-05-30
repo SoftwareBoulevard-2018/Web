@@ -15,6 +15,7 @@ import {Record} from "./shared/record";
 import {BiddingProject} from "./shared/biddingProject";
 import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
+import {InstantProject} from "./shared/instantProject";
 @Injectable()
 
 export class HttpService {
@@ -48,6 +49,7 @@ export class HttpService {
   static getEstimationByPMAndProjectURL = '/getEstimationByPMAndProject';
   static getEstimationsByPMAndStateURL = '/getEstimationsByProjectManagerUsernameAndState';
   static certificationURL = '/certification';
+  static instantProjecstURL = '/instantProjects';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -174,10 +176,36 @@ export class HttpService {
       JSON.stringify({projectManagerUsername: projectManagerUsername , state: state}), HttpService.httpOptions);
   }
 
-  //All services related to Projects
+  //All services related to BiddingProjects
+  getAllBiddingProjects() {
+    return this.http.get<BiddingProject[]>(HttpService.apiURL + HttpService.getBiddingProjectURL);
+  }
   getBiddingProjectById(id: String) {
     return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
+  }
+  createBiddingProject(biddingProject: BiddingProject) {
+    return this.http.post<Id>(HttpService.apiURL + HttpService.getBiddingProjectURL,
+      JSON.stringify(biddingProject), HttpService.httpOptions);
+  }
+  updateBiddingProject(biddingProject, id) {
+    return this.http.put<Object>(HttpService.apiURL + HttpService.getBiddingProjectURL + '/' + id,
+      JSON.stringify(biddingProject), HttpService.httpOptions);
+  }
 
+  //All services related to InstantProjects
+  getAllInstantProjects() {
+    return this.http.get<InstantProject[]>(HttpService.apiURL + HttpService.instantProjecstURL);
+  }
+  getInstantprojectById(id: string) {
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
+  }
+  createInstantProject(instantProject: InstantProject) {
+    return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL,
+      JSON.stringify(instantProject), HttpService.httpOptions);
+  }
+  updateInstantProject(instantProject, id) {
+    return this.http.put<Object>(HttpService.apiURL + HttpService.instantProjecstURL + '/' + id,
+      JSON.stringify(instantProject), HttpService.httpOptions);
   }
   // All services related to Certification
 

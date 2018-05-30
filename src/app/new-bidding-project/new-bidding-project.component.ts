@@ -111,7 +111,7 @@ export class NewBiddingProjectComponent implements OnInit {
       this.flawed_name = false;
     }
     else if (data.kunit >= 1 && this.auxiliar) {
-      this.project = new BiddingProject(Object.keys(this.service.projects).length ,data.name, data.kunit,
+      this.project = new BiddingProject(data.name, data.kunit,
                                       data.testerQ, data.analystQ, data.developerQ, data.time, data.cost,
                                       data.krequired, data.analystL, data.developerL, data.testerL);
       this.service.projects.push(this.project);

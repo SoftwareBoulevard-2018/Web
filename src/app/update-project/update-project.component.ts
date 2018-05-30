@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import {Router} from "@angular/router";
-import {EmailComponent} from "../email/email.component";
 import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
+import {BiddingProject} from '../shared/biddingProject';
+import {InstantProject} from '../shared/instantProject';
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-update-project',
@@ -11,32 +13,49 @@ import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
 })
 export class UpdateProjectComponent implements OnInit {
 
-  constructor(public service: GeneralServiceService, public router: Router) { }
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {
+  }
 
   projects = [];
   projects2 = [];
-  project2;
-  project3;
+  project2: MatTableDataSource<BiddingProject>;
+  project3: MatTableDataSource<InstantProject>;
 
   table_titles = ["id", "name", "update"];
 
   ngOnInit() {
-	// Checks User permissions and transforms the data to the format read by material tables
+    // When the component is created, it defines the variables to create the material table
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
-      this.router.navigate([''])
-    }
-
-    else if (this.service.user_type === "Team Member" || this.service.user_type === "Project Manager") {
-      this.router.navigate(['restricted'])
-    }
-
-    else {
-      this.projects = JSON.parse(JSON.stringify(this.service.projects));
+      this.router.navigate(['']);
+    } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
+      this.router.navigate(['restricted']);
+    } else {
       this.project2 = new MatTableDataSource(this.projects);
-      this.projects2 = JSON.parse(JSON.stringify(this.service.projects2));
+      this.getAllBiddingProjects();
       this.project3 = new MatTableDataSource(this.projects2);
+      this.getAllInstantProjects();
     }
+  }
+
+  getAllBiddingProjects(){
+    return this.httpService.getAllBiddingProjects().subscribe(data => 
+      this.listBiddingProjects(data));
+  }
+  
+  listBiddingProjects(data){
+    this.projects = [];
+    data = JSON.parse(JSON.stringify(data)).data
+    for (let biddingProject of data) {
+      this.projects.push({ id: biddingProject.id, name: biddingProject.name});
+    }
+    this.project3.data = this.projects;
+    console.log(this.project3);
+    console.log(data);
+  }
+
+  getAllInstantProjects(){
+
   }
 
   applyFilter(filterValue: string) {

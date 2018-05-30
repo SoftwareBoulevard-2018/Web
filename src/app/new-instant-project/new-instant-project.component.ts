@@ -6,6 +6,7 @@ import { User } from "../shared/user";
 import { InstantProject } from "../shared/instantProject";
 import { BiddingProject } from "../shared/biddingProject";
 import { MatSelect } from "@angular/material";
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-new-instant-project',
@@ -50,7 +51,7 @@ export class NewInstantProjectComponent implements OnInit {
     return true;
   }
 
-  constructor(public service: GeneralServiceService, public router: Router) { }
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   // These variables are used to create the forms and validate the data input on them
   formdata;
@@ -77,9 +78,22 @@ export class NewInstantProjectComponent implements OnInit {
     }
   }
 
-  onClickSubmit(data) {
-	// Validates the data input on the form and if it's correct then creates the project
-    this.auxiliar = this.new_projectname(data.name);
+  createInstantProject(project){
+    return this.httpService.createBiddingProject(project).subscribe(data => console.log(data));
+  }
+
+  getBiddingProjectByName(formdata){
+    return this.httpService.getUserByUsername(formdata.username).subscribe(data => {
+      this.auxiliar = false;
+      this.validations(this.auxiliar, formdata);
+      },
+      error => {
+      this.auxiliar = true;
+      this.validations(this.auxiliar, formdata);
+    });
+  }
+
+  validations(auxiliar, data){
     if (!(/^[a-zA-Z ]+$/.test(data.name))) {
       this.invalid_name = true;
       this.invalid = false;
@@ -87,9 +101,8 @@ export class NewInstantProjectComponent implements OnInit {
       this.flawed_name = false;
     }
     else if (data.kunit >= 1 && this.auxiliar) {
-      this.project = new InstantProject(Object.keys(this.service.projects2).length ,data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ);
-      this.service.projects2.push(this.project);
-      console.log(this.service.projects);
+      this.project = new InstantProject(data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ);
+      this.createInstantProject(this.project);
       this.form();
       this.invalid_name = false;
       this.invalid = false;
@@ -109,4 +122,10 @@ export class NewInstantProjectComponent implements OnInit {
       this.flawed_name = false;
     }
   }
+
+  onClickSubmit(formdata) {
+    this.getBiddingProjectByName(formdata);
+  }
 }
+
+ 
