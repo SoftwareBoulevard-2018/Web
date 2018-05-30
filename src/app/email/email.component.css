@@ -457,6 +457,7 @@ naranja #FF5729
 
 .email-body-container .email-info-container .receiver-sender .receiver-sender-text-container.open .dropdown-icon .mat-icon { 
 	transform: rotate(180deg);
+	top: -3px;
 }
 
 .email-body-container .main-email-container .read-email-container .email-content-container {
