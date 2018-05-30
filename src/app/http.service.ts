@@ -165,7 +165,7 @@ export class HttpService {
   getAllPuzzles() {
     return this.http.get<Puzzle[]>(HttpService.apiURL + HttpService.puzzleURL);
   }
-  
+
   createPuzzle(puzzle : creationPuzzle){
 	return this.http.post<creationPuzzle>(HttpService.apiURL + '/puzzles' + '/createPuzzle',
       JSON.stringify(puzzle), HttpService.httpOptions);
@@ -181,7 +181,7 @@ export class HttpService {
       JSON.stringify({projectManagerUsername: projectManagerUsername , projectName: projectName}), HttpService.httpOptions);
   }
   getEstimationByProjectManagerUsernameAndState(projectManagerUsername, state) {
-    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationsByPMAndStateURL,
+    return this.http.post<Estimation[]>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationsByPMAndStateURL,
       JSON.stringify({projectManagerUsername: projectManagerUsername , state: state}), HttpService.httpOptions);
   }
 
@@ -229,9 +229,9 @@ export class HttpService {
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' +id,
       JSON.stringify(cert), HttpService.httpOptions);
   }
-  
+
   // All services related to Questions
-  
+
   getQuestions(){
     return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL);
   }
