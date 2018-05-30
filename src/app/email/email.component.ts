@@ -4,6 +4,7 @@ import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms'
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { HttpService } from '../http.service';
 import { Email } from '../shared/email';
+import { localStorageFactory } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-email',
@@ -12,7 +13,7 @@ import { Email } from '../shared/email';
 })
 export class EmailComponent implements OnInit  {
   formdata;
-  users =[];
+  users = [];
   emailWindowOpen = false;
   inInbox = true;
   inSent = false;
@@ -53,7 +54,9 @@ export class EmailComponent implements OnInit  {
   }
 
   getUsers(){
-    return this.httpService.getAllUsers().subscribe(data => this.listUser(data));
+    return this.httpService.getAllUsers().subscribe(data => {
+      this.listUser(data);
+    });
   }
 
   getCompanyById(companyId, user) {
@@ -61,16 +64,14 @@ export class EmailComponent implements OnInit  {
       user.companyName = data.name;
       this.users.push({ id: user.id, createdAt: user.createdAt,
         name: user.name, username: user.username, role: user.role, companyName: user.companyName});
-    }, error => {
-        user.companyName = undefined;
-        this.users.push({ id: user.id, createdAt: user.createdAt,
-          name: user.name, username: user.username, role: user.role, companyName: user.company_name});
-      });
+    }, error => {console.log(error);}
+    );
   }
 
   listUser(data) {
     this.users = [];
     data = JSON.parse(JSON.stringify(data)).data
+    
     for (let user of data) {
       if (user.companyId == null){
         this.users.push({ id: user.id, createdAt: user.createdAt,
@@ -80,8 +81,9 @@ export class EmailComponent implements OnInit  {
         this.getCompanyById(user.companyId, user);
       } 
     }
-    
+
   }
+
   newEmailForm() {
     // Defines the default state of the forms
     this.formdata = new FormGroup({
@@ -100,7 +102,7 @@ export class EmailComponent implements OnInit  {
     });
   }
   newNotification(){
-       var sum = 0;
+      var sum = 0;
       for(let i = 0; i<this.EReceived.length;i++){
           var acknow = this.EReceived[i].acknowledgment;
           var verif = false;
@@ -122,12 +124,20 @@ export class EmailComponent implements OnInit  {
   }
 
   openCloseEmail(){
-    console.log("say hi" + EmailComponent.numNoReadEmails);
     this.emailWindowOpen = !this.emailWindowOpen;
+
+    if(this.inNewEmail){
+      this.inNewEmail = false;
+      setTimeout(() => this.inNewEmail = true,500);
+    }
+
     this.users = JSON.parse(JSON.stringify(this.service.users));
     this.TInbox = new MatTableDataSource(this.EReceived);
     this.TSent = new MatTableDataSource(this.ESent);
+    this.closeAllReceivers();
     this.starter();
+    console.log(this.users);
+    
     setTimeout(() => this.ngAfterViewInit());
   }
   read(){
@@ -210,7 +220,9 @@ export class EmailComponent implements OnInit  {
         data.subject,
         rec,
         data.content,
-      )
+    )
+    this.formdata.reset();
+    this.toInbox();
     return this.httpService.send(email).subscribe(data => {this.starter()});
   }
 
@@ -254,8 +266,15 @@ export class EmailComponent implements OnInit  {
           this.updateState(email,email.id);
         }
       }
-    }  
-    this.starter();
+    }
+    setTimeout(() => this.updateEmails(),1000); 
+  }
+
+  updateEmails(){
+    this.read();
+    this.sent();
+
+    setTimeout(() => this.newNotification(),500);
   }
 
   printReceivers(receivers){
@@ -288,6 +307,8 @@ export class EmailComponent implements OnInit  {
     this.inNewEmail = false;
     this.inSent = false;
     this.inInbox = true;
+    this.closeAllReceivers();
+    this.updateEmails();
     setTimeout(() => this.ngAfterViewInit());
   }
 
@@ -296,6 +317,8 @@ export class EmailComponent implements OnInit  {
     this.inInbox = false;
     this.inNewEmail = false;
     this.inSent = true;
+    this.closeAllReceivers();
+    this.updateEmails();
     setTimeout(() => this.ngAfterViewInit());
   }
 
@@ -303,7 +326,9 @@ export class EmailComponent implements OnInit  {
     this.inAEmail = false;
     this.inInbox = false;
     this.inSent = false;
+    this.closeAllReceivers();
     this.inNewEmail = true;
+    
   }
   updateState(email, emailId){
     return this.httpService.updateState(emailId,email).subscribe(data => {});
@@ -315,7 +340,19 @@ export class EmailComponent implements OnInit  {
 
   emailHour(isoDate){
     let date = new Date(isoDate);
-    return (date.getHours() + ":" + date.getMinutes());
+    var hour = date.getHours();
+    var minutes = date.getMinutes();
+    var amPM;
+
+    if( hour >= 12 ){
+      amPM = "pm";
+      if ( hour != 12 ){
+        hour = hour - 12;
+      }
+    }else {
+      amPM = "am";
+    }
+    return (hour + ":" + minutes + " " + amPM);
   }
 
   @ViewChild('inEmailReceivers') elementView: ElementRef;
@@ -333,6 +370,10 @@ export class EmailComponent implements OnInit  {
     }
     
     this.showAllReceivers = !this.showAllReceivers;
+  }
+  closeAllReceivers(){
+    this.containerHeight = 40;
+    this.showAllReceivers = false;
   }
  
 }
