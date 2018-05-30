@@ -31,6 +31,7 @@ export class EstimationComponent implements OnInit {
   max_cost;
   min_cost;
   has_bidding_project = true;
+  no_longer_has_enough_resources = false;
 
   constructor(public service: GeneralServiceService, public httpService: HttpService, public router: Router) {
   }
@@ -141,8 +142,7 @@ export class EstimationComponent implements OnInit {
   }
 
   onClickSubmit(guess) {
-
-    this.fillCompany();
+    
     this.correct_guess = false;
     this.incorrect_time = false;
     this.incorrect_cost = false;
@@ -151,11 +151,16 @@ export class EstimationComponent implements OnInit {
     this.incorrect_cost = !this.validate_cost(guess);
 
     this.correct_guess = !(this.incorrect_time || this.incorrect_cost);
-    this.current_company.companyResource -= 1;
     let newResource = this.current_company.companyResource - 1;
-    const newCompany = { companyResource: newResource };
-    this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => console.log('updated resource pool'));
-    this.sendEstimation(guess);
+    if(this.current_company.companyResource <= 0){
+      this.no_longer_has_enough_resources = true;
+    }
+    else{
+      this.current_company.companyResource -= 1;
+      const newCompany = { companyResource: newResource };
+      this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => console.log('updated resource pool'));
+      this.sendEstimation(guess);
+    }
 
   }
 
