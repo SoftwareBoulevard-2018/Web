@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
 import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { HttpService } from '../http.service';
 import { Email } from '../shared/email';
-
+import { localStorageFactory } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-email',
@@ -12,30 +12,41 @@ import { Email } from '../shared/email';
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit  {
-
-
-
   formdata;
-
   users = [];
   emailWindowOpen = false;
   inInbox = true;
   inSent = false;
   inAEmail = false;
   inNewEmail = false;
-
+  showAllReceivers = false;
   selectedEmail : Email;
-  numNoReadEmails : number = 0;
+  static numNoReadEmails;
   selectedUsers = [];
   EReceived = [];
   ESent = [];
   table_titles = ['sender','subject-content', 'createdAt'];
   table_titles_sent =['receivers','subject-content', 'createdAt'];
+
   TInbox:MatTableDataSource<Email>;
   TSent:MatTableDataSource<Email>;
+
   constructor(public httpService: HttpService, public service: GeneralServiceService) { 
   }
-
+  ngOnInit() {
+    this.newEmailForm();
+    this.getUsers();
+    this.TInbox = new MatTableDataSource(this.EReceived);
+    this.TSent = new MatTableDataSource(this.ESent);
+    this.EReceived = this.ESent = []
+    EmailComponent.numNoReadEmails=0;
+    setTimeout(() => this.refreshPageOnSession(),500);
+  }
+  get staticNumNoReadEmails(){
+    return EmailComponent.numNoReadEmails;
+  }
+  @ViewChild('paginatorInbox') paginatorInbox: MatPaginator;
+  @ViewChild('paginatorSent') paginatorSent: MatPaginator;
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
@@ -43,11 +54,43 @@ export class EmailComponent implements OnInit  {
     this.TSent.filter = filterValue;
   }
 
+  refreshPageOnSession(){
+    if(this.service.user_type != undefined){
+      this.starter();
+    }
+  }
+
   getUsers(){
     return this.httpService.getAllUsers().subscribe(data => {
-      this.users=JSON.parse(JSON.stringify(data));
+      this.listUser(data);
     });
   }
+
+  getCompanyById(companyId, user) {
+    return this.httpService.getCompanyById(companyId).subscribe(data => {
+      user.companyName = data.name;
+      this.users.push({ id: user.id, createdAt: user.createdAt,
+        name: user.name, username: user.username, role: user.role, companyName: user.companyName});
+    }, error => {console.log(error);}
+    );
+  }
+
+  listUser(data) {
+    this.users = [];
+    data = JSON.parse(JSON.stringify(data)).data
+    
+    for (let user of data) {
+      if (user.companyId == null){
+        this.users.push({ id: user.id, createdAt: user.createdAt,
+          name: user.name, username: user.username, role: user.role});
+      }
+      else {
+        this.getCompanyById(user.companyId, user);
+      } 
+    }
+
+  }
+
   newEmailForm() {
     // Defines the default state of the forms
     this.formdata = new FormGroup({
@@ -66,22 +109,42 @@ export class EmailComponent implements OnInit  {
     });
   }
   newNotification(){
-    this.numNoReadEmails = this.EReceived.length;
+      var sum = 0;
+      for(let i = 0; i<this.EReceived.length;i++){
+          var acknow = this.EReceived[i].acknowledgment;
+          var verif = false;
+          for(let j=0;j<acknow.length;j++){
+               if(this.service.user._id==acknow[j]){
+                  verif=true;
+               }
+          }
+          if(!verif){
+            sum++
+          }
+      }
+    EmailComponent.numNoReadEmails = sum;
   }
+
   ngAfterViewInit() {
-    this.TInbox.paginator = this.paginator;
-    this.TSent.paginator = this.paginator;
+    this.TInbox.paginator = this.paginatorInbox;
+    this.TSent.paginator = this.paginatorSent;
   }
-  ngOnInit() {
-    this.newEmailForm();
-    this.getUsers();
-  }
+
   openCloseEmail(){
     this.emailWindowOpen = !this.emailWindowOpen;
+
+    if(this.inNewEmail){
+      this.inNewEmail = false;
+      setTimeout(() => this.inNewEmail = true,500);
+    }
+
     this.users = JSON.parse(JSON.stringify(this.service.users));
     this.TInbox = new MatTableDataSource(this.EReceived);
     this.TSent = new MatTableDataSource(this.ESent);
+    this.closeAllReceivers();
     this.starter();
+    
+    setTimeout(() => this.ngAfterViewInit());
   }
   read(){
     this.EReceived = [];
@@ -89,15 +152,17 @@ export class EmailComponent implements OnInit  {
         // Aquí va el código donde el argumento data es lo que vino en la consulta
       const datos =JSON.parse(JSON.stringify(data));
       for(let i = 0; i<datos.data.length;i++){
-          this.EReceived.push({id:datos.data[i].id,
+          this.EReceived.push({
+            id:datos.data[i].id,
             sender:datos.data[i].sender,
             subject:datos.data[i].subject,
             receivers:datos.data[i].receivers,
             content:datos.data[i].content,
+            acknowledgment: datos.data[i].acknowledgment,
             createdAt:datos.data[i].createdAt});
       }
       this.TInbox.data = this.EReceived;
-       this.newNotification();
+      this.newNotification();
     }, error => {
         console.log(error);
     });
@@ -109,8 +174,8 @@ export class EmailComponent implements OnInit  {
     let usernameMatch = item.username.toLowerCase().indexOf(term) > -1;
     let companyMatch: boolean;
 
-    if ( item['company_name'] ) {
-      companyMatch = item.company_name.toLowerCase().indexOf(term) > -1;
+    if ( item['companyName'] ) {
+      companyMatch = item.companyName.toLowerCase().indexOf(term) > -1;
     } else {
       companyMatch = false;
     }
@@ -119,11 +184,12 @@ export class EmailComponent implements OnInit  {
   }
   sent(){
     this.ESent = [];
-    return this.httpService.sended(this.service.user.id).subscribe(data =>{
+    return this.httpService.sent(this.service.user.id).subscribe(data =>{
       const datos =JSON.parse(JSON.stringify(data));
       for(let i = 0; i<datos.data.length;i++){
         this.ESent.push({
           id:datos.data[i].id,
+          sender:datos.data[i].sender,
           subject:datos.data[i].subject,
           receivers:datos.data[i].receivers,
           content:datos.data[i].content,
@@ -135,10 +201,18 @@ export class EmailComponent implements OnInit  {
       /*data source*/
     });
   }
-  public starter(){
-    this.read();
-    this.getUsers();
-    this.sent();
+  findUserById(userId){
+    for(let i = 0; i<this.users.length;i++){
+      if(this.users[i].id==userId){
+        return this.users[i].name;
+      }
+    }
+  }
+  starter(){
+       this.read();
+       this.getUsers();
+       this.sent();
+       this.newNotification();
   }
  submitEmail(data){
    let rec :[string] = [""]; 
@@ -152,42 +226,95 @@ export class EmailComponent implements OnInit  {
         data.subject,
         rec,
         data.content,
-      )
-    return this.httpService.send(email).subscribe(data => console.log(data));
+    )
+    this.formdata.reset();
+    this.toInbox();
+    return this.httpService.send(email).subscribe(data => {this.starter()});
   }
-  readEmail(email) {
+
+  checkEmailState(email,userID){
+    var unreaded = true;
+
+    if(email.acknowledgment == undefined){
+      return unreaded;
+    }
+    else {
+      for(let i=0;i<email.acknowledgment.length;i++){
+        if(email.acknowledgment[i]==userID){
+          return !unreaded;
+        }
+      }
+      return unreaded;
+    }
+  }
+
+  readEmail(email,v) {
     this.selectedEmail = email;
     this.inInbox = false;
     this.inNewEmail = false;
     this.inSent = false;
     this.inAEmail = true;
-    alert(email.id);
-     if(email.acknowledgment == undefined){
-       email.acknowledgment = [];
-      email.acknowledgment[0]=this.service.user.id;
-      console.log("agregar1");
-      this.updateState(email,email.id);
-     }else{
-       var found = undefined;
-      for(let i =0;i<email.acknowledge.length;i++){
-        if(email.acknowledgment[i]==this.service.user.id){
-          found=true;
-        }
-      }
-      if(found == undefined){
-        email.acknowledgment.push(this.service.user.id);
-        console.log("agregar2");
+    if(v==0){
+      if(email.acknowledgment == undefined){
+        email.acknowledgment = [];
+        email.acknowledgment[0]=this.service.user.id;
         this.updateState(email,email.id);
       }
-     }
-     this.starter();
-    
+      else{
+        var found = undefined;
+        for(let i=0;i<email.acknowledgment.length;i++){
+          if(email.acknowledgment[i]==this.service.user.id){
+            found=true;
+          }
+        }
+        if(found == undefined){
+          email.acknowledgment.push(this.service.user.id);
+          this.updateState(email,email.id);
+        }
+      }
+    }
+    setTimeout(() => this.updateEmails(),1000); 
   }
+
+  updateEmails(){
+    this.read();
+    this.sent();
+
+    setTimeout(() => this.newNotification(),500);
+  }
+
+  printReceivers(receivers){
+    var receiversName = [];
+    for( let i = 0; i < receivers.length; i++ ){
+      receiversName.push(this.findUserById(receivers[i]));
+    }
+    if (receivers.length == 1){
+      return receiversName[0];
+    }
+    else {
+      var printable;
+      for( let i = 0; i < receivers.length; i++ ){
+        if (receiversName[i] != null){
+          if (i == 0){
+            printable = receiversName[i].split(" ")[0];
+          }
+          else{
+            printable = printable +  ", " + receiversName[i].split(" ")[0];
+          }
+        }
+      }
+      return printable;
+    }
+  }
+
+
   toInbox(){
     this.inAEmail = false;
     this.inNewEmail = false;
     this.inSent = false;
     this.inInbox = true;
+    this.closeAllReceivers();
+    this.updateEmails();
     setTimeout(() => this.ngAfterViewInit());
   }
 
@@ -196,6 +323,8 @@ export class EmailComponent implements OnInit  {
     this.inInbox = false;
     this.inNewEmail = false;
     this.inSent = true;
+    this.closeAllReceivers();
+    this.updateEmails();
     setTimeout(() => this.ngAfterViewInit());
   }
 
@@ -203,7 +332,9 @@ export class EmailComponent implements OnInit  {
     this.inAEmail = false;
     this.inInbox = false;
     this.inSent = false;
+    this.closeAllReceivers();
     this.inNewEmail = true;
+    
   }
   updateState(email, emailId){
     return this.httpService.updateState(emailId,email).subscribe(data => {});
@@ -215,8 +346,40 @@ export class EmailComponent implements OnInit  {
 
   emailHour(isoDate){
     let date = new Date(isoDate);
-    return (date.getHours() + ":" + date.getMinutes());
+    var hour = date.getHours();
+    var minutes = date.getMinutes();
+    var amPM;
+
+    if( hour >= 12 ){
+      amPM = "pm";
+      if ( hour != 12 ){
+        hour = hour - 12;
+      }
+    }else {
+      amPM = "am";
+    }
+    return (hour + ":" + minutes + " " + amPM);
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('inEmailReceivers') elementView: ElementRef;
+  containerHeight = 40;
+  displayAllReceivers() {
+
+    if (this.showAllReceivers) {
+      this.containerHeight = 40;
+    }
+    else {
+      var viewHeight;
+      viewHeight = this.elementView.nativeElement.offsetHeight;
+      this.containerHeight = viewHeight + 20;
+
+    }
+    
+    this.showAllReceivers = !this.showAllReceivers;
+  }
+  closeAllReceivers(){
+    this.containerHeight = 40;
+    this.showAllReceivers = false;
+  }
+ 
 }

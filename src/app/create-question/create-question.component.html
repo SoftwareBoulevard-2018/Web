@@ -28,19 +28,6 @@
 	
 	<br/>
 	
-	<div class="element">
-      <mat-form-field class="big-input">
-        <mat-select placeholder="Question's level" name="level" formControlName="level">
-          <mat-option *ngFor="let level of levels" [value]="level">
-            {{ level }}
-          </mat-option>
-        </mat-select>
-        <mat-hint>Required Field</mat-hint>
-      </mat-form-field>
-    </div>
-	
-	<br/>
-	
 	<div class="w3-row-">
       <div class="w3-half">
         <div class="element">
@@ -145,7 +132,7 @@
     <div class="element" *ngIf="no_false">
       <br/>
       <span class="error">
-        There must be at least one false answer.
+        There must be at least one false answer and at least one true answer.
       </span>
     </div>
 

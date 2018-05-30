@@ -6,6 +6,7 @@ import { User } from "../shared/user";
 import { MatSelect } from "@angular/material";
 import { Question } from "../shared/question";
 import { Answer } from "../shared/answer";
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-create-question',
@@ -22,10 +23,6 @@ export class CreateQuestionComponent implements OnInit {
           Validators.required
         ])),
       category: new FormControl('',
-        Validators.compose([
-          Validators.required
-        ])),
-      level: new FormControl('',
         Validators.compose([
           Validators.required
         ])),
@@ -64,21 +61,11 @@ export class CreateQuestionComponent implements OnInit {
     });
   }
 
-  new_description(description){
-	  // Defines if the description has already been taken
-    for(let question of this.service.questions){
-      if(description === question.description){
-        return false;
-      }
-    }
-    return true;
-  }
 
-  constructor(public service: GeneralServiceService, public router: Router) { }
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 	// These variables are used to create the forms and validate the data input on them
   formdata;
   categories = [ "Analyst", "Developer", "Tester"];
-  levels = [ 1, 2, 3, 4, 5];
   veracities = [ true, false];
   repeated_description = false;
   no_false = false;
@@ -106,41 +93,34 @@ export class CreateQuestionComponent implements OnInit {
       this.form();
     }
   }
+  
+  createQuestion(question) {
+		return this.httpService.createQuestion(question).subscribe(data => console.log(data));
+  }
 
   onClickSubmit(data) {
 	// Validates the data input on the form and if it's correct then creates the question
-    this.auxiliary = this.new_description(data.description);
-	if (data.veracity1 === true && data.veracity2 === true && data.veracity3 === true && data.veracity4 === true){
+	if ((data.veracity1 === true && data.veracity2 === true && data.veracity3 === true && data.veracity4 === true) || (data.veracity1 === false && data.veracity2 === false && data.veracity3 === false && data.veracity4 === false) ){
 		this.repeated_description = false;
 		this.no_false = true;
 		this.success = false;
 	}
 	
-    else if (this.auxiliary) {
+
+	
+    else {
 	  this.firstAnswer = new Answer(data.answer1, data.veracity1);
 	  this.secondAnswer = new Answer(data.answer2, data.veracity2);
 	  this.thirdAnswer = new Answer(data.answer3, data.veracity3);
 	  this.fourthAnswer = new Answer(data.answer4, data.veracity4);
-      this.question = new Question(Object.keys(this.service.questions).length ,data.description, data.category, data.level, this.firstAnswer, this.secondAnswer, this.thirdAnswer, this.fourthAnswer);
-      this.service.questions.push(this.question);
-      console.log(this.service.questions);
+      this.question = new Question(data.category, data.description, this.firstAnswer, this.secondAnswer, this.thirdAnswer, this.fourthAnswer);
+      this.createQuestion(this.question);
       this.form();
 	  this.repeated_description = false;
 	  this.no_false = false;
 	  this.success = true;
     }
 	
-	else if(!(this.auxiliary)){
-		this.repeated_description = true;
-		this.no_false = false;
-		this.success = false;
-    }
-	
-	else{
-		this.repeated_description = false;
-		this.no_false = false;
-		this.success = false;
-	}
   }
   
 }  

@@ -1,4 +1,5 @@
-<div class="announcement" *ngIf="getCompany(this.service.username)!== undefined">
+
+<div class="announcement" *ngIf="(this.load_complete && haveCompany())">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Generate resources
@@ -10,7 +11,7 @@
         <div class="w3-card-4" (click)="moveTile($event,1)">
 
           <div class="1">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[0][0].image">
           </div>
         </div>
       </div>
@@ -19,7 +20,7 @@
         <div class="w3-card-4" (click)="moveTile($event,2)">
 
           <div class="2">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[0][1].image">
           </div>
         </div>
       </div>
@@ -28,7 +29,7 @@
         <div class="w3-card-4" (click)="moveTile($event,3)">
 
           <div class="3">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[0][2].image">
           </div>
         </div>
       </div>
@@ -37,7 +38,7 @@
         <div class="w3-card-4" (click)="moveTile($event,4)">
 
           <div class="4">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[0][3].image">
           </div>
         </div>
       </div>
@@ -49,7 +50,7 @@
         <div class="w3-card-4" (click)="moveTile($event,5)">
 
           <div class="5">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[1][0].image">
           </div>
         </div>
       </div>
@@ -58,7 +59,7 @@
         <div class="w3-card-4" (click)="moveTile($event,6)">
 
           <div class="6">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[1][1].image">
           </div>
         </div>
       </div>
@@ -67,7 +68,7 @@
         <div class="w3-card-4" (click)="moveTile($event,7)">
 
           <div class="7">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[1][2].image">
           </div>
         </div>
       </div>
@@ -76,7 +77,7 @@
         <div class="w3-card-4" (click)="moveTile($event,8)">
 
           <div class="8">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[1][3].image">
           </div>
         </div>
       </div>
@@ -88,7 +89,7 @@
         <div class="w3-card-4" (click)="moveTile($event,9)">
 
           <div class="9">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[2][0].image">
           </div>
         </div>
       </div>
@@ -97,7 +98,7 @@
         <div class="w3-card-4" (click)="moveTile($event,10)">
 
           <div class="10">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[2][1].image">
           </div>
         </div>
       </div>
@@ -106,7 +107,7 @@
         <div class="w3-card-4" (click)="moveTile($event,11)">
 
           <div class="11">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[2][2].image">
           </div>
         </div>
       </div>
@@ -115,7 +116,7 @@
         <div class="w3-card-4" (click)="moveTile($event,12)">
 
           <div class="12">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[2][3].image">
           </div>
         </div>
       </div>
@@ -127,7 +128,7 @@
         <div class="w3-card-4" (click)="moveTile($event,13)">
 
           <div class="13">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[3][0].image">
           </div>
         </div>
       </div>
@@ -136,7 +137,7 @@
         <div class="w3-card-4" (click)="moveTile($event,14)">
 
           <div class="14">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[3][1].image">
           </div>
         </div>
       </div>
@@ -145,7 +146,7 @@
         <div class="w3-card-4" (click)="moveTile($event,15)">
 
           <div class="15">
-            <img src="https://i.imgur.com/7MTuui6.png">
+            <img [src]="current_matrix[3][2].image">
           </div>
         </div>
       </div>
@@ -154,7 +155,7 @@
         <div class="w3-card-4" (click)="moveTile($event,16)">
 
           <div class="16">
-            <img src="https://dondelaviste.cl/public/images/species/1/delfin_austral.png">
+            <img [src]="current_matrix[3][3].image">
           </div>
         </div>
       </div>
@@ -170,18 +171,19 @@
         Exit
       </button>
 
-      <button mat-raised-button color="warn" type="submit" (click)="redirectToFunctions($event)" [disabled] = "(!solved_puzzle)" class="forsubmit">
+      <button mat-raised-button type="submit" (click)="verifyPuzzle($event)">
         Validate
       </button>
     </div>
   </div>
 </div>
-<div class="announcement" *ngIf="getCompany(this.service.username)=== undefined">
+
+<div class="announcement" *ngIf="(this.load_complete && !(haveCompany()))">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Generate resources
     </span>
-    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+    <form class="login100-form">
       You do not have a company assigned so you can not choose a project. You must ask the game administrator to assign one to you
 
       <br>
@@ -195,3 +197,4 @@
     </form>
   </div>
 </div>
+

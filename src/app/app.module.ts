@@ -64,6 +64,11 @@ import { UpdateInstantProjectComponent } from './update-instant-project/update-i
 import { UpdateQuestionComponent } from './update-question/update-question.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { GenerateresourcesComponent } from './generateresources/generateresources.component';
+import { DevelopingAttemptsComponent } from './developingAttempts/developingAttempts.component';
+import { TrainingAttemptsComponent } from './trainingAttempts/trainingAttempts.component';
+import { AnalystQComponent } from './analyst-q/analyst-q.component';
+import { DevelopQComponent } from './develop-q/develop-q.component';
+import { TesterQComponent } from './tester-q/tester-q.component';
 
 // App routes
 const routes: Routes = [
@@ -89,6 +94,9 @@ const routes: Routes = [
   {'path': 'home/set-up/create-project/new-instant-project', 'component': NewInstantProjectComponent},
   {'path': 'home/set-up/update-project/update-instant-project', 'component': UpdateInstantProjectComponent},
   {'path': 'home/set-up/update-project/update-bidding-project', 'component': UpdateBiddingProjectComponent},
+  {'path': 'home/set-up/create-project/analyst-questions', 'component': AnalystQComponent},
+  {'path': 'home/set-up/create-project/developer-questions', 'component': DevelopQComponent},
+  {'path': 'home/set-up/create-project/tester-questions', 'component': TesterQComponent},
   {'path': 'restricted', 'component': RestrictedComponent},
   {'path': 'home/users/projectmanager', 'component': PmanagerComponent},
   {'path': 'home/users/projectmanager/functions', 'component': PmfunctionsComponent},
@@ -101,7 +109,9 @@ const routes: Routes = [
   {'path': 'home/play/develop', 'component': PlayDevelopComponent},
   {'path': 'home/join-team', 'component': JoinTeamComponent},
   {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
-  {'path': 'home/set-up/update-question/edit-question', 'component': EditQuestionComponent}
+  {'path': 'home/set-up/update-question/edit-question', 'component': EditQuestionComponent},
+  {'path': 'home/developingAttempts/developingAttempts', 'component': DevelopingAttemptsComponent},
+  {'path': 'home/trainingAttempts/trainingAttempts', 'component': TrainingAttemptsComponent}
 ];
 
 // NgModule variables
@@ -147,7 +157,12 @@ const routes: Routes = [
     JoinTeamComponent,
     UpdateQuestionComponent,
     EditQuestionComponent,
-    GenerateresourcesComponent
+    GenerateresourcesComponent,
+    DevelopingAttemptsComponent,
+    TrainingAttemptsComponent,
+    AnalystQComponent,
+    DevelopQComponent,
+    TesterQComponent
   ],
   imports: [
     BrowserModule,

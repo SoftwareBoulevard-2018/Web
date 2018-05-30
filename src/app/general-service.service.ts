@@ -7,6 +7,9 @@ import {Question} from './shared/question';
 import {Answer} from './shared/answer';
 import { Parameter } from './shared/parameter';
 import {Estimation} from './shared/estimation';
+import { TrainingAttempt} from './shared/trainingAttempt';
+import { DevelopingAttempt} from './shared/developingAttempt';
+import {Assignment} from './shared/assignment';
 
 @Injectable()
 export class GeneralServiceService {
@@ -14,6 +17,16 @@ export class GeneralServiceService {
   // Variables used for data session
 
   user_type;
+
+// Variables required for the creation of the project and assignment
+  project;
+  numTester;
+  numDev;
+  numAna;
+  testerQ = [];
+  developerQ = [];
+  analystQ = [];
+  assignments = [];
 
   user;
 
@@ -37,12 +50,12 @@ export class GeneralServiceService {
     new User("Victor Daniel JAramillo Gomez", "vdjaramillog","0000","Developer","UNAL"),
     new User("1", "1","1","Game Administrator") */ ];
 
-  projects = [new BiddingProject(1, 'FIFA', 10, 3, 10, 10, 10, 5000, 0, 0, 0 , 0),
-    new BiddingProject(2, 'Bancolombia System', 10, 3, 10, 10, 10, 5000, 0, 0, 0 , 0)];
+  projects = [/*new BiddingProject(1, 'FIFA', 10, 3, 10, 10, 10, 5000, 0, 0, 0 , 0),
+  new BiddingProject(2, 'Bancolombia System', 10, 3, 10, 10, 10, 5000, 0, 0, 0 , 0) */];
 
-  projects2 = [new InstantProject(3, 'Rapipagos', 1, 16, 17, 18),
+  projects2 = [/*new InstantProject(3, 'Rapipagos', 1, 16, 17, 18),
     new InstantProject(4, 'Gana system', 2, 18, 18, 16),
-    new InstantProject(5, 'Supermarket system', 3, 11, 12, 10)];
+new InstantProject(5, 'Supermarket system', 3, 11, 12, 10) */];
 
   questions = [/* new Question(1,"one UML diagram:","Analyst",5,new Answer("EP",false),new Answer("KAOS",false),
 			   new Answer("Problems",false),new Answer("Class",true)),
@@ -65,12 +78,6 @@ export class GeneralServiceService {
     new Company("Google",undefined,"http://educainternet.es/pictures/4074.png"),
     new Company("Amazon",this.users[3],"https://png.icons8.com/windows/1600/amazon.png",
     undefined, 6, 200,[this.users[4], this.users[6]])*/];
-
-  estimations = [ new Estimation('jjsernaco', 'FIFA', 6000, 20),
-                  new Estimation('jjsernaco', 'FIFA', 4000, 15),
-                  new Estimation('jjsernaco', 'FIFA', 6000, 30),
-                  new Estimation('jjsernaco', 'FIFA', 6000, 10),
-                  new Estimation('jjsernaco', 'FIFA', 5500, 10)];
 
   company_to_be_updated;
 
