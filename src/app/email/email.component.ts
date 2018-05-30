@@ -40,6 +40,7 @@ export class EmailComponent implements OnInit  {
     this.TSent = new MatTableDataSource(this.ESent);
     this.EReceived = this.ESent = []
     EmailComponent.numNoReadEmails=0;
+    setTimeout(() => this.refreshPageOnSession(),500);
   }
   get staticNumNoReadEmails(){
     return EmailComponent.numNoReadEmails;
@@ -51,6 +52,12 @@ export class EmailComponent implements OnInit  {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.TInbox.filter = filterValue;
     this.TSent.filter = filterValue;
+  }
+
+  refreshPageOnSession(){
+    if(this.service.user_type != undefined){
+      this.starter();
+    }
   }
 
   getUsers(){
