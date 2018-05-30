@@ -37,10 +37,17 @@
             </span>
         </div>
 
-        <div class="element-text3" *ngIf="correct_guess">
+        <div class="element-text3" *ngIf="correct_guess && !this.no_longer_has_enough_resources">
           <br/>
               Your estimation was correct! You can now exit and continue with the project.
         </div>
+
+      <div class="element-text4" *ngIf="this.no_longer_has_enough_resources">
+        <br/>
+            <span class="error">
+              You no longer have enough resources to send an Estimation
+            </span>
+      </div>
 
       <br/>
           <div class="elementfield2">
@@ -48,7 +55,7 @@
               Exit
             </button>
 
-            <button mat-raised-button color="warn" type="submit" [disabled] = "(!guess.valid||correct_guess||!this.have_resources)" class="forsubmit">
+            <button mat-raised-button color="warn" type="submit" [disabled] = "(!guess.valid||correct_guess||this.no_longer_has_enough_resources)" class="forsubmit">
               Validate
             </button>
           </div>
@@ -96,7 +103,7 @@
   </div>
 </div>
 
-<div class="announcement"  *ngIf="!this.correct_guess && !this.have_resources && this.current_project !== undefined && this.current_company !== undefined && this.load_complete">
+<div class="announcement"  *ngIf="!this.correct_guess && (!this.have_resources || this.no_longer_has_enough_resources) && this.load_complete">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
       Cost & Time Estimation

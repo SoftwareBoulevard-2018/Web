@@ -31,6 +31,7 @@ export class EstimationComponent implements OnInit {
   max_cost;
   min_cost;
   has_bidding_project = true;
+  no_longer_has_enough_resources = false;
 
   constructor(public service: GeneralServiceService, public httpService: HttpService, public router: Router) {
   }
@@ -109,10 +110,17 @@ export class EstimationComponent implements OnInit {
   }
 
   sendEstimation(guess) {
-    const project_name = this.current_project.project_name;
-    if (this.service.username !== undefined && project_name !== undefined && guess.time !== undefined && guess.cost !== undefined ) {
-      // this.service.estimations.push( new Estimation(this.service.username, project_name, guess.cost, guess.time));
-    }
+    this.httpService.getEstimationByPMAndProject(this.service.user.username,this.current_project.name).subscribe(est => {
+      let new_attempt_number;
+      if (est.length !== 0) {
+        new_attempt_number = est[est.length - 1].attemptNumber + 1;
+      }
+      else {
+        new_attempt_number = 1;
+      }
+      const newEstimation = new Estimation(new_attempt_number, this.service.user.username, this.current_project.name, guess.time, guess.cost, this.correct_guess);
+      this.httpService.createEstimation(newEstimation).subscribe(data2 => console.log('estimation sent'));
+    });
   }
 
   enoughResources() {
@@ -134,8 +142,7 @@ export class EstimationComponent implements OnInit {
   }
 
   onClickSubmit(guess) {
-
-    this.fillCompany();
+    
     this.correct_guess = false;
     this.incorrect_time = false;
     this.incorrect_cost = false;
@@ -144,11 +151,16 @@ export class EstimationComponent implements OnInit {
     this.incorrect_cost = !this.validate_cost(guess);
 
     this.correct_guess = !(this.incorrect_time || this.incorrect_cost);
-    this.current_company.companyResource -= 1;
     let newResource = this.current_company.companyResource - 1;
-    const newCompany = { companyResource: newResource };
-    this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => console.log('sent estimate'));
-    this.sendEstimation(guess);
+    if(this.current_company.companyResource <= 0){
+      this.no_longer_has_enough_resources = true;
+    }
+    else{
+      this.current_company.companyResource -= 1;
+      const newCompany = { companyResource: newResource };
+      this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => console.log('updated resource pool'));
+      this.sendEstimation(guess);
+    }
 
   }
 

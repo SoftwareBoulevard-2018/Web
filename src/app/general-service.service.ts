@@ -68,12 +68,6 @@ export class GeneralServiceService {
     new Company("Amazon",this.users[3],"https://png.icons8.com/windows/1600/amazon.png",
     undefined, 6, 200,[this.users[4], this.users[6]])*/];
 
-  estimations = [ new Estimation('jjsernaco', 'FIFA', 6000, 20),
-                  new Estimation('jjsernaco', 'FIFA', 4000, 15),
-                  new Estimation('jjsernaco', 'FIFA', 6000, 30),
-                  new Estimation('jjsernaco', 'FIFA', 6000, 10),
-                  new Estimation('jjsernaco', 'FIFA', 5500, 10)];
-
   company_to_be_updated;
 
   invitations = [];
