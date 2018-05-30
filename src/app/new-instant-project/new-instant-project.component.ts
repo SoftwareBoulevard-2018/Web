@@ -79,7 +79,7 @@ export class NewInstantProjectComponent implements OnInit {
   }
 
   createInstantProject(project){
-    return this.httpService.createBiddingProject(project).subscribe(data => console.log(data));
+    return this.httpService.createInstantProject(project).subscribe(data => console.log(data), error => (console.log(project)));
   }
 
   getBiddingProjectByName(formdata){

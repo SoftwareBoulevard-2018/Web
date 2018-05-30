@@ -17,6 +17,7 @@ import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
 import {InstantProject} from "./shared/instantProject";
 import { Question } from "./shared/question";
+import { creationPuzzle } from './shared/creationPuzzle';
 @Injectable()
 
 export class HttpService {
@@ -162,6 +163,11 @@ export class HttpService {
   getAllPuzzles() {
     return this.http.get<Puzzle[]>(HttpService.apiURL + HttpService.puzzleURL);
   }
+  
+  createPuzzle(puzzle : creationPuzzle){
+	return this.http.post<creationPuzzle>(HttpService.apiURL + '/puzzles' + '/createPuzzle',
+      JSON.stringify(puzzle), HttpService.httpOptions);
+  }
 
   //All services related to Estimation
   createEstimation(estimation: Estimation) {
@@ -201,7 +207,7 @@ export class HttpService {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
   }
   createInstantProject(instantProject: InstantProject) {
-    return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL,
+    return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject',
       JSON.stringify(instantProject), HttpService.httpOptions);
   }
   updateInstantProject(instantProject, id) {

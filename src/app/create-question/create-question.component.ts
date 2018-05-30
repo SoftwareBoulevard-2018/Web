@@ -95,7 +95,7 @@ export class CreateQuestionComponent implements OnInit {
   }
   
   createQuestion(question) {
-		return this.httpService.createQuestion(question).subscribe(data => console.log(data), error => (console.log('hay algo mal')));
+		return this.httpService.createQuestion(question).subscribe(data => console.log(data));
   }
 
   onClickSubmit(data) {
@@ -115,7 +115,6 @@ export class CreateQuestionComponent implements OnInit {
 	  this.fourthAnswer = new Answer(data.answer4, data.veracity4);
       this.question = new Question(data.category, data.description, this.firstAnswer, this.secondAnswer, this.thirdAnswer, this.fourthAnswer);
       this.createQuestion(this.question);
-      console.log(this.service.questions);
       this.form();
 	  this.repeated_description = false;
 	  this.no_false = false;
