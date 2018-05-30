@@ -136,7 +136,6 @@ export class EmailComponent implements OnInit  {
     this.TSent = new MatTableDataSource(this.ESent);
     this.closeAllReceivers();
     this.starter();
-    console.log(this.users);
     
     setTimeout(() => this.ngAfterViewInit());
   }
