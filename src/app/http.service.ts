@@ -29,8 +29,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  //static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -185,7 +185,7 @@ export class HttpService {
     return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
   }
   createBiddingProject(biddingProject: BiddingProject) {
-    return this.http.post<Id>(HttpService.apiURL + HttpService.getBiddingProjectURL,
+    return this.http.post<Id>(HttpService.apiURL + HttpService.getBiddingProjectURL + '/createBiddingProject/',
       JSON.stringify(biddingProject), HttpService.httpOptions);
   }
   updateBiddingProject(biddingProject, id) {
@@ -201,7 +201,7 @@ export class HttpService {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
   }
   createInstantProject(instantProject: InstantProject) {
-    return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL,
+    return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject/',
       JSON.stringify(instantProject), HttpService.httpOptions);
   }
   updateInstantProject(instantProject, id) {

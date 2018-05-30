@@ -67,7 +67,7 @@ export class NewInstantProjectComponent implements OnInit {
   }
 
   createInstantProject(project){
-    return this.httpService.createBiddingProject(project).subscribe(data => console.log(data));
+    return this.httpService.createInstantProject(project).subscribe(data => console.log(data));
   }
 
   onClickSubmit(formdata) {
@@ -80,7 +80,7 @@ export class NewInstantProjectComponent implements OnInit {
       this.success = false;
     }
     else {
-      this.project = new InstantProject(formdata.name, formdata.analystQ, formdata.developerQ, formdata.testerQ, formdata.kunit);
+      this.project = new InstantProject(formdata.name, formdata.kunit, formdata.testerQ,formdata.analystQ, formdata.developerQ);
       this.createInstantProject(this.project);
       console.log(this.service.questions);
       this.form();

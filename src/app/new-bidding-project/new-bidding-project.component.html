@@ -113,24 +113,18 @@
 
 	<!-- Messages if validations fail -->
 	
-    <div class="element" *ngIf="invalid">
-      <br/>
-      <span class="error">
-        The password and its confirmation doesn't match.
-      </span>
-    </div>
 
     <div class="element" *ngIf="success">
       <br/>
       <span class="success">
-        User successfully added.
+        Biddin project successfully added.
       </span>
     </div>
 
-    <div class="element" *ngIf="invalid_name">
+    <div class="element" *ngIf="negativo">
       <br/>
       <span class="error">
-        Name can only contain letters and spaces.
+        Numerical inputs should be bigger or equal than one
       </span>
     </div>
 
