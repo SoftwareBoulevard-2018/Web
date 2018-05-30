@@ -109,10 +109,17 @@ export class EstimationComponent implements OnInit {
   }
 
   sendEstimation(guess) {
-    const project_name = this.current_project.project_name;
-    if (this.service.username !== undefined && project_name !== undefined && guess.time !== undefined && guess.cost !== undefined ) {
-      // this.service.estimations.push( new Estimation(this.service.username, project_name, guess.cost, guess.time));
-    }
+    this.httpService.getEstimationByPMAndProject(this.service.user.username,this.current_project.name).subscribe(est => {
+      let new_attempt_number;
+      if (est.length !== 0) {
+        new_attempt_number = est[est.length - 1].attemptNumber + 1;
+      }
+      else {
+        new_attempt_number = 1;
+      }
+      const newEstimation = new Estimation(new_attempt_number, this.service.user.username, this.current_project.name, guess.time, guess.cost, this.correct_guess);
+      this.httpService.createEstimation(newEstimation).subscribe(data2 => console.log('estimation sent'));
+    });
   }
 
   enoughResources() {
@@ -129,7 +136,6 @@ export class EstimationComponent implements OnInit {
         this.router.navigate(['restricted']);
     }
     else {
-      this.httpService.getEstimationByPMAndProject('afaguilarr','Payroll').subscribe(data => console.log(data));
       this.fillCompany();
     }
   }
@@ -148,7 +154,7 @@ export class EstimationComponent implements OnInit {
     this.current_company.companyResource -= 1;
     let newResource = this.current_company.companyResource - 1;
     const newCompany = { companyResource: newResource };
-    this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => console.log('sent estimate'));
+    this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => console.log('updated resource pool'));
     this.sendEstimation(guess);
 
   }
