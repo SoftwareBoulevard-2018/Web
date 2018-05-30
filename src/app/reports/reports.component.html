@@ -9,7 +9,7 @@
         </mat-form-field>
       </div>
 
-      <mat-table #table [dataSource]="companies_by_resources2" matSort> <!--matSortActive="capacity_k" matSortDirection="desc">
+      <mat-table #table [dataSource]="companies_by_resources2" matSort matSortActive="resources" matSortDirection="desc">
 
        <!-- Logo Column -->
         <ng-container matColumnDef="image">
@@ -69,7 +69,7 @@
         </mat-form-field>
       </div>
 
-      <mat-table #table [dataSource]="companies_by_capacityK2" matSort> <!--matSortActive="capacity_k" matSortDirection="desc">
+      <mat-table #table #sort1="matSort" [dataSource]="companies_by_capacityK2" matSort matSortActive="capacity_k" matSortDirection="desc">
 
        <!-- Logo Column -->
         <ng-container matColumnDef="image">
@@ -97,7 +97,7 @@
         <!-- Capacity K Column -->
         <ng-container matColumnDef="capacity_k">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity K </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.capacityK}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.capacity_k}} </mat-cell>
         </ng-container>
 
         <!-- Status Column -->
@@ -131,7 +131,7 @@
         </mat-form-field>
       </div>
 
-      <mat-table #table [dataSource]="users_by_efficiency2" matSort>
+      <mat-table #table #sort2="matSort" [dataSource]="users_by_efficiency2" matSort matSortActive="efficiency" matSortDirection="desc">
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">

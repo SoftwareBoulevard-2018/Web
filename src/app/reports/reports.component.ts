@@ -21,9 +21,10 @@ export class ReportsComponent implements OnInit {
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatSort) sort2: MatSort;
-  @ViewChild(MatSort) sort3: MatSort;
+  @ViewChild('sort1') sort1: MatSort;
+  @ViewChild('sort2') sort2: MatSort;
 
+  active_tab = 1;
   companies_by_resources = [];
   companies_by_resources2;
   companies_by_capacityK = [];
@@ -61,7 +62,7 @@ export class ReportsComponent implements OnInit {
     for (const company of Object.values(companies.data)) {
       element = { id: company.id,
         image: company.image,
-        name: company.name, capacityK: company.capacityK,
+        name: company.name, capacity_k: company.capacityK,
         resources: company.companyResource
       };
       this.companies_by_resources.push(element);
@@ -69,7 +70,7 @@ export class ReportsComponent implements OnInit {
       this.companies_by_resources2.data = this.companies_by_resources;
       this.companies_by_capacityK2.data = this.companies_by_capacityK;
       this.companies_by_resources2.sort = this.sort;
-      this.companies_by_capacityK2.sort = this.sort2;
+      this.companies_by_capacityK2.sort = this.sort1;
     }
   }
 
@@ -109,7 +110,7 @@ export class ReportsComponent implements OnInit {
         correct: user.correct, wrong: user.wrong
       });
       this.users_by_efficiency2.data = this.users_by_efficiency;
-      this.users_by_efficiency2.sort = this.sort3;
+      this.users_by_efficiency2.sort = this.sort2;
     }
   }
 
@@ -128,6 +129,10 @@ export class ReportsComponent implements OnInit {
   redirect(event, element) {
     this.service.user_to_be_updated = element.id;
     this.router.navigate(['home/users/user-status']);
+  }
+
+  tabChange(event, arg) {
+    this.active_tab = arg;
   }
 
 }
