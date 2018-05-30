@@ -19,6 +19,7 @@ import {InstantProject} from "./shared/instantProject";
 import { Question } from "./shared/question";
 import {Assignment} from "./shared/assignment";
 import { creationPuzzle } from './shared/creationPuzzle';
+import {invitations} from "./shared/invitations"
 
 @Injectable()
 
@@ -56,6 +57,7 @@ export class HttpService {
   static instantProjecstURL = '/instantProjects';
   static assignmentsURL = '/assignments';
   static questionsURL = '/questions';
+  static invitationsURL='/invitations';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -165,7 +167,7 @@ export class HttpService {
   getAllPuzzles() {
     return this.http.get<Puzzle[]>(HttpService.apiURL + HttpService.puzzleURL);
   }
-  
+
   createPuzzle(puzzle : creationPuzzle){
 	return this.http.post<creationPuzzle>(HttpService.apiURL + '/puzzles' + '/createPuzzle',
       JSON.stringify(puzzle), HttpService.httpOptions);
@@ -229,9 +231,9 @@ export class HttpService {
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' +id,
       JSON.stringify(cert), HttpService.httpOptions);
   }
-  
+
   // All services related to Questions
-  
+
   getQuestions(){
     return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL);
   }
@@ -257,5 +259,20 @@ export class HttpService {
     return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
       JSON.stringify(ass), HttpService.httpOptions);
   }
+
+
+  // All services related to Invitations
+  getinvitations() {
+    return this.http.get<invitations[]>(HttpService.apiURL + HttpService.invitationsURL);
+  }
+  createinvitations(invitation: invitations) {
+    return this.http.post<invitations>(HttpService.apiURL + HttpService.invitationsURL ,
+      JSON.stringify(invitation), HttpService.httpOptions);
+  }
+  getinvitationsByUserAndCompany(user, company){
+    return this.http.post<invitations>(HttpService.apiURL + HttpService.certificationURL + '/getCurrentInvitationCom/' ,
+      JSON.stringify(user,company), HttpService.httpOptions);
+  }
+
 }
 
