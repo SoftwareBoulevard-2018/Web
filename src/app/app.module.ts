@@ -64,6 +64,8 @@ import { UpdateInstantProjectComponent } from './update-instant-project/update-i
 import { UpdateQuestionComponent } from './update-question/update-question.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { GenerateresourcesComponent } from './generateresources/generateresources.component';
+import { DevelopingAttemptsComponent } from './developingAttempts/developingAttempts.component';
+import { TrainingAttemptsComponent } from './trainingAttempts/trainingAttempts.component';
 
 // App routes
 const routes: Routes = [
@@ -101,7 +103,9 @@ const routes: Routes = [
   {'path': 'home/play/develop', 'component': PlayDevelopComponent},
   {'path': 'home/join-team', 'component': JoinTeamComponent},
   {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
-  {'path': 'home/set-up/update-question/edit-question', 'component': EditQuestionComponent}
+  {'path': 'home/set-up/update-question/edit-question', 'component': EditQuestionComponent},
+  {'path': 'home/developingAttempts/developingAttempts', 'component': DevelopingAttemptsComponent},
+  {'path': 'home/trainingAttempts/trainingAttempts', 'component': TrainingAttemptsComponent}
 ];
 
 // NgModule variables
@@ -147,7 +151,9 @@ const routes: Routes = [
     JoinTeamComponent,
     UpdateQuestionComponent,
     EditQuestionComponent,
-    GenerateresourcesComponent
+    GenerateresourcesComponent,
+    DevelopingAttemptsComponent,
+    TrainingAttemptsComponent
   ],
   imports: [
     BrowserModule,
