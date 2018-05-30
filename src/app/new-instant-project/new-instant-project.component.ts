@@ -41,27 +41,15 @@ export class NewInstantProjectComponent implements OnInit {
     });
   }
 
-  new_projectname(username){
-	 // Defines if the project name has already been taken
-    for(let project of this.service.projects2){
-      if(name === project.project_name){
-        return false;
-      }
-    }
-    return true;
-  }
-
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   // These variables are used to create the forms and validate the data input on them
   formdata;
-  invalid = false;
-  invalid_name = false;
   success = false;
-  flawed_name = false;
-  hide = true;
   project;
-  auxiliar;
+  letra = false;
+  negativo = false;
+
 
   ngOnInit() {
 	// Checks User permissions and establishes the form in the default state
@@ -79,52 +67,27 @@ export class NewInstantProjectComponent implements OnInit {
   }
 
   createInstantProject(project){
-    return this.httpService.createInstantProject(project).subscribe(data => console.log(data), error => (console.log(project)));
-  }
-
-  getBiddingProjectByName(formdata){
-    return this.httpService.getUserByUsername(formdata.username).subscribe(data => {
-      this.auxiliar = false;
-      this.validations(this.auxiliar, formdata);
-      },
-      error => {
-      this.auxiliar = true;
-      this.validations(this.auxiliar, formdata);
-    });
-  }
-
-  validations(auxiliar, data){
-    if (!(/^[a-zA-Z ]+$/.test(data.name))) {
-      this.invalid_name = true;
-      this.invalid = false;
-      this.success = false;
-      this.flawed_name = false;
-    }
-    else if (data.kunit >= 1 && this.auxiliar) {
-      this.project = new InstantProject(data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ);
-      this.createInstantProject(this.project);
-      this.form();
-      this.invalid_name = false;
-      this.invalid = false;
-      this.success = true;
-      this.flawed_name = false;
-    }
-    else if(!(this.auxiliar)){
-      this.invalid_name = false;
-      this.invalid = false;
-      this.success = false;
-      this.flawed_name = true;
-    }
-    else{
-      this.invalid_name = false;
-      this.invalid = true;
-      this.success = false;
-      this.flawed_name = false;
-    }
+    return this.httpService.createInstantProject(project).subscribe(data => console.log(data));
   }
 
   onClickSubmit(formdata) {
-    this.getBiddingProjectByName(formdata);
+    if (typeof formdata.kunit === 'string' || typeof formdata.analystQ === 'string' || typeof formdata.developerQ === 'string' || typeof formdata.testerQ === 'string'){
+      this.letra = true;
+      this.success = false;
+    }
+    else if (formdata.kunit <= 0 || formdata.analystQ <= 0 || formdata.developerQ <= 0 || formdata.testerQ <= 0){
+      this.negativo = true;
+      this.success = false;
+    }
+    else {
+      this.project = new InstantProject(formdata.name, formdata.kunit, formdata.testerQ,formdata.analystQ, formdata.developerQ);
+      this.createInstantProject(this.project);
+      console.log(this.service.questions);
+      this.form();
+      this.negativo = false;
+      this.letra = false;
+      this.success = true;
+    }
   }
 }
 

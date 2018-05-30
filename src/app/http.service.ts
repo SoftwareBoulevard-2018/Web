@@ -191,7 +191,7 @@ export class HttpService {
     return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
   }
   createBiddingProject(biddingProject: BiddingProject) {
-    return this.http.post<Id>(HttpService.apiURL + HttpService.getBiddingProjectURL,
+    return this.http.post<Id>(HttpService.apiURL + HttpService.getBiddingProjectURL + '/createBiddingProject/',
       JSON.stringify(biddingProject), HttpService.httpOptions);
   }
   updateBiddingProject(biddingProject, id) {
@@ -207,7 +207,7 @@ export class HttpService {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
   }
   createInstantProject(instantProject: InstantProject) {
-    return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject',
+    return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject/',
       JSON.stringify(instantProject), HttpService.httpOptions);
   }
   updateInstantProject(instantProject, id) {
