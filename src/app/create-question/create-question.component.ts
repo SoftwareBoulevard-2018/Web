@@ -121,7 +121,7 @@ export class CreateQuestionComponent implements OnInit {
 	  this.secondAnswer = new Answer(data.answer2, data.veracity2);
 	  this.thirdAnswer = new Answer(data.answer3, data.veracity3);
 	  this.fourthAnswer = new Answer(data.answer4, data.veracity4);
-      this.question = new Question(Object.keys(this.service.questions).length ,data.description, data.category, data.level, this.firstAnswer, this.secondAnswer, this.thirdAnswer, this.fourthAnswer);
+      this.question = new Question(data.category, data.description, this.firstAnswer, this.secondAnswer, this.thirdAnswer, this.fourthAnswer);
       this.service.questions.push(this.question);
       console.log(this.service.questions);
       this.form();

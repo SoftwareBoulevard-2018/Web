@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {GeneralServiceService} from '../general-service.service';
 import {Router} from '@angular/router';
 import {MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
+import {HttpService} from '../http.service';
 // import {MatTableModule} from '@angular/material/table';
 // import {EmailComponent} from '../email/email.component';
 
@@ -16,19 +17,23 @@ import {MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
 })
 export class ReportsComponent implements OnInit {
 
-  constructor(public service: GeneralServiceService, public router: Router) { }
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort2: MatSort;
+  @ViewChild(MatSort) sort3: MatSort;
 
-  companies = [];
-  companies2;
-  //users = [];
-  //users2;
+  companies_by_resources = [];
+  companies_by_resources2;
+  companies_by_capacityK = [];
+  companies_by_capacityK2;
+  users_by_efficiency = [];
+  users_by_efficiency2;
 
-  table_titles_company = ['image', 'name', 'capacity_k', 'status'];
-  table_titles_company2 = ['image', 'name', 'resources', 'status'];
-  //table_titles_user = ['name', 'username', 'role', 'company', 'status'];
+  table_titles_companies_by_resources = ['image', 'name', 'resources', 'status'];
+  table_titles_companies_by_capacityK = ['image', 'name', 'capacity_k', 'status'];
+  table_titles_users_by_efficiency = ['username', 'name', 'role', 'correct', 'wrong', 'efficiency', 'status'];
 
   ngOnInit() {
     if (this.service.user_type === undefined) {
@@ -36,76 +41,93 @@ export class ReportsComponent implements OnInit {
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
       this.router.navigate(['restricted']);
     } else {
-      this.companies = JSON.parse(JSON.stringify(this.service.companies));
-      this.companies2 = new MatTableDataSource(this.companies);
-      // this.companies2.paginator = this.paginator;
-      this.companies2.sort = this.sort;
-      /**console.log(this.service.user_type);
-       if (this.service.user_type === undefined) {
-      this.router.navigate(['']);
-    } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
-      this.router.navigate(['restricted']);
-    } else {
-      this.users = JSON.parse(JSON.stringify(this.service.users));
-      for (const user of this.users) {
-        user.hide_password = true;
-      }
-      this.users2 = new MatTableDataSource(this.users);
-      console.log(this.users2);
-      this.users = JSON.parse(JSON.stringify(this.service.users));
-      for (const user of this.users) {
-        user.hide_password = true;
-      }
-      // this.users2.paginator = this.paginator;
-      this.users2.sort = this.sort;
-    }*/
+      this.companies_by_resources2 = new MatTableDataSource(this.companies_by_resources);
+      this.companies_by_capacityK2 = new MatTableDataSource(this.companies_by_capacityK);
+      this.users_by_efficiency2 = new MatTableDataSource(this.users_by_efficiency);
+      this.getAllCompanies();
+      this.getDevelopers();
     }
   }
-  applyFilterCompany(filterValue: string) {
+
+  getAllCompanies() {
+    return this.httpService.getAllCompanies().subscribe(data => {
+      this.listCompanies(data);
+    });
+  }
+
+  listCompanies(companies) {
+    let element;
+    console.log(companies);
+    for (const company of Object.values(companies.data)) {
+      element = { id: company.id,
+        image: company.image,
+        name: company.name, capacityK: company.capacityK,
+        resources: company.companyResource
+      };
+      this.companies_by_resources.push(element);
+      this.companies_by_capacityK.push(element);
+      this.companies_by_resources2.data = this.companies_by_resources;
+      this.companies_by_capacityK2.data = this.companies_by_capacityK;
+      this.companies_by_resources2.sort = this.sort;
+      this.companies_by_capacityK2.sort = this.sort2;
+    }
+  }
+
+  getDevelopers() {
+    return this.httpService.getUsersByRole('Developer').subscribe(data => {
+      this.list(data);
+      this.getAnalysts();
+    });
+  }
+
+  getAnalysts() {
+    return this.httpService.getUsersByRole('Analyst').subscribe(data => {
+      this.list(data);
+      this.getTesters();
+    });
+  }
+
+  getTesters() {
+    return this.httpService.getUsersByRole('Tester').subscribe(data => {
+      this.list(data);
+    });
+  }
+
+  list(users) {
+    console.log(users);
+    for (const user of Object.values(users)) {
+      if (user.resourcesSpent !== 0) {
+        user.efficiency = ((user.correctProjectQuestions + user.correctTrainingQuestions) / (user.resourcesSpent) * 100);
+      } else {
+        user.efficiency = 0;
+      }
+      user.correct = (user.correctProjectQuestions + user.correctTrainingQuestions);
+      user.wrong = user.resourcesSpent - user.correct;
+      this.users_by_efficiency.push({ id: user.id,
+        name: user.name, username: user.username,
+        role: user.role, efficiency: user.efficiency,
+        correct: user.correct, wrong: user.wrong
+      });
+      this.users_by_efficiency2.data = this.users_by_efficiency;
+      this.users_by_efficiency2.sort = this.sort3;
+    }
+  }
+
+  applyFilterCompany(filterValue: string, table) {
     // Function used to filter the values on the material table
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.companies2.filter = filterValue;
-  }
-
-  search_company(name) {
-    for (const company of this.service.companies) {
-      if (company.name === name) {
-        return company;
-      }
-    }
+    table.filter = filterValue;
   }
 
   redirect1Company(event, element) {
-    this.service.company_to_be_updated = this.search_company(element.name);
+    this.service.company_to_be_updated = element.id;
     this.router.navigate(['home/companies/company-status']);
   }
 
-  /**applyFilter(filterValue: string) {
-    // Function necessary by the table filter
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.users2.filter = filterValue;
-  }
-
-  search_user(username) {
-    // Searches user by its username
-    for (const user of this.service.users) {
-      if (user.username === username) {
-        return user;
-      }
-    }
-  }
-
   redirect(event, element) {
-    // Redirects to User status and defines the necessary variables
-    this.service.user_to_be_updated = this.search_user(element.username);
+    this.service.user_to_be_updated = element.id;
     this.router.navigate(['home/users/user-status']);
   }
-  redirect2(event, element) {
-    // Redirects to User update and defines the necessary variables
-    this.service.user_to_be_updated = this.search_user(element.username);
-    this.router.navigate(['home/users/user-status/update']);
-  }*/
 
 }

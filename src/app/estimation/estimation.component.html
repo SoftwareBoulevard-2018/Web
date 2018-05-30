@@ -1,5 +1,5 @@
 
-<div class="wrap-login100 big-wrap" *ngIf="this.can_estimate">
+<div class="wrap-login100 big-wrap" *ngIf="this.can_estimate && this.load_complete">
   <form class="login100-form" [formGroup]="guess" (ngSubmit) = "onClickSubmit(guess.value)" >
     <div class="correct_case">
       <span class="login100-form-title p-b-34 p-t-27">
@@ -18,29 +18,36 @@
 
       <div class="elementfield1">
         <mat-form-field>
-          <input matInput placeholder="Time (man-hours)" name="time" formControlName="time">
+          <input matInput placeholder="Time (person-hours)" name="time" formControlName="time">
           <mat-hint>Required Field</mat-hint>
         </mat-form-field>
       </div>
 
-        <div class="element-text1" *ngIf="incorrect_time">
+        <div class="element-text1" *ngIf="incorrect_cost">
           <br/>
           <span class="error">
-              The cost you guessed wasn't quite right, try again.
+              The cost you estimated wasn't quite right, try again.
             </span>
         </div>
 
-        <div class="element-text2" *ngIf="incorrect_cost">
+        <div class="element-text2" *ngIf="incorrect_time">
           <br/>
           <span class="error">
-              The time you guessed wasn't quite right, try again.
+              The time you estimated wasn't quite right, try again.
             </span>
         </div>
 
-        <div class="element-text3" *ngIf="correct_guess">
+        <div class="element-text3" *ngIf="correct_guess && !this.no_longer_has_enough_resources">
           <br/>
-              Your guess was correct! You can now exit and continue with the project.
+              Your estimation was correct! You can now exit and continue with the project.
         </div>
+
+      <div class="element-text4" *ngIf="this.no_longer_has_enough_resources">
+        <br/>
+            <span class="error">
+              You no longer have enough resources to send an Estimation
+            </span>
+      </div>
 
       <br/>
           <div class="elementfield2">
@@ -48,7 +55,7 @@
               Exit
             </button>
 
-            <button mat-raised-button color="warn" type="submit" [disabled] = "(!guess.valid||correct_guess)" class="forsubmit">
+            <button mat-raised-button color="warn" type="submit" [disabled] = "(!guess.valid||correct_guess||this.no_longer_has_enough_resources)" class="forsubmit">
               Validate
             </button>
           </div>
@@ -56,18 +63,82 @@
   </form>
 </div>
 
+<div class="announcement" *ngIf="this.current_company === undefined && this.load_complete">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Cost & Time Estimation
+    </span>
+    <form class="login100-form">
+      You do not have a company assigned so you can not estimate a project. You must ask the game administrator to assign one to you.
 
-<div class="wrap-login100 big-wrap" *ngIf="!this.can_estimate">
-  <span class="login100-form-title p-b-34 p-t-27">
-    Cost & Time Estimation
-  </span>
-  <form class="announcement" [formGroup]="guess" (ngSubmit) = "onClickSubmit(guess.value)">
-    You don't meet the requirements to estimate a project right now.
-    <br>
-    -Do you have a company?
-    <br>
-    -Does your company has enough resources?
-    <br>
-    -Is your chosen project a Bidding Project?
-  </form>
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="announcement" *ngIf="this.current_project === undefined && this.current_company !== undefined && this.load_complete">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Cost & Time Estimation
+    </span>
+    <form class="login100-form">
+      You do not have a project assigned so you can not estimate a project. You have to select one in the Choose Project view.
+
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="announcement"  *ngIf="!this.correct_guess && (!this.have_resources || this.no_longer_has_enough_resources) && this.load_complete">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Cost & Time Estimation
+    </span>
+    <form class="login100-form">
+      You do not have enough resources so you can not estimate a project. You will need to go to the Generate Resources view and gather some.
+
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="announcement"  *ngIf="!this.has_bidding_project && this.load_complete">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Cost & Time Estimation
+    </span>
+    <form class="login100-form">
+        You cannot estimate an Instant Project!
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

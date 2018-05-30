@@ -1,15 +1,15 @@
 <!-- The view will be different for each kind of user seen, first it is determined if the user is a game administrator -->
 
-<div class="w3-row body" *ngIf="!(this.service.user_to_be_updated.role === 'Game Administrator'); else game_administrator_view">
+<div class="w3-row body" *ngIf="!(this.user.role === 'Game Administrator'); else game_administrator_view">
 
   <!-- This will show the company of the user, if it's an unaffiliated user, it will show another view -->
 
-  <div class="w3-third"*ngIf="this.current_company !== undefined; else no_company">
+  <div class="w3-third"*ngIf="this.user.companyName !== undefined; else no_company">
     <mat-list role="list">
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>work</mat-icon>
         <h4 mat-line>Company:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.company_name}}</p>
+        <p mat-line>{{this.user.companyName}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>photo</mat-icon>
@@ -17,7 +17,7 @@
       </mat-list-item>
     </mat-list>
     <div class="center">
-      <img src="{{this.current_company.image}}">
+      <img src="{{this.user.companyImage}}">
     </div>
     <div class="company_button">
       <button mat-raised-button (click)="redirect2($event)">
@@ -50,27 +50,27 @@
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>date_range</mat-icon>
         <h4 mat-line>Started playing on:</h4>
-        <p mat-line>{{date_formatter(this.service.user_to_be_updated.creation_date)}}</p>
+        <p mat-line>{{this.user.createdAt.substring(0,10)}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>account_circle</mat-icon>
         <h4 mat-line>Name:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.name}}</p>
+        <p mat-line>{{this.user.name}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>perm_identity</mat-icon>
         <h4 mat-line>Username:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.username}}</p>
+        <p mat-line>{{this.user.username}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>assignment</mat-icon>
         <h4 mat-line>Role:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.role}}</p>
+        <p mat-line>{{this.user.role}}</p>
       </mat-list-item>
-      <mat-list-item role="listitem">
+      <mat-list-item role="listitem" *ngIf="this.user.role !== 'Project Manager'">
         <mat-icon mat-list-icon>equalizer</mat-icon>
         <h4 mat-line>Competency:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.competency}}</p>
+        <p mat-line>{{this.user.competencyLevel}}</p>
       </mat-list-item>
     </mat-list>
     <div class="centered_button">
@@ -83,17 +83,17 @@
   <!-- This will show the efficiency of the user, it will different a team member and a project manager -->
   <!-- Team member: it will show right answers vs wrong answers -->
 
-  <div class="w3-third" *ngIf="!(this.service.user_to_be_updated.role === 'Project Manager'); else project_manager_view">
+  <div class="w3-third" *ngIf="!(this.user.role === 'Project Manager'); else project_manager_view">
     <mat-list role="list">
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>check</mat-icon>
         <h4 mat-line>Questions answered right:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.questions_answered_right}}</p>
+        <p mat-line>{{this.user.correctTrainingQuestions + this.user.correctProjectQuestions}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>close</mat-icon>
-        <h4 mat-line>Questions ansered wrong:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.questions_answered_wrong}}</p>
+        <h4 mat-line>Questions answered wrong:</h4>
+        <p mat-line>{{this.user.resourcesSpent - (this.user.correctTrainingQuestions + this.user.correctProjectQuestions)}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>assessment</mat-icon>
@@ -128,12 +128,12 @@
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>check</mat-icon>
           <h4 mat-line>Right estimations:</h4>
-          <p mat-line>{{this.right_estimations}}</p>
+          <p mat-line>{{this.user.correctTrainingQuestions + this.user.correctProjectQuestions}}</p>
         </mat-list-item>
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>close</mat-icon>
           <h4 mat-line>Wrong estimations:</h4>
-          <p mat-line>{{this.wrong_estimations}}</p>
+          <p mat-line>{{this.user.resourcesSpent - (this.user.correctTrainingQuestions + this.user.correctProjectQuestions)}}</p>
         </mat-list-item>
         <mat-list-item role="listitem">
           <mat-icon mat-list-icon>assessment</mat-icon>
@@ -170,22 +170,22 @@
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>date_range</mat-icon>
         <h4 mat-line>Administrating since:</h4>
-        <p mat-line>{{date_formatter(this.service.user_to_be_updated.creation_date)}}</p>
+        <p mat-line>{{this.user.createdAt.substring(0,10)}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>account_circle</mat-icon>
         <h4 mat-line>Name:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.name}}</p>
+        <p mat-line>{{this.user.name}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>perm_identity</mat-icon>
         <h4 mat-line>Username:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.username}}</p>
+        <p mat-line>{{this.user.username}}</p>
       </mat-list-item>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon>assignment</mat-icon>
         <h4 mat-line>Role:</h4>
-        <p mat-line>{{this.service.user_to_be_updated.role}}</p>
+        <p mat-line>{{this.user.role}}</p>
       </mat-list-item>
     </mat-list>
     <div class="centered_button">

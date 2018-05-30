@@ -1,101 +1,338 @@
-
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
-import { FormGroup, FormControl} from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { HttpService } from '../http.service';
+import { Email } from '../shared/email';
 
 @Component({
   selector: 'app-email',
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.css']
 })
-export class EmailComponent implements OnInit {
+export class EmailComponent implements OnInit  {
+  formdata;
+  users =[];
+  emailWindowOpen = false;
+  inInbox = true;
+  inSent = false;
+  inAEmail = false;
+  inNewEmail = false;
+  showAllReceivers = false;
+  selectedEmail : Email;
+  static numNoReadEmails;
+  selectedUsers = [];
+  EReceived = [];
+  ESent = [];
+  table_titles = ['sender','subject-content', 'createdAt'];
+  table_titles_sent =['receivers','subject-content', 'createdAt'];
 
-    constructor(public service: GeneralServiceService) { }
-  /*controla la apertura de la interfaz de email*/  abriremail = false;
-  /*controla la apertura de la interfaz de recibidos, 
-  abierta por defecto cuando se abre email*/recibidos = false;
-  /*controla la apertura de la interfaz para leer un correo*/leyendo = false;
-  /*controla la apertura de la interfaz para escribir nuevo correo*/enuevo = false;
-  /*controla la apertura de la interfaz para ver lo enviados*/sent = false;
-  /*se usa para mostrar la cantidad de correos nuevos recibidos*/nrecibidos = 0;
-  /*para los ciclos for*/i=0;
-  /*sender, subject y content se usan para mostrar la lectura de un mensaje*/sender;
-  subject;
-  contenido;
-  /*crecibidos se usara para conservar localmente los mensajes que ha recibido el usuario actual*/
-  crecibidos = [{id: 0, asunto:"Prueba 1", remitente:"Fulanito 1", fecha:"20/04/2018", state:"sent", content:"1"},{id: 1, asunto:"Prueba 2", remitente:"Fulanito 2", fecha:"20/04/2018", state:"sent", content:"2"},{id: 2, asunto:"Prueba 3", remitente:"Fulanito 3", fecha:"20/04/2018", state:"sent", content:"3"},{id: 3, asunto:"Prueba 4", remitente:"Fulanito 4", fecha:"20/04/2018", state:"sent", content:"4"},{id: 4, asunto:"Prueba 5", remitente:"Fulanito 5", fecha:"20/04/2018", state:"sent", content:"5"},{id: 5, asunto:"Prueba 6", remitente:"Fulanito 6", fecha:"20/04/2018", state:"sent", content:"6"},{id: 6, asunto:"Prueba 7", remitente:"Fulanito 7", fecha:"20/04/2018", state:"sent", content:"7"},{id: 7, asunto:"Prueba 8", remitente:"Fulanito 8", fecha:"20/04/2018", state:"sent", content:"8"},{id: 8, asunto:"Prueba 9", remitente:"Fulanito 9", fecha:"20/04/2018", state:"sent", content:"9"},{id: 9, asunto:"Prueba 10", remitente:"Fulanito 10", fecha:"20/04/2018", state:"sent", content:"10"},{id: 10, asunto:"Prueba 11", remitente:"Fulanito 11", fecha:"20/04/2018", state:"sent", content:"11"},{id: 11, asunto:"Prueba 12", remitente:"Fulanito 12", fecha:"20/04/2018", state:"sent", content:"12"},{id: 12, asunto:"Prueba 13", remitente:"Fulanito 13", fecha:"20/04/2018", state:"sent", content:"13"},{id: 13, asunto:"Prueba 14", remitente:"Fulanito 14", fecha:"20/04/2018", state:"sent", content:"14"},{id: 14, asunto:"Prueba 15", remitente:"Fulanito 15", fecha:"20/04/2018", state:"sent", content:"15"},{id: 15, asunto:"Prueba 16", remitente:"Fulanito 16", fecha:"20/04/2018", state:"sent", content:"16"},{id: 16, asunto:"Prueba 17", remitente:"Fulanito 17", fecha:"20/04/2018", state:"sent", content:"17"},{id: 17, asunto:"Prueba 18", remitente:"Fulanito 18", fecha:"20/04/2018", state:"sent", content:"18"},{id: 18, asunto:"Prueba 19", remitente:"Fulanito 19", fecha:"20/04/2018", state:"sent", content:"19"},{id: 19, asunto:"Prueba 20", remitente:"Fulanito 20", fecha:"20/04/2018", state:"sent", content:"20"},{id: 20, asunto:"Prueba 21", remitente:"Fulanito 21", fecha:"20/04/2018", state:"sent", content:"21"},{id: 21, asunto:"Prueba 22", remitente:"Fulanito 22", fecha:"20/04/2018", state:"sent", content:"22"},{id: 22, asunto:"Prueba 23", remitente:"Fulanito 23", fecha:"20/04/2018", state:"sent", content:"23"},{id: 23, asunto:"Prueba 24", remitente:"Fulanito 24", fecha:"20/04/2018", state:"sent", content:"24"},{id: 24, asunto:"Prueba 25", remitente:"Fulanito 25", fecha:"20/04/2018", state:"read", content:"25"}];
-  /*crecibidos se usara para conservar localmente los mensajes que ha enviado el usuario actual*/
-  cenviados =[];
-  /* fromto se usa para decdir que textp se muestra en la interfaz de lectura*/ fromto = "From";
-  /*recibido se usa para mostrar el texto To en la interfaz de lectura*/ recibido = true;
+  TInbox:MatTableDataSource<Email>;
+  TSent:MatTableDataSource<Email>;
+
+  constructor(public httpService: HttpService, public service: GeneralServiceService) { 
+  }
   ngOnInit() {
-  	this.Fnem();
+    this.newEmailForm();
+    this.getUsers();
+    this.TInbox = new MatTableDataSource(this.EReceived);
+    this.TSent = new MatTableDataSource(this.ESent);
+    this.EReceived = this.ESent = []
+    EmailComponent.numNoReadEmails=0;
   }
-  /*Fnem calcula la cantidad de mensajes nuevos en el array que 
-  los va a almacenar, crecibidos*/
-  Fnem(){
-  	this.nrecibidos=0;
-  	for(this.i = 0 ; this.i<this.crecibidos.length;this.i++){
-  		if(this.crecibidos[this.i].state=="sent"){
-			this.nrecibidos=this.nrecibidos+1;
-  		}
-  	}
+  get staticNumNoReadEmails(){
+    return EmailComponent.numNoReadEmails;
   }
-  /*cuando se hace el click en el sobre, se ejecuta esta funcion que muestra la primera interfaz de email*/
-  email(){
-  	this.abriremail = true;
-  	this.recibidos = true;
-  	this.leyendo = false;
-  	this.sent = false;
+  @ViewChild('paginatorInbox') paginatorInbox: MatPaginator;
+  @ViewChild('paginatorSent') paginatorSent: MatPaginator;
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.TInbox.filter = filterValue;
+    this.TSent.filter = filterValue;
   }
-  /*cuando se hace click en la X se ejecuta esta funcion que cierra la interfaz de email*/
-  cerraremail(){
-  	this.abriremail = false;
-  	this.recibidos = false;
-  	this.leyendo=false;
+
+  getUsers(){
+    return this.httpService.getAllUsers().subscribe(data => this.listUser(data));
   }
-  /*esta funcion permite leer un correo en especifico, sea enviado o recibido, el parametro v permite 
-  reconocer si es enviado o resibido*/
-  leer(correo,v){
-  	this.recibidos = false;
-  	this.leyendo = true;
-    this.sent = false ;
-  	this.contenido = correo.content;
-  	this.subject = correo.asunto;
-  	/*verifica si el correo que se lee es del inbox(0) o del sentbox(1)*/
-  	if(v===0){
-          this.sender = correo.remitente;
-          this.fromto = "From: ";
-          this.recibido = true;
-  		for(this.i = 0; this.i<this.crecibidos.length;this.i++){
-  			if(this.crecibidos[this.i].id === correo.id){
-		  		this.crecibidos.splice(this.i,1);
-  			}
-  		}
-  		this.Fnem();
-  	}else{
-      this.sender = correo.receiver;
-      this.fromto = "To: ";
-      this.recibido = false;
+
+  getCompanyById(companyId, user) {
+    return this.httpService.getCompanyById(companyId).subscribe(data => {
+      user.companyName = data.name;
+      this.users.push({ id: user.id, createdAt: user.createdAt,
+        name: user.name, username: user.username, role: user.role, companyName: user.companyName});
+    }, error => {
+        user.companyName = undefined;
+        this.users.push({ id: user.id, createdAt: user.createdAt,
+          name: user.name, username: user.username, role: user.role, companyName: user.company_name});
+      });
+  }
+
+  listUser(data) {
+    this.users = [];
+    data = JSON.parse(JSON.stringify(data)).data
+    for (let user of data) {
+      if (user.companyId == null){
+        this.users.push({ id: user.id, createdAt: user.createdAt,
+          name: user.name, username: user.username, role: user.role});
+      }
+      else {
+        this.getCompanyById(user.companyId, user);
+      } 
+    }
+    
+  }
+  newEmailForm() {
+    // Defines the default state of the forms
+    this.formdata = new FormGroup({
+      receivers: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+      subject: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])),
+      content: new FormControl('',
+        Validators.compose([
+          Validators.minLength(2)
+        ]))
+    });
+  }
+  newNotification(){
+       var sum = 0;
+      for(let i = 0; i<this.EReceived.length;i++){
+          var acknow = this.EReceived[i].acknowledgment;
+          var verif = false;
+          for(let j=0;j<acknow.length;j++){
+               if(this.service.user._id==acknow[j]){
+                  verif=true;
+               }
+          }
+          if(!verif){
+            sum++
+          }
+      }
+    EmailComponent.numNoReadEmails = sum;
+  }
+
+  ngAfterViewInit() {
+    this.TInbox.paginator = this.paginatorInbox;
+    this.TSent.paginator = this.paginatorSent;
+  }
+
+  openCloseEmail(){
+    console.log("say hi" + EmailComponent.numNoReadEmails);
+    this.emailWindowOpen = !this.emailWindowOpen;
+    this.users = JSON.parse(JSON.stringify(this.service.users));
+    this.TInbox = new MatTableDataSource(this.EReceived);
+    this.TSent = new MatTableDataSource(this.ESent);
+    this.starter();
+    setTimeout(() => this.ngAfterViewInit());
+  }
+  read(){
+    this.EReceived = [];
+    return this.httpService.read(this.service.user._id).subscribe( data => {
+        // Aquí va el código donde el argumento data es lo que vino en la consulta
+      const datos =JSON.parse(JSON.stringify(data));
+      for(let i = 0; i<datos.data.length;i++){
+          this.EReceived.push({
+            id:datos.data[i].id,
+            sender:datos.data[i].sender,
+            subject:datos.data[i].subject,
+            receivers:datos.data[i].receivers,
+            content:datos.data[i].content,
+            acknowledgment: datos.data[i].acknowledgment,
+            createdAt:datos.data[i].createdAt});
+      }
+      this.TInbox.data = this.EReceived;
+      this.newNotification();
+    }, error => {
+        console.log(error);
+    });
+   }
+  searchUserFn(term: string, item){
+    term = term.toLowerCase();
+    let nameMatch = item.name.toLowerCase().indexOf(term) > -1;
+    let roleMatch = item.role.toLowerCase().indexOf(term) > -1;
+    let usernameMatch = item.username.toLowerCase().indexOf(term) > -1;
+    let companyMatch: boolean;
+
+    if ( item['companyName'] ) {
+      companyMatch = item.companyName.toLowerCase().indexOf(term) > -1;
+    } else {
+      companyMatch = false;
+    }
+
+    return nameMatch || roleMatch || usernameMatch || companyMatch;  
+  }
+  sent(){
+    this.ESent = [];
+    return this.httpService.sent(this.service.user.id).subscribe(data =>{
+      const datos =JSON.parse(JSON.stringify(data));
+      for(let i = 0; i<datos.data.length;i++){
+        this.ESent.push({
+          id:datos.data[i].id,
+          sender:datos.data[i].sender,
+          subject:datos.data[i].subject,
+          receivers:datos.data[i].receivers,
+          content:datos.data[i].content,
+          createdAt:datos.data[i].createdAt,
+          acknowledgment: datos.data[i].acknowledgment
+        });
+      }
+      this.TSent.data = this.ESent;
+      /*data source*/
+    });
+  }
+  findUserById(userId){
+    for(let i = 0; i<this.users.length;i++){
+      if(this.users[i].id==userId){
+        return this.users[i].name;
+      }
     }
   }
-  /*al hacer click en el boton sent, se ejecuta esta funcion que muestra la interfaz de los correos enviados*/
-  enviados(){
-  	this.leyendo=false;
-  	this.recibidos=false;
-  	this.sent = true;
+  starter(){
+       this.read();
+       this.getUsers();
+       this.sent();
+       this.newNotification();
   }
-  /*habilita la interfaz de escritura de nuevos mensajes*/
-  newemail(){
-  	this.enuevo = true;
-  	this.leyendo=false;
-  	this.sent=false;
-  	this.recibidos=false;
+ submitEmail(data){
+   let rec :[string] = [""]; 
+   for(let i = 0; i<data.receivers.length;i++){
+     console.log(data.receivers[i].id.toString());
+     rec[i]= data.receivers[i].id.toString();
+   }
+   console.log(rec);
+    let email = new Email(
+        this.service.user.id,
+        data.subject,
+        rec,
+        data.content,
+      )
+    return this.httpService.send(email).subscribe(data => {this.starter()});
   }
-  /*esta funcion envia el mensaje que se esta escribiendo*/
-  enviar(to,sub,cont){
-    this.cenviados.push(
-      {id: 1, asunto:sub,receiver: to, remitente:this.service.username, fecha:"08/05/2018", state:"sent", content:cont}
-    );
+
+  checkEmailState(email,userID){
+    var unreaded = true;
+
+    if(email.acknowledgment == undefined){
+      return unreaded;
+    }
+    else {
+      for(let i=0;i<email.acknowledgment.length;i++){
+        if(email.acknowledgment[i]==userID){
+          return !unreaded;
+        }
+      }
+      return unreaded;
+    }
   }
+
+  readEmail(email,v) {
+    this.selectedEmail = email;
+    this.inInbox = false;
+    this.inNewEmail = false;
+    this.inSent = false;
+    this.inAEmail = true;
+    if(v==0){
+      if(email.acknowledgment == undefined){
+        email.acknowledgment = [];
+        email.acknowledgment[0]=this.service.user.id;
+        this.updateState(email,email.id);
+      }
+      else{
+        var found = undefined;
+        for(let i=0;i<email.acknowledgment.length;i++){
+          if(email.acknowledgment[i]==this.service.user.id){
+            found=true;
+          }
+        }
+        if(found == undefined){
+          email.acknowledgment.push(this.service.user.id);
+          this.updateState(email,email.id);
+        }
+      }
+    }  
+    this.starter();
+  }
+
+  printReceivers(receivers){
+    var receiversName = [];
+    for( let i = 0; i < receivers.length; i++ ){
+      receiversName.push(this.findUserById(receivers[i]));
+    }
+    if (receivers.length == 1){
+      return receiversName[0];
+    }
+    else {
+      var printable;
+      for( let i = 0; i < receivers.length; i++ ){
+        if (receiversName[i] != null){
+          if (i == 0){
+            printable = receiversName[i].split(" ")[0];
+          }
+          else{
+            printable = printable +  ", " + receiversName[i].split(" ")[0];
+          }
+        }
+      }
+      return printable;
+    }
+  }
+
+
+  toInbox(){
+    this.inAEmail = false;
+    this.inNewEmail = false;
+    this.inSent = false;
+    this.inInbox = true;
+    setTimeout(() => this.ngAfterViewInit());
+  }
+
+  toSent(){
+    this.inAEmail = false;
+    this.inInbox = false;
+    this.inNewEmail = false;
+    this.inSent = true;
+    setTimeout(() => this.ngAfterViewInit());
+  }
+
+  toNewEmail(){
+    this.inAEmail = false;
+    this.inInbox = false;
+    this.inSent = false;
+    this.inNewEmail = true;
+  }
+  updateState(email, emailId){
+    return this.httpService.updateState(emailId,email).subscribe(data => {});
+  }
+  emailDate(isoDate){
+    let date = new Date(isoDate);
+    return (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear());
+  }
+
+  emailHour(isoDate){
+    let date = new Date(isoDate);
+    return (date.getHours() + ":" + date.getMinutes());
+  }
+
+  @ViewChild('inEmailReceivers') elementView: ElementRef;
+  containerHeight = 40;
+  displayAllReceivers() {
+
+    if (this.showAllReceivers) {
+      this.containerHeight = 40;
+    }
+    else {
+      var viewHeight;
+      viewHeight = this.elementView.nativeElement.offsetHeight;
+      this.containerHeight = viewHeight + 20;
+
+    }
+    
+    this.showAllReceivers = !this.showAllReceivers;
+  }
+ 
 }
