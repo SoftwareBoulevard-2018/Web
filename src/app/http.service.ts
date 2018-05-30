@@ -15,6 +15,13 @@ import {Record} from "./shared/record";
 import {BiddingProject} from "./shared/biddingProject";
 import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
+import {InstantProject} from "./shared/instantProject";
+import { Question } from "./shared/question";
+<<<<<<< HEAD
+import {Assignment} from "./shared/assignment";
+=======
+import { creationPuzzle } from './shared/creationPuzzle';
+>>>>>>> 354bdb821a7fea54823788269c2247e7a6a82f9b
 @Injectable()
 
 export class HttpService {
@@ -27,8 +34,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  //static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -48,6 +55,9 @@ export class HttpService {
   static getEstimationByPMAndProjectURL = '/getEstimationByPMAndProject';
   static getEstimationsByPMAndStateURL = '/getEstimationsByProjectManagerUsernameAndState';
   static certificationURL = '/certification';
+  static instantProjecstURL = '/instantProjects';
+  static assignmentsURL = '/assignments';
+  static questionsURL = '/questions';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -159,6 +169,11 @@ export class HttpService {
   getAllPuzzles() {
     return this.http.get<Puzzle[]>(HttpService.apiURL + HttpService.puzzleURL);
   }
+  
+  createPuzzle(puzzle : creationPuzzle){
+	return this.http.post<creationPuzzle>(HttpService.apiURL + '/puzzles' + '/createPuzzle',
+      JSON.stringify(puzzle), HttpService.httpOptions);
+  }
 
   //All services related to Estimation
   createEstimation(estimation: Estimation) {
@@ -174,10 +189,36 @@ export class HttpService {
       JSON.stringify({projectManagerUsername: projectManagerUsername , state: state}), HttpService.httpOptions);
   }
 
-  //All services related to Projects
+  //All services related to BiddingProjects
+  getAllBiddingProjects() {
+    return this.http.get<BiddingProject[]>(HttpService.apiURL + HttpService.getBiddingProjectURL);
+  }
   getBiddingProjectById(id: String) {
     return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
+  }
+  createBiddingProject(biddingProject: BiddingProject) {
+    return this.http.post<Id>(HttpService.apiURL + HttpService.getBiddingProjectURL + '/createBiddingProject/',
+      JSON.stringify(biddingProject), HttpService.httpOptions);
+  }
+  updateBiddingProject(biddingProject, id) {
+    return this.http.put<Object>(HttpService.apiURL + HttpService.getBiddingProjectURL + '/' + id,
+      JSON.stringify(biddingProject), HttpService.httpOptions);
+  }
 
+  //All services related to InstantProjects
+  getAllInstantProjects() {
+    return this.http.get<InstantProject[]>(HttpService.apiURL + HttpService.instantProjecstURL);
+  }
+  getInstantprojectById(id: string) {
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
+  }
+  createInstantProject(instantProject: InstantProject) {
+    return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject/',
+      JSON.stringify(instantProject), HttpService.httpOptions);
+  }
+  updateInstantProject(instantProject, id) {
+    return this.http.put<Object>(HttpService.apiURL + HttpService.instantProjecstURL + '/' + id,
+      JSON.stringify(instantProject), HttpService.httpOptions);
   }
   // All services related to Certification
 
@@ -192,4 +233,33 @@ export class HttpService {
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' +id,
       JSON.stringify(cert), HttpService.httpOptions);
   }
+  
+  // All services related to Questions
+  
+  getQuestions(){
+    return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL);
+  }
+  createQuestion(question : Question){
+	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',
+      JSON.stringify(question), HttpService.httpOptions);
+  }
+
+
+
+  // All services related to assignment
+  getAssignment(){
+    return this.http.get<Assignment[]>(HttpService.apiURL + HttpService.assignmentsURL + '/getAssignment/')
+  }
+  createAssignment(ass: Assignment){
+    return this.http.post<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/createAssignment/',
+      JSON.stringify(ass), HttpService.httpOptions);
+  }
+  getAssignmentProjectById(id: string){
+    return this.http.get<Assignment>(HttpService.apiURL + HttpService.assignmentsURL+ '/' + id);
+  }
+  updateAssignment(id, ass: Assignment){
+    return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
+      JSON.stringify(ass), HttpService.httpOptions);
+  }
 }
+

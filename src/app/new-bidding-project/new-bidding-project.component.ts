@@ -6,6 +6,7 @@ import { User } from "../shared/user";
 import { InstantProject } from "../shared/instantProject";
 import { BiddingProject } from "../shared/biddingProject";
 import { MatSelect } from "@angular/material";
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-new-bidding-project',
@@ -64,27 +65,12 @@ export class NewBiddingProjectComponent implements OnInit {
       });
     }
 
-    new_projectname(username){
-	// Defines if the project name has already been taken
-      for(let project of this.service.projects){
-        if(name === project.project_name){
-          return false;
-        }
-      }
-      return true;
-    }
-
-  constructor(public service: GeneralServiceService, public router: Router) { }
+    constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   // These variables are used to create the forms and validate the data input on them
   formdata;
-  invalid = false;
-  invalid_name = false;
-  success = false;
-  flawed_name = false;
-  hide = true;
   project;
-  auxiliar;
+  negativo = false;
 
   ngOnInit() {
 	// Checks User permissions and establishes the form in the default state
@@ -101,39 +87,26 @@ export class NewBiddingProjectComponent implements OnInit {
     }
   }
 
-  onClickSubmit(data) {
-	// Validates the data input on the form and if it's correct then creates the project
-    this.auxiliar = this.new_projectname(data.name);
-    if (!(/^[a-zA-Z ]+$/.test(data.name))) {
-      this.invalid_name = true;
-      this.invalid = false;
-      this.success = false;
-      this.flawed_name = false;
-    }
-    else if (data.kunit >= 1 && this.auxiliar) {
-      this.project = new BiddingProject(Object.keys(this.service.projects).length ,data.name, data.kunit,
-                                      data.testerQ, data.analystQ, data.developerQ, data.time, data.cost,
-                                      data.krequired, data.analystL, data.developerL, data.testerL);
-      this.service.projects.push(this.project);
-      console.log(this.service.projects);
-      this.form();
-      this.invalid_name = false;
-      this.invalid = false;
-      this.success = true;
-      this.flawed_name = false;
-    }
-    else if(!(this.auxiliar)){
-      this.invalid_name = false;
-      this.invalid = false;
-      this.success = false;
-      this.flawed_name = true;
-    }
-    else{
-      this.invalid_name = false;
-      this.invalid = true;
-      this.success = false;
-      this.flawed_name = false;
-    }
+  createBiddingProject(project){
+    return this.httpService.createBiddingProject(project).subscribe(data => console.log(data));
   }
 
+  onClickSubmit(data) {
+    if (data.kunit <= 0 || data.analystQ <= 0 || data.developerQ <= 0 || data.testerQ <= 0 || data.time <= 0 || data.time <= 0 || data.krequired <= 0 || data.developerL <= 0 || data.testerL <= 0 || data.analystL <= 0){
+      this.negativo = true;
+    }
+    else {
+      this.service.project = new BiddingProject(data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ, data.time, data.cost, data.krequired, data.analystL, data.developerL, data.testerL);
+      this.service.numAna = data.analystQ;
+      this.service.numDev = data.developerQ;
+      this.service.numTester = data.testerQ;
+      this.createBiddingProject(this.service.project);
+      console.log(this.service.questions);
+      this.form();
+      this.negativo = false;
+      if(this.service.user_type === "Game Administrator"){
+        this.router.navigate(['home/set-up/create-project/analyst-questions']);
+      }
+    }
+  }
 }
