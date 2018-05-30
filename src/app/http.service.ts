@@ -15,6 +15,7 @@ import {Record} from "./shared/record";
 import {BiddingProject} from "./shared/biddingProject";
 import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
+import { Question } from "./shared/question";
 @Injectable()
 
 export class HttpService {
@@ -27,8 +28,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  //static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -191,5 +192,12 @@ export class HttpService {
   updateCertification(id, cert: Certification){
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' +id,
       JSON.stringify(cert), HttpService.httpOptions);
+  }
+  
+  // All services related to Questions
+  
+  createQuestion(question : Question){
+	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',
+      JSON.stringify(question), HttpService.httpOptions);
   }
 }
