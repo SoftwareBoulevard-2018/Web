@@ -14,7 +14,7 @@ import { HttpHeaders } from '@angular/common/http';
 import {Record} from "./shared/record";
 import {BiddingProject} from "./shared/biddingProject";
 import {Estimation} from "./shared/estimation";
-
+import {Certification} from "./shared/certification";
 @Injectable()
 
 export class HttpService {
@@ -47,7 +47,7 @@ export class HttpService {
   static getCurrentProjectManager2URL = '/getCurrentProjectM';
   static getEstimationByPMAndProjectURL = '/getEstimationByPMAndProject';
   static getEstimationsByPMAndStateURL = '/getEstimationsByProjectManagerUsernameAndState';
-
+  static certificationURL = '/certification';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -117,7 +117,6 @@ export class HttpService {
     return this.http.put<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/'+idEmail,
       JSON.stringify(email), HttpService.httpOptions);
   }
-
   getTrainingAttemptsByState(state) {
     return this.http.post<TrainingAttempt[]>(HttpService.apiURL + HttpService.trainingAttemptsURL,
       JSON.stringify({ state1: state }), HttpService.httpOptions);
@@ -179,5 +178,18 @@ export class HttpService {
   getBiddingProjectById(id: String) {
     return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
 
+  }
+  // All services related to Certification
+
+  getCertification(){
+    return this.http.get<Certification[]>(HttpService.apiURL + HttpService.certificationURL + '/getCertification/');
+  }
+  createCertification(cert: Certification){
+    return this.http.post<Certification>(HttpService.apiURL + HttpService.certificationURL + '/createCertification/',
+      JSON.stringify(cert), HttpService.httpOptions);
+  }
+  updateCertification(id, cert: Certification){
+    return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' +id,
+      JSON.stringify(cert), HttpService.httpOptions);
   }
 }
