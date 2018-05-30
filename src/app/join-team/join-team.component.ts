@@ -13,26 +13,52 @@ import {HttpService} from '../http.service';
 export class JoinTeamComponent implements OnInit {
 
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
+    companies_pending;
+  
+    ngOnInit() {
+      console.log(this.service.user_type);
+      //this.httpService.getTrainingAttemptsByState("wrong").subscribe(data => this.print_data(data))
+      
+      this.httpService.getInvitationByUserAndState(this.service.user.id, "pending").subscribe(data => {
+        this.companies_pending = data[0]['company']
+        console.log(this.companies_pending)
+      })
 
-  ngOnInit() {
-    console.log(this.service.user_type);
-    this.httpService.getTrainingAttemptsByState("wrong").subscribe(data => this.print_data(data))
-
-    if (this.service.user_type === undefined) {
-      this.router.navigate(['']);
+      if (this.service.user_type === undefined) {
+        this.router.navigate(['']);
+      }
     }
-  }
+    /*
+    this.getDevelopingAttemptsByState('wrong');
+      /*}
+      *//*
+    }
 
-  print_data(data){
-    console.log(data)
-  }
+    getDevelopingAttemptsByState(state: string) {
+      return this.httpService.getDevelopingAttemptsByState(state).subscribe(data => this.listDevelopingAttempts(data));
+    }
 
-  redirect1(event) {
-    alert("You have joined!");
-  }
+    listDevelopingAttempts(data) {
+      console.log(data);
+      /*
+      this.trainingAttempts = [];
+      for (const value of Object.values(data.data)) {
+        this.getUserByRoleCompany('Project Manager', value);
+      }
+      *//*
+    }*/
 
-  redirect2(event) {
-    alert("You have reject!");
-  }
+
+    print_data(data){
+      console.log(data)
+    }
+
+    redirect1(event) {
+      alert("You have joined!");
+    }
+
+    redirect2(event) {
+      alert("You have reject!");
+    }
 
 }

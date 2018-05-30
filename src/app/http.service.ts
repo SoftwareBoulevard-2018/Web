@@ -15,6 +15,7 @@ import {Record} from "./shared/record";
 import {BiddingProject} from "./shared/biddingProject";
 import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
+import {Invitation} from "./shared/invitation";
 @Injectable()
 
 export class HttpService {
@@ -48,6 +49,7 @@ export class HttpService {
   static getEstimationByPMAndProjectURL = '/getEstimationByPMAndProject';
   static getEstimationsByPMAndStateURL = '/getEstimationsByProjectManagerUsernameAndState';
   static certificationURL = '/certification';
+  static invitationsURL = '/invitations';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -191,5 +193,11 @@ export class HttpService {
   updateCertification(id, cert: Certification){
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' +id,
       JSON.stringify(cert), HttpService.httpOptions);
+  }
+  // All services related to Invitation
+  
+  getInvitationByUserAndState(id, state) {
+    return this.http.post<Invitation[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
+      JSON.stringify({ user: id, state: state}), HttpService.httpOptions);
   }
 }
