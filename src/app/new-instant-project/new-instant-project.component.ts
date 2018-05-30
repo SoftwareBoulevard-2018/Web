@@ -45,7 +45,6 @@ export class NewInstantProjectComponent implements OnInit {
 
   // These variables are used to create the forms and validate the data input on them
   formdata;
-  success = false;
   project;
   letra = false;
   negativo = false;
@@ -73,20 +72,23 @@ export class NewInstantProjectComponent implements OnInit {
   onClickSubmit(formdata) {
     if (typeof formdata.kunit === 'string' || typeof formdata.analystQ === 'string' || typeof formdata.developerQ === 'string' || typeof formdata.testerQ === 'string'){
       this.letra = true;
-      this.success = false;
     }
     else if (formdata.kunit <= 0 || formdata.analystQ <= 0 || formdata.developerQ <= 0 || formdata.testerQ <= 0){
       this.negativo = true;
-      this.success = false;
     }
     else {
-      this.project = new InstantProject(formdata.name, formdata.kunit, formdata.testerQ,formdata.analystQ, formdata.developerQ);
-      this.createInstantProject(this.project);
-      console.log(this.service.questions);
+      this.service.project = new InstantProject(formdata.name, formdata.kunit, formdata.testerQ, formdata.analystQ, formdata.developerQ);
+      this.service.numAna = formdata.analystQ;
+      this.service.numDev = formdata.developerQ;
+      this.service.numTester = formdata.testerQ;
+      this.createInstantProject(this.service.project);
+      console.log(this.service.projects);
       this.form();
       this.negativo = false;
       this.letra = false;
-      this.success = true;
+      if(this.service.user_type === "Game Administrator"){
+        this.router.navigate(['home/set-up/create-project/analyst-questions']);
+      }
     }
   }
 }

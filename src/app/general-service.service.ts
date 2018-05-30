@@ -9,6 +9,7 @@ import { Parameter } from './shared/parameter';
 import {Estimation} from './shared/estimation';
 import { TrainingAttempt} from './shared/trainingAttempt';
 import { DevelopingAttempt} from './shared/developingAttempt';
+import {Assignment} from './shared/assignment';
 
 @Injectable()
 export class GeneralServiceService {
@@ -16,6 +17,16 @@ export class GeneralServiceService {
   // Variables used for data session
 
   user_type;
+
+// Variables required for the creation of the project and assignment
+  project;
+  numTester;
+  numDev;
+  numAna;
+  testerQ = [];
+  developerQ = [];
+  analystQ = [];
+  assignments = [];
 
   user;
 

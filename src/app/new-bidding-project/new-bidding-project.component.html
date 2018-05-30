@@ -112,14 +112,6 @@
     <br/>
 
 	<!-- Messages if validations fail -->
-	
-
-    <div class="element" *ngIf="success">
-      <br/>
-      <span class="success">
-        Biddin project successfully added.
-      </span>
-    </div>
 
     <div class="element" *ngIf="negativo">
       <br/>
@@ -134,7 +126,7 @@
 	<!-- Submit button -->
     <div class="element element2">
       <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
-        Create
+        Next
       </button>
     </div>
 

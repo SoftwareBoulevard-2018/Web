@@ -60,13 +60,6 @@
       </span>
     </div>
 
-    <div class="element" *ngIf="success">
-      <br/>
-      <span class="success">
-        Instant Project succesfully added
-      </span>
-    </div>
-
     <div class="element" *ngIf="negativo">
       <br/>
       <span class="error">
@@ -80,7 +73,7 @@
 	<!-- Submit button -->
     <div class="element element2">
       <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
-        Create
+        Next
       </button>
     </div>
 

@@ -17,6 +17,7 @@ import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
 import {InstantProject} from "./shared/instantProject";
 import { Question } from "./shared/question";
+import {Assignment} from "./shared/assignment";
 @Injectable()
 
 export class HttpService {
@@ -51,6 +52,8 @@ export class HttpService {
   static getEstimationsByPMAndStateURL = '/getEstimationsByProjectManagerUsernameAndState';
   static certificationURL = '/certification';
   static instantProjecstURL = '/instantProjects';
+  static assignmentsURL = '/assignments';
+  static questionsURL = '/questions';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -224,8 +227,30 @@ export class HttpService {
   
   // All services related to Questions
   
+  getQuestions(){
+    return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL);
+  }
   createQuestion(question : Question){
 	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',
       JSON.stringify(question), HttpService.httpOptions);
   }
+
+
+
+  // All services related to assignment
+  getAssignment(){
+    return this.http.get<Assignment[]>(HttpService.apiURL + HttpService.assignmentsURL + '/getAssignment/')
+  }
+  createAssignment(ass: Assignment){
+    return this.http.post<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/createAssignment/',
+      JSON.stringify(ass), HttpService.httpOptions);
+  }
+  getAssignmentProjectById(id: string){
+    return this.http.get<Assignment>(HttpService.apiURL + HttpService.assignmentsURL+ '/' + id);
+  }
+  updateAssignment(id, ass: Assignment){
+    return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
+      JSON.stringify(ass), HttpService.httpOptions);
+  }
 }
+

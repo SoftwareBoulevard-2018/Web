@@ -69,7 +69,6 @@ export class NewBiddingProjectComponent implements OnInit {
 
   // These variables are used to create the forms and validate the data input on them
   formdata;
-  success = false;
   project;
   negativo = false;
 
@@ -95,15 +94,19 @@ export class NewBiddingProjectComponent implements OnInit {
   onClickSubmit(data) {
     if (data.kunit <= 0 || data.analystQ <= 0 || data.developerQ <= 0 || data.testerQ <= 0 || data.time <= 0 || data.time <= 0 || data.krequired <= 0 || data.developerL <= 0 || data.testerL <= 0 || data.analystL <= 0){
       this.negativo = true;
-      this.success = false;
     }
     else {
-      this.project = new BiddingProject(data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ, data.time, data.cost, data.krequired, data.analystL, data.developerL, data.testerL);
-      this.createBiddingProject(this.project);
+      this.service.project = new BiddingProject(data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ, data.time, data.cost, data.krequired, data.analystL, data.developerL, data.testerL);
+      this.service.numAna = data.analystQ;
+      this.service.numDev = data.developerQ;
+      this.service.numTester = data.testerQ;
+      this.createBiddingProject(this.service.project);
       console.log(this.service.questions);
       this.form();
       this.negativo = false;
-      this.success = true;
+      if(this.service.user_type === "Game Administrator"){
+        this.router.navigate(['home/set-up/create-project/analyst-questions']);
+      }
     }
   }
 }
