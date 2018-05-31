@@ -112,25 +112,11 @@
     <br/>
 
 	<!-- Messages if validations fail -->
-	
-    <div class="element" *ngIf="invalid">
+
+    <div class="element" *ngIf="negativo">
       <br/>
       <span class="error">
-        The password and its confirmation doesn't match.
-      </span>
-    </div>
-
-    <div class="element" *ngIf="success">
-      <br/>
-      <span class="success">
-        User successfully added.
-      </span>
-    </div>
-
-    <div class="element" *ngIf="invalid_name">
-      <br/>
-      <span class="error">
-        Name can only contain letters and spaces.
+        Numerical inputs should be bigger or equal than one
       </span>
     </div>
 
@@ -140,7 +126,7 @@
 	<!-- Submit button -->
     <div class="element element2">
       <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
-        Create
+        Next
       </button>
     </div>
 

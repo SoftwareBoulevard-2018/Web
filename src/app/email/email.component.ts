@@ -4,6 +4,7 @@ import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms'
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { HttpService } from '../http.service';
 import { Email } from '../shared/email';
+import { localStorageFactory } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-email',
@@ -11,66 +12,92 @@ import { Email } from '../shared/email';
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit  {
-  formdata;
-  users =[];
-  emailWindowOpen = false;
-  inInbox = true;
-  inSent = false;
-  inAEmail = false;
-  inNewEmail = false;
-  showAllReceivers = false;
-  selectedEmail : Email;
-  static numNoReadEmails;
-  selectedUsers = [];
-  EReceived = [];
-  ESent = [];
-  table_titles = ['sender','subject-content', 'createdAt'];
-  table_titles_sent =['receivers','subject-content', 'createdAt'];
+  formdata; //New email form
+  users = []; // array of users, updated with getUsers() function
 
-  TInbox:MatTableDataSource<Email>;
-  TSent:MatTableDataSource<Email>;
+  // View controllers 
+  emailWindowOpen = false; // If true open Email window
+  inInbox = true; // If true displays inbox of Email window
+  inSent = false; // If true displays sent mail of Email window
+  inAEmail = false; // If true displays a single email
+  inNewEmail = false; // If true displays the new email form. 
+
+  showAllReceivers = false; // control the dropdown div whith receivers in the single email view, if true div expanded
+
+  selectedEmail : Email; // When click on an email and it displays on a single email view, the email data stores here
+  static numNoReadEmails; // Number of unread emails
+  selectedUsers = []; // Stores the users selected on the Select Receivers input in New Email view
+  EReceived = []; // Stores the emails received by the user in session
+  ESent = []; // Stores the emails sent by the user in session
+
+  table_titles = ['sender','subject-content', 'createdAt']; // set the titles of the inbox table (requirement of Angular Materia table)
+  table_titles_sent =['receivers','subject-content', 'createdAt']; // set the titles of the sent mails table (requirement of Angular Materia table)
+
+  TInbox:MatTableDataSource<Email>; // Angular Material object for display the Materia Table
+  TSent:MatTableDataSource<Email>; //  Angular Material object for display the Materia Table
 
   constructor(public httpService: HttpService, public service: GeneralServiceService) { 
   }
+  // This function executes when the app is load
   ngOnInit() {
-    this.newEmailForm();
-    this.getUsers();
-    this.TInbox = new MatTableDataSource(this.EReceived);
-    this.TSent = new MatTableDataSource(this.ESent);
-    this.EReceived = this.ESent = []
-    EmailComponent.numNoReadEmails=0;
+    this.newEmailForm(); // Initializes the New Email form
+    this.getUsers(); // Get all users from server
+    this.TInbox = new MatTableDataSource(this.EReceived); 
+    this.TSent = new MatTableDataSource(this.ESent); // assigns the arrys of emails to the type of data that the Material Table understands
+    this.EReceived = this.ESent = [] // Clean the arrays of emails 
+    EmailComponent.numNoReadEmails=0; 
+    
+    //Wait 500ms to execute refreshPageOnSession(), in order to give time to the other components to be initialized.
+    setTimeout(() => this.refreshPageOnSession(),500);
   }
+
   get staticNumNoReadEmails(){
     return EmailComponent.numNoReadEmails;
   }
+
   @ViewChild('paginatorInbox') paginatorInbox: MatPaginator;
-  @ViewChild('paginatorSent') paginatorSent: MatPaginator;
+  @ViewChild('paginatorSent') paginatorSent: MatPaginator; //Material requieriment for the paginators functionality 
+
+  // Filter the data in Inbox and Sent through the input in the header of Email window
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+
     this.TInbox.filter = filterValue;
     this.TSent.filter = filterValue;
   }
 
-  getUsers(){
-    return this.httpService.getAllUsers().subscribe(data => this.listUser(data));
+  // When the page is refresh and an user is log in, this function updates all the variables that depend on server information
+  // in order to displays the number of unreaded emails on the OpenEmail button
+  refreshPageOnSession(){
+    if(this.service.user_type != undefined){
+      this.starter();
+    }
   }
 
+  // Returns the users in "data", then "data" are passed as parameter to listUser() function that assigns the useres to the local users array
+  getUsers(){
+    return this.httpService.getAllUsers().subscribe(data => {
+      this.listUser(data);
+    });
+  }
+
+  // When an user has companyID attribute, this functions search the company name and aggregate it as an attribute of user. 
+  // then push it to users local array.
   getCompanyById(companyId, user) {
     return this.httpService.getCompanyById(companyId).subscribe(data => {
       user.companyName = data.name;
       this.users.push({ id: user.id, createdAt: user.createdAt,
         name: user.name, username: user.username, role: user.role, companyName: user.companyName});
-    }, error => {
-        user.companyName = undefined;
-        this.users.push({ id: user.id, createdAt: user.createdAt,
-          name: user.name, username: user.username, role: user.role, companyName: user.company_name});
-      });
+    }, error => {console.log(error);}
+    );
   }
 
+  // For each user getted from server this function verifies if each belongs to a company, if yes calls getCompanyById(), if not push it to local users array.
   listUser(data) {
     this.users = [];
     data = JSON.parse(JSON.stringify(data)).data
+    
     for (let user of data) {
       if (user.companyId == null){
         this.users.push({ id: user.id, createdAt: user.createdAt,
@@ -80,27 +107,30 @@ export class EmailComponent implements OnInit  {
         this.getCompanyById(user.companyId, user);
       } 
     }
-    
+
   }
+  // This functions initializes the New Email form
   newEmailForm() {
     // Defines the default state of the forms
     this.formdata = new FormGroup({
       receivers: new FormControl('',
         Validators.compose([
-          Validators.required
+          Validators.required //Set receivers field as required
         ])),
       subject: new FormControl('',
         Validators.compose([
-          Validators.required
+          Validators.required //Set subject field as required
         ])),
       content: new FormControl('',
         Validators.compose([
-          Validators.minLength(2)
+          Validators.minLength(2) // Requires that the content have at least 2 characters
         ]))
     });
   }
+
+  // Count the unread emails from current EReceived array
   newNotification(){
-       var sum = 0;
+      var sum = 0;
       for(let i = 0; i<this.EReceived.length;i++){
           var acknow = this.EReceived[i].acknowledgment;
           var verif = false;
@@ -116,24 +146,42 @@ export class EmailComponent implements OnInit  {
     EmailComponent.numNoReadEmails = sum;
   }
 
+  // Reset the paginators when the EReceived and ESent arrays are updated
   ngAfterViewInit() {
     this.TInbox.paginator = this.paginatorInbox;
     this.TSent.paginator = this.paginatorSent;
   }
 
+  // Open an close the main Email window
   openCloseEmail(){
-    console.log("say hi" + EmailComponent.numNoReadEmails);
+    // Switch the state of email windows (open/close)
     this.emailWindowOpen = !this.emailWindowOpen;
+
+    // If the email is closed when user is in New Email window, this section "refresh" the 
+    // information in order that if the user re-enters to the email he can see the list of users of Select Receivers dropdown complete
+    if(this.inNewEmail){
+      this.inNewEmail = false;
+      setTimeout(() => this.inNewEmail = true,500);
+    }
+
     this.users = JSON.parse(JSON.stringify(this.service.users));
     this.TInbox = new MatTableDataSource(this.EReceived);
     this.TSent = new MatTableDataSource(this.ESent);
+
+    // Reset the dropdowns of the receivers list of the single email view
+    this.closeAllReceivers();
+
+    // This function updates all the variables that depend on server information
     this.starter();
+    
     setTimeout(() => this.ngAfterViewInit());
   }
+
+  // This function bring the list of emails corresponding to the inbox from the server and push all the elements to the local EReceived array
   read(){
     this.EReceived = [];
     return this.httpService.read(this.service.user._id).subscribe( data => {
-        // Aquí va el código donde el argumento data es lo que vino en la consulta
+        
       const datos =JSON.parse(JSON.stringify(data));
       for(let i = 0; i<datos.data.length;i++){
           this.EReceived.push({
@@ -146,11 +194,14 @@ export class EmailComponent implements OnInit  {
             createdAt:datos.data[i].createdAt});
       }
       this.TInbox.data = this.EReceived;
+       /*data source*/
       this.newNotification();
     }, error => {
         console.log(error);
     });
    }
+
+  // This function filter the users in the Select Receivers dropdown-input by name, role, username, or company name.
   searchUserFn(term: string, item){
     term = term.toLowerCase();
     let nameMatch = item.name.toLowerCase().indexOf(term) > -1;
@@ -166,6 +217,8 @@ export class EmailComponent implements OnInit  {
 
     return nameMatch || roleMatch || usernameMatch || companyMatch;  
   }
+
+  // This function bring the list of emails corresponding to the sent mails from the server and push all the elements to the local ESent array
   sent(){
     this.ESent = [];
     return this.httpService.sent(this.service.user.id).subscribe(data =>{
@@ -185,6 +238,8 @@ export class EmailComponent implements OnInit  {
       /*data source*/
     });
   }
+
+  // Returns the user name by passing the id
   findUserById(userId){
     for(let i = 0; i<this.users.length;i++){
       if(this.users[i].id==userId){
@@ -192,12 +247,16 @@ export class EmailComponent implements OnInit  {
       }
     }
   }
+
+  // This function updates all the variables that depends on server information
   starter(){
        this.read();
        this.getUsers();
        this.sent();
        this.newNotification();
   }
+
+// Sends the email calling the corresponding API function passing an email object as parameter. The information is taken out of the new email form
  submitEmail(data){
    let rec :[string] = [""]; 
    for(let i = 0; i<data.receivers.length;i++){
@@ -210,10 +269,13 @@ export class EmailComponent implements OnInit  {
         data.subject,
         rec,
         data.content,
-      )
+    )
+    this.formdata.reset();
+    this.toInbox();
     return this.httpService.send(email).subscribe(data => {this.starter()});
   }
 
+  // Check if a certain user has already read an email
   checkEmailState(email,userID){
     var unreaded = true;
 
@@ -230,12 +292,16 @@ export class EmailComponent implements OnInit  {
     }
   }
 
+  // Display a single email in the main email window
   readEmail(email,v) {
+    // The click email es set to selectedEmail
     this.selectedEmail = email;
-    this.inInbox = false;
-    this.inNewEmail = false;
-    this.inSent = false;
-    this.inAEmail = true;
+    this.inInbox = false; //Close other window
+    this.inNewEmail = false; //Close other window
+    this.inSent = false; //Close other window
+    this.inAEmail = true; //Open single email view
+
+    // If the email belongs to inbox then check the email state, if unread => update state
     if(v==0){
       if(email.acknowledgment == undefined){
         email.acknowledgment = [];
@@ -254,10 +320,20 @@ export class EmailComponent implements OnInit  {
           this.updateState(email,email.id);
         }
       }
-    }  
-    this.starter();
+    }
+    // Update the EReceive and ESent arrays and then updates de notification badge (number of unread emails)
+    setTimeout(() => this.updateEmails(),1000); 
   }
 
+  // Update the EReceive and ESent arrays and then updates de notification badge (number of unread emails)
+  updateEmails(){
+    this.read();
+    this.sent();
+    //Waits when the server fills the arrays
+    setTimeout(() => this.newNotification(),500);
+  }
+
+  // Sent view: if an email have more than one receiver the table displays only the first name of each receiver
   printReceivers(receivers){
     var receiversName = [];
     for( let i = 0; i < receivers.length; i++ ){
@@ -282,42 +358,80 @@ export class EmailComponent implements OnInit  {
     }
   }
 
-
+  // Shows the inbox view
   toInbox(){
-    this.inAEmail = false;
-    this.inNewEmail = false;
-    this.inSent = false;
-    this.inInbox = true;
+    this.inAEmail = false; //Close other window
+    this.inNewEmail = false; //Close other window
+    this.inSent = false; //Close other window
+    this.inInbox = true; //Open inbox window
+
+    // Reset the dropdowns of the receivers list of the single email view
+    this.closeAllReceivers();
+
+    //Update the EReceive and ESent arrays and then updates de notification badge (number of unread emails)
+    this.updateEmails();
     setTimeout(() => this.ngAfterViewInit());
   }
-
+  // Shows the sent mail view
   toSent(){
-    this.inAEmail = false;
-    this.inInbox = false;
-    this.inNewEmail = false;
-    this.inSent = true;
+    this.inAEmail = false; //Close other window
+    this.inInbox = false; //Close other window
+    this.inNewEmail = false; //Close other window
+    this.inSent = true; //Open sent mail window
+
+    // Reset the dropdowns of the receivers list of the single email view
+    this.closeAllReceivers();
+
+    //Update the EReceive and ESent arrays and then updates de notification badge (number of unread emails)
+    this.updateEmails();
     setTimeout(() => this.ngAfterViewInit());
   }
 
   toNewEmail(){
-    this.inAEmail = false;
-    this.inInbox = false;
-    this.inSent = false;
-    this.inNewEmail = true;
+    this.inAEmail = false; //Close other window
+    this.inInbox = false; //Close other window
+    this.inSent = false; //Close other window
+
+    // Reset the dropdowns of the receivers list of the single email view
+    this.closeAllReceivers();
+
+    this.inNewEmail = true; //Open new email mail window
   }
+
+  // Calls the API function that update the state of an email
   updateState(email, emailId){
     return this.httpService.updateState(emailId,email).subscribe(data => {});
   }
+
+  // stylist the date of an email
   emailDate(isoDate){
     let date = new Date(isoDate);
     return (date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear());
   }
-
+  // Stylist the hour of an email
   emailHour(isoDate){
     let date = new Date(isoDate);
-    return (date.getHours() + ":" + date.getMinutes());
+    var hour = date.getHours();
+    var minutes = date.getMinutes();
+    var amPM;
+    var zero = ""
+
+    if( hour >= 12 ){
+      amPM = "pm";
+      if ( hour != 12 ){
+        hour = hour - 12;
+      }
+    }else {
+      amPM = "am";
+    }
+
+    if(minutes < 10){
+      zero = "0";
+    }
+    return (hour + ":" + zero + minutes + " " + amPM);
   }
 
+  // Section in charge of calculates the height of the div that contains of the receivers 
   @ViewChild('inEmailReceivers') elementView: ElementRef;
   containerHeight = 40;
   displayAllReceivers() {
@@ -333,6 +447,10 @@ export class EmailComponent implements OnInit  {
     }
     
     this.showAllReceivers = !this.showAllReceivers;
+  }
+  closeAllReceivers(){
+    this.containerHeight = 40;
+    this.showAllReceivers = false;
   }
  
 }
