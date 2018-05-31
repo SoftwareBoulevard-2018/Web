@@ -18,11 +18,7 @@ export class AnalystQComponent implements OnInit {
   questions = [];
   questions2: MatTableDataSource<Question>;
 
-<<<<<<< HEAD
-  table_titles = ['description', 'select question'];
-=======
   table_titles = ['_id', 'description'];
->>>>>>> 13373368d91a0592a2892e59fe904492055f0ae5
 
   ngOnInit() {
     console.log(this.service.user_type);
