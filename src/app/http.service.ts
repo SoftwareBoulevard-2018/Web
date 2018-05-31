@@ -19,12 +19,8 @@ import {InstantProject} from "./shared/instantProject";
 import { Question } from "./shared/question";
 import {Assignment} from "./shared/assignment";
 import { creationPuzzle } from './shared/creationPuzzle';
-<<<<<<< HEAD
-=======
 import {invitations} from "./shared/invitations"
 
->>>>>>> master
-@Injectable()
 
 export class HttpService {
 
