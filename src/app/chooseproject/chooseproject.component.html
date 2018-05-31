@@ -28,11 +28,11 @@
 
 
 
-    <ng-container matColumnDef="Required_K">
+    <ng-container matColumnDef="required_K">
       <mat-header-cell *matHeaderCellDef> Required K </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <p *ngIf="!(element.Required_K === undefined); else pending_company">
-          {{element.Required_K}}
+        <p *ngIf="!(element.required_K === undefined); else pending_company">
+          {{element.required_K}}
         </p>
         <ng-template #pending_company>
           <p class="pending">
@@ -100,7 +100,7 @@
     </ng-container>
 
 
-    <ng-container matColumnDef="Cost">
+    <ng-container matColumnDef="cost">
       <mat-header-cell *matHeaderCellDef> Cost </mat-header-cell>
       <mat-cell *matCellDef="let element">
         <p *ngIf="!(element.cost === undefined); else pending_company">
