@@ -73,6 +73,11 @@ export class JoinTeamComponent implements OnInit {
       this.invite.status = 'accepted'
       //No sirve
       this.httpService.updateInvitation(this.invite, this.idInvitation);
+      console.log(this.service.user.companyId);
+      console.log(this.service.user);
+      console.log(this.company_pending);
+      this.service.user.companyId = this.company_pending;
+      this.httpService.updateUser(this.service.user, this.service.user.id);
       alert("You have joined!");
 
 
