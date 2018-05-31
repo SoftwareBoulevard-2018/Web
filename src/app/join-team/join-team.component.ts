@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {EmailComponent} from "../email/email.component";
 import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
 import {HttpService} from '../http.service';
+import {Company} from '../shared/company';
 
 @Component({
   selector: 'app-join-team',
@@ -11,7 +12,8 @@ import {HttpService} from '../http.service';
   styleUrls: ['./join-team.component.css']
 })
 export class JoinTeamComponent implements OnInit {
-  company_pending = "Holi";
+  company_pending;
+  company_pending_name;
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
     ngOnInit() {
       console.log(this.service.user_type);
@@ -19,8 +21,18 @@ export class JoinTeamComponent implements OnInit {
 
       this.httpService.getInvitationByUserAndState(this.service.user.id, "pending").subscribe(data => {
         this.company_pending = data[0]['company']
-        console.log(this.company_pending)
+          this.httpService.getAllCompanies().subscribe(data => {
+            Object.values(data).forEach(cosa=>{
+              cosa.forEach(cosita => {
+              if(cosita['id'] == this.company_pending){
+                this.company_pending_name = cosita['name']
+              }
+            })
+          })
+        })
       })
+
+
 
       if (this.service.user_type === undefined) {
         this.router.navigate(['']);
@@ -50,14 +62,13 @@ export class JoinTeamComponent implements OnInit {
     print_data(data){
       console.log(data)
     }
-
+    //actualizar la base de datos cuando diga que shi o que no
     redirect1(event) {
       alert("You have joined!");
-      
+
     }
 
     redirect2(event) {
       alert("You have reject!");
     }
-
 }
