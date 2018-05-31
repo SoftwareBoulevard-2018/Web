@@ -15,15 +15,11 @@ import {Record} from "./shared/record";
 import {BiddingProject} from "./shared/biddingProject";
 import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
-
 import {InstantProject} from "./shared/instantProject";
 import { Question } from "./shared/question";
 import {Assignment} from "./shared/assignment";
 import { creationPuzzle } from './shared/creationPuzzle';
 import {invitations} from "./shared/invitations"
-
-import {Invitation} from "./shared/invitation";
-import {Question} from "./shared/question";
 
 @Injectable()
 
@@ -58,15 +54,10 @@ export class HttpService {
   static getEstimationByPMAndProjectURL = '/getEstimationByPMAndProject';
   static getEstimationsByPMAndStateURL = '/getEstimationsByProjectManagerUsernameAndState';
   static certificationURL = '/certification';
-
   static instantProjecstURL = '/instantProjects';
   static assignmentsURL = '/assignments';
   static questionsURL = '/questions';
   static invitationsURL='/invitations';
-
-  static invitationsURL = '/invitations';
-  static  getQuestionURL = '/getQuestions';
-
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -240,7 +231,6 @@ export class HttpService {
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' +id,
       JSON.stringify(cert), HttpService.httpOptions);
   }
-  //here
 
   // All services related to Questions
 
@@ -284,25 +274,5 @@ export class HttpService {
       JSON.stringify(user,company), HttpService.httpOptions);
   }
 
-  //here
-  // All services related to Invitation
-
-  getInvitationByUserAndState(id, state) {
-    return this.http.post<Invitation[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
-      JSON.stringify({ user: id, state: state}), HttpService.httpOptions);
-  }
-  updateInvitation(invitation, id: String){
-    return this.http.put<Invitation>(HttpService.apiURL + HttpService.invitationsURL + '/' + id,
-      JSON.stringify(invitation), HttpService.httpOptions);
-  }
-  // All services related to Invitation
-
-  getQuestionsById(id: String) {
-    return this.http.get<Question>(HttpService.apiURL + HttpService.getQuestionURL+ '/getQuestionById/' + id);
-  }
-  getAllQuestions() {
-    return this.http.get<Question[]>(HttpService.apiURL + HttpService.getQuestionURL);
-  }
-  // here
 }
 

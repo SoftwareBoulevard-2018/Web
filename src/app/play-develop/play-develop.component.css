@@ -17,5 +17,6 @@
 button {
   display: flex;
   justify-content: center;
-
+  background-color: #F60;
+  color: #0F0;
 }
