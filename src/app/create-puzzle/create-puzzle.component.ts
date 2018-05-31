@@ -29,7 +29,7 @@ export class CreatePuzzleComponent implements OnInit {
   }
   
   createPuzzle(puzzle) {
-		return this.httpService.createPuzzle(puzzle).subscribe(data => console.log(puzzle));
+		return this.httpService.createPuzzle(puzzle).subscribe(data => console.log(puzzle), error => console.log(puzzle));
   }
    onClickSubmit(data){
 	  this.puzzle = new creationPuzzle(data.resources, this.url, this.filename);
@@ -42,7 +42,7 @@ export class CreatePuzzleComponent implements OnInit {
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-	  this.filename = event.target.files[0].name.toLowerCase();;
+	  this.filename = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.url = reader.result;

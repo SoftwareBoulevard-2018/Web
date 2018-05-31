@@ -18,7 +18,11 @@ export class AnalystQComponent implements OnInit {
   questions = [];
   questions2: MatTableDataSource<Question>;
 
+<<<<<<< HEAD
   table_titles = ['description', 'select question'];
+=======
+  table_titles = ['_id', 'description'];
+>>>>>>> 13373368d91a0592a2892e59fe904492055f0ae5
 
   ngOnInit() {
     console.log(this.service.user_type);
@@ -38,19 +42,16 @@ export class AnalystQComponent implements OnInit {
   redirect(event, element){}
 
   getAllAnalystQuestions(){
-    return this.httpService.getQuestions().subscribe(data => this.listQuestions(data));
+     this.httpService.getQuestions().subscribe(data => this.listAnalystQuestions(data));
   }
-
-  listQuestions(data){
-    console.log(data);
-    this.questions = [];
-    for (const question of Object.values(data.data)) {
-     if (question.role === "Analyst"){
-      this.questions.push({id: question.id, description: question.description});
-      this.questions2.data = this.questions;
-      console.log(this.questions2);
-     }
-    }
+  
+  listAnalystQuestions(data) {
+	for (const question of Object.values(data.data)) {
+		if (question.role === "Analyst"){
+			this.questions.push({id: question.id, description: question.description});
+			this.questions2.data = this.questions;
+		}
+	 }
   }
 
 

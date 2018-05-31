@@ -234,7 +234,7 @@ export class HttpService {
   // All services related to Questions
   
   getQuestions(){
-    return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL);
+    return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL + '/');
   }
   createQuestion(question : Question){
 	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',
