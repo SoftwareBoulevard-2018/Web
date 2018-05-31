@@ -38,18 +38,11 @@ export class AnalystQComponent implements OnInit {
   redirect(event, element){}
 
   getAllAnalystQuestions(){
-     this.httpService.getQuestions().subscribe(data => this.listAnalystQuestions(data));
+    this.httpService.getQuestions().subscribe(data => {
+      const preguntas = JSON.parse(JSON.stringify(data));
+      for (var question in preguntas){
+        console.log(question);
+      }
+    });
   }
-  
-  listAnalystQuestions(data) {
-	for (const question of Object.values(data.data)) {
-		if (question.role === "Analyst"){
-			this.questions.push({id: question.id, description: question.description});
-			this.questions2.data = this.questions;
-		}
-	 }
-  }
-
-
-
 }

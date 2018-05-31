@@ -24,7 +24,6 @@ export class CompaniesComponent implements OnInit {
 
   ngOnInit() {
     // When the component is created, it defines the variables to create the material table
-    console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {

@@ -1,9 +1,9 @@
 <!-- Question update form -->
 <div class="wrap-login100 big-wrap">
-  <form class="login100-form" [formGroup]="formdata"  >
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
     <br/>
     <span class="login100-form-title p-b-34">
-      UPDATE QUESTION - {{ this.service.question_to_be_updated.description }} 
+      UPDATE QUESTION
     </span>
 	
 	<div class="element">
@@ -17,7 +17,7 @@
 	
 	<div class="element">
       <mat-form-field class="big-input">
-        <mat-select placeholder="Question's category - {{ this.service.question_to_be_updated.category }}" name="category" formControlName="category">
+        <mat-select placeholder="Question's category - {{ this.service.question_to_be_updated.role }}" name="category" formControlName="category">
           <mat-option *ngFor="let category of categories" [value]="category">
             {{ category }}
           </mat-option>
@@ -27,17 +27,6 @@
     </div>
 	
 	<br/>
-	
-	<div class="element">
-      <mat-form-field class="big-input">
-        <mat-select placeholder="Question's level - {{ this.service.question_to_be_updated.level }}" name="level" formControlName="level">
-          <mat-option *ngFor="let level of levels" [value]="level">
-            {{ level }}
-          </mat-option>
-        </mat-select>
-        <mat-hint>Required Field</mat-hint>
-      </mat-form-field>
-    </div>
 	
 	<br/>
 	
@@ -78,7 +67,7 @@
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="small-input">
-				<mat-select placeholder="Veracity - {{ this.service.question_to_be_updated.questions[1].state }}" name="veracity2" formControlName="veracity2">
+				<mat-select placeholder="Veracity - {{ tthis.service.question_to_be_updated.questions[1].state }}" name="veracity2" formControlName="veracity2">
 					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
 					  {{ veracity }}
 					</mat-option>
@@ -103,7 +92,7 @@
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="small-input">
-				<mat-select placeholder="Veracity - {{ this.service.question_to_be_updated.questions[2].state }}" name="veracity3" formControlName="veracity3">
+				<mat-select placeholder="Veracity - {{ this.service.question_to_be_updated.questions[2].veracity }}" name="veracity3" formControlName="veracity3">
 					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
 					  {{ veracity }}
 					</mat-option>
@@ -128,7 +117,7 @@
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="small-input">
-				<mat-select placeholder="Veracity - {{ this.service.question_to_be_updated.questions[3].state }}" name="veracity4" formControlName="veracity4">
+				<mat-select placeholder="Veracity - {{ this.service.question_to_be_updated.questions[3].veracity }}" name="veracity4" formControlName="veracity4">
 					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
 					  {{ veracity }}
 					</mat-option>

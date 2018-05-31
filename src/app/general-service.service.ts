@@ -71,6 +71,7 @@ new InstantProject(5, 'Supermarket system', 3, 11, 12, 10) */];
   parameter_to_be_updated = this.parameter[0];
 
   question_to_be_updated;
+  questionId;
 
   companies = [/*new Company("UNAL",this.users[1],
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png",1,
