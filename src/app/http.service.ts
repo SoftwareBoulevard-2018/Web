@@ -17,11 +17,8 @@ import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
 import {InstantProject} from "./shared/instantProject";
 import { Question } from "./shared/question";
-<<<<<<< HEAD
 import {Assignment} from "./shared/assignment";
-=======
 import { creationPuzzle } from './shared/creationPuzzle';
->>>>>>> 354bdb821a7fea54823788269c2247e7a6a82f9b
 @Injectable()
 
 export class HttpService {
@@ -237,7 +234,7 @@ export class HttpService {
   // All services related to Questions
   
   getQuestions(){
-    return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL);
+    return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL + '/');
   }
   createQuestion(question : Question){
 	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',
