@@ -42,7 +42,7 @@ export class CreatePuzzleComponent implements OnInit {
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-	  this.filename = event.target.files[0].name;
+	  this.filename = event.target.files[0].name.toLowerCase();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.url = reader.result;
