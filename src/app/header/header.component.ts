@@ -12,37 +12,11 @@ import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 })
 export class HeaderComponent implements OnInit {
 
-  // This user was made to test the creation service
-  // user = new User('Andres', 'afaguilarr', 'olaola', 'Analyst');
-  // This user was made to test the update service
-  // user = { username: 'WORK!!!' };
-
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,
               public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   ngOnInit() {
-    // this.getAllCompanies();
-    // this.getUserById('5b0221ef5e9e8127bc3f1a5a');
-    // this.getUserByUsername('jpchaves');
-    // this.createUser(this.user);
-    // this.updateUser(this.user, '5b0221ef5e9e8127bc3f1a5a');
   }
-
-  /* getAllCompanies() {
-    return this.httpService.getAllCompanies().subscribe(data => console.log(data));
-  }
-  getUserById(userId) {
-    return this.httpService.getUserById(userId).subscribe(data => console.log(data));
-  }
-  getUserByUsername(username) {
-    return this.httpService.getUserByUsername(username).subscribe(data => console.log(data));
-  } */
-  /* createUser(user) {
-    return this.httpService.createUser(user).subscribe(data => console.log(data));
-  } */
-  /* updateUser(user, userId) {
-    return this.httpService.updateUser(user, userId).subscribe(data => console.log(data));
-  } */
 
   saveInLocal(key, val): void {
     console.log('recieved= key:' + key + 'value:' + val);
@@ -96,12 +70,5 @@ export class HeaderComponent implements OnInit {
     this.service.username = undefined;
     this.service.user_type = undefined;
     this.router.navigate(['']);
-  }
-  search_user(username) {
-    for (const user of this.service.users) {
-      if (user.username === username) {
-        return user;
-      }
-    }
   }
 }

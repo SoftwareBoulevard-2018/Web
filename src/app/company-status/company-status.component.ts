@@ -83,25 +83,6 @@ export class CompanyStatusComponent implements OnInit {
     }
   }
 
-  /*search_user_company() {
-    // Searches for the company of the user in session
-    for (const user of this.service.users) {
-      if (user.username === this.service.username) {
-        if (!(user.companyName === undefined)) {
-          this.current_company = this.search_company(user.companyName);
-          return;
-        }
-      }
-    }
-    this.current_company = undefined;
-  } */
-  /* search_company (company_name) {
-    for (const company of this.service.companies) {
-      if (company.name === company_name) {
-        return company;
-      }
-    }
-  } */
   redirect(event) {
     // Redirects to company update and defines the necessary variables
     this.service.company_to_be_updated = this.current_company.id;

@@ -71,41 +71,6 @@ export class UpdateCompanyComponent implements OnInit {
     );
   }
 
-  /*possible_project_managers() {
-    // Searches for the available project managers
-    this.project_managers = [];
-    for (const user of this.service.users) {
-      if (user.role === 'Project Manager') {
-        this.project_managers.push(user);
-        for (const company of this.service.companies) {
-          if (!(company.project_manager === undefined) && company.project_manager.username === user.username) {
-            this.project_managers.pop();
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  new_name(name) {
-    // Defines if the name inpput is unique
-    for (const company of this.service.companies) {
-      if (name === company.name) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  current_project_manager() {
-    // Defines if there is already a project manager in the company
-    if (this.service.company_to_be_updated.project_manager === undefined) {
-      this.lacking_project_manager = true;
-    } else {
-      this.lacking_project_manager = false;
-    }
-  } */
-
   ngOnInit() {
     // Defines if there is a project manager in the company, the currently
     // available project managers and establishes the form in its default state
@@ -179,28 +144,5 @@ export class UpdateCompanyComponent implements OnInit {
       }
     );
   }
-
-  /* search_modify_user(username, company_name) {
-    // Searches for an user and updates it
-    for (const user of this.service.users) {
-      if (user.username === username) {
-        user.company_name = company_name;
-        console.log(user);
-        return user;
-      }
-    }
-  }
-
-  update_members(company_name, company) {
-    // Updates the data of the company's members
-    if (!(company.project_manager === undefined)) {
-      company.project_manager.companyName = company_name;
-    }
-    if (!(company.team_members === [])) {
-      for (const team_member of company.team_members) {
-        team_member.companyName = company_name;
-      }
-    }
-  } */
 
 }

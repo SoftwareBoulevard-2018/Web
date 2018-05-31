@@ -66,16 +66,6 @@ export class CreateUserComponent implements OnInit {
     return this.httpService.createUser(user).subscribe(data => console.log(data));
   }
 
-  /* new_username(username) {
-    // Defines if the username is not already taken
-    for (const user of this.service.users) {
-      if (username === user.username) {
-        return false;
-      }
-    }
-    return true;
-  } */
-
 
   ngOnInit() {
     // Establishes the form in the default state

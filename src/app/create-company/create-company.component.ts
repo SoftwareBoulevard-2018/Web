@@ -49,33 +49,6 @@ export class CreateCompanyComponent implements OnInit {
     );
 }
 
-  /*possible_project_managers() {
-    // Searches for the available project managers to be assigned to a company
-    this.project_managers = [];
-    for (const user of this.service.users) {
-      if (user.role === 'Project Manager') {
-        this.project_managers.push(user);
-        for (const company of this.service.companies) {
-          if (!(company.project_manager === undefined) && company.project_manager.username === user.username) {
-            this.project_managers.pop();
-            break;
-          }
-        }
-      }
-    }
-  }*/
-
-  /* new_name(name) {
-    // Validates if the name input is an unique name
-    for (const company of this.service.companies) {
-      if (name === company.name) {
-        return false;
-      }
-    }
-    return true;
-  } */
-
-
   ngOnInit() {
     // Defines the available project managers and puts the form in default state
     if (this.service.user_type === undefined) {
@@ -114,16 +87,5 @@ export class CreateCompanyComponent implements OnInit {
       }
     );
   }
-
-  /* search_modify_user(username, company_name) {
-    // Searches for a user by its username and updates its data
-    for (const user of this.service.users) {
-      if (user.username === username) {
-        user.company_name = company_name;
-        console.log(user);
-        return user;
-      }
-    }
-  } */
 
 }
