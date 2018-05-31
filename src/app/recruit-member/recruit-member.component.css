@@ -1,12 +1,26 @@
-/* the text alignment are assigned and the color of the text messages */
-/deep/ .mat-input-underline{
-  border-bottom: 1px solid #009494!important;
+.w3-card-4{
+  width: 100%;
+  margin:auto;
+  background-color: #00585E;
+  cursor: pointer;
+  border-style: solid;
+  border-color: #009494;
 }
-.element{
+.marco{
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  width: 90%;
+  margin: auto;
+}
+
+.element-exit{
   text-align: center;
 }
-.element2{
-  margin-bottom: 10px;
+
+img{
+  width: 100%;
 }
 .announcement {
   text-align: center;
@@ -16,18 +30,25 @@ button{
   background-color: #009494;
   color: white;
 }
-.error{
-  color: red;
+h1{
+  margin: 2% auto 1% 0 ;
+  color: #00585E;
+  font-weight: bold;
 }
-.success{
+h3{
+  margin: 0 auto 2% 0;
+  color: #00585E;
+  font-weight: bold;
+}
+h4{
+  color: white;
+}
+p{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  color: white;
+}
+.element-text3{
+  text-align: center;
   color: #009494;
-}
-mat-hint{
-  color: #009494;
-}
-input{
-  margin-top: 30px;
-}
-.big-input{
-  width: 100%;
 }

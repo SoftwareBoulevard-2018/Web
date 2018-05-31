@@ -67,6 +67,8 @@ new InstantProject(5, 'Supermarket system', 3, 11, 12, 10) */];
   user_to_be_updated;
 
   project_to_be_updated;
+  
+  project_to_assignate;
 
   parameter_to_be_updated = this.parameter[0];
 

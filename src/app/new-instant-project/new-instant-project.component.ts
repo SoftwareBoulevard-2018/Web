@@ -86,6 +86,7 @@ export class NewInstantProjectComponent implements OnInit {
       this.form();
       this.negativo = false;
       this.letra = false;
+	  this.service.project_to_assignate = this.service.project;
       if(this.service.user_type === "Game Administrator"){
         this.router.navigate(['home/set-up/create-project/analyst-questions']);
       }
