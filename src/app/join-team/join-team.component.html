@@ -8,10 +8,10 @@
       <mat-list-item >
         <img mat-list-avatar src="{{this.service.companies[0].image}}">
         <div matLine>
-          {{this.service.companies[0].name}}
+          <p>{{ company_pending }}</p>
           <p>cosa</p>
           <button mat-button color="primary" (click)="redirect1($event)">n</button>
-          <button mat-button color="warn" (click)="redirect2($event)">{{ n }}</button>
+          <button mat-button color="warn" (click)="redirect2($event)"></button>
 
         </div>
       </mat-list-item>

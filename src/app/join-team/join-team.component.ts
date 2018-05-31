@@ -11,17 +11,15 @@ import {HttpService} from '../http.service';
   styleUrls: ['./join-team.component.css']
 })
 export class JoinTeamComponent implements OnInit {
-
+  company_pending = "Holi";
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
-    companies_pending;
-  
     ngOnInit() {
       console.log(this.service.user_type);
       //this.httpService.getTrainingAttemptsByState("wrong").subscribe(data => this.print_data(data))
-      
+
       this.httpService.getInvitationByUserAndState(this.service.user.id, "pending").subscribe(data => {
-        this.companies_pending = data[0]['company']
-        console.log(this.companies_pending)
+        this.company_pending = data[0]['company']
+        console.log(this.company_pending)
       })
 
       if (this.service.user_type === undefined) {
@@ -55,6 +53,7 @@ export class JoinTeamComponent implements OnInit {
 
     redirect1(event) {
       alert("You have joined!");
+      
     }
 
     redirect2(event) {

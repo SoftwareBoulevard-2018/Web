@@ -16,6 +16,7 @@ import {BiddingProject} from "./shared/biddingProject";
 import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
 import {Invitation} from "./shared/invitation";
+import {Question} from "./shared/question";
 @Injectable()
 
 export class HttpService {
@@ -50,6 +51,7 @@ export class HttpService {
   static getEstimationsByPMAndStateURL = '/getEstimationsByProjectManagerUsernameAndState';
   static certificationURL = '/certification';
   static invitationsURL = '/invitations';
+  static  getQuestionURL = '/getQuestions';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -195,9 +197,21 @@ export class HttpService {
       JSON.stringify(cert), HttpService.httpOptions);
   }
   // All services related to Invitation
-  
+
   getInvitationByUserAndState(id, state) {
     return this.http.post<Invitation[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
       JSON.stringify({ user: id, state: state}), HttpService.httpOptions);
+  }
+  updateInvitation(invitation, id: String){
+    return this.http.put<Invitation>(HttpService.apiURL + HttpService.invitationsURL + '/' + id,
+      JSON.stringify(invitation), HttpService.httpOptions);
+  }
+  // All services related to Invitation
+
+  getQuestionsById(id: String) {
+    return this.http.get<Question>(HttpService.apiURL + HttpService.getQuestionURL+ '/getQuestionById/' + id);
+  }
+  getAllQuestions() {
+    return this.http.get<Question[]>(HttpService.apiURL + HttpService.getQuestionURL);
   }
 }
