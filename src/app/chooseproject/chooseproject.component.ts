@@ -19,6 +19,7 @@ export class ChooseprojectComponent implements OnInit {
   correct_guess = true;
   projects = [];
   projects2;
+  load_complete = false;
   formdata;
   invalid = false;
   success = false;
@@ -50,7 +51,9 @@ export class ChooseprojectComponent implements OnInit {
   }
 
   getAllUsers() {
-    return this.httpService.getAllBiddingProjects().subscribe(data => this.listUser(data));
+    return this.httpService.getAllBiddingProjects().subscribe(data => {this.listUser(data);
+      this.load_complete = true;
+    });
   }
   getallinstants(){
     return this.httpService.getAllInstantProjects().subscribe(data => this.listUser2(data));
@@ -94,6 +97,10 @@ export class ChooseprojectComponent implements OnInit {
     });
   }
 
+  redirectToFunctions(event) {
+    this.router.navigate(['home/users/projectmanager/functions']);
+  }
+
   listUser(data) {
     console.log(data);
     this.users = [];
@@ -119,11 +126,22 @@ export class ChooseprojectComponent implements OnInit {
     this.users2.filter = filterValue;
   }
 
+  haveCompany() {
+    if (this.service.user.companyId === null){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   getInvitation(formdata) {
     let today = new Date();
     console.log(formdata.id)
     this.record = new Record(today.getDate(),null, this.service.user.companyId, formdata.id);
     this.httpService.createRecord(this.record);
+    alert("Congratulations, You have chosen a project");
+    this.router.navigate(['home/users/projectmanager/functions']);
+
 
   }
 

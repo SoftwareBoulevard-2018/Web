@@ -1,131 +1,153 @@
-<div class="w3-container">
-  <h1>Choose projects!</h1>
+<div class="todoready" *ngIf="(this.load_complete && haveCompany())">
+  <div class="marco">
+
+    <div class="w3-container">
+      <h1>Choose projects!</h1>
+    </div>
+
+    <!-- Users table -->
+    <div class="container mat-elevation-z8">
+
+      <!-- Filter -->
+      <div class="header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <mat-table #table [dataSource]="users2">
 
 
+
+
+
+
+        <ng-container matColumnDef="Project_Name">
+          <mat-header-cell *matHeaderCellDef> Project Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.Project_Name}} </mat-cell>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="required_K">
+          <mat-header-cell *matHeaderCellDef> Required K </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.required_K === undefined); else pending_company">
+              {{element.required_K}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Rewarded_K">
+          <mat-header-cell *matHeaderCellDef> Rewarded K </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.Rewarded_K === undefined); else pending_company">
+              {{element.Rewarded_K}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Analyst_Level">
+          <mat-header-cell *matHeaderCellDef> Analyst Level </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.Analyst_Level === undefined); else pending_company">
+              {{element.Analyst_Level}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Developer_Level">
+          <mat-header-cell *matHeaderCellDef> Developer Level </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.Developer_Level === undefined); else pending_company">
+              {{element.Developer_Level}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Tester_Level">
+          <mat-header-cell *matHeaderCellDef> Tester Level </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.Tester_Level === undefined); else pending_company">
+              {{element.Tester_Level}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="cost">
+          <mat-header-cell *matHeaderCellDef> Cost </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.cost === undefined); else pending_company">
+              {{element.cost}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Select">
+          <mat-header-cell *matHeaderCellDef> Invite </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-raised-button type="create" (click)="onClickSubmit(element)">
+              Choose project
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Table rows -->
+        <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
 </div>
 
-<!-- Users table -->
-<div class="container mat-elevation-z8">
+<div class="announcement" *ngIf="(!(haveCompany()))">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      Team members invitations!
+    </span>
+    <form class="login100-form">
+      You do not have a company assigned so you can not invite people. You must ask the game administrator to assign one to you
 
-  <!-- Filter -->
-  <div class="header">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-  </div>
-
-  <mat-table #table [dataSource]="users2">
-
-
-
-
-
-
-    <ng-container matColumnDef="Project_Name">
-      <mat-header-cell *matHeaderCellDef> Project Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.Project_Name}} </mat-cell>
-    </ng-container>
-
-
-
-    <ng-container matColumnDef="required_K">
-      <mat-header-cell *matHeaderCellDef> Required K </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <p *ngIf="!(element.required_K === undefined); else pending_company">
-          {{element.required_K}}
-        </p>
-        <ng-template #pending_company>
-          <p class="pending">
-            Don't have
-          </p>
-        </ng-template>
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Rewarded_K">
-      <mat-header-cell *matHeaderCellDef> Rewarded K </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <p *ngIf="!(element.Rewarded_K === undefined); else pending_company">
-          {{element.Rewarded_K}}
-        </p>
-        <ng-template #pending_company>
-          <p class="pending">
-            Don't have
-          </p>
-        </ng-template>
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Analyst_Level">
-      <mat-header-cell *matHeaderCellDef> Analyst Level </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <p *ngIf="!(element.Analyst_Level === undefined); else pending_company">
-          {{element.Analyst_Level}}
-        </p>
-        <ng-template #pending_company>
-          <p class="pending">
-            Don't have
-          </p>
-        </ng-template>
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Developer_Level">
-      <mat-header-cell *matHeaderCellDef> Developer Level </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <p *ngIf="!(element.Developer_Level === undefined); else pending_company">
-          {{element.Developer_Level}}
-        </p>
-        <ng-template #pending_company>
-          <p class="pending">
-            Don't have
-          </p>
-        </ng-template>
-      </mat-cell>
-    </ng-container>
-
-
-    <ng-container matColumnDef="Tester_Level">
-      <mat-header-cell *matHeaderCellDef> Tester Level </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <p *ngIf="!(element.Tester_Level === undefined); else pending_company">
-          {{element.Tester_Level}}
-        </p>
-        <ng-template #pending_company>
-          <p class="pending">
-            Don't have
-          </p>
-        </ng-template>
-      </mat-cell>
-    </ng-container>
-
-
-    <ng-container matColumnDef="cost">
-      <mat-header-cell *matHeaderCellDef> Cost </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <p *ngIf="!(element.cost === undefined); else pending_company">
-          {{element.cost}}
-        </p>
-        <ng-template #pending_company>
-          <p class="pending">
-            Don't have
-          </p>
-        </ng-template>
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Select">
-      <mat-header-cell *matHeaderCellDef> Invite </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <button mat-raised-button type="create" (click)="onClickSubmit(element)">
-          Choose project
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
         </button>
-      </mat-cell>
-    </ng-container>
-
-    <!-- Table rows -->
-    <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
-  </mat-table>
-
+      </div>
+    </form>
+  </div>
 </div>
