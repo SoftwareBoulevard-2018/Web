@@ -14,12 +14,17 @@ import {Company} from '../shared/company';
 export class JoinTeamComponent implements OnInit {
   company_pending;
   company_pending_name;
+  idInvitation;
+  invite;
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
     ngOnInit() {
       console.log(this.service.user_type);
       //this.httpService.getTrainingAttemptsByState("wrong").subscribe(data => this.print_data(data))
 
       this.httpService.getInvitationByUserAndState(this.service.user.id, "pending").subscribe(data => {
+        this.invite = data
+        console.log(data[0])
+        this.idInvitation = data[0]['_id']
         this.company_pending = data[0]['company']
           this.httpService.getAllCompanies().subscribe(data => {
             Object.values(data).forEach(cosa=>{
@@ -64,11 +69,19 @@ export class JoinTeamComponent implements OnInit {
     }
     //actualizar la base de datos cuando diga que shi o que no
     redirect1(event) {
+      console.log(this.idInvitation)
+      this.invite.status = 'accepted'
+      //No sirve
+      this.httpService.updateInvitation(this.invite, this.idInvitation);
       alert("You have joined!");
+
 
     }
 
     redirect2(event) {
+      this.invite.status = 'rejected'
+      //No sirve
+      this.httpService.updateInvitation(this.invite, this.idInvitation);
       alert("You have reject!");
     }
 }
