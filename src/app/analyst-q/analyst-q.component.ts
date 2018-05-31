@@ -18,7 +18,7 @@ export class AnalystQComponent implements OnInit {
   questions = [];
   questions2: MatTableDataSource<Question>;
 
-  table_titles = ['_id', 'description'];
+  table_titles = ['description', 'selectquestion'];
 
   ngOnInit() {
     console.log(this.service.user_type);
@@ -35,19 +35,22 @@ export class AnalystQComponent implements OnInit {
 
   applyFilter(value){}
 
-  redirect(event, element){}
+  redirect(event){}
 
   getAllAnalystQuestions(){
-     this.httpService.getQuestions().subscribe(data => this.listAnalystQuestions(data));
+    return this.httpService.getQuestions().subscribe(data => this.listQuestions(data));
   }
-  
-  listAnalystQuestions(data) {
-	for (const question of Object.values(data.data)) {
-		if (question.role === "Analyst"){
-			this.questions.push({id: question.id, description: question.description});
-			this.questions2.data = this.questions;
-		}
-	 }
+
+  listQuestions(data){
+    console.log(data);
+    this.questions = [];
+    for (const question of Object.values(data.data)) {
+     if (question.role === "Analyst"){
+      this.questions.push({id: question.id, description: question.description});
+      this.questions2.data = this.questions;
+      console.log(this.questions2);
+     }
+    }
   }
 
 
