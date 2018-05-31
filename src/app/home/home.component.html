@@ -165,7 +165,7 @@
         </div>
       </div>
 
-      <div class="w3-quarter">
+      <div class="w3-quarter" *ngIf="this.service.user.companyId === null">
         <div class="w3-card-4" (click)="redirect4($event)">
 
           <img src="https://image.freepik.com/free-icon/multiple-users-silhouette_318-49546.jpg" alt="Person">
