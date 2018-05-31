@@ -415,6 +415,7 @@ export class EmailComponent implements OnInit  {
     var minutes = date.getMinutes();
     var amPM;
     var zero = ""
+    var zeroH = ""
 
     if( hour >= 12 ){
       amPM = "pm";
@@ -424,11 +425,14 @@ export class EmailComponent implements OnInit  {
     }else {
       amPM = "am";
     }
+    if( hour == 0){
+      var zeroH = "0";
+    }
 
     if(minutes < 10){
       zero = "0";
     }
-    return (hour + ":" + zero + minutes + " " + amPM);
+    return (zeroH + hour + ":" + zero + minutes + " " + amPM);
   }
 
   // Section in charge of calculates the height of the div that contains of the receivers 
