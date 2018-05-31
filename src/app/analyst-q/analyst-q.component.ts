@@ -43,11 +43,11 @@ export class AnalystQComponent implements OnInit {
 
   redirect(event, element) {
 	if(this.service.user_type === "Game Administrator"){
-		this.service.analystQ.push(element.data);
+		this.service.analystQ.push(element);
 		if (this.service.analystQ.length == this.service.project_to_assignate.numberOfDevelopingQuestionsPerAnalyst - 1) {
 			this.mensaje = true;
 		}
-		var index = this.questions2.data.indexOf(element.data);
+		var index = this.questions2.data.indexOf(element);
 		this.questions2.data.splice(index,1);
 		this.questions2 = new MatTableDataSource<Question>(this.questions2.data);
 

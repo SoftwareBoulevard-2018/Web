@@ -20,6 +20,7 @@ export class GeneralServiceService {
 
 // Variables required for the creation of the project and assignment
   project;
+  projectID;
   numTester;
   numDev;
   numAna;
