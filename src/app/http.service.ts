@@ -21,7 +21,6 @@ import {Assignment} from "./shared/assignment";
 import { creationPuzzle } from './shared/creationPuzzle';
 import {invitations} from "./shared/invitations"
 
-@Injectable()
 
 export class HttpService {
 
@@ -34,7 +33,7 @@ export class HttpService {
   constructor(public http: HttpClient) { }
 
   static apiURL = 'http://35.196.111.251:3000';
-  // static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -235,7 +234,7 @@ export class HttpService {
   // All services related to Questions
 
   getQuestions(){
-    return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL);
+    return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL + '/');
   }
   createQuestion(question : Question){
 	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',

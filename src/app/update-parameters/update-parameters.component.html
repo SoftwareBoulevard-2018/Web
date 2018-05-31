@@ -6,10 +6,10 @@
     </span>
 
     <div class="element">
-      <mat-form-field class="big-input">
-        <input matInput placeholder="Threshold - {{ this.service.parameter_to_be_updated.threshold }}" name="threshold" formControlName="threshold">
-      </mat-form-field>
-    </div>
+        <mat-form-field class="big-input">
+          <input matInput type="number" step="0.01" placeholder="Threshold - {{this.threshold}}" formControlName="threshold" min="0.1" max="0.9">
+        </mat-form-field>
+      </div>
 	
 	<!-- Messages if validations fail -->
 
@@ -25,6 +25,27 @@
       <span class="success">
         Parameters successfully updated.
       </span>
+    </div>
+
+    <div class="element" *ngIf="invalid">
+        <br/>
+        <span class="success">
+          You need to input a decimal number
+        </span>
+    </div>
+
+    <div class="element" *ngIf="nonumber">
+        <br/>
+        <span class="success">
+          You need to input a decimal number between 0.1 and 0.9
+        </span>
+    </div>
+
+    <div class="element" *ngIf="totally_empty">
+        <br/>
+        <span class="error">
+          You need to input a decimal number
+        </span>
     </div>
 
     <br/>
