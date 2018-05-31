@@ -1,4 +1,12 @@
-.container {
+.w3-card-4{
+  width: 100%;
+  margin:auto;
+  background-color: #00585E;
+  cursor: pointer;
+  border-style: solid;
+  border-color: #009494;
+}
+.marco{
   display: flex;
   flex-direction: column;
   max-height: 500px;
@@ -6,59 +14,41 @@
   width: 90%;
   margin: auto;
 }
-.w3-container {
+
+.element-exit{
   text-align: center;
+}
+
+img{
+  width: 100%;
+}
+.announcement {
+  text-align: center;
+  color: red;
 }
 button{
   background-color: #009494;
   color: white;
 }
-.create{
-  width: 30em;
-  margin: 0 auto 2% auto;
-}
-.mat-table {
-  overflow: auto;
-  max-height: 500px;
-}
-
-.header {
-  min-height: 64px;
-  padding: 8px 24px 0;
-}
-
-mat-header-cell{
-  font-size: medium;
-  text-align: center;
-  font-weight: bold;
-  font-family: "Arial";
-  color: #009494;
-}
-
-mat-cell{
-  text-align: center;
-  font-family: "Arial";
-  color: #00585E;
-}
-
-p{
-  font-family: "Arial";
-  color: #00585E;
-}
 h1{
   margin: 2% auto 1% 0 ;
   color: #00585E;
   font-weight: bold;
-  text-align: center;
 }
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-.pending{
-  color: red!important;
+h3{
+  margin: 0 auto 2% 0;
+  color: #00585E;
   font-weight: bold;
 }
-.mat-icon{
-  cursor: pointer;
+h4{
+  color: white;
+}
+p{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  color: white;
+}
+.element-text3{
+  text-align: center;
+  color: #009494;
 }

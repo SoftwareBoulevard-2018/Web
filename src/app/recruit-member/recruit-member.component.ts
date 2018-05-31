@@ -18,6 +18,7 @@ export class RecruitMemberComponent implements OnInit {
   formdata;
   invalid = false;
   success = false;
+  load_complete = false;
   user;
   users2: MatTableDataSource<User>;
   users = [];
@@ -36,7 +37,7 @@ export class RecruitMemberComponent implements OnInit {
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
-    } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Game Administrator' || this.service.user.companyId!== null) {
+    } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Game Administrator') {
       this.router.navigate(['restricted']);
     } else {
       this.users2 = new MatTableDataSource(this.users);
@@ -46,8 +47,23 @@ export class RecruitMemberComponent implements OnInit {
     }
   }
 
+  haveCompany() {
+    if (this.service.user.companyId === null){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   getAllUsers() {
-    return this.httpService.getAllUsers().subscribe(data => this.listUser(data));
+    return this.httpService.getAllUsers().subscribe(data => {
+      this.listUser(data);
+      this.load_complete = true;
+    });
+  }
+
+  redirectToFunctions(event) {
+    this.router.navigate(['home/users/projectmanager/functions']);
   }
 
   getCompanyById(companyId, user) {
