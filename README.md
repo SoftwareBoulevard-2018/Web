@@ -30,7 +30,9 @@ Now the app is running on your localhost:4200 and you can open it from your brow
 
 /web/src/app/app.module.ts -> This file contains all the information about the libraries imported, components created and URL routes of the application.
 
-/web/src/app/general-service.service.ts -> The file we are using as dummy database.
+/web/src/app/general-service.service.ts -> The file we are using as messenger between the components.
+
+/web/src/app/http.service.ts -> The file we are using to call the http services.
 
 /web/src/app/ -> Here are located all the important files for us, the files we created and modified, all the other folder and files are related with the components we will describe next.
 

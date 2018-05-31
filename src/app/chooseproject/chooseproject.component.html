@@ -1,4 +1,4 @@
-<span class="login100-form-title p-b-34 p-t-27" *ngIf="getProject(this.service.username) === undefined && getCompany(this.service.username) !== undefined">
+<span class="login100-form-title p-b-34 p-t-27">
       Choose Project
     </span>
 <div class="container mat-elevation-z8" *ngIf="getProject(this.service.username)=== undefined && getCompany(this.service.username) !== undefined">
@@ -78,6 +78,8 @@
     Exit
   </button>
 </div>
+
+<!--
 <div class="announcement" *ngIf="getCompany(this.service.username)=== undefined">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
@@ -120,8 +122,4 @@
 
 <br/>
 <br/>
-
-
-
-
-
+-->
