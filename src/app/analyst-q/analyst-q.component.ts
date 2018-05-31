@@ -18,7 +18,7 @@ export class AnalystQComponent implements OnInit {
   questions = [];
   questions2: MatTableDataSource<Question>;
 
-  table_titles = ['description', 'selectquestion'];
+  table_titles = ['description', 'select question'];
 
   ngOnInit() {
     console.log(this.service.user_type);
@@ -35,7 +35,7 @@ export class AnalystQComponent implements OnInit {
 
   applyFilter(value){}
 
-  redirect(event){}
+  redirect(event, element){}
 
   getAllAnalystQuestions(){
     return this.httpService.getQuestions().subscribe(data => this.listQuestions(data));

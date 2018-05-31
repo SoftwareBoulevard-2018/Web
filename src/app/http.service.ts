@@ -17,11 +17,8 @@ import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
 import {InstantProject} from "./shared/instantProject";
 import { Question } from "./shared/question";
-<<<<<<< HEAD
 import {Assignment} from "./shared/assignment";
-=======
 import { creationPuzzle } from './shared/creationPuzzle';
->>>>>>> 354bdb821a7fea54823788269c2247e7a6a82f9b
 @Injectable()
 
 export class HttpService {
@@ -34,8 +31,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  //static apiURL = 'http://35.196.111.251:3000';
-  static apiURL = 'http://localhost:3000';
+  static apiURL = 'http://35.196.111.251:3000';
+  //static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
