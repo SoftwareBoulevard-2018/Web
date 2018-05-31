@@ -77,11 +77,11 @@ export class NewInstantProjectComponent implements OnInit {
       this.negativo = true;
     }
     else {
-      this.service.project = new InstantProject(formdata.name, formdata.kunit, formdata.testerQ, formdata.analystQ, formdata.developerQ);
+      this.service.project_to_assignate = new InstantProject(formdata.name, formdata.kunit, formdata.testerQ, formdata.analystQ, formdata.developerQ);
       this.service.numAna = formdata.analystQ;
       this.service.numDev = formdata.developerQ;
       this.service.numTester = formdata.testerQ;
-      this.createInstantProject(this.service.project);
+      this.createInstantProject(this.service.project_to_assignate);
       console.log(this.service.projects);
       this.form();
       this.negativo = false;

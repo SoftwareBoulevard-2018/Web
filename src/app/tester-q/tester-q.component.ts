@@ -37,13 +37,7 @@ export class TesterQComponent implements OnInit {
     }
   }
 
-  createBiddingProject(project) {
-    return this.httpService.createBiddingProject(project).subscribe(data => console.log(data));
-  }
 
-  createInstantProject(project){
-    return this.httpService.createInstantProject(project).subscribe(data => console.log(data));
-  }
 
 
   applyFilter(filterValue: string) {
@@ -66,12 +60,10 @@ export class TesterQComponent implements OnInit {
     }
   }
 
-  getBiddingProject() {
-    return this.httpService.getAllBiddingProjects().subscribe(data => this.recolect(data));
-  }
 
-  getInstantProject(project) {
-    return this.httpService.getAllBiddingProjects().subscribe(data => this.recolect(data));
+
+  getInstantProject(name) {
+    return this.httpService.getInstantprojectByName(name).subscribe(data => this.recolect(data));
   }
 
   recolect(data) {
@@ -87,7 +79,7 @@ export class TesterQComponent implements OnInit {
   createAssignment(preguntas, project) {
 
     for (var pregunta of preguntas) {
-      this.assignment = new Assignment(project.id, pregunta._id, project.name, pregunta.description);
+      this.assignment = new Assignment(project._id, pregunta._id, project.name, pregunta.description);
       this.createAssignment2(this.assignment);
     }
   }
@@ -97,17 +89,11 @@ export class TesterQComponent implements OnInit {
   }
 
   redirect2() {
-    if (this.service.user_type === "Game Administrator") {
-      if(this.service.project instanceof BiddingProject){
-        this.createBiddingProject(this.service.project);
-      }
-      else {
-        this.createInstantProject(this.service.project);
-      }
-      this.getBiddingProject();
-      this.createAssignment(this.service.analystQ, this.service.project);
-      this.createAssignment(this.service.developerQ, this.service.project);
-      this.createAssignment(this.service.testerQ, this.service.project);
+    if (this.service.user_type === "Game Administrator") {  
+	  var a = this.getInstantProject(this.service.project.name);
+      this.createAssignment(this.service.analystQ, a);
+      this.createAssignment(this.service.developerQ, a);
+      this.createAssignment(this.service.testerQ, a);
       this.router.navigate(['home/set-up/']);
     }
   }
