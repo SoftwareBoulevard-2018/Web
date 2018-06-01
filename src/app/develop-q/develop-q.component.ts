@@ -44,7 +44,7 @@ export class DevelopQComponent implements OnInit {
   redirect(event, element) {
 	if(this.service.user_type === "Game Administrator"){
 		this.service.developerQ.push(element);
-		if (this.service.developerQ.length == this.service.project_to_assignate.numberOfDevelopingQuestionsPerDeveloper - 1) {
+		if (this.service.developerQ.length == this.service.project_to_assignate.numberOfDevelopingQuestionsPerDeveloper ) {
 			this.mensaje = true;
 		}
 		var index = this.questions2.data.indexOf(element);

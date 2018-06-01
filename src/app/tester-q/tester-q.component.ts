@@ -21,6 +21,7 @@ export class TesterQComponent implements OnInit {
   questions2: MatTableDataSource<Question>;
   mensaje = false;
   assignment;
+  project;
 
   table_titles = ['description', 'add'];
 
@@ -63,17 +64,7 @@ export class TesterQComponent implements OnInit {
 
 
   getInstantProject(name) {
-    return this.httpService.getInstantprojectByName(name).subscribe(data => this.recolect(data));
-  }
-
-  recolect(data) {
-    console.log(data);
-    for (const project of Object.values(data.data)) {
-      if (project.name === this.service.project.name) {
-        this.service.projectID = project.id;
-        console.log(project);
-      }
-    }
+    return this.httpService.getInstantprojectByName(name);
   }
 
   createAssignment(preguntas, project) {
@@ -90,10 +81,10 @@ export class TesterQComponent implements OnInit {
 
   redirect2() {
     if (this.service.user_type === "Game Administrator") {  
-	  var a = this.getInstantProject(this.service.project.name);
-      this.createAssignment(this.service.analystQ, a);
-      this.createAssignment(this.service.developerQ, a);
-      this.createAssignment(this.service.testerQ, a);
+	  this.getInstantProject(this.service.project.name).subscribe( data =>  {
+      this.createAssignment(this.service.analystQ, data);
+      this.createAssignment(this.service.developerQ, data);
+      this.createAssignment(this.service.testerQ, data);});
       this.router.navigate(['home/set-up/']);
     }
   }

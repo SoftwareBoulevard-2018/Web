@@ -44,7 +44,7 @@ export class AnalystQComponent implements OnInit {
   redirect(event, element) {
 	if(this.service.user_type === "Game Administrator"){
 		this.service.analystQ.push(element);
-		if (this.service.analystQ.length == this.service.project_to_assignate.numberOfDevelopingQuestionsPerAnalyst - 1) {
+		if (this.service.analystQ.length == this.service.project.numberOfDevelopingQuestionsPerAnalyst ) {
 			this.mensaje = true;
 		}
 		var index = this.questions2.data.indexOf(element);

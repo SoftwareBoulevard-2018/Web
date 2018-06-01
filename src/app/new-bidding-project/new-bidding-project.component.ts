@@ -97,11 +97,11 @@ export class NewBiddingProjectComponent implements OnInit {
       this.negativo = true;
     }
     else {
-      this.service.project_to_assignate = new BiddingProject(data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ, data.time, data.cost, data.krequired, data.analystL, data.developerL, data.testerL);
+      this.service.project = new BiddingProject(data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ, data.time, data.cost, data.krequired, data.analystL, data.developerL, data.testerL);
       this.service.numAna = data.analystQ;
       this.service.numDev = data.developerQ;
       this.service.numTester = data.testerQ;
-	  this.createBiddingProject(this.service.project_to_assignate);
+	  this.createBiddingProject(this.service.project);
       this.form();
       this.negativo = false;
       if(this.service.user_type === "Game Administrator"){
