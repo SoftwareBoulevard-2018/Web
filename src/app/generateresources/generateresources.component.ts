@@ -17,7 +17,7 @@ export class GenerateresourcesComponent implements OnInit {
 
   load_complete = false;
   rewarded_resources: number;
-  puzzles = [];
+  puzzles= [];
   real_puzzle;
   pmcompany;
   solved_puzzle = false;
@@ -46,7 +46,12 @@ export class GenerateresourcesComponent implements OnInit {
   getAllPuzzles() {
     return this.httpService.getAllPuzzles().subscribe(data => {
       const data2 = JSON.parse(JSON.stringify((data)));
-      this.real_puzzle = data2.data[this.randomIntFromInterval(0, this.puzzles.length-1)];
+      this.puzzles = data2.data;
+      console.log(this.puzzles);
+      let length = this.puzzles.length;
+      let element = this.randomIntFromInterval(0, (length - 1));
+      this.real_puzzle = this.puzzles[element];
+      console.log(this.real_puzzle);
       this.initializePuzzle(data2);
       this.getCompanyById(this.service.user.companyId);
     });
@@ -60,7 +65,6 @@ export class GenerateresourcesComponent implements OnInit {
   }
 
   initializePuzzle(data2) {
-    this.puzzles = data2;
     let image: string;
     let position = 0;
     for (let i = 0; i <= 3; i++) {
@@ -111,7 +115,7 @@ export class GenerateresourcesComponent implements OnInit {
   }
 
   randomIntFromInterval(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
+    return Math.floor(Math.random() * (max) + min);
   }
 
   shuffleMatrix() {
