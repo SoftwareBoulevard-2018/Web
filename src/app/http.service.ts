@@ -240,11 +240,11 @@ export class HttpService {
     return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL);
   }
   createQuestion(question : Question){
-	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',
+	return this.http.post<Question>(HttpService.apiURL + HttpService.questionsURL + '/createQuestion',
       JSON.stringify(question), HttpService.httpOptions);
   }
   getQuestionsById(id: string){
-    return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/' + id);
+    return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/getQuestionById/' + id);
   }
 
   // All services related to assignment
