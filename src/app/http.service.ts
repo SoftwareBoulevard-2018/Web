@@ -11,16 +11,15 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import {Record} from "./shared/record";
-import {BiddingProject} from "./shared/biddingProject";
-import {Estimation} from "./shared/estimation";
-import {Certification} from "./shared/certification";
-import {InstantProject} from "./shared/instantProject";
+import { Record } from "./shared/record";
+import { BiddingProject } from "./shared/biddingProject";
+import { Estimation } from "./shared/estimation";
+import { Certification } from "./shared/certification";
+import { InstantProject } from "./shared/instantProject";
 import { Question } from "./shared/question";
-import {Assignment} from "./shared/assignment";
+import { Assignment } from "./shared/assignment";
 import { creationPuzzle } from './shared/creationPuzzle';
-import {invitations} from "./shared/invitations"
-
+import { invitations } from "./shared/invitations"
 @Injectable()
 
 export class HttpService {
@@ -248,8 +247,6 @@ export class HttpService {
     return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/' + id);
   }
 
-
-
   // All services related to assignment
   getAssignment(){
     return this.http.get<Assignment[]>(HttpService.apiURL + HttpService.assignmentsURL + '/getAssignment/')
@@ -264,8 +261,6 @@ export class HttpService {
   updateAssignment(id, ass: Assignment){
     return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
       JSON.stringify(ass), HttpService.httpOptions);
-  }
-
 
   // All services related to Invitations
   getinvitations() {
@@ -278,6 +273,14 @@ export class HttpService {
   getinvitationsByUserAndCompany(user, company){
     return this.http.post<invitations>(HttpService.apiURL + HttpService.certificationURL + '/getCurrentInvitationCom/' ,
       JSON.stringify(user,company), HttpService.httpOptions);
+  }
+  getInvitationByUserAndState(id, state) {
+    return this.http.post<Invitations[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
+      JSON.stringify({ user: id, state: state}), HttpService.httpOptions);
+  }
+  updateInvitation(invitation, id: String){
+    return this.http.put<Invitations>(HttpService.apiURL + HttpService.invitationsURL + '/' + id,
+      JSON.stringify(invitation), HttpService.httpOptions);
   }
 
 }
