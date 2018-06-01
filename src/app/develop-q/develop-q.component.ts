@@ -54,7 +54,7 @@ export class DevelopQComponent implements OnInit {
     }
   }
   
-  redirect2() {
+  redirect2(event) {
 	// Redirects to New Instant project project
     if(this.service.user_type === "Game Administrator"){
       this.router.navigate(['home/set-up/create-project/tester-questions']);

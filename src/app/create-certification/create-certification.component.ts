@@ -25,6 +25,13 @@ export class CreateCertificationComponent implements OnInit {
     }
   }
 
+  redirect3(event) {
+    // Redirects to New Instant project project
+      if(this.service.user_type === "Game Administrator"){
+        this.router.navigate([]);
+      }
+    }
+
   ngOnInit() {
 	  // Checks user permissions
     if (this.service.user_type === undefined) {

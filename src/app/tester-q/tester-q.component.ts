@@ -79,7 +79,7 @@ export class TesterQComponent implements OnInit {
     return this.httpService.createAssignment(ass).subscribe(data => console.log(data));
   }
 
-  redirect2() {
+  redirect2(event) {
     if (this.service.user_type === "Game Administrator") {  
 	  this.getInstantProject(this.service.project.name).subscribe( data =>  {
       this.createAssignment(this.service.analystQ, data);
