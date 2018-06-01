@@ -40,12 +40,13 @@ export class EditQuestionComponent implements OnInit {
       answer4: new FormControl(''),
       veracity4: new FormControl('')
     });
+    console.log(this.service.question_to_be_updated);
     this.getQuestionById(this.service.questionId);
   }
 
   getQuestionById(questionId) {
     return this.httpService.getQuestionsById(questionId).subscribe(data => {
-      this.current_question = data;
+      console.log(data);
     });
   }
 
@@ -62,7 +63,7 @@ export class EditQuestionComponent implements OnInit {
   }
 
   onClickSubmit(data) {
-    // Validates the data input and if it's valid updates the company and its members
+    if(!(data.description)){}
 
   }
 }

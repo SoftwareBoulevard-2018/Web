@@ -210,7 +210,7 @@ export class HttpService {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
   }
   getInstantprojectByName(name: string) {
-    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName' + '/' + name);
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName/' + name);
   }
   createInstantProject(instantProject: InstantProject) {
     return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject/',
@@ -244,7 +244,7 @@ export class HttpService {
       JSON.stringify(question), HttpService.httpOptions);
   }
   getQuestionsById(id: string){
-    return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/' + id);
+    return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/getQuestionById/' + id);
   }
 
   // All services related to assignment
