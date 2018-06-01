@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { MatSelect } from "@angular/material";
 import {HttpService} from '../http.service';
-import { Puzzle } from '../shared/puzzle';
+import { creationPuzzle } from '../shared/creationPuzzle';
 
 @Component({
   selector: 'app-create-puzzle',
@@ -15,6 +15,7 @@ export class CreatePuzzleComponent implements OnInit {
   url = '';
   formdata;
   puzzle;
+  filename;
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router){}
 
   form(){
@@ -27,9 +28,13 @@ export class CreatePuzzleComponent implements OnInit {
     });
   }
   
+  createPuzzle(puzzle) {
+		return this.httpService.createPuzzle(puzzle).subscribe(data => console.log(puzzle));
+  }
    onClickSubmit(data){
-	/*  this.puzzle = new Puzzle(this.formdata.resources, this.url);
-	  return this.httpService.createPuzzle(this.puzzle).subscribe(data => console.log(data)); */
+	  this.puzzle = new creationPuzzle(data.resources, this.url, this.filename);
+	  this.createPuzzle(this.puzzle);
+	  this.form();
   } 
   
 
@@ -37,15 +42,27 @@ export class CreatePuzzleComponent implements OnInit {
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-
+	  this.filename = event.target.files[0].name.toLowerCase();;
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.url = reader.result;
       }
     }
   }
+  
   ngOnInit() {
+	// Checks User permissions and establishes the form in the default state
+   if (this.service.user_type === undefined) {
+      this.router.navigate([''])
+    }
 
+   else if (this.service.user_type === "Team Member" || this.service.user_type === "Project Manager") {
+      this.router.navigate(['restricted'])
+    }
+
+    else {
+      this.form();
+    }
   }
+  
 }

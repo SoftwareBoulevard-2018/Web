@@ -9,6 +9,7 @@ import { Parameter } from './shared/parameter';
 import {Estimation} from './shared/estimation';
 import { TrainingAttempt} from './shared/trainingAttempt';
 import { DevelopingAttempt} from './shared/developingAttempt';
+import {Assignment} from './shared/assignment';
 
 @Injectable()
 export class GeneralServiceService {
@@ -16,6 +17,17 @@ export class GeneralServiceService {
   // Variables used for data session
 
   user_type;
+
+// Variables required for the creation of the project and assignment
+  project;
+  projectID;
+  numTester;
+  numDev;
+  numAna;
+  testerQ = [];
+  developerQ = [];
+  analystQ = [];
+  assignments = [];
 
   user;
 
@@ -39,12 +51,12 @@ export class GeneralServiceService {
     new User("Victor Daniel JAramillo Gomez", "vdjaramillog","0000","Developer","UNAL"),
     new User("1", "1","1","Game Administrator") */ ];
 
-  projects = [new BiddingProject(1, 'FIFA', 10, 3, 10, 10, 10, 5000, 0, 0, 0 , 0),
-    new BiddingProject(2, 'Bancolombia System', 10, 3, 10, 10, 10, 5000, 0, 0, 0 , 0)];
+  projects = [/*new BiddingProject(1, 'FIFA', 10, 3, 10, 10, 10, 5000, 0, 0, 0 , 0),
+  new BiddingProject(2, 'Bancolombia System', 10, 3, 10, 10, 10, 5000, 0, 0, 0 , 0) */];
 
-  projects2 = [new InstantProject(3, 'Rapipagos', 1, 16, 17, 18),
+  projects2 = [/*new InstantProject(3, 'Rapipagos', 1, 16, 17, 18),
     new InstantProject(4, 'Gana system', 2, 18, 18, 16),
-    new InstantProject(5, 'Supermarket system', 3, 11, 12, 10)];
+new InstantProject(5, 'Supermarket system', 3, 11, 12, 10) */];
 
   questions = [/* new Question(1,"one UML diagram:","Analyst",5,new Answer("EP",false),new Answer("KAOS",false),
 			   new Answer("Problems",false),new Answer("Class",true)),
@@ -56,10 +68,13 @@ export class GeneralServiceService {
   user_to_be_updated;
 
   project_to_be_updated;
+  
+  project_to_assignate;
 
   parameter_to_be_updated = this.parameter[0];
 
   question_to_be_updated;
+  questionId;
 
   companies = [/*new Company("UNAL",this.users[1],
     "http://unal.edu.co/typo3conf/ext/unal_skin_default/Resources/Public/images/escudoUnal_black.png",1,

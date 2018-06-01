@@ -11,12 +11,15 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import {Record} from "./shared/record";
-import {BiddingProject} from "./shared/biddingProject";
-import {Estimation} from "./shared/estimation";
-import {Certification} from "./shared/certification";
-import {Invitations} from "./shared/invitations";
-import {Question} from "./shared/question";
+import { Record } from "./shared/record";
+import { BiddingProject } from "./shared/biddingProject";
+import { Estimation } from "./shared/estimation";
+import { Certification } from "./shared/certification";
+import { InstantProject } from "./shared/instantProject";
+import { Question } from "./shared/question";
+import { Assignment } from "./shared/assignment";
+import { creationPuzzle } from './shared/creationPuzzle';
+import { invitations } from "./shared/invitations"
 @Injectable()
 
 export class HttpService {
@@ -29,8 +32,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  //static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -50,8 +53,10 @@ export class HttpService {
   static getEstimationByPMAndProjectURL = '/getEstimationByPMAndProject';
   static getEstimationsByPMAndStateURL = '/getEstimationsByProjectManagerUsernameAndState';
   static certificationURL = '/certification';
-  static invitationsURL = '/invitations';
-  static  getQuestionURL = '/getQuestions';
+  static instantProjecstURL = '/instantProjects';
+  static assignmentsURL = '/assignments';
+  static questionsURL = '/questions';
+  static invitationsURL='/invitations';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -112,11 +117,9 @@ export class HttpService {
     return this.http.post<Email>(HttpService.apiURL + HttpService.emailURL + '/send/',
       JSON.stringify(email), HttpService.httpOptions);
   }
-
   sent(idUsuario) {
      return this.http.get<Email[]>(HttpService.apiURL + HttpService.emailURL + '/sent/' + idUsuario);
   }
-
   updateState(idEmail, email){
     return this.http.put<Email>(HttpService.apiURL + HttpService.emailURL + '/updateState/'+idEmail,
       JSON.stringify(email), HttpService.httpOptions);
@@ -164,6 +167,11 @@ export class HttpService {
     return this.http.get<Puzzle[]>(HttpService.apiURL + HttpService.puzzleURL);
   }
 
+  createPuzzle(puzzle : creationPuzzle){
+	return this.http.post<creationPuzzle>(HttpService.apiURL + '/puzzles' + '/createPuzzle',
+      JSON.stringify(puzzle), HttpService.httpOptions);
+  }
+
   //All services related to Estimation
   createEstimation(estimation: Estimation) {
     return this.http.post<any>(HttpService.apiURL + HttpService.estimationURL,
@@ -174,14 +182,43 @@ export class HttpService {
       JSON.stringify({projectManagerUsername: projectManagerUsername , projectName: projectName}), HttpService.httpOptions);
   }
   getEstimationByProjectManagerUsernameAndState(projectManagerUsername, state) {
-    return this.http.post<Estimation>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationsByPMAndStateURL,
+    return this.http.post<Estimation[]>(HttpService.apiURL + HttpService.estimationURL + HttpService.getEstimationsByPMAndStateURL,
       JSON.stringify({projectManagerUsername: projectManagerUsername , state: state}), HttpService.httpOptions);
   }
 
-  //All services related to Projects
+  //All services related to BiddingProjects
+  getAllBiddingProjects() {
+    return this.http.get<BiddingProject[]>(HttpService.apiURL + HttpService.getBiddingProjectURL+'/getBiddingProject/' );
+  }
   getBiddingProjectById(id: String) {
     return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
+  }
+  createBiddingProject(biddingProject: BiddingProject) {
+    return this.http.post<Id>(HttpService.apiURL + HttpService.getBiddingProjectURL + '/createBiddingProject/',
+      JSON.stringify(biddingProject), HttpService.httpOptions);
+  }
+  updateBiddingProject(biddingProject, id) {
+    return this.http.put<Object>(HttpService.apiURL + HttpService.getBiddingProjectURL + '/' + id,
+      JSON.stringify(biddingProject), HttpService.httpOptions);
+  }
 
+  //All services related to InstantProjects
+  getAllInstantProjects() {
+    return this.http.get<InstantProject[]>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProject/');
+  }
+  getInstantprojectById(id: string) {
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
+  }
+  getInstantprojectByName(name: string) {
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName' + '/' + name);
+  }
+  createInstantProject(instantProject: InstantProject) {
+    return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject/',
+      JSON.stringify(instantProject), HttpService.httpOptions);
+  }
+  updateInstantProject(instantProject, id) {
+    return this.http.put<Object>(HttpService.apiURL + HttpService.instantProjecstURL + '/' + id,
+      JSON.stringify(instantProject), HttpService.httpOptions);
   }
   // All services related to Certification
 
@@ -196,8 +233,47 @@ export class HttpService {
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' +id,
       JSON.stringify(cert), HttpService.httpOptions);
   }
-  // All services related to Invitation
 
+  // All services related to Questions
+
+  getQuestions(){
+    return this.http.get<Question[]>(HttpService.apiURL + HttpService.questionsURL);
+  }
+  createQuestion(question : Question){
+	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',
+      JSON.stringify(question), HttpService.httpOptions);
+  }
+  getQuestionsById(id: string){
+    return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/' + id);
+  }
+
+  // All services related to assignment
+  getAssignment(){
+    return this.http.get<Assignment[]>(HttpService.apiURL + HttpService.assignmentsURL + '/getAssignment/')
+  }
+  createAssignment(ass: Assignment){
+    return this.http.post<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/createAssignment/',
+      JSON.stringify(ass), HttpService.httpOptions);
+  }
+  getAssignmentProjectById(id: string){
+    return this.http.get<Assignment>(HttpService.apiURL + HttpService.assignmentsURL+ '/' + id);
+  }
+  updateAssignment(id, ass: Assignment){
+    return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
+      JSON.stringify(ass), HttpService.httpOptions);
+
+  // All services related to Invitations
+  getinvitations() {
+    return this.http.get<invitations[]>(HttpService.apiURL + HttpService.invitationsURL);
+  }
+  createinvitations(invitation: invitations) {
+    return this.http.post<invitations>(HttpService.apiURL + HttpService.invitationsURL ,
+      JSON.stringify(invitation), HttpService.httpOptions);
+  }
+  getinvitationsByUserAndCompany(user, company){
+    return this.http.post<invitations>(HttpService.apiURL + HttpService.certificationURL + '/getCurrentInvitationCom/' ,
+      JSON.stringify(user,company), HttpService.httpOptions);
+  }
   getInvitationByUserAndState(id, state) {
     return this.http.post<Invitations[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
       JSON.stringify({ user: id, state: state}), HttpService.httpOptions);
@@ -206,12 +282,6 @@ export class HttpService {
     return this.http.put<Invitations>(HttpService.apiURL + HttpService.invitationsURL + '/' + id,
       JSON.stringify(invitation), HttpService.httpOptions);
   }
-  // All services related to Invitation
 
-  getQuestionsById(id: String) {
-    return this.http.get<Question>(HttpService.apiURL + HttpService.getQuestionURL+ '/getQuestionById/' + id);
-  }
-  getAllQuestions() {
-    return this.http.get<Question[]>(HttpService.apiURL + HttpService.getQuestionURL);
-  }
 }
+

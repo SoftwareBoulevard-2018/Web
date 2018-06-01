@@ -4,7 +4,6 @@ import {Router} from "@angular/router";
 import {EmailComponent} from "../email/email.component";
 import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
 import {Answer} from '../shared/answer';
-import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-play-develop',
@@ -15,7 +14,7 @@ export class PlayDevelopComponent implements OnInit {
   correct ;
   control: Answer;
   quest ;
-  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
+  constructor(public service: GeneralServiceService, public router: Router) { }
 
   ngOnInit() {
     console.log(this.service.user_type);
@@ -26,10 +25,6 @@ export class PlayDevelopComponent implements OnInit {
     this.correct = obtain_correct(this.service.questions[0]);
   }
 
-  redirect1(event){
-    this.service.user.companyId = null;
-    this.httpService.updateUser(this.service.user, this.service.user.id);
-  }
 
 }
 function  obtain_correct(Quest_n) {
@@ -38,5 +33,4 @@ function  obtain_correct(Quest_n) {
       return correct;
     }
   }
-
 }
