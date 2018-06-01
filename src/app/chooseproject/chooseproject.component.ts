@@ -135,9 +135,7 @@ export class ChooseprojectComponent implements OnInit {
   getProject(formdata) {
     this.record = new Record(null,null, this.service.user.companyId, formdata.id);
     console.log(this.record);
-    console.log("__________________________________________");
-    console.log(this.httpService.createRecord(this.record));
-    this.httpService.createRecord(this.record);
+    this.httpService.createRecord(this.record).subscribe(data=>console.log(data));
 
     alert("Congratulations, You have chosen a project");
     this.router.navigate(['home/users/projectmanager/functions']);
