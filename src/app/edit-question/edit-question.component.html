@@ -67,7 +67,7 @@
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="small-input">
-				<mat-select placeholder="Veracity - {{ tthis.service.question_to_be_updated.questions[1].state }}" name="veracity2" formControlName="veracity2">
+				<mat-select placeholder="Veracity - {{ this.service.question_to_be_updated.questions[1].state }}" name="veracity2" formControlName="veracity2">
 					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
 					  {{ veracity }}
 					</mat-option>
