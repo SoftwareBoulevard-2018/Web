@@ -1,30 +1,11 @@
 <div class="w3-container">
   <div class="resoucesAndTeamMembers">
-    <p>Resources: 10</p>
-    <p>Team members: 2</p>
+    <p>Resources: {{resour}}</p>
+    <p>Team Members: {{mem}}</p>
   </div>
-
-  <div class="wrap-login100">
-    <h3>{{quest.description}}</h3>
-    <div>
-      <mat-radio-group class="questionGen" [(ngModel)]="control">
-        <mat-radio-button *ngFor="let ans of quest.questions" [value]="ans">{{ans.description}}
-        </mat-radio-button>
-      </mat-radio-group>
-      <button mat-raised-button color="primary" [disabled]="!control">Send</button>
-      </div >
-
-    </div>
-
-  </div>
-
-
-
-  <div class="stats">
-      <p>Resources: {{resour}}</p>
-      <p>Team Members: {{mem}}</p>
-  </div>
-
+  
+</div>
+  {{a1}}
   
   <div [hidden]=textNoHid>
       <h3 class="title1">{{error}}</h3>
@@ -33,24 +14,24 @@
   <div [hidden]=textHid>
     <h3 class="title1">{{qd}}</h3>
   </div>
-  <div class="answers">
-    <mat-item [hidden]=ans1hid>
+  <mat-list class="answers">
+    <mat-list-item [hidden]=ans1hid>
       <mat-label>{{a1}}</mat-label>
       <mat-checkbox [(ngModel)]="answer1temp"></mat-checkbox>
-    </mat-item>
-    <mat-item [hidden]=ans2hid>
+    </mat-list-item>
+    <mat-list-item [hidden]=ans2hid>
       <mat-label>{{a2}}</mat-label>
       <mat-checkbox [(ngModel)]="answer2temp"></mat-checkbox>
-    </mat-item>
-    <mat-item [hidden]=ans3hid>
+    </mat-list-item>
+    <mat-list-item [hidden]=ans3hid>
       <mat-label>{{a3}}</mat-label>
       <mat-checkbox [(ngModel)]="answer3temp"></mat-checkbox>
-    </mat-item>
-    <mat-item [hidden]=ans4hid>
+    </mat-list-item>
+    <mat-list-item [hidden]=ans4hid>
       <mat-label>{{a4}}</mat-label>
       <mat-checkbox [(ngModel)]="answer4temp"></mat-checkbox>
-    </mat-item>
-  </div>
+    </mat-list-item>
+  </mat-list>
 
   <div class="buttonSend" [hidden]=sendhid>
     <button mat-button (click)="checkAnswers()">SEND</button>

@@ -263,7 +263,7 @@ export class HttpService {
       JSON.stringify(ass), HttpService.httpOptions);
   }
   getAssignmentProjectById(id: string){
-    return this.http.get<Assignment>(HttpService.apiURL + HttpService.assignmentsURL+ '/' + id);
+    return this.http.get<Assignment[]>(HttpService.apiURL + HttpService.assignmentsURL+ '/' + id);
   }
   updateAssignment(id, ass: Assignment){
     return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
