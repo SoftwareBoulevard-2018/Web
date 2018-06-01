@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {EmailComponent} from "../email/email.component";
 import {MatTableDataSource, MatPaginator, MatSort} from "@angular/material";
 import {Answer} from '../shared/answer';
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-play-develop',
@@ -11,25 +12,39 @@ import {Answer} from '../shared/answer';
   styleUrls: ['./play-develop.component.css']
 })
 export class PlayDevelopComponent implements OnInit {
-  correct ;
+  current_company;
+  correct;
   control: Answer;
-  quest ;
-  constructor(public service: GeneralServiceService, public router: Router) { }
+  quest;
+
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {
+  }
 
   ngOnInit() {
     console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
+    } else {
+      console.log('aca');
+      this.getCompanyById(this.service.company_to_be_updated);
+
     }
-    this.quest = this.service.questions[0];
-    this.correct = obtain_correct(this.service.questions[0]);
   }
 
+  getCompanyById(companyId) {
+    return this.httpService.getCompanyById(companyId).subscribe(data => {
+      this.current_company = data;
+      this.showcompany();
+    });
+  }
+  showcompany() {
+    console.log(this.current_company);
+  }
 
 }
 function  obtain_correct(Quest_n) {
-  for (const correct of Quest_n.questions){
-    if ( correct.state === true ){
+  for (const correct of Quest_n.questions) {
+    if ( correct.state === true ) {
       return correct;
     }
   }
