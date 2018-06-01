@@ -54,11 +54,17 @@ export class SetUpComponent implements OnInit {
       this.router.navigate(['home/set-up/update-parameters']);
     }
   }
+  
+  redirect8(event) {
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/create-certtification']);
+    }
+  }
 
   ngOnInit() {
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
-  }
+    }
 
-}
+  }
 }

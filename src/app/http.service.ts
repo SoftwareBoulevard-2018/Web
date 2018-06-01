@@ -11,16 +11,15 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import {Record} from "./shared/record";
-import {BiddingProject} from "./shared/biddingProject";
-import {Estimation} from "./shared/estimation";
-import {Certification} from "./shared/certification";
-import {InstantProject} from "./shared/instantProject";
+import { Record } from "./shared/record";
+import { BiddingProject } from "./shared/biddingProject";
+import { Estimation } from "./shared/estimation";
+import { Certification } from "./shared/certification";
+import { InstantProject } from "./shared/instantProject";
 import { Question } from "./shared/question";
-import {Assignment} from "./shared/assignment";
+import { Assignment } from "./shared/assignment";
 import { creationPuzzle } from './shared/creationPuzzle';
-import {invitations} from "./shared/invitations"
-
+import { invitations } from "./shared/invitations"
 @Injectable()
 
 export class HttpService {
@@ -33,8 +32,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  // static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -210,6 +209,9 @@ export class HttpService {
   getInstantprojectById(id: string) {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
   }
+  getInstantprojectByName(name: string) {
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName' + '/' + name);
+  }
   createInstantProject(instantProject: InstantProject) {
     return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject/',
       JSON.stringify(instantProject), HttpService.httpOptions);
@@ -241,8 +243,9 @@ export class HttpService {
 	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',
       JSON.stringify(question), HttpService.httpOptions);
   }
-
-
+  getQuestionsById(id: string){
+    return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/' + id);
+  }
 
   // All services related to assignment
   getAssignment(){
@@ -260,7 +263,6 @@ export class HttpService {
       JSON.stringify(ass), HttpService.httpOptions);
   }
 
-
   // All services related to Invitations
   getinvitations() {
     return this.http.get<invitations[]>(HttpService.apiURL + HttpService.invitationsURL);
@@ -272,6 +274,14 @@ export class HttpService {
   getinvitationsByUserAndCompany(user, company){
     return this.http.post<invitations>(HttpService.apiURL + HttpService.certificationURL + '/getCurrentInvitationCom/' ,
       JSON.stringify(user,company), HttpService.httpOptions);
+  }
+  getInvitationByUserAndState(id, state) {
+    return this.http.post<invitations[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
+      JSON.stringify({ user: id, state: state}), HttpService.httpOptions);
+  }
+  updateInvitation(invitation, id: String){
+    return this.http.put<invitations>(HttpService.apiURL + HttpService.invitationsURL + '/' + id,
+      JSON.stringify(invitation), HttpService.httpOptions);
   }
 
 }

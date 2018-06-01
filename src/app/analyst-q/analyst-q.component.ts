@@ -17,8 +17,9 @@ export class AnalystQComponent implements OnInit {
 
   questions = [];
   questions2: MatTableDataSource<Question>;
+  mensaje = false;
 
-  table_titles = ['description', 'selectquestion'];
+  table_titles = ['description', 'add'];
 
   ngOnInit() {
     console.log(this.service.user_type);
@@ -33,9 +34,33 @@ export class AnalystQComponent implements OnInit {
     }
   }
 
-  applyFilter(value){}
+  applyFilter(filterValue: string) {
+    // Function necessary by the table filter
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.questions2.filter = filterValue;
+  }
 
-  redirect(event){}
+  redirect(event, element) {
+	if(this.service.user_type === "Game Administrator"){
+		this.service.analystQ.push(element);
+		if (this.service.analystQ.length == this.service.project.numberOfDevelopingQuestionsPerAnalyst ) {
+			this.mensaje = true;
+		}
+		var index = this.questions2.data.indexOf(element);
+		this.questions2.data.splice(index,1);
+		this.questions2 = new MatTableDataSource<Question>(this.questions2.data);
+
+    }
+  }
+  
+  redirect2(event) {
+	// Redirects to New Instant project project
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/create-project/developer-questions']);
+    }
+  }
+  
 
   getAllAnalystQuestions(){
     return this.httpService.getQuestions().subscribe(data => this.listQuestions(data));
@@ -45,8 +70,8 @@ export class AnalystQComponent implements OnInit {
     console.log(data);
     this.questions = [];
     for (const question of Object.values(data.data)) {
-     if (question.role === "Analyst"){
-      this.questions.push({id: question.id, description: question.description});
+	 if (question.role == 'Analyst'){
+      this.questions.push(question);
       this.questions2.data = this.questions;
       console.log(this.questions2);
      }
@@ -56,3 +81,4 @@ export class AnalystQComponent implements OnInit {
 
 
 }
+

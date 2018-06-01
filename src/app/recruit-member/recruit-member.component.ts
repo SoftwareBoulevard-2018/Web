@@ -25,7 +25,7 @@ export class RecruitMemberComponent implements OnInit {
   auxiliar;
   invalid_name = false;
   newinvitation;
-  state="unattended";
+  state="pending";
   xx=0;
 
   table_titles = [ 'name', 'username', 'role', 'company', 'invite'];
@@ -128,6 +128,7 @@ export class RecruitMemberComponent implements OnInit {
         this.newinvitation= new invitations(formdata.id, this.service.user.companyId, this.state );
 
         this.createinvitation(this.newinvitation);
+        alert("Invitation has been sent correctly!");
       });
 
   }

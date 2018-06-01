@@ -69,6 +69,7 @@ import { TrainingAttemptsComponent } from './trainingAttempts/trainingAttempts.c
 import { AnalystQComponent } from './analyst-q/analyst-q.component';
 import { DevelopQComponent } from './develop-q/develop-q.component';
 import { TesterQComponent } from './tester-q/tester-q.component';
+import { CreateCertificationComponent } from './create-certification/create-certification.component';
 
 // App routes
 const routes: Routes = [
@@ -111,7 +112,8 @@ const routes: Routes = [
   {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
   {'path': 'home/set-up/update-question/edit-question', 'component': EditQuestionComponent},
   {'path': 'home/developingAttempts/developingAttempts', 'component': DevelopingAttemptsComponent},
-  {'path': 'home/trainingAttempts/trainingAttempts', 'component': TrainingAttemptsComponent}
+  {'path': 'home/trainingAttempts/trainingAttempts', 'component': TrainingAttemptsComponent},
+  {'path': 'home/set-up/create-certtification', 'component': CreateCertificationComponent}
 ];
 
 // NgModule variables
@@ -162,7 +164,8 @@ const routes: Routes = [
     TrainingAttemptsComponent,
     AnalystQComponent,
     DevelopQComponent,
-    TesterQComponent
+    TesterQComponent,
+    CreateCertificationComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,6 @@ export class invitations{
               this.user=user;
               this.company=company;
               this.state=state;
+  }
+}
 
-}
-}
