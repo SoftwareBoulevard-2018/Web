@@ -49,7 +49,9 @@ export class GenerateresourcesComponent implements OnInit {
       this.puzzles = data2.data;
       console.log(this.puzzles);
       let length = this.puzzles.length;
-      let element = this.randomIntFromInterval(0, (length - 1));
+      console.log(length);
+      let element = this.randomIntFromInterval(0, (length));
+      console.log(element);
       this.real_puzzle = this.puzzles[element];
       console.log(this.real_puzzle);
       this.initializePuzzle(data2);
