@@ -106,7 +106,7 @@ export class PlayDevelopComponent implements OnInit {
   closeProject(){
     this.httpService.getRecordsByFinishDateAndCompany(undefined, this.company['id']).subscribe((record) => {
         record.finishDate = new Date();
-
+        
         this.httpService.getInstantprojectById(record.project).subscribe((project) => {
           console.log(this.company.capacityK + " + " + project.rewarded_K);
           this.company.capacityK = this.company.capacityK + project.rewarded_K;
@@ -249,7 +249,7 @@ export class PlayDevelopComponent implements OnInit {
         this.user = user;
 
         this.httpService.getCompanyById(user.companyId).subscribe(company => {
-
+          
           this.setCompany(company);
           this.setResources(company.companyResource);
 
@@ -259,13 +259,12 @@ export class PlayDevelopComponent implements OnInit {
 
           this.httpService.getRecordsByFinishDateAndCompany(undefined, company['id']).subscribe((record) => {
 
-
-
                   this.httpService.getInstantprojectById(record.project).subscribe((project) => {
                     this.setProject(project);
                   });
 
                   this.httpService.getAssignmentProjectById(record.project).subscribe((assignments) => {
+                    console.log(assignments)
 
                     setTimeout(() => {
 
@@ -279,7 +278,7 @@ export class PlayDevelopComponent implements OnInit {
 
                         for (var i = 0; i < assignments.length; ++i) {
                           this.httpService.getQuestionsById(assignments[i].questionId).subscribe((question) => {
-                                   
+                            console.log(question)
                             if (question.role == user.role) {
 
                               if (count == this.questionnumber) {
