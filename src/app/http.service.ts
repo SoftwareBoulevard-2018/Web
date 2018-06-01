@@ -33,8 +33,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  // static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -210,6 +210,9 @@ export class HttpService {
   getInstantprojectById(id: string) {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
   }
+  getInstantprojectByName(name: string) {
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName' + '/' + name);
+  }
   createInstantProject(instantProject: InstantProject) {
     return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject/',
       JSON.stringify(instantProject), HttpService.httpOptions);
@@ -240,6 +243,9 @@ export class HttpService {
   createQuestion(question : Question){
 	return this.http.post<Question>(HttpService.apiURL + '/questions' + '/createQuestion',
       JSON.stringify(question), HttpService.httpOptions);
+  }
+  getQuestionsById(id: string){
+    return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/' + id);
   }
 
 

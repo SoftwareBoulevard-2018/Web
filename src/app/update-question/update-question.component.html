@@ -11,12 +11,6 @@
 
         <mat-table #table [dataSource]="question1">
 
-          <!-- Id Column -->
-          <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.question_id}} </mat-cell>
-          </ng-container>
-
           <!-- Name Column -->
           <ng-container matColumnDef="description">
             <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
