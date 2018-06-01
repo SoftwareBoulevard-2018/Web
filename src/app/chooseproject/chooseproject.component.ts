@@ -133,7 +133,7 @@ export class ChooseprojectComponent implements OnInit {
   }
 
   getProject(formdata) {
-    this.record = new Record(null, this.service.user.companyId, formdata.id);
+    this.record = new Record(null,null, this.service.user.companyId, formdata.id);
     console.log(this.record);
     console.log("__________________________________________");
     console.log(this.httpService.createRecord(this.record));
