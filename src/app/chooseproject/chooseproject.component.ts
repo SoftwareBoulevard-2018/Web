@@ -15,7 +15,7 @@ import {Record} from "../shared/record";
   styleUrls: ['./chooseproject.component.css']
 })
 export class ChooseprojectComponent implements OnInit {
-  table_titles = [ 'Project_Name', 'required_K', 'Rewarded_K', 'Analyst_Level', 'Developer_Level', 'Tester_Level','cost', 'Select'];
+  table_titles = [ 'Project_Name', 'required_K', 'Rewarded_K', 'Analyst_Level', 'Developer_Level', 'Tester_Level', 'Select'];
   correct_guess = true;
   projects = [];
   projects2;
@@ -62,7 +62,6 @@ export class ChooseprojectComponent implements OnInit {
 
   getCompanyById(companyId, user) {
     return this.httpService.getBiddingProjectById(companyId).subscribe(data => {
-      console.log("entro en get company");
       user.projectName = data.name;
       user.hide_password = true;
     //  if(user.companyName===undefined && user.role!=='Game Administrator' && user.role!=='Project Manager') {
@@ -80,7 +79,7 @@ export class ChooseprojectComponent implements OnInit {
     }, error => {
      // if(user.companyName===undefined && user.role!=='Game Administrator' && user.role!=='Project Manager') {
 
-        console.log("entro en get company!!!!!!!!!!!!!!!");
+
         this.users.push({
           id: user._id,
           Project_Name: user.name, required_K: user.required_K,
@@ -89,8 +88,7 @@ export class ChooseprojectComponent implements OnInit {
           cost: user.cost
         });
         this.users2.data = this.users;
-      console.log("la que te pario");
-        console.log(user._id);
+
      // }
       console.log(this.users2);
 
@@ -134,11 +132,13 @@ export class ChooseprojectComponent implements OnInit {
     }
   }
 
-  getInvitation(formdata) {
-    let today = new Date();
-    console.log(formdata.id)
-    this.record = new Record(today.getDate(),null, this.service.user.companyId, formdata.id);
+  getProject(formdata) {
+    this.record = new Record(null, this.service.user.companyId, formdata.id);
+    console.log(this.record);
+    console.log("__________________________________________");
+    console.log(this.httpService.createRecord(this.record));
     this.httpService.createRecord(this.record);
+
     alert("Congratulations, You have chosen a project");
     this.router.navigate(['home/users/projectmanager/functions']);
 
@@ -157,7 +157,7 @@ export class ChooseprojectComponent implements OnInit {
     // Validates the data input on the form and if it's correct then creates the user
     // this.auxiliar = this.new_username(data.username);
     console.log(data);
-    this.getInvitation(data);
+    this.getProject(data);
   }
 }
 
