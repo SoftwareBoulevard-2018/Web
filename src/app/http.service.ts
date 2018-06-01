@@ -189,7 +189,7 @@ export class HttpService {
 
   //All services related to BiddingProjects
   getAllBiddingProjects() {
-    return this.http.get<BiddingProject[]>(HttpService.apiURL + HttpService.getBiddingProjectURL);
+    return this.http.get<BiddingProject[]>(HttpService.apiURL + HttpService.getBiddingProjectURL+'/getBiddingProject/' );
   }
   getBiddingProjectById(id: String) {
     return this.http.get<BiddingProject>(HttpService.apiURL + HttpService.getBiddingProjectURL+ '/' + id);
@@ -205,7 +205,7 @@ export class HttpService {
 
   //All services related to InstantProjects
   getAllInstantProjects() {
-    return this.http.get<InstantProject[]>(HttpService.apiURL + HttpService.instantProjecstURL);
+    return this.http.get<InstantProject[]>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProject/');
   }
   getInstantprojectById(id: string) {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);

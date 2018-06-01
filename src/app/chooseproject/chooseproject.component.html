@@ -1,92 +1,144 @@
-<span class="login100-form-title p-b-34 p-t-27">
-      Choose Project
-    </span>
-<div class="container mat-elevation-z8" *ngIf="getProject(this.service.username)=== undefined && getCompany(this.service.username) !== undefined">
-  <div class="header">
-    <h6>
-      Choose the project to bid between bidding project and instant project
-    </h6>
+<div class="todoready" *ngIf="(this.load_complete && haveCompany())">
+  <div class="marco">
+
+    <div class="w3-container">
+      <h1>Choose projects!</h1>
+    </div>
+
+    <!-- Users table -->
+    <div class="container mat-elevation-z8">
+
+      <!-- Filter -->
+      <div class="header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <mat-table #table [dataSource]="users2">
+
+
+
+
+
+
+        <ng-container matColumnDef="Project_Name">
+          <mat-header-cell *matHeaderCellDef> Project Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.Project_Name}} </mat-cell>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="required_K">
+          <mat-header-cell *matHeaderCellDef> Required K </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.required_K === undefined); else pending_company">
+              {{element.required_K}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Rewarded_K">
+          <mat-header-cell *matHeaderCellDef> Rewarded K </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.Rewarded_K === undefined); else pending_company">
+              {{element.Rewarded_K}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Analyst_Level">
+          <mat-header-cell *matHeaderCellDef> Analyst Level </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.Analyst_Level === undefined); else pending_company">
+              {{element.Analyst_Level}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Developer_Level">
+          <mat-header-cell *matHeaderCellDef> Developer Level </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.Developer_Level === undefined); else pending_company">
+              {{element.Developer_Level}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Tester_Level">
+          <mat-header-cell *matHeaderCellDef> Tester Level </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.Tester_Level === undefined); else pending_company">
+              {{element.Tester_Level}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="cost">
+          <mat-header-cell *matHeaderCellDef> Cost </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.cost === undefined); else pending_company">
+              {{element.cost}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Don't have
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Select">
+          <mat-header-cell *matHeaderCellDef> Invite </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-raised-button type="create" (click)="onClickSubmit(element)">
+              Choose project
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Table rows -->
+        <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
+      </mat-table>
+    </div>
   </div>
-
-  <mat-table #table [dataSource]="projects2">
-
-    <!-- Creation Project_ID -->
-    <ng-container matColumnDef="Project_ID">
-      <mat-header-cell *matHeaderCellDef>
-        Project ID
-      </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        {{element.project_id}}
-      </mat-cell>
-    </ng-container>
-
-    <!-- Creation Project_Name -->
-    <ng-container matColumnDef="Project_Name">
-      <mat-header-cell *matHeaderCellDef> Project Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.project_name}} </mat-cell>
-    </ng-container>
-
-    <!-- Required_K Column -->
-    <ng-container matColumnDef="Required_K">
-      <mat-header-cell *matHeaderCellDef> Required K </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.required_k}} </mat-cell>
-    </ng-container>
-
-    <!-- Rewarded_K Column -->
-    <ng-container matColumnDef="Rewarded_K">
-      <mat-header-cell *matHeaderCellDef> Rewarded K </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.rewarded_k}} </mat-cell>
-    </ng-container>
-
-    <!-- Analyst_Level Column -->
-    <ng-container matColumnDef="Analyst_Level">
-      <mat-header-cell *matHeaderCellDef> Analyst Level </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.required_analyst_level}} </mat-cell>
-    </ng-container>
-
-    <!-- Developer_Level Column -->
-    <ng-container matColumnDef="Developer_Level">
-      <mat-header-cell *matHeaderCellDef> Developer Level </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.required_developer_level}} </mat-cell>
-    </ng-container>
-
-    <!-- Tester_Level Column -->
-    <ng-container matColumnDef="Tester_Level">
-      <mat-header-cell *matHeaderCellDef> Tester Level </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.required_tester_level}} </mat-cell>
-    </ng-container>
-
-    <!-- Select Column -->
-    <ng-container matColumnDef="Select">
-      <mat-header-cell *matHeaderCellDef> Select Project </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <button mat-raised-button (click)="redirect1($event,element)" type="submit" [disabled] = "(!correct_guess)" class="forsubmit">
-          Select
-        </button>
-      </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
-  </mat-table>
-  <!------<mat-paginator #paginator
-     [pageSize]="10"
-     [pageSizeOptions]="[5, 10, 20]"
-     [showFirstLastButtons]="true">
-  </mat-paginator>------->
-  <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
-    Exit
-  </button>
 </div>
 
-<!--
-<div class="announcement" *ngIf="getCompany(this.service.username)=== undefined">
+<div class="announcement" *ngIf="(!(haveCompany()))">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
-      Choose Project
+      Team members invitations!
     </span>
-    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
-      You do not have a company assigned so you can not choose a project. You must ask the game administrator to assign one to you
+    <form class="login100-form">
+      You do not have a company assigned so you can not invite people. You must ask the game administrator to assign one to you
 
       <br>
       <br>
@@ -99,27 +151,3 @@
     </form>
   </div>
 </div>
-
-<div class="announcement" *ngIf="getProject(this.service.username)!== undefined">
-  <div class="wrap-login100 big-wrap">
-    <span class="login100-form-title p-b-34 p-t-27">
-      Choose Project
-    </span>
-    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
-      Your company already has a project assigned
-
-      <br>
-      <br>
-      <br>
-      <div class="element-exit">
-        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
-          Exit
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<br/>
-<br/>
--->
