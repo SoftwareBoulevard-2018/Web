@@ -83,6 +83,9 @@ export class HttpService {
     return this.http.post<User[]>(HttpService.apiURL + HttpService.usersURL + HttpService.usersURL3,
       JSON.stringify({ role1: role }), HttpService.httpOptions);
   }
+  getUsersByCompany(companyId){
+    return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL + '/company/' + companyId);
+  }
 
   // All services related to companies
   getAllCompanies() {
@@ -160,6 +163,10 @@ export class HttpService {
   getRecordsByFinishDateAndCompany(finishDate, company) {
     return this.http.post<Record>(HttpService.apiURL + HttpService.recordsURL + HttpService.getCurrentCompanyURL,
       JSON.stringify({company: company , finishDate: finishDate}), HttpService.httpOptions);
+  }
+  updateRecord(record, id: String){
+    return this.http.post<Record>(HttpService.apiURL + HttpService.recordsURL + '/update/' + id,
+      JSON.stringify(record), HttpService.httpOptions);
   }
 
   //All services related to Puzzles
