@@ -1,8 +1,8 @@
 export class Answer {
 	description: string;
-	state: boolean;
+	veracity: boolean;
 	constructor(description?: string, state?: boolean) {
 		this.description = description;
-		this.state = state;
+		this.veracity = state;
 	}
 }

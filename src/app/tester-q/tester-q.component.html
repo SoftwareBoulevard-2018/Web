@@ -1,0 +1,52 @@
+<div class="w3-container">
+  <h1>Assign Tester Questions</h1>
+  <button mat-raised-button class="submit" (click)="redirect2($event)" class="forsubmit">
+    Next
+  </button>
+</div>
+
+<div class="element" *ngIf="mensaje">
+    <br/>
+    <span class="error">
+        You cant add more questions of this Role.
+    </span>
+</div>
+
+<!-- Question update selection form -->
+
+      <h1>Questions</h1>
+      <div class="container mat-elevation-z8">
+
+        <div class="header">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+        </div>
+
+        <mat-table #table [dataSource]="questions2">
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+          </ng-container>
+
+          <!-- Update Column -->
+          <ng-container matColumnDef="add">
+            <mat-header-cell *matHeaderCellDef> Add </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-raised-button (click)="redirect($event,element)">
+                Add
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
+        </mat-table>
+        <!------<mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>------->
+    </div>
