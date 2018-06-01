@@ -210,7 +210,7 @@ export class HttpService {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
   }
   getInstantprojectByName(name: string) {
-    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName' + '/' + name);
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName/' + name);
   }
   createInstantProject(instantProject: InstantProject) {
     return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject/',
