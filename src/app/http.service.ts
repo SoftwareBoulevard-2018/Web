@@ -15,7 +15,7 @@ import {Record} from "./shared/record";
 import {BiddingProject} from "./shared/biddingProject";
 import {Estimation} from "./shared/estimation";
 import {Certification} from "./shared/certification";
-import {Invitation} from "./shared/invitation";
+import {Invitations} from "./shared/invitations";
 import {Question} from "./shared/question";
 @Injectable()
 
@@ -199,11 +199,11 @@ export class HttpService {
   // All services related to Invitation
 
   getInvitationByUserAndState(id, state) {
-    return this.http.post<Invitation[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
+    return this.http.post<Invitations[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
       JSON.stringify({ user: id, state: state}), HttpService.httpOptions);
   }
   updateInvitation(invitation, id: String){
-    return this.http.put<Invitation>(HttpService.apiURL + HttpService.invitationsURL + '/' + id,
+    return this.http.put<Invitations>(HttpService.apiURL + HttpService.invitationsURL + '/' + id,
       JSON.stringify(invitation), HttpService.httpOptions);
   }
   // All services related to Invitation

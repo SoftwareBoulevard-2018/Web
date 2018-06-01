@@ -37,8 +37,6 @@ export class JoinTeamComponent implements OnInit {
         })
       })
 
-
-
       if (this.service.user_type === undefined) {
         this.router.navigate(['']);
       }
