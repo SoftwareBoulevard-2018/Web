@@ -261,6 +261,7 @@ export class HttpService {
   updateAssignment(id, ass: Assignment){
     return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
       JSON.stringify(ass), HttpService.httpOptions);
+  }
 
   // All services related to Invitations
   getinvitations() {
@@ -275,11 +276,11 @@ export class HttpService {
       JSON.stringify(user,company), HttpService.httpOptions);
   }
   getInvitationByUserAndState(id, state) {
-    return this.http.post<Invitations[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
+    return this.http.post<invitations[]>(HttpService.apiURL + HttpService.invitationsURL + '/getCurrentInvitation',
       JSON.stringify({ user: id, state: state}), HttpService.httpOptions);
   }
   updateInvitation(invitation, id: String){
-    return this.http.put<Invitations>(HttpService.apiURL + HttpService.invitationsURL + '/' + id,
+    return this.http.put<invitations>(HttpService.apiURL + HttpService.invitationsURL + '/' + id,
       JSON.stringify(invitation), HttpService.httpOptions);
   }
 
