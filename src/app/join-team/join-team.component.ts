@@ -19,7 +19,7 @@ export class JoinTeamComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.service.user_type);
-    
+
     this.httpService.getInvitationByUserAndState(this.service.user.id, "pending").subscribe(data => {
       this.invite = data[0]
       this.idInvitation = data[0]['_id']
@@ -39,7 +39,7 @@ export class JoinTeamComponent implements OnInit {
       this.router.navigate(['']);
     }
   }
-  
+
   print_data(data){
     console.log(data)
   }
@@ -59,7 +59,7 @@ export class JoinTeamComponent implements OnInit {
   redirect2(event) {
     this.invite.state = 'rejected'
     //No sirve
-    this.httpService.updateInvitation(this.invite, this.idInvitation);
+    this.httpService.updateInvitation(this.invite, this.idInvitation).subscribe(data => {});
     alert("You have reject!");
   }
 }

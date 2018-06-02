@@ -28,6 +28,7 @@ export class PlaySkillComponent implements OnInit {
   tester: number;
   project: InstantProject;
   question: Question;
+  show: boolean;
 
   resour: number;
   mem: number;
@@ -36,12 +37,12 @@ export class PlaySkillComponent implements OnInit {
 
   questionnumber: number = 0;
 
-  qid: string = 'holiwis2';
-  qd: string = 'esto es una pregunta muy larga para ver como se dibuja?';
-  a1: string = 'esto es lo mismo de arriba pero para las respuestas';
-  a2: string = 'holiwis2';
-  a3: string = 'holiwis2';
-  a4: string = 'holiwis2';
+  qid: string;
+  qd: string ;
+  a1: string ;
+  a2: string;
+  a3: string;
+  a4: string;
 
   //Actual code
   answer1temp: boolean = false;
@@ -88,6 +89,7 @@ export class PlaySkillComponent implements OnInit {
     this.ans4hid = true;
     this.sendhid = true;
     this.textNoHid = false;
+    this.show = true;
   }
 
   // Wrong answer alert

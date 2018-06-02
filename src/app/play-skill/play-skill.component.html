@@ -5,10 +5,11 @@
   </div>
 
 
-  <div [hidden]=textNoHid>
+  <div *ngIf="(show === true);else question">
     <h3 class="title1">You can not improve your skill level right now</h3>
-
   </div>
+
+  <ng-template #question>
   <div [hidden]=textHid>
     <h3 class="container">{{qd}}</h3>
   </div>
@@ -35,8 +36,9 @@
     </div>
   </mat-list>
 
-
+  </ng-template>
 </div>
+
 <!--
 Desarrollador
 Tester

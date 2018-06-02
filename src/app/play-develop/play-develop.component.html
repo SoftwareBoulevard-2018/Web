@@ -6,10 +6,11 @@
 
 </div>
 
-  <div [hidden]=textNoHid>
+  <div *ngIf="(mostrar === true);else question">
       <h3 class="title1">{{error}}</h3>
-      <p class="title3">{{instruction}}</p>
-    </div>
+  </div>
+
+<ng-template #question class="container">
   <div [hidden]=textHid>
     <h3 class="container">{{qd}}</h3>
   </div>
@@ -34,7 +35,7 @@
       <button mat-raised-button color="primary" (click)="checkAnswers()">SEND</button>
     </div>
   </mat-list>
-
+</ng-template>
 
 
 

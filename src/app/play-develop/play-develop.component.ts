@@ -24,6 +24,7 @@ export class PlayDevelopComponent implements OnInit {
   tester: number;
   project: InstantProject;
   question: Question;
+  mostrar: boolean;
 
   resour: number;
   mem: number;
@@ -77,6 +78,7 @@ export class PlayDevelopComponent implements OnInit {
     this.ans4hid = true;
     this.sendhid = true;
     this.textNoHid = false;
+    this.mostrar = true;
   }
 
   //Wrong answer alert
