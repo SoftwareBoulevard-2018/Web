@@ -23,6 +23,8 @@ export class GenerateresourcesComponent implements OnInit {
   solved_puzzle = false;
   correct_matrix = [];
   current_matrix = [];
+
+  // Matrix with the correct positions in which the puzzle can be located and be solvable
   solvable_puzzles = [[9, 6, 5, 8, 4, 2, 16, 15, 7, 13, 3, 12, 11, 10, 1, 14],
                       [9, 6, 5, 8, 4, 3, 13, 12, 7, 10, 15, 14, 16, 11, 2, 1],
                       [10, 6, 12, 11, 16, 14, 4, 2, 9, 8, 3, 5, 13, 1, 15, 7],
@@ -39,33 +41,37 @@ export class GenerateresourcesComponent implements OnInit {
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) {
   }
 
+  // functionality of the exit button
   redirectToFunctions(event) {
     this.router.navigate(['home/users/projectmanager/functions']);
   }
 
+  //function that brings all the puzzle of the database
   getAllPuzzles() {
     return this.httpService.getAllPuzzles().subscribe(data => {
       const data2 = JSON.parse(JSON.stringify((data)));
       this.puzzles = data2.data;
-      console.log(this.puzzles);
       let length = this.puzzles.length;
-      console.log(length);
       let element = this.randomIntFromInterval(0, (length));
-      console.log(element);
       this.real_puzzle = this.puzzles[element];
-      console.log(this.real_puzzle);
       this.initializePuzzle(data2);
       this.getCompanyById(this.service.user.companyId);
+    }, error => {
+
     });
   }
 
+  //function that searches for a company id and brings it from the database
   getCompanyById(companyId: string) {
     return this.httpService.getCompanyById(companyId).subscribe(data => {
       const data2 = JSON.parse(JSON.stringify(data));
       this.pmcompany = data2;
+    }, error => {
+
     });
   }
 
+  //function that defines the initial positions of the puzzle
   initializePuzzle(data2) {
     let image: string;
     let position = 0;
@@ -82,13 +88,12 @@ export class GenerateresourcesComponent implements OnInit {
         }
       }
     }
-    console.log(this.correct_matrix);
     this.rewarded_resources = this.real_puzzle.rewarded_resources;
     this.load_complete = true;
-    this.shuffleMatrix();   // scrambles the matrix that represents the puzzle the user has to solve
-    // dibujar current_matrix
+    this.shuffleMatrix();
   }
 
+  //function that converts the index of a vector into those of a matrix
   mapArrayToMatrix(n: number) {
     if (n === 4) {
       return [0, 3];
@@ -116,10 +121,12 @@ export class GenerateresourcesComponent implements OnInit {
     }
   }
 
+  //function that releases a random element between a maximum and a minimum
   randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max) + min);
   }
 
+  // scrambles the matrix that represents the puzzle the user has to solve
   shuffleMatrix() {
     const configuration_number = this.randomIntFromInterval(0, this.solvable_puzzles.length - 1);
     const configuration = this.solvable_puzzles[configuration_number];
@@ -137,6 +144,7 @@ export class GenerateresourcesComponent implements OnInit {
     }
   }
 
+  //check if the selected piece can be moved with respect to the empty box
   isMovableTile(tile: PuzzleTile) {
     const direction = this.mapArrayToMatrix(tile.getCurrent_placement());
     const tile_i = direction[0];
@@ -181,15 +189,14 @@ export class GenerateresourcesComponent implements OnInit {
 
   }
 
+  //Button operation validate, check if the positions are correct
   verifyPuzzle(event) {
     let isSolved = true;
-    console.log(isSolved);
     for (let i = 0; i <= 3; i++) {
       for (let j = 0; j <= 3; j++) {
         const current_placement = this.current_matrix[i][j].getCurrent_placement();
         const real_placement = this.current_matrix[i][j].getReal_placement();
         isSolved = isSolved && (current_placement === real_placement);
-        console.log(isSolved);
       }
     }
     if (isSolved === true){
@@ -201,16 +208,20 @@ export class GenerateresourcesComponent implements OnInit {
     }
     return isSolved;
   }
+
+  //modify and send the resources to the database
   sendResources(){
     const actually_resources = this.pmcompany.companyResource;
     const total_resources = actually_resources + this.rewarded_resources;
     return this.httpService.updateCompany({
         companyResource: total_resources}, this.service.user.companyId).subscribe( data => {
-      console.log('success');
+    }, error => {
+
     });
 
   }
 
+  //check if you have company
   haveCompany() {
     if (this.service.user.companyId === null){
       return false;
@@ -219,6 +230,7 @@ export class GenerateresourcesComponent implements OnInit {
     }
   }
 
+  //main operation
   ngOnInit() {
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
