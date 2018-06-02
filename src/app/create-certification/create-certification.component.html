@@ -1,24 +1,40 @@
-<!-- Project creation type selection -->
-<div class="w3-container">
-  <h1>Game set-up</h1><br/>
-</div>
+<!-- Instant project creation form -->
+<div class="wrap-login100 big-wrap">
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
+    <br/>
+    <span class="login100-form-title p-b-34">
+      Create Certification
+    </span>
 
-<div class="w3-card-4">
-  <div class="w3-container">
-    <h2>Select certification type</h2>
-  </div>
-  <br/>
-  <div class="w3-container">
-    <button mat-raised-button (click)="redirect1($event)">
-      Analyst Certification
-    </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button mat-raised-button (click)="redirect2($event)">
-      Developer Certification
-    </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<button mat-raised-button (click)="redirect3($event)">
-      Tester Certification
-    </button>
-  </div>
-  <br/>
+    <div class="element">
+      <mat-form-field class="big-input">
+        <mat-select placeholder="Certification's role" name="category" formControlName="category">
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Required Field</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br/>
+
+    <div class="element">
+      <mat-form-field class="big-input">
+        <input matInput type="number" placeholder="Level" formControlName="level" min="1" max="5">
+        <mat-hint>Required Field</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br/>
+    <br/>
+
+    <!-- Submit button -->
+    <div class="element element2">
+      <button mat-raised-button color="warn" type="submit" [disabled]="!formdata.valid" class="forsubmit">
+        Next
+      </button>
+    </div>
+
+  </form>
 </div>
-<br/>

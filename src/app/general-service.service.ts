@@ -36,6 +36,10 @@ export class GeneralServiceService {
   loggedusr;
 
   threshold;
+  
+  //varibles to create certifiaction
+  certrole;
+  certlevel;
 
   // Variables used as dummy database for the mocked frontend
 
