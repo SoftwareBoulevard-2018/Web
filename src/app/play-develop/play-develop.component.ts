@@ -33,12 +33,12 @@ export class PlayDevelopComponent implements OnInit {
   questionnumber: number = 0;
   //questions: string[];
 
-  qid: string = 'holiwis';
-  qd: string = 'holiwis';
-  a1: string = 'holiwis';
-  a2: string = 'holiwis';
-  a3: string = 'holiwis';
-  a4: string = 'holiwis';
+  qid: string ;
+  qd: string ;
+  a1: string ;
+  a2: string ;
+  a3: string ;
+  a4: string ;
 
   //Actual code
   answer1temp: boolean = false;
