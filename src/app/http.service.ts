@@ -233,7 +233,7 @@ export class HttpService {
       JSON.stringify(instantProject), HttpService.httpOptions);
   }
   updateInstantProject(instantProject, id) {
-    return this.http.put<Object>(HttpService.apiURL + HttpService.instantProjecstURL + '/' + id,
+    return this.http.put<Object>(HttpService.apiURL + HttpService.instantProjecstURL + '/updateInstantProject/:id' + id,
       JSON.stringify(instantProject), HttpService.httpOptions);
   }
   // All services related to Certification

@@ -94,7 +94,6 @@ export class NewBiddingProjectComponent implements OnInit {
     }
     else {
       this.service.project = new BiddingProject(data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ, data.time, data.cost, data.krequired, data.analystL, data.developerL, data.testerL);
-      console.log(this.service.project);
       this.service.numAna = data.analystQ;
       this.service.numDev = data.developerQ;
       this.service.numTester = data.testerQ;

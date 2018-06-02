@@ -70,6 +70,9 @@ import { AnalystQComponent } from './analyst-q/analyst-q.component';
 import { DevelopQComponent } from './develop-q/develop-q.component';
 import { TesterQComponent } from './tester-q/tester-q.component';
 import { CreateCertificationComponent } from './create-certification/create-certification.component';
+import { UpdateAnalystQComponent } from './update-analyst-q/update-analyst-q.component';
+import { UpdateDeveloperQComponent } from './update-developer-q/update-developer-q.component';
+import { UpdateTesterQComponent } from './update-tester-q/update-tester-q.component';
 
 // App routes
 const routes: Routes = [
@@ -94,6 +97,9 @@ const routes: Routes = [
   {'path': 'home/set-up/create-project/new-bidding-project', 'component': NewBiddingProjectComponent},
   {'path': 'home/set-up/create-project/new-instant-project', 'component': NewInstantProjectComponent},
   {'path': 'home/set-up/update-project/update-instant-project', 'component': UpdateInstantProjectComponent},
+  {'path': 'home/set-up/update-project/update-analyst-questions', 'component': UpdateAnalystQComponent},
+  {'path': 'home/set-up/update-project/update-developer-questions', 'component': UpdateDeveloperQComponent},
+  {'path': 'home/set-up/update-project/update-tester-questions', 'component': UpdateTesterQComponent},
   {'path': 'home/set-up/update-project/update-bidding-project', 'component': UpdateBiddingProjectComponent},
   {'path': 'home/set-up/create-project/analyst-questions', 'component': AnalystQComponent},
   {'path': 'home/set-up/create-project/developer-questions', 'component': DevelopQComponent},
@@ -165,7 +171,10 @@ const routes: Routes = [
     AnalystQComponent,
     DevelopQComponent,
     TesterQComponent,
-    CreateCertificationComponent
+    CreateCertificationComponent,
+    UpdateAnalystQComponent,
+    UpdateDeveloperQComponent,
+    UpdateTesterQComponent
   ],
   imports: [
     BrowserModule,
