@@ -42,6 +42,7 @@ export class GeneralServiceService {
   certlevel;
   
   certification_to_be_updated;
+  puzzle_to_be_updated;
 
   // Variables used as dummy database for the mocked frontend
 

@@ -1,3 +1,84 @@
-<p>
-  update-analyst-q works!
-</p>
+<div class="w3-container">
+  <h1>Assign Analyst Questions</h1>
+  <button mat-raised-button class="submit" (click)="redirect2($event)" class="forsubmit" *ngIf="maximo1">
+    Next
+  </button>
+</div>
+
+<br/>
+<br/>
+
+<!-- Question update selection form -->
+<div class="container mat-elevation-z8" *ngIf="vacio">
+
+  <div class="header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="questions3">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+    </ng-container>
+
+    <!-- Update Column -->
+    <ng-container matColumnDef="remove">
+      <mat-header-cell *matHeaderCellDef> Remove </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-raised-button class="remove" (click)="redirect3($event,element)">
+          Remove
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="table_titles2"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: table_titles2;"></mat-row>
+  </mat-table>
+  <!------<mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>------->
+</div>
+
+<h1>Questions</h1>
+
+<div class="container mat-elevation-z8">
+
+  <div class="header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="questions2">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+    </ng-container>
+
+    <!-- Update Column -->
+    <ng-container matColumnDef="add">
+      <mat-header-cell *matHeaderCellDef> Add </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-raised-button (click)="redirect($event,element)" *ngIf="maximo">
+          Add
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
+  </mat-table>
+  <!------<mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>------->
+</div>
