@@ -13,6 +13,12 @@ img{
   text-align: center;
   color: red;
 }
+h1{
+  margin: 2% auto 1% 0 ;
+  color: #00585E;
+  font-weight: bold;
+  text-align: center;
+}
 button{
   background-color: #009494;
   color: white;

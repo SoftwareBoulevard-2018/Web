@@ -35,12 +35,19 @@ mat-header-cell{
   color: #009494;
 }
 
+.element-exit{
+  text-align: center;
+}
+
 mat-cell{
   text-align: center;
   font-family: "Arial";
   color: #00585E;
 }
-
+.announcement {
+  text-align: center;
+  color: red;
+}
 p{
   font-family: "Arial";
   color: #00585E;
