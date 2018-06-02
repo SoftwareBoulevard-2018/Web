@@ -297,8 +297,6 @@ export class ChooseprojectComponent implements OnInit {
   onClickSubmit(data) {
     this.project_selected = data;
     this.saveCompany(this.service.user.companyId);
-    // Validates the data input on the form and if it's correct then creates the user
-    // this.auxiliar = this.new_username(data.username);
   }
 }
 
