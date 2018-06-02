@@ -33,8 +33,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  //static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -279,7 +279,7 @@ export class HttpService {
   // All services related to assignment
   getAssignment() {
     return this.http.get<Assignment[]>(HttpService.apiURL + HttpService.assignmentsURL + '/getAssignment/')
-  }
+  }5
   createAssignment(ass: Assignment) {
     return this.http.post<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/createAssignment/',
       JSON.stringify(ass), HttpService.httpOptions);
