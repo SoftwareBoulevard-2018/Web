@@ -1,8 +1,8 @@
-<div class="todoready" *ngIf="(this.load_complete && haveCompany())">
+<div class="Complete" *ngIf="(this.load_complete) && (this.canChooseProject() === 'complete')">
   <div class="marco">
 
     <div class="w3-container">
-      <h1>Choose projects!</h1>
+      <h1>Choose projects</h1>
     </div>
 
     <!-- Users table -->
@@ -131,15 +131,20 @@
       </mat-table>
     </div>
   </div>
+  <div class="element-exit">
+    <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+      Exit
+    </button>
+  </div>
 </div>
 
-<div class="announcement" *ngIf="(!(haveCompany()))">
+<div class="announcement" *ngIf="(this.load_complete) && (this.canChooseProject() === 'company')">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
-      Team members invitations!
+      <h1>Choose projects</h1>
     </span>
     <form class="login100-form">
-      You do not have a company assigned so you can not invite people. You must ask the game administrator to assign one to you
+      You do not have a company assigned so you can not choose project. You must ask the game administrator to assign one to you
 
       <br>
       <br>
@@ -152,3 +157,45 @@
     </form>
   </div>
 </div>
+
+<div class="announcement" *ngIf="(this.load_complete) && (this.canChooseProject() === 'project')">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      <h1>Choose projects</h1>
+    </span>
+    <form class="login100-form">
+      You already have a selected project. Until your company does not finish developing it, you can not choose another one.
+
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="announcement" *ngIf="(this.load_complete) && (this.canChooseProject() === 'team')">
+  <div class="wrap-login100 big-wrap">
+    <span class="login100-form-title p-b-34 p-t-27">
+      <h1>Choose projects</h1>
+    </span>
+    <form class="login100-form">
+      Now your company is incomplete, you must have at least one member of each role to choose the project.
+
+      <br>
+      <br>
+      <br>
+      <div class="element-exit">
+        <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+          Exit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

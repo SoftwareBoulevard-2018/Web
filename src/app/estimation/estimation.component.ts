@@ -36,6 +36,7 @@ export class EstimationComponent implements OnInit {
   constructor(public service: GeneralServiceService, public httpService: HttpService, public router: Router) {
   }
 
+  //validation and control functions
   form() {
     this.guess = new FormGroup({
       cost: new FormControl('',
@@ -49,6 +50,7 @@ export class EstimationComponent implements OnInit {
     });
   }
 
+  //fill date of the company from de database
   fillCompany() {
     this.httpService.getCompanyById(this.service.user.companyId).subscribe(data => {
     this.current_company = data;
@@ -60,14 +62,16 @@ export class EstimationComponent implements OnInit {
     });
   }
 
+  //fill date of the project from de database
   fillProject(company) {
     this.httpService.getRecordsByFinishDateAndCompany(null, company.id).subscribe(data => this.findProjectByRecord(data),
       error => {  this.current_project = undefined;
         this.load_complete = true;
         this.can_estimate = false;
-      });
+    });
   }
 
+  //function that searches for a project id and brings it from the database
   findProjectByRecord(record) {
     this.httpService.getBiddingProjectById(record.project).subscribe(data => {this.current_project = data;
       this.getThreshold();
@@ -77,6 +81,7 @@ export class EstimationComponent implements OnInit {
     });
   }
 
+  //function that searches for a user rol and bring it threshold from the database
   getThreshold() {
       this.httpService.getUsersByRole('Game Administrator').subscribe(data => {
       const data2 = JSON.parse(JSON.stringify(data));
@@ -98,17 +103,22 @@ export class EstimationComponent implements OnInit {
       this.enoughResources();
       this.load_complete = true;
       this.can_estimate = has_company && has_enough_resources && this.has_bidding_project;
-    });
+    }, error => {
+
+      });
   }
 
+  //function compare the real time and the estimate time
   validate_time(guess) {
     return (guess.time >= this.min_time && guess.time <= this.max_time);
   }
 
+  //function compare the real cost and the estimate cost
   validate_cost(guess) {
     return (guess.cost >= this.min_cost && guess.cost <= this.max_cost);
   }
 
+  //modify and send the estimation to the database
   sendEstimation(guess) {
     this.httpService.getEstimationByPMAndProject(this.service.user.username,this.current_project.name).subscribe(est => {
       let new_attempt_number;
@@ -119,15 +129,20 @@ export class EstimationComponent implements OnInit {
         new_attempt_number = 1;
       }
       const newEstimation = new Estimation(new_attempt_number, this.service.user.username, this.current_project.name, guess.time, guess.cost, this.correct_guess);
-      this.httpService.createEstimation(newEstimation).subscribe(data2 => console.log('estimation sent'));
+      this.httpService.createEstimation(newEstimation).subscribe(data2 => {});
+    }, error => {
+
     });
   }
 
+  //check if the company have resources to estimate project
   enoughResources() {
     if (this.current_company !== undefined) {
       this.have_resources = this.current_company.companyResource > 0;
     }
   }
+
+  //main operation
   ngOnInit() {
     this.form();
     if (this.service.user_type === undefined) {
@@ -141,8 +156,9 @@ export class EstimationComponent implements OnInit {
     }
   }
 
+  //validate button operation, check if the estimate are correct
   onClickSubmit(guess) {
-    
+
     this.correct_guess = false;
     this.incorrect_time = false;
     this.incorrect_cost = false;
@@ -158,12 +174,14 @@ export class EstimationComponent implements OnInit {
     else{
       this.current_company.companyResource -= 1;
       const newCompany = { companyResource: newResource };
-      this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => console.log('updated resource pool'));
+      this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => {},
+          error => {});
       this.sendEstimation(guess);
     }
 
   }
 
+  //exit button operation
   redirectToFunctions(event) {
     this.router.navigate(['home/users/projectmanager/functions']);
   }
