@@ -31,10 +31,9 @@ export class RecruitMemberComponent implements OnInit {
   table_titles = [ 'name', 'username', 'role', 'company', 'invite'];
 
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
-  // method for the correct function of the button
+  // main operation
   ngOnInit() {
     // Transforms the data to the necessary format to be read by material tables
-    console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Game Administrator') {
@@ -42,11 +41,11 @@ export class RecruitMemberComponent implements OnInit {
     } else {
       this.users2 = new MatTableDataSource(this.users);
       this.getAllUsers();
-      console.log(this.users2);
 
     }
   }
 
+  //check if you have company
   haveCompany() {
     if (this.service.user.companyId === null){
       return false;
@@ -55,6 +54,7 @@ export class RecruitMemberComponent implements OnInit {
     }
   }
 
+  //function that brings all the users of the database
   getAllUsers() {
     return this.httpService.getAllUsers().subscribe(data => {
       this.listUser(data);
@@ -62,10 +62,12 @@ export class RecruitMemberComponent implements OnInit {
     });
   }
 
+  // functionality of the exit button
   redirectToFunctions(event) {
     this.router.navigate(['home/users/projectmanager/functions']);
   }
 
+  //function that searches for a company id and brings it from the database
   getCompanyById(companyId, user) {
     return this.httpService.getCompanyById(companyId).subscribe(data => {
       user.companyName = data.name;
@@ -78,7 +80,6 @@ export class RecruitMemberComponent implements OnInit {
           hide_password: true
         });
         this.users2.data = this.users;
-        console.log(this.users2);
       }
     }, error => {
       if(user.companyName===undefined && user.role!=='Game Administrator' && user.role!=='Project Manager') {
@@ -94,18 +95,18 @@ export class RecruitMemberComponent implements OnInit {
         });
         this.users2.data = this.users;
       }
-      console.log(this.users2);
     });
   }
 
+  //Stores the users in a list
   listUser(data) {
-    console.log(data);
     this.users = [];
     for (const value of Object.values(data.data)) {
       this.getCompanyById(value.companyId, value);
     }
   }
 
+  //filter functionality
   applyFilter(filterValue: string) {
     // Function necessary by the table filter
     filterValue = filterValue.trim(); // Remove whitespace
@@ -113,18 +114,17 @@ export class RecruitMemberComponent implements OnInit {
     this.users2.filter = filterValue;
   }
 
+  //send invitation to the selected users
   getInvitation(formdata){
     return this.httpService.getinvitationsByUserAndCompany(formdata.id, this.service.user.companyId).subscribe(data => {
 
         this.auxiliar = false;
-        console.log(this.auxiliar)
 
       },
       error => {
         this.auxiliar = true;
         this.xx=this.xx+1;
 
-        console.log(this.auxiliar);
         this.newinvitation= new invitations(formdata.id, this.service.user.companyId, this.state );
 
         this.createinvitation(this.newinvitation);
@@ -133,21 +133,13 @@ export class RecruitMemberComponent implements OnInit {
 
   }
 
-
-
-
-
+  //create the invitation on the database
   createinvitation(inv) {
-    return this.httpService.createinvitations(inv).subscribe(data => console.log(data));
+    return this.httpService.createinvitations(inv).subscribe(data => {},error => {});
   }
 
+  //Validates the data input on the form and if it's correct then creates the user
   onClickSubmit(data) {
-    // Validates the data input on the form and if it's correct then creates the user
-    // this.auxiliar = this.new_username(data.username);
-    console.log(data);
     this.getInvitation(data);
   }
-  }
-
-
-
+}

@@ -77,6 +77,7 @@ export class NewInstantProjectComponent implements OnInit {
       this.service.numAna = formdata.analystQ;
       this.service.numDev = formdata.developerQ;
       this.service.numTester = formdata.testerQ;
+      this.httpService.createInstantProject(this.service.project).subscribe();
       this.form();
       this.negativo = false;
       this.letra = false;

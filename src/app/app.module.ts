@@ -9,7 +9,7 @@ import { GeneralServiceService } from './general-service.service';
 import { HttpService } from './http.service';
 
 // Angular imports
-import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatCardModule, MatCheckboxModule } from '@angular/material';
 import { MatIconModule, MatButtonModule, MatSidenavModule, MatRadioModule } from '@angular/material';
 import { MatSelectModule, MatListModule, MatExpansionModule } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
@@ -195,6 +195,7 @@ const routes: Routes = [
     HttpClientModule,
     NgSelectModule,
     StorageServiceModule,
+    MatCheckboxModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -217,7 +218,8 @@ const routes: Routes = [
     MatRadioModule,
     HttpClientModule,
     StorageServiceModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCheckboxModule
   ],
   providers: [GeneralServiceService, HttpService],
   bootstrap: [AppComponent]

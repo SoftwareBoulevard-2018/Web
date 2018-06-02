@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
-import {Router} from "@angular/router";
-import { Parameter } from "../shared/parameter";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from '../http.service';
+import { GameAdmin } from '../shared/gameAdmin';
 
 @Component({
   selector: 'app-update-parameters',
@@ -11,55 +12,70 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class UpdateParametersComponent implements OnInit {
 
-  constructor(public service: GeneralServiceService, public router: Router) { }
-
-  form(){
-	// Defines the default state of the forms
-    this.formdata = new FormGroup({
-      threshold: new FormControl('')
-    });
-  }
-
   // These variables are used to create the forms and validate the data input on them
+  user_to_be_updated;
   formdata;
-  totally_empty = false;
   success = false;
   parameter;
   repeated_field = false;
+  range = false;
+
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
+
+  form() {
+    // Defines the default state of the forms
+    this.formdata = new FormGroup({
+      threshold: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ]))
+    });
+    this.getGameAdministrator();
+  }
+
 
   ngOnInit() {
-	// Checks User permissions and establishes the form in the default state
+    // Checks User permissions and establishes the form in the default state
     if (this.service.user_type === undefined) {
-       this.router.navigate([''])
-     }
+      this.router.navigate([''])
+    }
 
     else if (this.service.user_type === "Team Member" || this.service.user_type === "Project Manager") {
-       this.router.navigate(['restricted'])
-     }
+      this.router.navigate(['restricted'])
+    }
 
-     else {
-    this.form();
+    else {
+      this.form();
     }
   }
 
+  getGameAdministrator() {
+    return this.httpService.getUsersByRole('Game Administrator').subscribe(data => {
+      this.user_to_be_updated = data[0];
+    console.log(this.user_to_be_updated)});
+
+  }
+
   onClickSubmit(data) {
-	// Validates the data input on the form and if it's correct then updates the parameters
-    if(data.threshold === this.service.parameter_to_be_updated.threshold){
-      this.totally_empty = false;
+    // Validates the data input on the form and if it's correct then updates the parameters
+    if (data.threshold <= 0.01 || data.threshold >= 0.99) {
+      this.range = true;
+      this.success = false;
+      this.repeated_field = false;
+    }
+    else if (data.threshold === this.user_to_be_updated.threshold) {
+      this.range = false;
       this.success = false;
       this.repeated_field = true;
     }
-
-    else{
-      if(!(data.threshold === '')){
-        this.service.parameter_to_be_updated.threshold = data.threshold;
-      }
-      this.totally_empty = false;
-      this.success = true;
+    else {
+      this.range = false;
       this.repeated_field = false;
-      this.form();
+      this.success = true;
+      this.user_to_be_updated.threshold = data.threshold;
+      console.log(this.user_to_be_updated);
+      this.httpService.updateGA(this.user_to_be_updated, this.user_to_be_updated.id).subscribe(data => console.log(data));
     }
-    console.log(this.service.parameter)
   }
 
 

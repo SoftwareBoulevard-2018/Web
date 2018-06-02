@@ -1,38 +1,20 @@
+<mat-card class="welcome">
 
+<h2>Here are your invitations</h2>
+</mat-card>
+<!--Hay que poner bonito esto-->
+<div class="center2">
+<mat-list class="center">
+<mat-list-item >
+  <p>{{ company_pending_name }}</p>
 
-  <mat-card class="welcome">
-  <h2  >Here are yours invitations</h2>
-  </mat-card>
+  <img mat-list-avatar src="{{image}}"> <br>
+</mat-list-item>
 
-  <ng-container>
-  <mat-list>
+  <mat-list-item>
+  <button mat-button color="primary" (click)="redirect1($event)">Accept</button>
+  <button mat-button color="warn" (click)="redirect2($event)">Reject</button>
+  </mat-list-item>
 
-    <mat-list-item>
-      <img mat-list-avatar src="{{this.service.companies[0].image}}">
-      <div matLine>
-       {{this.service.companies[0].name}}
-        <button mat-button color="primary" (click)="redirect1($event)">Accept</button>
-        <button mat-button color="warn" (click)="redirect2($event)">Reject</button>
-
-      </div>
-    </mat-list-item>
-
-    <mat-list-item>
-      <img mat-list-avatar src="{{this.service.companies[1].image}}">
-      <div matLine>
-        {{this.service.companies[1].name}}
-        <button mat-button color="primary" (click)="redirect1($event)">Accept</button>
-        <button mat-button color="warn" (click)="redirect2($event)">Reject</button>
-
-      </div>
-    </mat-list-item>
-    <mat-list-item>
-      <img mat-list-avatar src="{{this.service.companies[2].image}}">
-      <div matLine>
-        {{this.service.companies[2].name}}
-        <button mat-button color="primary" (click)="redirect1($event)">Accept</button>
-        <button mat-button color="warn" (click)="redirect2($event)">Reject</button>
-
-
-  </div>
-
+</mat-list>
+</div>

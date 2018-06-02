@@ -5,8 +5,6 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Question } from '../shared/question';
 import { HttpService } from '../http.service';
 import { Assignment } from '../shared/assignment';
-import { BiddingProject } from '../shared/biddingProject';
-import { InstantProject } from '../shared/instantProject';
 
 @Component({
   selector: 'app-tester-q',
@@ -20,24 +18,28 @@ export class TesterQComponent implements OnInit {
 
   questions = [];
   questions2: MatTableDataSource<Question>;
-  mensaje = false;
-  assignment;
+  questions3: MatTableDataSource<Question>;
+  vacio = false;
+  maximo = true;
   project;
+  assignment;
 
   table_titles = ['description', 'add'];
+  table_titles2 = ['description', 'remove'];
 
   ngOnInit() {
+    this.vacio = false;
+    this.maximo = true;
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
       this.router.navigate(['restricted']);
     } else {
       this.questions2 = new MatTableDataSource(this.questions);
+      this.questions3 = new MatTableDataSource(this.questions);
       this.getAllAnalystQuestions();
     }
   }
-
-
 
 
   applyFilter(filterValue: string) {
@@ -47,16 +49,26 @@ export class TesterQComponent implements OnInit {
     this.questions2.filter = filterValue;
   }
 
+  applyFilter2(filterValue: string) {
+    // Function necessary by the table filter
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.questions3.filter = filterValue;
+  }
+
+
   redirect(event, element) {
     if (this.service.user_type === "Game Administrator") {
+      this.vacio = true;
+      this.questions3.data.push(element);
+      this.questions3 = new MatTableDataSource<Question>(this.questions3.data);
       this.service.testerQ.push(element);
-      if (this.service.testerQ.length == this.service.project.numberOfDevelopingQuestionsPerTester) {
-        this.mensaje = true;
-      }
       var index = this.questions2.data.indexOf(element);
       this.questions2.data.splice(index, 1);
       this.questions2 = new MatTableDataSource<Question>(this.questions2.data);
-
+      if (this.questions3.data.length === this.service.numTester) {
+        this.maximo = false;
+      }
     }
   }
 
@@ -69,11 +81,10 @@ export class TesterQComponent implements OnInit {
 
   createAssignment(preguntas, project) {
     for (var pregunta of preguntas) {
-      this.assignment = new Assignment(project._id, pregunta._id);
-      console.log(pregunta);
-      console.log(project);
-      console.log(this.assignment);
-      this.createAssignment2(this.assignment);
+      if (!(pregunta === 'unasigned')) {
+        this.assignment = new Assignment(project._id, pregunta._id);
+        this.createAssignment2(this.assignment);
+      }
     }
   }
 
@@ -81,29 +92,31 @@ export class TesterQComponent implements OnInit {
     return this.httpService.createAssignment(ass).subscribe(data => console.log(data));
   }
 
-  createInstantProject(project) {
-    return this.httpService.createInstantProject(project).subscribe(data => console.log(data));
-  }
-
-  createBiddingProject(project) {
-    return this.httpService.createBiddingProject(project).subscribe(data => console.log(data));
-  }
 
   redirect2(event) {
     if (this.service.user_type === "Game Administrator") {
-      if (this.service.project instanceof InstantProject) {
-        this.createInstantProject(this.service.project);
-      }
-      else {
-        this.createBiddingProject(this.service.project);
-      }
       this.getProject(this.service.project.name).subscribe(data => {
         this.createAssignment(this.service.developerQ, data);
         this.createAssignment(this.service.analystQ, data);
         this.createAssignment(this.service.testerQ, data);
-        console.log(data);
       });
       this.router.navigate(['home/set-up/']);
+    }
+  }
+
+  redirect3(event, element) {
+    if (this.service.user_type === "Game Administrator") {
+      this.questions2.data.push(element);
+      this.questions2 = new MatTableDataSource<Question>(this.questions2.data);
+      var index = this.questions3.data.indexOf(element);
+      var index2 = this.service.testerQ.indexOf(element);
+      this.service.testerQ.splice(index2, 1);
+      this.questions3.data.splice(index, 1);
+      this.questions3 = new MatTableDataSource<Question>(this.questions3.data);
+      if (this.questions3.data.length === 0) {
+        this.vacio = false;
+      }
+      this.maximo = true;
     }
   }
 
