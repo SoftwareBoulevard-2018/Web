@@ -18,7 +18,6 @@ export class ChooseprojectComponent implements OnInit {
   table_titles = [ 'Project_Name', 'required_K', 'Rewarded_K', 'Analyst_Level', 'Developer_Level', 'Tester_Level', 'Select'];
   correct_guess = true;
   projects = [];
-  projects2;
   load_complete;
   formdata;
   company;
@@ -41,7 +40,8 @@ export class ChooseprojectComponent implements OnInit {
   haveCompany;
 
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
-  // method for the correct function of the button
+
+  // main operation
   ngOnInit() {
     // Transforms the data to the necessary format to be read by material tables
     if (this.service.user_type === undefined) {
@@ -50,21 +50,25 @@ export class ChooseprojectComponent implements OnInit {
       this.router.navigate(['restricted']);
     } else {
       this.users2 = new MatTableDataSource(this.users);
-      this.getAllUsers();
+      this.getAllProjects();
       this.getallinstants();
 
     }
   }
 
-  getAllUsers() {
+  //function that brings all the bidding projects of the database
+  getAllProjects() {
     return this.httpService.getAllBiddingProjects().subscribe(data => {this.listUser(data);
-      this.verifyCompany();;
+      this.verifyCompany();
     });
   }
+
+  //function that brings all the instant project of the database
   getallinstants(){
     return this.httpService.getAllInstantProjects().subscribe(data => this.listUser2(data));
   }
 
+  //check if the conditions for choosing a project are available
   canChooseProject(){
     if(this.haveCompany){
       if(this.haveTeam){
@@ -81,6 +85,7 @@ export class ChooseprojectComponent implements OnInit {
     }
   }
 
+  //function that searches for a company id and brings it from the database
   getCompanyById(companyId, user) {
     return this.httpService.getBiddingProjectById(companyId).subscribe(data => {
       user.projectName = data.name;
@@ -94,8 +99,7 @@ export class ChooseprojectComponent implements OnInit {
           cost: user.cost
         });
         this.users2.data = this.users;
-        console.log(this.users2);
-      //}
+
     }, error => {
      // if(user.companyName===undefined && user.role!=='Game Administrator' && user.role!=='Project Manager') {
 
@@ -108,34 +112,31 @@ export class ChooseprojectComponent implements OnInit {
         });
         this.users2.data = this.users;
 
-     // }
-      console.log(this.users2);
-
     });
   }
 
+  // functionality of the exit button
   redirectToFunctions(event) {
     this.router.navigate(['home/users/projectmanager/functions']);
   }
 
+  //Stores the bidding project in a list
   listUser(data) {
-    console.log(data);
     this.users = [];
     for (const value of Object.values(data.data)) {
-      console.log(value);
       this.getCompanyById(value.id, value);
     }
   }
 
+  //Stores the instant project in a list
   listUser2(data) {
-    console.log(data);
 
     for (const value of Object.values(data.data)) {
-      console.log(value);
       this.getCompanyById(value.id, value);
     }
   }
 
+  //filter functionality
   applyFilter(filterValue: string) {
     // Function necessary by the table filter
     filterValue = filterValue.trim(); // Remove whitespace
@@ -143,17 +144,17 @@ export class ChooseprojectComponent implements OnInit {
     this.users2.filter = filterValue;
   }
 
+  //create a record with the chosen project and the respective company
   createRecord(formdata) {
     this.record = new Record(null,null, this.service.user.companyId, formdata.id);
-    console.log(this.record);
-    this.httpService.createRecord(this.record).subscribe(data=>console.log(data));
+    this.httpService.createRecord(this.record).subscribe(data=> {});
 
     alert("Congratulations, You have chosen a project");
     this.router.navigate(['home/users/projectmanager/functions']);
   }
 
+  //check what is the maximum level of the testers of the company
   verifyTLevel(){
-    console.log("VerifyTlevel");
     return this.httpService.getUserByRoleCompany("Tester", this.service.user.companyId).subscribe(data => {
       this.testUsers = JSON.parse(JSON.stringify((data)));
       this.maxLevelTestUser = 0;
@@ -167,8 +168,8 @@ export class ChooseprojectComponent implements OnInit {
     });
   }
 
+  ////check what is the maximum level of the developers of the company
   verifyDLevel() {
-    console.log("VerifyDlevel");
     return this.httpService.getUserByRoleCompany("Developer", this.service.user.companyId).subscribe(data => {
       this.devUsers = JSON.parse(JSON.stringify((data)));
       this.maxLevelDevUser = 0;
@@ -182,8 +183,8 @@ export class ChooseprojectComponent implements OnInit {
     });
   }
 
+  //check what is the maximum level of the analysts of the company
   verifyALevel() {
-    console.log("VerifyAlevel");
     return this.httpService.getUserByRoleCompany("Analyst", this.service.user.companyId).subscribe(data => {
       this.anUsers = JSON.parse(JSON.stringify((data)));
       this.maxLevelAnUser = 0;
@@ -197,8 +198,8 @@ export class ChooseprojectComponent implements OnInit {
     });
   }
 
+  //check if the company members has the necessary level for the chosen project
   verifyLevel() {
-    console.log("VerifyLevel");
     if ((this.project_selected.Analyst_Level !== undefined) &&
       (this.project_selected.Developer_Level !== undefined) &&
       (this.project_selected.Tester_Level !== undefined))
@@ -207,17 +208,16 @@ export class ChooseprojectComponent implements OnInit {
         (this.project_selected.Developer_Level <= this.maxLevelDevUser) &&
         (this.project_selected.Tester_Level <= this.maxLevelTestUser))
       {
-        console.log("si esta reconociendo esto");
         this.createRecord(this.project_selected);
       } else {
         alert("You can not choose this project because the level of competence of any member of your team is lower than required by this project");
       }
     } else {
-      console.log("no esta reconociendo esto");
       this.createRecord(this.project_selected);
     }
   }
 
+  //validates if the project manager has the complete team
   verifyTeam(){
     let test = [];
     let dev = [];
@@ -239,8 +239,8 @@ export class ChooseprojectComponent implements OnInit {
     });
   }
 
+  // validates if the project manager has chosen a project
   verifyProject(){
-    console.log("verifyProject");
     this.httpService.getRecordsByFinishDateAndCompany(null, this.service.user.companyId).subscribe(data => {
       this.load_complete = true;
       },
@@ -250,19 +250,18 @@ export class ChooseprojectComponent implements OnInit {
       });
   }
 
+  //validates if the project manager has a company
   verifyCompany(){
     if (this.service.user.companyId !== null){
-      console.log("VerifyCompany si tiene");
       this.haveCompany = true;
       this.verifyTeam();
     } else {
-      console.log("VerifyCompany no tiene");
       this.load_complete = true;
     }
   }
 
+  //stores the complete information of the company to which the project manager belongs
   saveCompany(companyID){
-    console.log("saveCompany");
     return this.httpService.getCompanyById(companyID).subscribe(data => {
     this.company = data;
       if(this.project_selected.required_K !== undefined){
@@ -277,10 +276,9 @@ export class ChooseprojectComponent implements OnInit {
     });
   }
 
+  //operation of the select project button
   onClickSubmit(data) {
-    console.log("onClickSubmit");
     this.project_selected = data;
-    console.log(this.project_selected);
     this.saveCompany(this.service.user.companyId);
     // Validates the data input on the form and if it's correct then creates the user
     // this.auxiliar = this.new_username(data.username);
