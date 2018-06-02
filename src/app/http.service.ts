@@ -33,8 +33,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  //static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -214,7 +214,7 @@ export class HttpService {
       JSON.stringify(biddingProject), HttpService.httpOptions);
   }
   updateBiddingProject(biddingProject, id) {
-    return this.http.put<Object>(HttpService.apiURL + HttpService.getBiddingProjectURL + '/' + id,
+    return this.http.put<Object>(HttpService.apiURL + HttpService.getBiddingProjectURL + '/updateBiddingProject/' + id,
       JSON.stringify(biddingProject), HttpService.httpOptions);
   }
 
@@ -233,7 +233,7 @@ export class HttpService {
       JSON.stringify(instantProject), HttpService.httpOptions);
   }
   updateInstantProject(instantProject, id) {
-    return this.http.put<Object>(HttpService.apiURL + HttpService.instantProjecstURL + '/updateInstantProject/:id' + id,
+    return this.http.put<Object>(HttpService.apiURL + HttpService.instantProjecstURL + '/updateInstantProject/' + id,
       JSON.stringify(instantProject), HttpService.httpOptions);
   }
   // All services related to Certification
@@ -282,6 +282,9 @@ export class HttpService {
   updateAssignment(id, ass: Assignment) {
     return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
       JSON.stringify(ass), HttpService.httpOptions);
+  }
+  deleteAssignment(id: string){
+    
   }
 
   // All services related to Invitations

@@ -34,7 +34,7 @@ export class UpdateInstantProjectComponent implements OnInit {
     if(!(data.name === '')){
       this.service.project_to_be_updated.name = data.name;
     }
-    if(!(data.rewarded_K === '')){
+    if(!(data.kunit === '')){
       this.service.project_to_be_updated.rewarded_K = data.kunit;
     }
     if(!(data.analystQ === '')){
@@ -46,8 +46,13 @@ export class UpdateInstantProjectComponent implements OnInit {
     if(!(data.testerQ == '')){
       this.service.project_to_be_updated.numberOfDevelopingQuestionsPerTester = data.testerQ;
     }
+    this.service.numAna = this.service.project_to_be_updated.numberOfDevelopingQuestionsPerAnalyst;
+    this.service.numDev = this.service.project_to_be_updated.numberOfDevelopingQuestionsPerDeveloper;
+    this.service.numTester = this.service.project_to_be_updated.numberOfDevelopingQuestionsPerTester;
+    console.log(this.service.project_to_be_updated);
     console.log(this.service.project_to_be_updated._id);
-    this.httpService.updateInstantProject(this.service.project_to_be_updated, this.service.project_to_be_updated._id).subscribe(data => console.log);
+    this.httpService.updateInstantProject(this.service.project_to_be_updated, this.service.project_to_be_updated._id).subscribe(data => console.log(data));
+    this.router.navigate(['home/set-up/update-project/update-analyst-questions']);
   }
 
   ngOnInit() {
