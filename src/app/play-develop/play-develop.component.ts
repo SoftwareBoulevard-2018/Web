@@ -33,12 +33,12 @@ export class PlayDevelopComponent implements OnInit {
   questionnumber: number = 0;
   //questions: string[];
 
-  qid: string = 'holiwis';
-  qd: string = 'holiwis';
-  a1: string = 'holiwis';
-  a2: string = 'holiwis';
-  a3: string = 'holiwis';
-  a4: string = 'holiwis';
+  qid: string ;
+  qd: string ;
+  a1: string ;
+  a2: string ;
+  a3: string ;
+  a4: string ;
 
   //Actual code
   answer1temp: boolean = false;
@@ -106,14 +106,14 @@ export class PlayDevelopComponent implements OnInit {
   closeProject(){
     this.httpService.getRecordsByFinishDateAndCompany(undefined, this.company['id']).subscribe((record) => {
         record.finishDate = new Date();
-        
+
         this.httpService.getInstantprojectById(record.project).subscribe((project) => {
           console.log(this.company.capacityK + " + " + project.rewarded_K);
           this.company.capacityK = this.company.capacityK + project.rewarded_K;
           this.company.numberOfCorrectDevelopingAttempsByAnalyst = 0;
           this.company.numberOfCorrectDevelopingAttempsByDeveloper = 0;
           this.company.numberOfCorrectDevelopingAttempsByTester = 0;
-          
+
           setTimeout(() => {
             this.httpService.updateCompany(this.company, this.company['id']).subscribe(() => {
               this.httpService.updateRecord(record, record['0']).subscribe(() => {}, (error) => {console.log(error)});
@@ -206,7 +206,7 @@ export class PlayDevelopComponent implements OnInit {
 
   setQuestion(question){
     this.question = question;
-    return question;  
+    return question;
   }
 
   checkAvailability(){
@@ -215,12 +215,12 @@ export class PlayDevelopComponent implements OnInit {
         this.company.numberOfCorrectDevelopingAttempsByAnalyst < this.project.numberOfDevelopingQuestionsPerAnalyst){
       this.questionnumber = this.company.numberOfCorrectDevelopingAttempsByAnalyst;
       return true;
-    }else if (this.user.role == "Developer" && 
+    }else if (this.user.role == "Developer" &&
               this.project.numberOfDevelopingQuestionsPerAnalyst <= this.company.numberOfCorrectDevelopingAttempsByAnalyst &&
               this.company.numberOfCorrectDevelopingAttempsByDeveloper < this.project.numberOfDevelopingQuestionsPerDeveloper) {
       this.questionnumber = this.company.numberOfCorrectDevelopingAttempsByDeveloper;
       return true;
-    }else if (this.user.role == "Tester" && 
+    }else if (this.user.role == "Tester" &&
               this.project.numberOfDevelopingQuestionsPerAnalyst <= this.company.numberOfCorrectDevelopingAttempsByAnalyst &&
               this.project.numberOfDevelopingQuestionsPerDeveloper <= this.company.numberOfCorrectDevelopingAttempsByDeveloper &&
               this.company.numberOfCorrectDevelopingAttempsByTester < this.project.numberOfDevelopingQuestionsPerTester){
@@ -249,12 +249,12 @@ export class PlayDevelopComponent implements OnInit {
         this.user = user;
 
         this.httpService.getCompanyById(user.companyId).subscribe(company => {
-          
+
           this.setCompany(company);
           this.setResources(company.companyResource);
 
           this.httpService.getUsersByCompany(company['id']).subscribe((users) => {
-            this.setMembers(users.length);   
+            this.setMembers(users.length);
           });
 
           this.httpService.getRecordsByFinishDateAndCompany(undefined, company['id']).subscribe((record) => {
@@ -297,8 +297,8 @@ export class PlayDevelopComponent implements OnInit {
                           });
                         }
                       }
-                    }, 1000);                     
-                            
+                    }, 1000);
+
                   }, () => {
                     this.hideOptions();
                     this.error = "This project does not have any assigned questions right now";
@@ -359,7 +359,7 @@ export class PlayDevelopComponent implements OnInit {
           this.instruction = "Slide down to refresh";
         }else{
           this.error = "You don't have any activities pending in this project";
-          this.instruction = "Slide down to refresh";         
+          this.instruction = "Slide down to refresh";
         }
       }
 
