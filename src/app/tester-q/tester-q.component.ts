@@ -91,17 +91,10 @@ export class TesterQComponent implements OnInit {
 
   redirect2(event) {
     if (this.service.user_type === "Game Administrator") {
-      if (this.service.project instanceof InstantProject) {
-        this.createInstantProject(this.service.project);
-      }
-      else {
-        this.createBiddingProject(this.service.project);
-      }
       this.getProject(this.service.project.name).subscribe(data => {
         this.createAssignment(this.service.developerQ, data);
         this.createAssignment(this.service.analystQ, data);
         this.createAssignment(this.service.testerQ, data);
-        console.log(data);
       });
       this.router.navigate(['home/set-up/']);
     }

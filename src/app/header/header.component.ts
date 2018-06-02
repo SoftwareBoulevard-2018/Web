@@ -91,6 +91,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['home/reports']);
   }
 
+  redirectSetUp($event){
+    this.router.navigate(['home/set-up']);
+  }
+
   redirectLogout(event) {
     this.saveInLocal('userInSession', null)
     this.service.username = undefined;

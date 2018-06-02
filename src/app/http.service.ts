@@ -32,8 +32,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  //static apiURL = 'http://35.196.111.251:3000';
-  static apiURL = 'http://localhost:3000';
+  static apiURL = 'http://35.196.111.251:3000';
+  //static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -57,6 +57,7 @@ export class HttpService {
   static assignmentsURL = '/assignments';
   static questionsURL = '/questions';
   static invitationsURL='/invitations';
+  static gameAdministratorURL = '/gameAdministrator';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -83,6 +84,7 @@ export class HttpService {
     return this.http.post<User[]>(HttpService.apiURL + HttpService.usersURL + HttpService.usersURL3,
       JSON.stringify({ role1: role }), HttpService.httpOptions);
   }
+
 
   // All services related to companies
   getAllCompanies() {
