@@ -135,7 +135,7 @@ export class RecruitMemberComponent implements OnInit {
 
   //create the invitation on the database
   createinvitation(inv) {
-    return this.httpService.createinvitations(inv).subscribe(data => {});
+    return this.httpService.createinvitations(inv).subscribe(data => {},error => {});
   }
 
   //Validates the data input on the form and if it's correct then creates the user

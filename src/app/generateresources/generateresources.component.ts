@@ -56,6 +56,8 @@ export class GenerateresourcesComponent implements OnInit {
       this.real_puzzle = this.puzzles[element];
       this.initializePuzzle(data2);
       this.getCompanyById(this.service.user.companyId);
+    }, error => {
+
     });
   }
 
@@ -64,6 +66,8 @@ export class GenerateresourcesComponent implements OnInit {
     return this.httpService.getCompanyById(companyId).subscribe(data => {
       const data2 = JSON.parse(JSON.stringify(data));
       this.pmcompany = data2;
+    }, error => {
+
     });
   }
 
@@ -211,6 +215,8 @@ export class GenerateresourcesComponent implements OnInit {
     const total_resources = actually_resources + this.rewarded_resources;
     return this.httpService.updateCompany({
         companyResource: total_resources}, this.service.user.companyId).subscribe( data => {
+    }, error => {
+
     });
 
   }

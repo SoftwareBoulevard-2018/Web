@@ -68,7 +68,7 @@ export class EstimationComponent implements OnInit {
       error => {  this.current_project = undefined;
         this.load_complete = true;
         this.can_estimate = false;
-      });
+    });
   }
 
   //function that searches for a project id and brings it from the database
@@ -103,7 +103,9 @@ export class EstimationComponent implements OnInit {
       this.enoughResources();
       this.load_complete = true;
       this.can_estimate = has_company && has_enough_resources && this.has_bidding_project;
-    });
+    }, error => {
+
+      });
   }
 
   //function compare the real time and the estimate time
@@ -128,6 +130,8 @@ export class EstimationComponent implements OnInit {
       }
       const newEstimation = new Estimation(new_attempt_number, this.service.user.username, this.current_project.name, guess.time, guess.cost, this.correct_guess);
       this.httpService.createEstimation(newEstimation).subscribe(data2 => {});
+    }, error => {
+
     });
   }
 
@@ -170,7 +174,8 @@ export class EstimationComponent implements OnInit {
     else{
       this.current_company.companyResource -= 1;
       const newCompany = { companyResource: newResource };
-      this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => {});
+      this.httpService.updateCompany(newCompany, this.service.user.companyId).subscribe( data => {},
+          error => {});
       this.sendEstimation(guess);
     }
 

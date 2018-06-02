@@ -60,12 +60,15 @@ export class ChooseprojectComponent implements OnInit {
   getAllProjects() {
     return this.httpService.getAllBiddingProjects().subscribe(data => {this.listUser(data);
       this.verifyCompany();
+    }, error => {
+
     });
   }
 
   //function that brings all the instant project of the database
   getallinstants(){
-    return this.httpService.getAllInstantProjects().subscribe(data => this.listUser2(data));
+    return this.httpService.getAllInstantProjects().subscribe(data => this.listUser2(data),
+        error => { });
   }
 
   //check if the conditions for choosing a project are available
@@ -147,7 +150,7 @@ export class ChooseprojectComponent implements OnInit {
   //create a record with the chosen project and the respective company
   createRecord(formdata) {
     this.record = new Record(null,null, this.service.user.companyId, formdata.id);
-    this.httpService.createRecord(this.record).subscribe(data=> {});
+    this.httpService.createRecord(this.record).subscribe(data=> {} , error => {});
 
     alert("Congratulations, You have chosen a project");
     this.router.navigate(['home/users/projectmanager/functions']);
@@ -165,6 +168,8 @@ export class ChooseprojectComponent implements OnInit {
         }
       }
       this.verifyDLevel();
+    }, error => {
+
     });
   }
 
@@ -180,6 +185,8 @@ export class ChooseprojectComponent implements OnInit {
         }
       }
       this.verifyALevel();
+    }, error => {
+
     });
   }
 
@@ -195,6 +202,8 @@ export class ChooseprojectComponent implements OnInit {
         }
       }
       this.verifyLevel();
+    }, error => {
+
     });
   }
 
@@ -234,8 +243,14 @@ export class ChooseprojectComponent implements OnInit {
           } else {
             this.load_complete = true;
           }
-        });
+        }), error => {
+
+        };
+      }, error => {
+
       });
+    } , error => {
+
     });
   }
 
@@ -247,7 +262,7 @@ export class ChooseprojectComponent implements OnInit {
       error1 => {
       this.haveProject = true;
       this.load_complete = true;
-      });
+    });
   }
 
   //validates if the project manager has a company
@@ -273,6 +288,8 @@ export class ChooseprojectComponent implements OnInit {
       } else {
         this.verifyTLevel();
       }
+    }, error => {
+
     });
   }
 
