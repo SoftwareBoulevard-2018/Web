@@ -45,7 +45,7 @@ export class CertificationListComponent implements OnInit {
   redirect(event, element) {
     // Redirects to User status and defines the necessary variables
     this.service.certification_to_be_updated = element;
-    this.router.navigate(['']);
+    this.router.navigate(['home/set-up/puzzle-list/update-certification']);
   }
   
   listCertifications(data) {

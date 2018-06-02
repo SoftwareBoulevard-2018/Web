@@ -33,8 +33,8 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
-  static apiURL = 'http://35.196.111.251:3000';
-  //static apiURL = 'http://localhost:3000';
+  //static apiURL = 'http://35.196.111.251:3000';
+  static apiURL = 'http://localhost:3000';
   static usersURL = '/users';
   static usersURL2 = '/username';
   static usersURL3 = '/usersByRole';
@@ -187,6 +187,11 @@ export class HttpService {
     return this.http.post<creationPuzzle>(HttpService.apiURL + '/puzzles' + '/createPuzzle',
       JSON.stringify(puzzle), HttpService.httpOptions);
   }
+  
+  updatePuzzle(puzzle, id) {
+    return this.http.put<Object>(HttpService.apiURL + '/puzzles/updatePuzzle' + '/' + id,
+      JSON.stringify(puzzle), HttpService.httpOptions);
+  }
 
   //All services related to Estimation
   createEstimation(estimation: Estimation) {
@@ -286,6 +291,10 @@ export class HttpService {
   updateAssignment(id, ass: Assignment) {
     return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
       JSON.stringify(ass), HttpService.httpOptions);
+  }
+  
+  deleteAssignment(id){
+	  return this.http.delete<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/deleteAssignment/' + id);
   }
 
   // All services related to Invitations

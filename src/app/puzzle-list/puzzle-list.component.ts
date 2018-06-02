@@ -43,10 +43,11 @@ export class PuzzleListComponent implements OnInit {
     this.puzzles2.filter = filterValue;
   }
   
-  redirect(event) {
+  redirect(event, element) {
     // Redirects to New Instant project project
     if (this.service.user_type === "Game Administrator") {
-      this.router.navigate(['']);
+	   this.service.puzzle_to_be_updated = element;
+      this.router.navigate(['home/set-up/update-puzzle']);
     }
   }
   

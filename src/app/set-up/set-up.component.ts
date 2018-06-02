@@ -38,7 +38,7 @@ export class SetUpComponent implements OnInit {
 
   redirect5(event) {
     if(this.service.user_type === "Game Administrator"){
-      this.router.navigate(['home/set-up/puzzle-list']);
+      this.router.navigate(['home/set-up/create-puzzle']);
     }
 
   }
