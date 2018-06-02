@@ -87,10 +87,6 @@ export class NewBiddingProjectComponent implements OnInit {
     }
   }
 
-  createBiddingProject(project){
-    return this.httpService.createBiddingProject(project).subscribe(data => console.log(data));
-  }
-
 
   onClickSubmit(data) {
     if (data.kunit <= 0 || data.analystQ <= 0 || data.developerQ <= 0 || data.testerQ <= 0 || data.time <= 0 || data.time <= 0 || data.krequired <= 0 || data.developerL <= 0 || data.testerL <= 0 || data.analystL <= 0){
@@ -98,10 +94,11 @@ export class NewBiddingProjectComponent implements OnInit {
     }
     else {
       this.service.project = new BiddingProject(data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ, data.time, data.cost, data.krequired, data.analystL, data.developerL, data.testerL);
+      console.log(this.service.project);
       this.service.numAna = data.analystQ;
       this.service.numDev = data.developerQ;
       this.service.numTester = data.testerQ;
-	  this.createBiddingProject(this.service.project);
+      this.httpService.createBiddingProject(this.service.project).subscribe();
       this.form();
       this.negativo = false;
       if(this.service.user_type === "Game Administrator"){

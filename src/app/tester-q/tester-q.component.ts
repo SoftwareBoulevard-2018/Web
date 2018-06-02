@@ -6,6 +6,7 @@ import { Question } from '../shared/question';
 import { HttpService } from '../http.service';
 import { Assignment } from '../shared/assignment';
 import { BiddingProject } from '../shared/biddingProject';
+import { InstantProject } from '../shared/instantProject';
 
 @Component({
   selector: 'app-tester-q',
@@ -26,7 +27,6 @@ export class TesterQComponent implements OnInit {
   table_titles = ['description', 'add'];
 
   ngOnInit() {
-    console.log(this.service.user_type);
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
@@ -34,7 +34,6 @@ export class TesterQComponent implements OnInit {
     } else {
       this.questions2 = new MatTableDataSource(this.questions);
       this.getAllAnalystQuestions();
-      console.log(this.questions2);
     }
   }
 
@@ -51,7 +50,7 @@ export class TesterQComponent implements OnInit {
   redirect(event, element) {
     if (this.service.user_type === "Game Administrator") {
       this.service.testerQ.push(element);
-      if (this.service.testerQ.length == this.service.project_to_assignate.numberOfDevelopingQuestionsPerTester - 1) {
+      if (this.service.testerQ.length == this.service.project.numberOfDevelopingQuestionsPerTester) {
         this.mensaje = true;
       }
       var index = this.questions2.data.indexOf(element);
@@ -63,14 +62,17 @@ export class TesterQComponent implements OnInit {
 
 
 
-  getInstantProject(name) {
+  getProject(name) {
     return this.httpService.getInstantprojectByName(name);
   }
 
-  createAssignment(preguntas, project) {
 
+  createAssignment(preguntas, project) {
     for (var pregunta of preguntas) {
-      this.assignment = new Assignment(project._id, pregunta._id, project.name, pregunta.description);
+      this.assignment = new Assignment(project._id, pregunta._id);
+      console.log(pregunta);
+      console.log(project);
+      console.log(this.assignment);
       this.createAssignment2(this.assignment);
     }
   }
@@ -79,12 +81,21 @@ export class TesterQComponent implements OnInit {
     return this.httpService.createAssignment(ass).subscribe(data => console.log(data));
   }
 
+  createInstantProject(project) {
+    return this.httpService.createInstantProject(project).subscribe(data => console.log(data));
+  }
+
+  createBiddingProject(project) {
+    return this.httpService.createBiddingProject(project).subscribe(data => console.log(data));
+  }
+
   redirect2(event) {
-    if (this.service.user_type === "Game Administrator") {  
-	  this.getInstantProject(this.service.project.name).subscribe( data =>  {
-      this.createAssignment(this.service.analystQ, data);
-      this.createAssignment(this.service.developerQ, data);
-      this.createAssignment(this.service.testerQ, data);});
+    if (this.service.user_type === "Game Administrator") {
+      this.getProject(this.service.project.name).subscribe(data => {
+        this.createAssignment(this.service.developerQ, data);
+        this.createAssignment(this.service.analystQ, data);
+        this.createAssignment(this.service.testerQ, data);
+      });
       this.router.navigate(['home/set-up/']);
     }
   }
@@ -95,13 +106,11 @@ export class TesterQComponent implements OnInit {
   }
 
   listQuestions(data) {
-    console.log(data);
     this.questions = [];
     for (const question of Object.values(data.data)) {
       if (question.role == 'Tester') {
         this.questions.push(question);
         this.questions2.data = this.questions;
-        console.log(this.questions2);
       }
     }
   }

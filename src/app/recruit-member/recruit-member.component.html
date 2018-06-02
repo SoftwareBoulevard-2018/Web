@@ -1,7 +1,7 @@
 <div class="todoready" *ngIf="(this.load_complete && haveCompany())">
   <div class="marco">
     <span class="login100-form-title p-b-34 p-t-27">
-      Invite team members!
+      <h1>Invite team members</h1>
     </span>
 
     <!-- Users table -->
@@ -69,8 +69,6 @@
     </div>
   </div>
 </div>
-<br>
-<br>
 <div class="element-exit">
   <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
     Exit
@@ -80,7 +78,7 @@
 <div class="announcement" *ngIf="(!(haveCompany()))">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
-      Team members invitations!
+      <h1>Invite team members</h1>
     </span>
     <form class="login100-form">
       You do not have a company assigned so you can not invite people. You must ask the game administrator to assign one to you

@@ -57,6 +57,7 @@ export class HttpService {
   static assignmentsURL = '/assignments';
   static questionsURL = '/questions';
   static invitationsURL='/invitations';
+  static gameAdministratorURL = '/gameAdministrator';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -86,6 +87,7 @@ export class HttpService {
   getUsersByCompany(companyId){
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL + '/company/' + companyId);
   }
+
 
   // All services related to companies
   getAllCompanies() {
@@ -217,7 +219,7 @@ export class HttpService {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/' + id);
   }
   getInstantprojectByName(name: string) {
-    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName' + '/' + name);
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName/' + name);
   }
   createInstantProject(instantProject: InstantProject) {
     return this.http.post<Id>(HttpService.apiURL + HttpService.instantProjecstURL + '/createInstantProject/',
@@ -252,6 +254,10 @@ export class HttpService {
   }
   getQuestionsById(id: string){
     return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/getQuestionById/' + id);
+  }
+  updateQuestionById(question: Question, id: string){
+    return this.http.put<Question>(HttpService.apiURL + HttpService.questionsURL + '/updateQuestion/' + id,
+      JSON.stringify(question), HttpService.httpOptions);
   }
 
   // All services related to assignment

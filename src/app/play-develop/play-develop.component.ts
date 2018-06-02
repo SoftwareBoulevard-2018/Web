@@ -24,6 +24,7 @@ export class PlayDevelopComponent implements OnInit {
   tester: number;
   project: InstantProject;
   question: Question;
+  mostrar: boolean;
 
   resour: number;
   mem: number;
@@ -77,6 +78,7 @@ export class PlayDevelopComponent implements OnInit {
     this.ans4hid = true;
     this.sendhid = true;
     this.textNoHid = false;
+    this.mostrar = true;
   }
 
   //Wrong answer alert
@@ -277,7 +279,7 @@ export class PlayDevelopComponent implements OnInit {
                         var count = 0;
 
                         for (var i = 0; i < assignments.length; ++i) {
-                          this.httpService.getQuestionsById(assignments[i].questionId).subscribe((question) => {
+                          this.httpService.getQuestionsById(assignments[i].question).subscribe((question) => {
                             console.log(question)
                             if (question.role == user.role) {
 

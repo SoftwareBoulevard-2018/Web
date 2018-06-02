@@ -61,7 +61,7 @@ export class JoinTeamComponent implements OnInit {
   redirect2(event) {
     this.invite.state = 'rejected'
     //No sirve
-    this.httpService.updateInvitation(this.invite, this.idInvitation);
+    this.httpService.updateInvitation(this.invite, this.idInvitation).subscribe(data => {});
     alert("You have reject!");
   }
 }
