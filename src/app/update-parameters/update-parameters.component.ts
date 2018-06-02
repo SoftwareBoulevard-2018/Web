@@ -3,6 +3,7 @@ import { GeneralServiceService } from '../general-service.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../http.service';
+import { GameAdmin } from '../shared/gameAdmin';
 
 @Component({
   selector: 'app-update-parameters',
@@ -49,8 +50,10 @@ export class UpdateParametersComponent implements OnInit {
   }
 
   getGameAdministrator() {
-    return this.httpService.getUsersByRole('Game Administrator').subscribe(data =>
-      this.user_to_be_updated = data[0]);
+    return this.httpService.getUsersByRole('Game Administrator').subscribe(data => {
+      this.user_to_be_updated = data[0];
+    console.log(this.user_to_be_updated)});
+
   }
 
   onClickSubmit(data) {
@@ -70,7 +73,8 @@ export class UpdateParametersComponent implements OnInit {
       this.repeated_field = false;
       this.success = true;
       this.user_to_be_updated.threshold = data.threshold;
-      this.httpService.updateUser(this.user_to_be_updated, this.user_to_be_updated.id).subscribe(data => console.log(data));
+      console.log(this.user_to_be_updated);
+      this.httpService.updateGA(this.user_to_be_updated, this.user_to_be_updated.id).subscribe(data => console.log(data));
     }
   }
 
