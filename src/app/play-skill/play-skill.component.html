@@ -1,12 +1,13 @@
 <div class="w3-container">
   <div class="resoucesAndTeamMembers">
-    <p>Resources: 10</p>
-    <p>Team members: 2</p>
+    <p>Resources: {{resour}}</p>
+    <p>Team Members: {{mem}}</p>
   </div>
 
 
 
-<div class="wrap-login100">
+<!--
+  <div class="wrap-login100">
   <h3>{{quest.description}}</h3>
       <div >
         <mat-radio-group class="questionGen" [(ngModel)]="control">
@@ -17,8 +18,42 @@
       </div >
 
 </div>
+  -->
 
 
+
+  <div [hidden]=textNoHid>
+    <h3 class="title1">You can not improve your skill level right now</h3>
+
+  </div>
+  <div [hidden]=textHid>
+    <h3 class="container">{{qd}}</h3>
+  </div>
+
+  <mat-list class="wrap-login100">
+    <mat-list-item [hidden]=ans1hid>
+      <mat-checkbox [(ngModel)]="answer1temp" labelPosition="after"></mat-checkbox>
+      <mat-label>{{a1}}</mat-label>
+    </mat-list-item>
+    <mat-list-item [hidden]=ans2hid>
+      <mat-checkbox [(ngModel)]="answer2temp" labelPosition="after"></mat-checkbox>
+      <mat-label>{{a2}}</mat-label>
+    </mat-list-item>
+    <mat-list-item [hidden]=ans3hid>
+      <mat-checkbox [(ngModel)]="answer3temp" labelPosition="after"></mat-checkbox>
+      <mat-label>{{a3}}</mat-label>
+    </mat-list-item>
+    <mat-list-item [hidden]=ans4hid>
+      <mat-checkbox [(ngModel)]="answer4temp" labelPosition="after"></mat-checkbox>
+      <mat-label>{{a4}}</mat-label>
+    </mat-list-item>
+    <div class="buttonSend" [hidden]=sendhid>
+      <button mat-raised-button color="primary" (click)="checkAnswers()">SEND</button>
+    </div>
+  </mat-list>
+
+
+</div>
 <!--
 Desarrollador
 Tester

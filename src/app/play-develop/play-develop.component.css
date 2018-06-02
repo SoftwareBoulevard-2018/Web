@@ -8,6 +8,8 @@
 .container {
   display: flex;
   justify-content: center;
+  margin: 5% auto 5% auto;
+  width: 300px;
 }
 
 .options > * {
@@ -17,6 +19,7 @@
 button {
   display: flex;
   justify-content: center;
-  background-color: #F60;
-  color: #0F0;
+  margin: 5% auto 5% auto;
+
+
 }
