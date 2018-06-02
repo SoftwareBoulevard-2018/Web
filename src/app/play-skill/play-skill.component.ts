@@ -313,9 +313,9 @@ export class PlaySkillComponent implements OnInit {
 
         for (var j = 0; j < certifications.length; ++j) {
 
-          if (certifications[j].level == this.user.competencyLevel + 1) {
+          if (certifications[j].level == this.user.competencyLevel + 1 && certifications[j].role == this.user.role) {
 
-            this.httpService.getQuestionsById(certifications[i].questions[this.questionnumber]).subscribe((question) => {
+            this.httpService.getQuestionsById(certifications[j].questions[this.questionnumber]).subscribe((question) => {
 
               this.setQuestion(question);
               this.qd = question.description;
