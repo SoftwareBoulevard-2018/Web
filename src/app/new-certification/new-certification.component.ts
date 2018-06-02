@@ -87,7 +87,6 @@ export class NewCertificationComponent implements OnInit {
 
   redirect2(event) {
     // Redirects to New Instant project project
-    this.question4 = [];
     this.certification = new creationCertification(this.service.certlevel, this.service.certrole, this.question4);
     this.createCertification(this.certification);
     if (this.service.user_type === "Game Administrator") {
