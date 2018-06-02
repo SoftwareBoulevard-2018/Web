@@ -83,6 +83,9 @@ export class HttpService {
     return this.http.post<User[]>(HttpService.apiURL + HttpService.usersURL + HttpService.usersURL3,
       JSON.stringify({ role1: role }), HttpService.httpOptions);
   }
+  getUsersByCompany(companyId){
+    return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL + '/company/' + companyId);
+  }
 
   // All services related to companies
   getAllCompanies() {
@@ -161,6 +164,10 @@ export class HttpService {
     return this.http.post<Record>(HttpService.apiURL + HttpService.recordsURL + HttpService.getCurrentCompanyURL,
       JSON.stringify({company: company , finishDate: finishDate}), HttpService.httpOptions);
   }
+  updateRecord(record, id: String){
+    return this.http.post<Record>(HttpService.apiURL + HttpService.recordsURL + '/update/' + id,
+      JSON.stringify(record), HttpService.httpOptions);
+  }
 
   //All services related to Puzzles
   getAllPuzzles() {
@@ -207,7 +214,7 @@ export class HttpService {
     return this.http.get<InstantProject[]>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProject/');
   }
   getInstantprojectById(id: string) {
-    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.companiesURL + '/' + id);
+    return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/' + id);
   }
   getInstantprojectByName(name: string) {
     return this.http.get<InstantProject>(HttpService.apiURL + HttpService.instantProjecstURL + '/getInstantProjectByName/' + name);
@@ -260,7 +267,7 @@ export class HttpService {
       JSON.stringify(ass), HttpService.httpOptions);
   }
   getAssignmentProjectById(id: string){
-    return this.http.get<Assignment>(HttpService.apiURL + HttpService.assignmentsURL+ '/' + id);
+    return this.http.get<Assignment[]>(HttpService.apiURL + HttpService.assignmentsURL+ '/' + id);
   }
   updateAssignment(id, ass: Assignment){
     return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
