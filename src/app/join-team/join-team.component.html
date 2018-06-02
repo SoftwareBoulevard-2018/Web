@@ -3,10 +3,18 @@
 <h2>Here are your invitations</h2>
 </mat-card>
 <!--Hay que poner bonito esto-->
+<div class="center2">
+<mat-list class="center">
+<mat-list-item >
+  <p>{{ company_pending_name }}</p>
 
-<p>{{ company_pending_name }}</p>
+  <img mat-list-avatar src="{{image}}"> <br>
+</mat-list-item>
 
-<img mat-list-avatar src="{{this.service.companies[0].image}}">
-<button mat-button color="primary" (click)="redirect1($event)">Accept</button>
-<button mat-button color="warn" (click)="redirect2($event)">Reject</button>
- 
+  <mat-list-item>
+  <button mat-button color="primary" (click)="redirect1($event)">Accept</button>
+  <button mat-button color="warn" (click)="redirect2($event)">Reject</button>
+  </mat-list-item>
+
+</mat-list>
+</div>
