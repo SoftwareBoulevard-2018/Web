@@ -20,17 +20,14 @@ export class EditQuestionComponent implements OnInit {
   levels = [1, 2, 3, 4, 5];
   veracities = [true, false];
   formdata;
-  invalid;
-  success;
-  invalid_name;
-  current_question;
+  invalid = false;
+  veracitynull = false;
 
   form() {
     // Defines the default state of the forms
     this.formdata = new FormGroup({
       description: new FormControl(''),
       category: new FormControl(''),
-      level: new FormControl(''),
       answer1: new FormControl(''),
       veracity1: new FormControl(''),
       answer2: new FormControl(''),
@@ -40,13 +37,11 @@ export class EditQuestionComponent implements OnInit {
       answer4: new FormControl(''),
       veracity4: new FormControl('')
     });
-    console.log(this.service.question_to_be_updated);
     this.getQuestionById(this.service.questionId);
   }
 
   getQuestionById(questionId) {
     return this.httpService.getQuestionsById(questionId).subscribe(data => {
-      console.log(data);
     });
   }
 
@@ -63,7 +58,48 @@ export class EditQuestionComponent implements OnInit {
   }
 
   onClickSubmit(data) {
-    if(!(data.description)){}
-
+    if (data.description === '' && data.category === '' && data.answer1 === '' && data.veracity1 === '' &&
+      data.answer2 === '' && data.veracity2 === '' && data.answer3 === '' && data.veracity3 === '' &&
+      data.answer4 === '' && data.veracity4 === '') {
+      this.invalid = true;
+      this.veracitynull = false;
+    }
+    else {
+      if (!(data.description === '')) {
+        this.service.question_to_be_updated.description = data.description;
+      }
+      if (!(data.category === '')) {
+        this.service.question_to_be_updated.role = data.category;
+      }
+      if (!(data.answer1 === '')) {
+        this.service.question_to_be_updated.answers[0].description = data.answer1;
+      }
+      if (!(data.veracity1 === '')) {
+        this.service.question_to_be_updated.answers[0].veracity = data.veracity1;
+      }
+      if (!(data.answer2 === '')) {
+        this.service.question_to_be_updated.answers[1].description = data.answer2;
+      }
+      if (!(data.veracity2 === '')) {
+        this.service.question_to_be_updated.answers[1].veracity = data.veracity2;
+      }
+      if (!(data.answer3 === '')) {
+        this.service.question_to_be_updated.answers[2].description = data.answer3;
+      }
+      if (!(data.veracity3 === '')) {
+        this.service.question_to_be_updated.answers[2].veracity = data.veracity3;
+      }
+      if (!(data.answer4 === '')) {
+        this.service.question_to_be_updated.answers[3].description = data.answer4;
+      }
+      if (!(data.veracity4 === '')) {
+        this.service.question_to_be_updated.answers[3].description = data.veracity4;
+      }
+      this.httpService.updateQuestionById(this.service.question_to_be_updated, this.service.questionId).subscribe(data => console.log(data));
+      
+      if (this.service.user_type === "Game Administrator") {
+        this.router.navigate(['home/set-up/update-question']);
+      }
+    }
   }
 }

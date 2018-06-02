@@ -246,6 +246,10 @@ export class HttpService {
   getQuestionsById(id: string){
     return this.http.get<Question>(HttpService.apiURL + HttpService.questionsURL + '/getQuestionById/' + id);
   }
+  updateQuestionById(question: Question, id: string){
+    return this.http.put<Question>(HttpService.apiURL + HttpService.questionsURL + '/updateQuestion/' + id,
+      JSON.stringify(question), HttpService.httpOptions);
+  }
 
   // All services related to assignment
   getAssignment(){

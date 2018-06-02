@@ -1,21 +1,21 @@
 <!-- Question update form -->
 <div class="wrap-login100 big-wrap">
-  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
     <br/>
     <span class="login100-form-title p-b-34">
       UPDATE QUESTION
     </span>
-	
-	<div class="element">
+
+    <div class="element">
       <mat-form-field class="big-input">
         <input matInput placeholder="{{ this.service.question_to_be_updated.description }}" name="description" formControlName="description">
         <mat-hint>Required Field</mat-hint>
       </mat-form-field>
     </div>
-	
-	<br/>
-	
-	<div class="element">
+
+    <br/>
+
+    <div class="element">
       <mat-form-field class="big-input">
         <mat-select placeholder="{{ this.service.question_to_be_updated.role }}" name="category" formControlName="category">
           <mat-option *ngFor="let category of categories" [value]="category">
@@ -25,12 +25,10 @@
         <mat-hint>Required Field</mat-hint>
       </mat-form-field>
     </div>
-	
-	<br/>
-	
-	<br/>
-	
-	<div class="w3-row-">
+
+    <br/>
+
+    <div class="w3-row-">
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="input">
@@ -42,20 +40,20 @@
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="small-input">
-				<mat-select placeholder="{{ this.service.question_to_be_updated.answers[0].veracity }}" name="veracity1" formControlName="veracity1">
-					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
-					  {{ veracity }}
-					</mat-option>
-				</mat-select>
+            <mat-select placeholder="{{ this.service.question_to_be_updated.answers[0].veracity }}" name="veracity1" formControlName="veracity1">
+              <mat-option *ngFor="let veracity of veracities" [value]="veracity">
+                {{ veracity }}
+              </mat-option>
+            </mat-select>
             <mat-hint>Required Field</mat-hint>
           </mat-form-field>
         </div>
       </div>
     </div>
-	
+
     <br/>
-	
-	<div class="w3-row-">
+
+    <div class="w3-row-">
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="input">
@@ -67,20 +65,16 @@
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="small-input">
-				<mat-select placeholder="{{ this.service.question_to_be_updated.answers[1].veracity }}" name="veracity2" formControlName="veracity2">
-					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
-					  {{ veracity }}
-					</mat-option>
-				</mat-select>
+            <mat-select placeholder="{{ this.service.question_to_be_updated.answers[1].veracity }}" name="veracity2" formControlName="veracity2">
+              <mat-option *ngFor="let veracity of veracities" [value]="veracity">
+                {{ veracity }}
+              </mat-option>
+            </mat-select>
             <mat-hint>Required Field</mat-hint>
           </mat-form-field>
         </div>
       </div>
-    </div>
-	
-    <br/>
-	
-	<div class="w3-row-">
+
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="input">
@@ -92,20 +86,20 @@
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="small-input">
-				<mat-select placeholder="{{ this.service.question_to_be_updated.answers[2].veracity }}" name="veracity3" formControlName="veracity3">
-					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
-					  {{ veracity }}
-					</mat-option>
-				</mat-select>
+            <mat-select placeholder="{{ this.service.question_to_be_updated.answers[2].veracity }}" name="veracity3" formControlName="veracity3">
+              <mat-option *ngFor="let veracity of veracities" [value]="veracity">
+                {{ veracity }}
+              </mat-option>
+            </mat-select>
             <mat-hint>Required Field</mat-hint>
           </mat-form-field>
         </div>
       </div>
     </div>
-	
+
     <br/>
-	
-	<div class="w3-row-">
+
+    <div class="w3-row-">
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="input">
@@ -117,25 +111,36 @@
       <div class="w3-half">
         <div class="element">
           <mat-form-field class="small-input">
-				<mat-select placeholder="{{ this.service.question_to_be_updated.answers[3].veracity }}" name="veracity4" formControlName="veracity4">
-					<mat-option *ngFor="let veracity of veracities" [value]="veracity">
-					  {{ veracity }}
-					</mat-option>
-				</mat-select>
+            <mat-select placeholder="{{ this.service.question_to_be_updated.answers[3].veracity }}" name="veracity4" formControlName="veracity4">
+              <mat-option *ngFor="let veracity of veracities" [value]="veracity">
+                {{ veracity }}
+              </mat-option>
+            </mat-select>
             <mat-hint>Required Field</mat-hint>
           </mat-form-field>
         </div>
       </div>
     </div>
-	
-    <br/>
 
     <br/>
-    <br/>
-	
-	<!-- Submit button -->
+
+    <div class="element" *ngIf="invalid">
+      <br/>
+      <span class="error">
+        You need to update at least a field
+      </span>
+    </div>
+
+    <div class="element" *ngIf="veracitynull">
+      <br/>
+      <span class="error">
+        The number of correct answers must be between one and three
+      </span>
+    </div>
+
+    <!-- Submit button -->
     <div class="element element2">
-      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+      <button mat-raised-button color="warn" type="submit" [disabled]="!formdata.valid" class="forsubmit">
         Create
       </button>
     </div>
