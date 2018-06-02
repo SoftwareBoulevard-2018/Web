@@ -74,6 +74,9 @@ import { UpdateAnalystQComponent } from './update-analyst-q/update-analyst-q.com
 import { UpdateDeveloperQComponent } from './update-developer-q/update-developer-q.component';
 import { UpdateTesterQComponent } from './update-tester-q/update-tester-q.component';
 import { NewCertificationComponent } from './new-certification/new-certification.component';
+import { CertificationListComponent } from './certification-list/certification-list.component';
+import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
+import { UpdateCertificationComponent } from './update-certification/update-certification.component';
 
 
 // App routes
@@ -122,7 +125,10 @@ const routes: Routes = [
   {'path': 'home/developingAttempts/developingAttempts', 'component': DevelopingAttemptsComponent},
   {'path': 'home/trainingAttempts/trainingAttempts', 'component': TrainingAttemptsComponent},
   {'path': 'home/set-up/create-certification', 'component': CreateCertificationComponent},
-  {'path': 'home/set-up/create-certification/new-certification', 'component': NewCertificationComponent}
+  {'path': 'home/set-up/create-certification/new-certification', 'component': NewCertificationComponent},
+  {'path': 'home/set-up/certification-list', 'component': CertificationListComponent},
+  {'path': 'home/set-up/puzzle-list', 'component': PuzzleListComponent},
+  {'path': 'home/set-up/puzzle-list/update-certification', 'component':  UpdateCertificationComponent }
 ];
 
 // NgModule variables
@@ -178,7 +184,10 @@ const routes: Routes = [
     UpdateAnalystQComponent,
     UpdateDeveloperQComponent,
     UpdateTesterQComponent,
-    NewCertificationComponent
+    NewCertificationComponent,
+    CertificationListComponent,
+    PuzzleListComponent,
+    UpdateCertificationComponent
   ],
   imports: [
     BrowserModule,

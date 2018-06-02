@@ -68,13 +68,12 @@
 
     </div>
   </div>
+  <div class="element-exit">
+    <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+      Exit
+    </button>
+  </div>
 </div>
-<div class="element-exit">
-  <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
-    Exit
-  </button>
-</div>
-
 <div class="announcement" *ngIf="(!(haveCompany()))">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">

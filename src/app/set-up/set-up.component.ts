@@ -45,7 +45,7 @@ export class SetUpComponent implements OnInit {
 
   redirect6(event) {
     if(this.service.user_type === "Game Administrator"){
-      this.router.navigate(['home/set-up/update-puzzle']);
+      this.router.navigate(['home/set-up/puzzle-list']);
     }
   }
 
@@ -60,6 +60,13 @@ export class SetUpComponent implements OnInit {
       this.router.navigate(['home/set-up/create-certification']);
     }
   }
+  
+  redirect9(event) {
+    if(this.service.user_type === "Game Administrator"){
+      this.router.navigate(['home/set-up/certification-list']);
+    }
+  }
+  
 
   ngOnInit() {
     if (this.service.user_type === undefined) {

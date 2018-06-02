@@ -187,6 +187,11 @@ export class HttpService {
     return this.http.post<creationPuzzle>(HttpService.apiURL + '/puzzles' + '/createPuzzle',
       JSON.stringify(puzzle), HttpService.httpOptions);
   }
+  
+  updatePuzzle(puzzle, id) {
+    return this.http.put<Object>(HttpService.apiURL + '/puzzles/updatePuzzle' + '/' + id,
+      JSON.stringify(puzzle), HttpService.httpOptions);
+  }
 
   //All services related to Estimation
   createEstimation(estimation: Estimation) {
@@ -249,6 +254,10 @@ export class HttpService {
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' + id,
       JSON.stringify(cert), HttpService.httpOptions);
   }
+  
+  getCertifications() {
+    return this.http.get<Certification[]>(HttpService.apiURL + HttpService.certificationURL + '/getCertifications/');
+  }
 
   // All services related to Questions
 
@@ -283,8 +292,9 @@ export class HttpService {
     return this.http.put<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/updateAssignment/' + id,
       JSON.stringify(ass), HttpService.httpOptions);
   }
-  deleteAssignment(id: string){
-    
+  
+  deleteAssignment(id){
+	  return this.http.delete<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/deleteAssignment/' + id);
   }
 
   // All services related to Invitations
