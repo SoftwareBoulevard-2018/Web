@@ -15,11 +15,12 @@ export class JoinTeamComponent implements OnInit {
   company_pending_name;
   idInvitation;
   invite;
+  image;
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   ngOnInit() {
     console.log(this.service.user_type);
-    
+
     this.httpService.getInvitationByUserAndState(this.service.user.id, "pending").subscribe(data => {
       this.invite = data[0]
       this.idInvitation = data[0]['_id']
@@ -29,6 +30,7 @@ export class JoinTeamComponent implements OnInit {
             cosa.forEach(cosita => {
             if(cosita['id'] == this.company_pending){
               this.company_pending_name = cosita['name']
+              this.image = cosita['image']
             }
           })
         })
@@ -39,7 +41,7 @@ export class JoinTeamComponent implements OnInit {
       this.router.navigate(['']);
     }
   }
-  
+
   print_data(data){
     console.log(data)
   }

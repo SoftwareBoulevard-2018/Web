@@ -11,6 +11,15 @@
   display: inline;
 }
 
+.center2{
+  display: flex;
+  justify-content: center;
+}
+.center{
+  display: flex ;
+  justify-content: center;
+  flex-direction: column;
+}
 .invitations > div > p {
   font-size: 1.1rem;
   color: #333333;
