@@ -233,7 +233,7 @@ export class HttpService {
       JSON.stringify(instantProject), HttpService.httpOptions);
   }
   updateInstantProject(instantProject, id) {
-    return this.http.put<Object>(HttpService.apiURL + HttpService.instantProjecstURL + '/' + id,
+    return this.http.put<Object>(HttpService.apiURL + HttpService.instantProjecstURL + '/updateInstantProject/:id' + id,
       JSON.stringify(instantProject), HttpService.httpOptions);
   }
   // All services related to Certification
@@ -248,6 +248,10 @@ export class HttpService {
   updateCertification(id, cert: Certification) {
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' + id,
       JSON.stringify(cert), HttpService.httpOptions);
+  }
+  
+  getCertifications() {
+    return this.http.get<Certification[]>(HttpService.apiURL + HttpService.certificationURL + '/getCertifications/');
   }
 
   // All services related to Questions

@@ -96,13 +96,11 @@ export class AnalystQComponent implements OnInit {
   }
 
   listQuestions(data) {
-    console.log(data);
     this.questions = [];
     for (const question of Object.values(data.data)) {
       if (question.role == 'Analyst') {
         this.questions.push(question);
         this.questions2.data = this.questions;
-        console.log(this.questions2);
       }
     }
   }

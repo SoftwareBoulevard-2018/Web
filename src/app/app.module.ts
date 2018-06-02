@@ -70,7 +70,12 @@ import { AnalystQComponent } from './analyst-q/analyst-q.component';
 import { DevelopQComponent } from './develop-q/develop-q.component';
 import { TesterQComponent } from './tester-q/tester-q.component';
 import { CreateCertificationComponent } from './create-certification/create-certification.component';
+import { UpdateAnalystQComponent } from './update-analyst-q/update-analyst-q.component';
+import { UpdateDeveloperQComponent } from './update-developer-q/update-developer-q.component';
+import { UpdateTesterQComponent } from './update-tester-q/update-tester-q.component';
 import { NewCertificationComponent } from './new-certification/new-certification.component';
+import { CertificationListComponent } from './certification-list/certification-list.component';
+import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
 
 
 // App routes
@@ -96,6 +101,9 @@ const routes: Routes = [
   {'path': 'home/set-up/create-project/new-bidding-project', 'component': NewBiddingProjectComponent},
   {'path': 'home/set-up/create-project/new-instant-project', 'component': NewInstantProjectComponent},
   {'path': 'home/set-up/update-project/update-instant-project', 'component': UpdateInstantProjectComponent},
+  {'path': 'home/set-up/update-project/update-analyst-questions', 'component': UpdateAnalystQComponent},
+  {'path': 'home/set-up/update-project/update-developer-questions', 'component': UpdateDeveloperQComponent},
+  {'path': 'home/set-up/update-project/update-tester-questions', 'component': UpdateTesterQComponent},
   {'path': 'home/set-up/update-project/update-bidding-project', 'component': UpdateBiddingProjectComponent},
   {'path': 'home/set-up/create-project/analyst-questions', 'component': AnalystQComponent},
   {'path': 'home/set-up/create-project/developer-questions', 'component': DevelopQComponent},
@@ -116,7 +124,9 @@ const routes: Routes = [
   {'path': 'home/developingAttempts/developingAttempts', 'component': DevelopingAttemptsComponent},
   {'path': 'home/trainingAttempts/trainingAttempts', 'component': TrainingAttemptsComponent},
   {'path': 'home/set-up/create-certification', 'component': CreateCertificationComponent},
-  {'path': 'home/set-up/create-certification/new-certification', 'component': NewCertificationComponent}
+  {'path': 'home/set-up/create-certification/new-certification', 'component': NewCertificationComponent},
+  {'path': 'home/set-up/certification-list', 'component': CertificationListComponent},
+  {'path': 'home/set-up/puzzle-list', 'component': PuzzleListComponent}
 ];
 
 // NgModule variables
@@ -169,7 +179,12 @@ const routes: Routes = [
     DevelopQComponent,
     TesterQComponent,
     CreateCertificationComponent,
-    NewCertificationComponent
+    UpdateAnalystQComponent,
+    UpdateDeveloperQComponent,
+    UpdateTesterQComponent,
+    NewCertificationComponent,
+    CertificationListComponent,
+    PuzzleListComponent
   ],
   imports: [
     BrowserModule,

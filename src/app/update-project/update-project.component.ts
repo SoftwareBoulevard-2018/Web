@@ -21,7 +21,7 @@ export class UpdateProjectComponent implements OnInit {
   project2: MatTableDataSource<BiddingProject>;
   project3: MatTableDataSource<InstantProject>;
 
-  table_titles = ["id", "name", "update"];
+  table_titles = ["name", "update"];
 
   ngOnInit() {
     // When the component is created, it defines the variables to create the material table
@@ -33,7 +33,7 @@ export class UpdateProjectComponent implements OnInit {
     } else {
       this.project2 = new MatTableDataSource(this.projects);
       this.getAllBiddingProjects();
-      this.project3 = new MatTableDataSource(this.projects2);
+      this.project3 = new MatTableDataSource(this.projects);
       this.getAllInstantProjects();
     }
   }
@@ -47,15 +47,29 @@ export class UpdateProjectComponent implements OnInit {
     this.projects = [];
     data = JSON.parse(JSON.stringify(data)).data
     for (let biddingProject of data) {
-      this.projects.push({ id: biddingProject.id, name: biddingProject.name});
+      this.projects.push(biddingProject);
     }
-    this.project3.data = this.projects;
-    console.log(this.project3);
+    this.project2.data = this.projects;
+    this.project2 = new MatTableDataSource<BiddingProject>(this.project2.data);
+    console.log(this.project2);
     console.log(data);
   }
 
   getAllInstantProjects(){
+    return this.httpService.getAllInstantProjects().subscribe(data => 
+      this.listInstantProjects(data));
+  }
 
+  listInstantProjects(data){
+    this.projects = [];
+    data = JSON.parse(JSON.stringify(data)).data
+    for (let instantProject of data) {
+      this.projects.push(instantProject);
+    }
+    this.project3.data = this.projects;
+    this.project3 = new MatTableDataSource<InstantProject>(this.project3.data);
+    console.log(this.project3);
+    console.log(data);
   }
 
   applyFilter(filterValue: string) {
@@ -90,13 +104,12 @@ export class UpdateProjectComponent implements OnInit {
 
   redirect(event, element) {
 	// Redirects to update bidding project and sends the necessary variables
-    this.service.project_to_be_updated = this.search_project(element.project_name);
+    this.service.project_to_be_updated = element;
     this.router.navigate(['home/set-up/update-project/update-bidding-project']);
   }
 
   redirect2(event, element) {
-	// Redirects to update instant project and sends the necessary variables
-    this.service.project_to_be_updated = this.search_project2(element.project_name);
+    this.service.project_to_be_updated = element;
     this.router.navigate(['home/set-up/update-project/update-instant-project']);
   }
 
