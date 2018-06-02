@@ -249,6 +249,10 @@ export class HttpService {
     return this.http.put<Certification>(HttpService.apiURL + HttpService.certificationURL + '/updateCertification/' + id,
       JSON.stringify(cert), HttpService.httpOptions);
   }
+  
+  getCertifications() {
+    return this.http.get<Certification[]>(HttpService.apiURL + HttpService.certificationURL + '/getCertifications/');
+  }
 
   // All services related to Questions
 

@@ -40,6 +40,8 @@ export class GeneralServiceService {
   //varibles to create certifiaction
   certrole;
   certlevel;
+  
+  certification_to_be_updated;
 
   // Variables used as dummy database for the mocked frontend
 
