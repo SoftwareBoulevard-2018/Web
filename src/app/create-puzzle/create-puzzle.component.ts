@@ -16,6 +16,7 @@ export class CreatePuzzleComponent implements OnInit {
   formdata;
   puzzle;
   filename;
+  success;
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router){}
 
   form(){
@@ -35,6 +36,7 @@ export class CreatePuzzleComponent implements OnInit {
 	  this.puzzle = new creationPuzzle(data.resources, this.url, this.filename);
 	  this.createPuzzle(this.puzzle);
 	  this.form();
+	  this.success = true;
   } 
   
 

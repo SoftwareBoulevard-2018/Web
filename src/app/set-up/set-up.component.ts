@@ -57,7 +57,7 @@ export class SetUpComponent implements OnInit {
   
   redirect8(event) {
     if(this.service.user_type === "Game Administrator"){
-      this.router.navigate(['home/set-up/create-certtification']);
+      this.router.navigate(['home/set-up/create-certification']);
     }
   }
 
