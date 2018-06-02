@@ -1,14 +1,9 @@
 export class Assignment {
-
-    projectId: string;
-    questionId: string;
     project: string;
     question: string;
     state: string;
 
-    constructor(projectId?: string, questionId?: string, project?: string, question?: string){
-        this.projectId = projectId;
-        this.questionId = questionId;
+    constructor(project?: string, question?: string){
         this.project = project;
         this.question = question;
         this.state ="Unassigned";

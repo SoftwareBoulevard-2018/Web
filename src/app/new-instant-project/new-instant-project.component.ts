@@ -65,10 +65,6 @@ export class NewInstantProjectComponent implements OnInit {
     }
   }
 
-  createInstantProject(project){
-    return this.httpService.createInstantProject(project).subscribe(data => console.log(data));
-  }
-
   onClickSubmit(formdata) {
     if (typeof formdata.kunit === 'string' || typeof formdata.analystQ === 'string' || typeof formdata.developerQ === 'string' || typeof formdata.testerQ === 'string'){
       this.letra = true;
@@ -81,12 +77,9 @@ export class NewInstantProjectComponent implements OnInit {
       this.service.numAna = formdata.analystQ;
       this.service.numDev = formdata.developerQ;
       this.service.numTester = formdata.testerQ;
-      this.createInstantProject(this.service.project);
-      console.log(this.service.projects);
       this.form();
       this.negativo = false;
       this.letra = false;
-	  this.service.project_to_assignate = this.service.project;
       if(this.service.user_type === "Game Administrator"){
         this.router.navigate(['home/set-up/create-project/analyst-questions']);
       }
