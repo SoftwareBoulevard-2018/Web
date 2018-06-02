@@ -57,6 +57,7 @@ export class HttpService {
   static assignmentsURL = '/assignments';
   static questionsURL = '/questions';
   static invitationsURL='/invitations';
+  static gameAdministratorURL = '/gameAdministrator';
   // All services related to Users
   getAllUsers() {
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL);
@@ -86,6 +87,7 @@ export class HttpService {
   getUsersByCompany(companyId){
     return this.http.get<User[]>(HttpService.apiURL + HttpService.usersURL + '/company/' + companyId);
   }
+
 
   // All services related to companies
   getAllCompanies() {

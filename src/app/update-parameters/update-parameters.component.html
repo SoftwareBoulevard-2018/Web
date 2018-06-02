@@ -1,22 +1,38 @@
 <!-- parameters update form -->
 <div class="wrap-login100 big-wrap">
-  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+  <form class="login100-form" [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
     <span class="login100-form-title p-b-34 p-t-27 non_mayus">
       UPDATE PARAMETER
     </span>
 
     <div class="element">
       <mat-form-field class="big-input">
-        <input matInput placeholder="Threshold - {{ this.service.parameter_to_be_updated.threshold }}" name="threshold" formControlName="threshold">
+        <input matInput type="number" step='0.01' placeholder="threshold - {{ this.user_to_be_updated.threshold }}" formControlName="threshold"
+          min="0.01" max="0.99">
+        <mat-hint>Required Field</mat-hint>
       </mat-form-field>
     </div>
-	
-	<!-- Messages if validations fail -->
+
+    <!-- Messages if validations fail -->
 
     <div class="element" *ngIf="repeated_field">
       <br/>
       <span class="error">
-        You are trying to update something with its same current value.
+        You are trying to update threshold with its same current value.
+      </span>
+    </div>
+
+    <div class="element" *ngIf="range">
+      <br/>
+      <span class="error">
+        Threshold should be between 0.01 and 0.99
+      </span>
+    </div>
+
+    <div class="element" *ngIf="totally_empty">
+      <br/>
+      <span class="error">
+        You are trying to update threshold with its same current value.
       </span>
     </div>
 
@@ -30,9 +46,9 @@
     <br/>
     <br/>
 
-	<!-- Submit button -->
+    <!-- Submit button -->
     <div class="element element2">
-      <button mat-raised-button color="warn" type="submit" [disabled] = "!formdata.valid" class="forsubmit">
+      <button mat-raised-button color="warn" type="submit" [disabled]="!formdata.valid" class="forsubmit">
         Update
       </button>
     </div>

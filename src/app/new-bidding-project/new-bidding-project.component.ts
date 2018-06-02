@@ -98,6 +98,7 @@ export class NewBiddingProjectComponent implements OnInit {
       this.service.numAna = data.analystQ;
       this.service.numDev = data.developerQ;
       this.service.numTester = data.testerQ;
+      this.httpService.createBiddingProject(this.service.project).subscribe();
       this.form();
       this.negativo = false;
       if(this.service.user_type === "Game Administrator"){
