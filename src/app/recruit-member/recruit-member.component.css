@@ -6,6 +6,15 @@
   width: 90%;
   margin: auto;
 }
+h1{
+  margin: 2% auto 1% 0 ;
+  color: #00585E;
+  font-weight: bold;
+  text-align: center;
+}
+.element-exit{
+  text-align: center;
+}
 .w3-container {
   text-align: center;
 }
@@ -61,4 +70,8 @@ h1{
 }
 .mat-icon{
   cursor: pointer;
+}
+.announcement {
+  text-align: center;
+  color: red;
 }
