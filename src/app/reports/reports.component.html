@@ -9,7 +9,7 @@
         </mat-form-field>
       </div>
 
-      <mat-table #table [dataSource]="companies_by_resources2" matSort> <!--matSortActive="capacity_k" matSortDirection="desc">
+      <mat-table #table [dataSource]="companies_by_resources2" matSort matSortActive="resources" matSortDirection="desc">
 
        <!-- Logo Column -->
         <ng-container matColumnDef="image">
@@ -69,7 +69,7 @@
         </mat-form-field>
       </div>
 
-      <mat-table #table [dataSource]="companies_by_capacityK2" matSort> <!--matSortActive="capacity_k" matSortDirection="desc">
+      <mat-table #table #sort1="matSort" [dataSource]="companies_by_capacityK2" matSort matSortActive="capacity_k" matSortDirection="desc">
 
        <!-- Logo Column -->
         <ng-container matColumnDef="image">
@@ -97,7 +97,7 @@
         <!-- Capacity K Column -->
         <ng-container matColumnDef="capacity_k">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity K </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.capacityK}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.capacity_k}} </mat-cell>
         </ng-container>
 
         <!-- Status Column -->
@@ -131,7 +131,7 @@
         </mat-form-field>
       </div>
 
-      <mat-table #table [dataSource]="users_by_efficiency2" matSort>
+      <mat-table #table #sort2="matSort" [dataSource]="users_by_efficiency2" matSort matSortActive="efficiency" matSortDirection="desc">
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
@@ -180,6 +180,71 @@
         <!-- Table rows -->
         <mat-header-row *matHeaderRowDef="table_titles_users_by_efficiency"></mat-header-row>
         <mat-row *matRowDef="let row; columns: table_titles_users_by_efficiency;"></mat-row>
+      </mat-table>
+      <!--<mat-paginator #paginator
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     [showFirstLastButtons]="true">
+      </mat-paginator>-->
+    </div>
+
+  </mat-tab>
+  <!--------------------------------------------Tab Companies to Tab Users--------------------------------------------->
+
+  <mat-tab label="Project Managers by efficiency">
+    <!-- Users table -->
+    <div class="containerCompany mat-elevation-z8">
+
+      <!-- Filter -->
+      <div class="header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilterCompany($event.target.value, PM_by_efficiency2)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <mat-table #table #sort3="matSort" [dataSource]="PM_by_efficiency2" matSort matSortActive="efficiency" matSortDirection="desc">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Username Column -->
+        <ng-container matColumnDef="username">
+          <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+        </ng-container>
+
+        <!-- Correct Answers Column -->
+        <ng-container matColumnDef="correct">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Correct estimations </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.correct }}</mat-cell>
+        </ng-container>
+
+        <!-- Wrong Answers Column -->
+        <ng-container matColumnDef="wrong">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Wrong estimations </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.wrong }}</mat-cell>
+        </ng-container>
+
+        <!-- Efficiency Column -->
+        <ng-container matColumnDef="efficiency">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Efficiency </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.efficiency.toFixed(2) }} %</mat-cell>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-icon mat-list-icon (click)="redirect($event,element)">remove_red_eye</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Table rows -->
+        <mat-header-row *matHeaderRowDef="table_titles_PM_by_efficiency"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: table_titles_PM_by_efficiency;"></mat-row>
       </mat-table>
       <!--<mat-paginator #paginator
                      [pageSize]="10"

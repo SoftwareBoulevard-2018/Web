@@ -1,12 +1,12 @@
 export class Record {
-  startDate: Date;
+  createdAt: number;
   finishDate: Date;
   company: string;
   project: string;
 
 
-  constructor(startDate: Date, finishDate: Date, company: string, project: string) {
-    this.startDate = startDate;
+  constructor(createdAt: number, finishDate: Date, company: string, project: string) {
+    this.createdAt = createdAt;
     this.finishDate = finishDate;
     this.company = company;
     this.project = project;

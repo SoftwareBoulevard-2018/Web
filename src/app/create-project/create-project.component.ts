@@ -35,6 +35,9 @@ export class CreateProjectComponent implements OnInit {
     if (this.service.user_type === undefined) {
       this.router.navigate([''])
     }
+    this.service.developerQ = [];
+    this.service.analystQ = [];
+    this.service.testerQ = [];
   }
 
 }

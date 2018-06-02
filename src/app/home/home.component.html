@@ -102,7 +102,7 @@
     <!-- Player menu -->
     <div class="w3-row"  *ngIf="this.service.user_type === 'Team Member'; else project_manager_view">
 
-      <div class="w3-quarter">
+      <div class="w3-third">
         <div class="w3-card-4" (click)="redirect1($event)">
 
           <img src="https://image.freepik.com/free-icon/male-user-silhouette_318-35708.jpg" alt="Person">
@@ -123,7 +123,7 @@
         </div>
       </div>
 
-      <div class="w3-quarter">
+      <div class="w3-third">
         <div class="w3-card-4" (click)="redirect2($event)">
 
           <img src="https://image.freepik.com/free-vector/technology-company-logo-template_1061-20.jpg" alt="Person">
@@ -144,7 +144,7 @@
         </div>
       </div>
 
-      <div class="w3-quarter">
+      <div class="w3-third" *ngIf="!(this.service.user.companyId===null);else without_team">
         <div class="w3-card-4" (click)="redirect3($event)">
 
           <img src="https://image.freepik.com/iconos-gratis/pacman_318-41063.jpg" alt="Person">
@@ -165,7 +165,8 @@
         </div>
       </div>
 
-      <div class="w3-quarter">
+      <ng-template #without_team>
+      <div class="w3-third">
         <div class="w3-card-4" (click)="redirect4($event)">
 
           <img src="https://image.freepik.com/free-icon/multiple-users-silhouette_318-49546.jpg" alt="Person">
@@ -184,7 +185,7 @@
           </div>
         </div>
       </div>
-
+      </ng-template>
     </div>
 
     <ng-template #project_manager_view>

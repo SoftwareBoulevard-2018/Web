@@ -3,6 +3,11 @@ import { GeneralServiceService } from '../general-service.service';
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Company} from '../shared/company';
+import {HttpService} from "../http.service";
+import { User } from '../shared/user';
+import {MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
+import {invitations} from "../shared/invitations";
+
 
 @Component({
   selector: 'app-recruit-member',
@@ -11,109 +16,130 @@ import {Company} from '../shared/company';
 })
 export class RecruitMemberComponent implements OnInit {
   formdata;
-  project_managers;
   invalid = false;
   success = false;
+  load_complete = false;
   user;
-  aux;
-  sumary;
+  users2: MatTableDataSource<User>;
+  users = [];
+  auxiliar;
+  invalid_name = false;
+  newinvitation;
+  state="pending";
+  xx=0;
 
-  constructor(public service: GeneralServiceService, public router: Router) { }
-  // method for the correct function of the button
-  form() {
-    this.formdata = new FormGroup({
-      name: new FormControl('',
-        Validators.compose([
-          Validators.required
-        ])),
-      img: new FormControl(''),
-      project_manager: new FormControl('')
+  table_titles = [ 'name', 'username', 'role', 'company', 'invite'];
+
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
+  // main operation
+  ngOnInit() {
+    // Transforms the data to the necessary format to be read by material tables
+    if (this.service.user_type === undefined) {
+      this.router.navigate(['']);
+    } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Game Administrator') {
+      this.router.navigate(['restricted']);
+    } else {
+      this.users2 = new MatTableDataSource(this.users);
+      this.getAllUsers();
+
+    }
+  }
+
+  //check if you have company
+  haveCompany() {
+    if (this.service.user.companyId === null){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  //function that brings all the users of the database
+  getAllUsers() {
+    return this.httpService.getAllUsers().subscribe(data => {
+      this.listUser(data);
+      this.load_complete = true;
     });
   }
-  // this method fill the list of the possible members of a team. The method verify that you can only invite people without a team
-  possible_members(){
-    // list of people that don't have team
-    this.project_managers = []
-    for (let user of this.service.users){
-      // the verification that you can only invite with the team member role (analyst, tester, developer)
-      if (user.company_name === undefined && (user.role!="Project Manager") && (user.role!= "Game Administrator")){
-        this.project_managers.push(user);
-        for(let company of this.service.companies){
-          if(!(company.project_manager === undefined) && company.project_manager.username === user.username){
-            this.project_managers.pop();
-            break;
-          }
-        }
-      }
-    }
-  }
-  getCompany(username) {
-    for (const user of this.service.users) {
-      if (username === user.username) {
-        for (const company of this.service.companies) {
-          if (user.company_name === company.name) {
-            return company;
-          }
-        }
-      }
-    }
-  }
+
+  // functionality of the exit button
   redirectToFunctions(event) {
     this.router.navigate(['home/users/projectmanager/functions']);
   }
-  // the method of the button
+
+  //function that searches for a company id and brings it from the database
+  getCompanyById(companyId, user) {
+    return this.httpService.getCompanyById(companyId).subscribe(data => {
+      user.companyName = data.name;
+      user.hide_password = true;
+      if(user.companyName===undefined && user.role!=='Game Administrator' && user.role!=='Project Manager') {
+        this.users.push({
+          id: user.id, createdAt: user.createdAt,
+          name: user.name, username: user.username,
+          password: user.password, role: user.role, companyName: user.companyName,
+          hide_password: true
+        });
+        this.users2.data = this.users;
+      }
+    }, error => {
+      if(user.companyName===undefined && user.role!=='Game Administrator' && user.role!=='Project Manager') {
+      user.companyName = undefined;
+      user.hide_password = true;
+
+
+        this.users.push({
+          id: user.id,
+          name: user.name, username: user.username,
+          role: user.role, companyName: user.companyName,
+          hide_password: true
+        });
+        this.users2.data = this.users;
+      }
+    });
+  }
+
+  //Stores the users in a list
+  listUser(data) {
+    this.users = [];
+    for (const value of Object.values(data.data)) {
+      this.getCompanyById(value.companyId, value);
+    }
+  }
+
+  //filter functionality
+  applyFilter(filterValue: string) {
+    // Function necessary by the table filter
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.users2.filter = filterValue;
+  }
+
+  //send invitation to the selected users
+  getInvitation(formdata){
+    return this.httpService.getinvitationsByUserAndCompany(formdata.id, this.service.user.companyId).subscribe(data => {
+
+        this.auxiliar = false;
+
+      },
+      error => {
+        this.auxiliar = true;
+        this.xx=this.xx+1;
+
+        this.newinvitation= new invitations(formdata.id, this.service.user.companyId, this.state );
+
+        this.createinvitation(this.newinvitation);
+        alert("Invitation has been sent correctly!");
+      });
+
+  }
+
+  //create the invitation on the database
+  createinvitation(inv) {
+    return this.httpService.createinvitations(inv).subscribe(data => {},error => {});
+  }
+
+  //Validates the data input on the form and if it's correct then creates the user
   onClickSubmit(data) {
-  if (data.project_manager !== this.service.username) {
-    // summary is an accumulator and aux is the variable that contains who invites and who receives the invitation
-    this.sumary = 0;
-    this.aux = this.service.username.concat("-");
-    this.aux = this.aux.concat(data.project_manager);
-    // if is the first invitation of de DB it is automatically saved in the array of invitations (this.service.invitations)
-    if (this.service.invitations.length === 0 ) {
-      this.service.invitations.push( this.aux);
-      console.log(this.service.invitations);
-      this.success = true;
-      this.invalid = false;
-    }
-    // if you already invite that person you will receive an error
-    else{
-      for (let inv of this.service.invitations){
-        this.sumary = this.sumary + 1;
-        if (this.aux === inv) {
-          this.invalid = true;
-          this.success = false;
-          break;
-        }
-        // if is the first time that you invite that person the invitation is sent
-        else if (this.aux !== inv && this.sumary === this.service.invitations.length ){
-          this.service.invitations.push( this.aux);
-          console.log(this.service.invitations);
-          this.success = true;
-          this.invalid = false;
-          break;
-        }
-    }
-    }
+    this.getInvitation(data);
   }
-  else{
-    this.success = false;
-    this.invalid = true;
-  }
-  }
-  // The verification of the roles, because the PM is the only person that can invite people
-  ngOnInit() {
-    if (this.service.user_type === undefined) {
-      this.router.navigate([''])
-    }
-
-    else if (this.service.user_type === "Team Member" || this.service.user_type === "Game Administrator") {
-      this.router.navigate(['restricted'])
-    }
-    else {
-      this.possible_members();
-      this.form();
-    }
-  }
-
-
 }

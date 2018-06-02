@@ -42,3 +42,5 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+src/app/tester-q/tester-q.component.ts
+src/app/create-question/create-question.component.css

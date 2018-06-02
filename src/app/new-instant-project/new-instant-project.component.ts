@@ -6,6 +6,7 @@ import { User } from "../shared/user";
 import { InstantProject } from "../shared/instantProject";
 import { BiddingProject } from "../shared/biddingProject";
 import { MatSelect } from "@angular/material";
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-new-instant-project',
@@ -40,27 +41,14 @@ export class NewInstantProjectComponent implements OnInit {
     });
   }
 
-  new_projectname(username){
-	 // Defines if the project name has already been taken
-    for(let project of this.service.projects2){
-      if(name === project.project_name){
-        return false;
-      }
-    }
-    return true;
-  }
-
-  constructor(public service: GeneralServiceService, public router: Router) { }
+  constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   // These variables are used to create the forms and validate the data input on them
   formdata;
-  invalid = false;
-  invalid_name = false;
-  success = false;
-  flawed_name = false;
-  hide = true;
   project;
-  auxiliar;
+  letra = false;
+  negativo = false;
+
 
   ngOnInit() {
 	// Checks User permissions and establishes the form in the default state
@@ -77,36 +65,27 @@ export class NewInstantProjectComponent implements OnInit {
     }
   }
 
-  onClickSubmit(data) {
-	// Validates the data input on the form and if it's correct then creates the project
-    this.auxiliar = this.new_projectname(data.name);
-    if (!(/^[a-zA-Z ]+$/.test(data.name))) {
-      this.invalid_name = true;
-      this.invalid = false;
-      this.success = false;
-      this.flawed_name = false;
+  onClickSubmit(formdata) {
+    if (typeof formdata.kunit === 'string' || typeof formdata.analystQ === 'string' || typeof formdata.developerQ === 'string' || typeof formdata.testerQ === 'string'){
+      this.letra = true;
     }
-    else if (data.kunit >= 1 && this.auxiliar) {
-      this.project = new InstantProject(Object.keys(this.service.projects2).length ,data.name, data.kunit, data.testerQ, data.analystQ, data.developerQ);
-      this.service.projects2.push(this.project);
-      console.log(this.service.projects);
+    else if (formdata.kunit <= 0 || formdata.analystQ <= 0 || formdata.developerQ <= 0 || formdata.testerQ <= 0){
+      this.negativo = true;
+    }
+    else {
+      this.service.project = new InstantProject(formdata.name, formdata.kunit, formdata.testerQ, formdata.analystQ, formdata.developerQ);
+      this.service.numAna = formdata.analystQ;
+      this.service.numDev = formdata.developerQ;
+      this.service.numTester = formdata.testerQ;
+      this.httpService.createInstantProject(this.service.project).subscribe();
       this.form();
-      this.invalid_name = false;
-      this.invalid = false;
-      this.success = true;
-      this.flawed_name = false;
-    }
-    else if(!(this.auxiliar)){
-      this.invalid_name = false;
-      this.invalid = false;
-      this.success = false;
-      this.flawed_name = true;
-    }
-    else{
-      this.invalid_name = false;
-      this.invalid = true;
-      this.success = false;
-      this.flawed_name = false;
+      this.negativo = false;
+      this.letra = false;
+      if(this.service.user_type === "Game Administrator"){
+        this.router.navigate(['home/set-up/create-project/analyst-questions']);
+      }
     }
   }
 }
+
+ 

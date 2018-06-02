@@ -9,7 +9,7 @@ import { GeneralServiceService } from './general-service.service';
 import { HttpService } from './http.service';
 
 // Angular imports
-import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatCardModule, MatCheckboxModule } from '@angular/material';
 import { MatIconModule, MatButtonModule, MatSidenavModule, MatRadioModule } from '@angular/material';
 import { MatSelectModule, MatListModule, MatExpansionModule } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
@@ -66,6 +66,10 @@ import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { GenerateresourcesComponent } from './generateresources/generateresources.component';
 import { DevelopingAttemptsComponent } from './developingAttempts/developingAttempts.component';
 import { TrainingAttemptsComponent } from './trainingAttempts/trainingAttempts.component';
+import { AnalystQComponent } from './analyst-q/analyst-q.component';
+import { DevelopQComponent } from './develop-q/develop-q.component';
+import { TesterQComponent } from './tester-q/tester-q.component';
+import { CreateCertificationComponent } from './create-certification/create-certification.component';
 
 // App routes
 const routes: Routes = [
@@ -91,6 +95,9 @@ const routes: Routes = [
   {'path': 'home/set-up/create-project/new-instant-project', 'component': NewInstantProjectComponent},
   {'path': 'home/set-up/update-project/update-instant-project', 'component': UpdateInstantProjectComponent},
   {'path': 'home/set-up/update-project/update-bidding-project', 'component': UpdateBiddingProjectComponent},
+  {'path': 'home/set-up/create-project/analyst-questions', 'component': AnalystQComponent},
+  {'path': 'home/set-up/create-project/developer-questions', 'component': DevelopQComponent},
+  {'path': 'home/set-up/create-project/tester-questions', 'component': TesterQComponent},
   {'path': 'restricted', 'component': RestrictedComponent},
   {'path': 'home/users/projectmanager', 'component': PmanagerComponent},
   {'path': 'home/users/projectmanager/functions', 'component': PmfunctionsComponent},
@@ -105,7 +112,8 @@ const routes: Routes = [
   {'path': 'home/set-up/update-question', 'component': UpdateQuestionComponent},
   {'path': 'home/set-up/update-question/edit-question', 'component': EditQuestionComponent},
   {'path': 'home/developingAttempts/developingAttempts', 'component': DevelopingAttemptsComponent},
-  {'path': 'home/trainingAttempts/trainingAttempts', 'component': TrainingAttemptsComponent}
+  {'path': 'home/trainingAttempts/trainingAttempts', 'component': TrainingAttemptsComponent},
+  {'path': 'home/set-up/create-certtification', 'component': CreateCertificationComponent}
 ];
 
 // NgModule variables
@@ -153,7 +161,11 @@ const routes: Routes = [
     EditQuestionComponent,
     GenerateresourcesComponent,
     DevelopingAttemptsComponent,
-    TrainingAttemptsComponent
+    TrainingAttemptsComponent,
+    AnalystQComponent,
+    DevelopQComponent,
+    TesterQComponent,
+    CreateCertificationComponent
   ],
   imports: [
     BrowserModule,
@@ -179,6 +191,7 @@ const routes: Routes = [
     HttpClientModule,
     NgSelectModule,
     StorageServiceModule,
+    MatCheckboxModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -201,7 +214,8 @@ const routes: Routes = [
     MatRadioModule,
     HttpClientModule,
     StorageServiceModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCheckboxModule
   ],
   providers: [GeneralServiceService, HttpService],
   bootstrap: [AppComponent]

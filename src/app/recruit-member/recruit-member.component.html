@@ -1,58 +1,87 @@
-<div class="wrap-login100 big-wrap" *ngIf="getCompany(this.service.username)!== undefined">
-  <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+<div class="todoready" *ngIf="(this.load_complete && haveCompany())">
+  <div class="marco">
     <span class="login100-form-title p-b-34 p-t-27">
-      Invite People
+      <h1>Invite team members</h1>
     </span>
 
+    <!-- Users table -->
+    <div class="container mat-elevation-z8">
 
-    <!-- the list element that will show you the username and the name of the person that you can invite -->
-    <div class="element">
-      <mat-form-field class="big-input">
-        <mat-select placeholder="Select a user without a team" name="project_manager" formControlName="project_manager">
-          <mat-option *ngFor="let user of project_managers" [value]="user.username">
-            {{ user.username }} - {{ user.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <!-- if the event is invalid you will receive a error message -->
-    <div class="element" *ngIf="invalid">
-      <br/>
-      <span class="error">
-        Error! You already invited that person!
-      </span>
-    </div>
+      <!-- Filter -->
+      <div class="header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
 
-    <!-- if the event is success you will receive a error message -->
-    <div class="element" *ngIf="success">
-      <br/>
-      <span class="success">
-        Invitation sent
-      </span>
-    </div>
+      <mat-table #table [dataSource]="users2">
 
-    <br/>
-    <br/>
-    <!-- the button for send the invitation -->
-    <div class="element element2">
-      <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
-        Exit
-      </button>
-      <button mat-raised-button color="warn" type="submit" class="forsubmit">
-        Send invitation
-      </button>
-    </div>
 
-  </form>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Username Column -->
+        <ng-container matColumnDef="username">
+          <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+        </ng-container>
+
+
+        <!-- Role Column -->
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+        </ng-container>
+
+        <!-- Company Column -->
+        <ng-container matColumnDef="company">
+          <mat-header-cell *matHeaderCellDef> Company </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <p *ngIf="!(element.companyName === undefined); else pending_company">
+              {{element.companyName}}
+            </p>
+            <ng-template #pending_company>
+              <p class="pending">
+                Pending
+              </p>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Update Column -->
+        <ng-container matColumnDef="invite">
+          <mat-header-cell *matHeaderCellDef> Invite </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-raised-button type="create" (click)="onClickSubmit(element)">
+              Send Invitation
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Table rows -->
+        <mat-header-row *matHeaderRowDef="table_titles"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: table_titles;"></mat-row>
+      </mat-table>
+
+    </div>
+  </div>
+</div>
+<div class="element-exit">
+  <button mat-raised-button type="submit" (click)="redirectToFunctions($event)">
+    Exit
+  </button>
 </div>
 
-<div class="announcement" *ngIf="getCompany(this.service.username)=== undefined">
+<div class="announcement" *ngIf="(!(haveCompany()))">
   <div class="wrap-login100 big-wrap">
     <span class="login100-form-title p-b-34 p-t-27">
-      Invite People
+      <h1>Invite team members</h1>
     </span>
-    <form class="login100-form" [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
-      You do not have a company assigned so you can not choose a project. You must ask the game administrator to assign one to you
+    <form class="login100-form">
+      You do not have a company assigned so you can not invite people. You must ask the game administrator to assign one to you
 
       <br>
       <br>
@@ -65,3 +94,7 @@
     </form>
   </div>
 </div>
+
+
+
+
