@@ -276,8 +276,6 @@ export class HttpService {
       JSON.stringify(ass), HttpService.httpOptions);
   }
 
-  getAssignmentProjectById(id: string) {
-    return this.http.get<Assignment>(HttpService.apiURL + HttpService.assignmentsURL + '/' + id);
   getAssignmentProjectById(id: string){
     return this.http.get<Assignment[]>(HttpService.apiURL + HttpService.assignmentsURL+ '/' + id);
   }
