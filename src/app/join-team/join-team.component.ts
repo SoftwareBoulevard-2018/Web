@@ -15,6 +15,7 @@ export class JoinTeamComponent implements OnInit {
   company_pending_name;
   idInvitation;
   invite;
+  image;
   constructor(public httpService: HttpService, public service: GeneralServiceService, public router: Router) { }
 
   ngOnInit() {
@@ -29,6 +30,7 @@ export class JoinTeamComponent implements OnInit {
             cosa.forEach(cosita => {
             if(cosita['id'] == this.company_pending){
               this.company_pending_name = cosita['name']
+              this.image = cosita['image']
             }
           })
         })

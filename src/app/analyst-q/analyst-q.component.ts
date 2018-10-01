@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeneralServiceService } from '../general-service.service';
-import {Router} from '@angular/router';
-import {MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
-import {Question} from '../shared/question';
-import {HttpService} from '../http.service';
+import { Router } from '@angular/router';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { Question } from '../shared/question';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-analyst-q',
@@ -17,20 +17,24 @@ export class AnalystQComponent implements OnInit {
 
   questions = [];
   questions2: MatTableDataSource<Question>;
-  mensaje = false;
+  questions3: MatTableDataSource<Question>;
+  vacio = false;
+  maximo = true;
 
   table_titles = ['description', 'add'];
+  table_titles2 = ['description', 'remove'];
 
   ngOnInit() {
-    console.log(this.service.user_type);
+    this.vacio = false;
+    this.maximo = true;
     if (this.service.user_type === undefined) {
       this.router.navigate(['']);
     } else if (this.service.user_type === 'Team Member' || this.service.user_type === 'Project Manager') {
       this.router.navigate(['restricted']);
     } else {
       this.questions2 = new MatTableDataSource(this.questions);
+      this.questions3 = new MatTableDataSource(this.questions);
       this.getAllAnalystQuestions();
-      console.log(this.questions2);
     }
   }
 
@@ -41,44 +45,68 @@ export class AnalystQComponent implements OnInit {
     this.questions2.filter = filterValue;
   }
 
-  redirect(event, element) {
-	if(this.service.user_type === "Game Administrator"){
-		this.service.analystQ.push(element);
-		if (this.service.analystQ.length == this.service.project.numberOfDevelopingQuestionsPerAnalyst ) {
-			this.mensaje = true;
-		}
-		var index = this.questions2.data.indexOf(element);
-		this.questions2.data.splice(index,1);
-		this.questions2 = new MatTableDataSource<Question>(this.questions2.data);
+  applyFilter2(filterValue: string) {
+    // Function necessary by the table filter
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.questions3.filter = filterValue;
+  }
 
+  redirect(event, element) {
+    if (this.service.user_type === "Game Administrator") {
+      this.vacio = true;
+      this.questions3.data.push(element);
+      this.questions3 = new MatTableDataSource<Question>(this.questions3.data);
+      this.service.analystQ.push(element);
+      var index = this.questions2.data.indexOf(element);
+      this.questions2.data.splice(index, 1);
+      this.questions2 = new MatTableDataSource<Question>(this.questions2.data);
+      if (this.questions3.data.length === this.service.numAna){
+        this.maximo = false;
+      }
     }
   }
-  
+
   redirect2(event) {
-	// Redirects to New Instant project project
-    if(this.service.user_type === "Game Administrator"){
+    // Redirects to New Instant project project
+    if (this.service.user_type === "Game Administrator") {
       this.router.navigate(['home/set-up/create-project/developer-questions']);
     }
   }
-  
 
-  getAllAnalystQuestions(){
+  redirect3(event, element) {
+    if (this.service.user_type === "Game Administrator") {
+      this.questions2.data.push(element);
+      this.questions2 = new MatTableDataSource<Question>(this.questions2.data);
+      var index = this.questions3.data.indexOf(element);
+      var index2 = this.service.analystQ.indexOf(element);
+      this.service.analystQ.splice(index2, 1);
+      this.questions3.data.splice(index, 1);
+      this.questions3 = new MatTableDataSource<Question>(this.questions3.data);
+      if(this.questions3.data.length === 0){
+        this.vacio = false;
+      }
+      this.maximo = true;
+    }
+  }
+
+
+  getAllAnalystQuestions() {
     return this.httpService.getQuestions().subscribe(data => this.listQuestions(data));
   }
 
-  listQuestions(data){
-    console.log(data);
+  listQuestions(data) {
     this.questions = [];
     for (const question of Object.values(data.data)) {
-	 if (question.role == 'Analyst'){
-      this.questions.push(question);
-      this.questions2.data = this.questions;
-      console.log(this.questions2);
-     }
+      if (question.role == 'Analyst') {
+        this.questions.push(question);
+        this.questions2.data = this.questions;
+      }
     }
   }
 
 
 
 }
+
 
