@@ -1,14 +1,11 @@
 <application>
   <component name="MaterialThemeConfig">
-    <option name="contrastMode" value="true" />
-    <option name="highContrast" value="true" />
     <option name="accentMode" value="true" />
-    <option name="isContrastMode" value="true" />
-    <option name="isHighContrast" value="true" />
     <option name="isWizardShown" value="true" />
-    <option name="accentColor" value="ff79c5" />
-    <option name="selectedTheme" value="DRACULA" />
+    <option name="pristineConfig" value="false" />
+    <option name="accentColor" value="7e57c2" />
+    <option name="selectedTheme" value="NIGHT_OWL" />
     <option name="userId" value="-3afa4946:1727e21e779:-7fff" />
-    <option name="version" value="2.2.2" />
+    <option name="version" value="5.2.0" />
   </component>
 </application>
