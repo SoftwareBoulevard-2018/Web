@@ -1,0 +1,26 @@
+<application>
+  <component name="GroupManager">
+    <expandedByName>
+      <entry name="Tutorials" expanded="true" />
+      <entry name="Projects" expanded="true" />
+    </expandedByName>
+  </component>
+  <component name="LangManager">
+    <option name="languageName" value="JavaScript" />
+  </component>
+  <component name="LessonStateBase">
+    <option name="map">
+      <map>
+        <entry key="Before Debugging: Run/Debug Configurations" value="NOT_PASSED" />
+        <entry key="Code Editing Tips and Tricks" value="NOT_PASSED" />
+        <entry key="Debugging Code. Part I" value="NOT_PASSED" />
+        <entry key="Debugging Code. Part II" value="NOT_PASSED" />
+        <entry key="Fundamentals of Testing in WebStorm" value="NOT_PASSED" />
+        <entry key="Refactorings in a Nutshell" value="NOT_PASSED" />
+        <entry key="Secrets of Efficient Navigation" value="NOT_PASSED" />
+        <entry key="The Nuts and Bolts of Code Completion" value="NOT_PASSED" />
+        <entry key="The Power of Code Inspections" value="NOT_PASSED" />
+      </map>
+    </option>
+  </component>
+</application>
