@@ -9,4 +9,7 @@
     <keyboard-shortcut first-keystroke="ctrl divide" />
     <keyboard-shortcut first-keystroke="ctrl comma" />
   </action>
+  <action id="NewFile">
+    <keyboard-shortcut first-keystroke="alt n" />
+  </action>
 </keymap>
