@@ -1,13 +1,9 @@
 <keymap version="1" name="Windows copy" parent="$default">
-  <action id="CommentByBlockComment">
-    <keyboard-shortcut first-keystroke="shift ctrl slash" />
-    <keyboard-shortcut first-keystroke="shift ctrl divide" />
-    <keyboard-shortcut first-keystroke="shift ctrl comma" />
+  <action id="FileChooser.NewFolder">
+    <keyboard-shortcut first-keystroke="alt insert" />
   </action>
-  <action id="CommentByLineComment">
-    <keyboard-shortcut first-keystroke="ctrl slash" />
-    <keyboard-shortcut first-keystroke="ctrl divide" />
-    <keyboard-shortcut first-keystroke="ctrl comma" />
+  <action id="NewDir">
+    <keyboard-shortcut first-keystroke="shift n" />
   </action>
   <action id="NewFile">
     <keyboard-shortcut first-keystroke="alt n" />
